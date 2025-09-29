@@ -1,0 +1,17 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Programování pro GIS a DPZ"
+  navbar:
+    left:
+      - text: "Model Builder"
+        menu:
+          - text: "Lekce 1: Jednoduchý model"
+            href: lessons/lesson_01.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
