@@ -137,7 +137,7 @@ Už umíte pracovat s ArcGIS Pro - znáte nástroje, dokážete provádět anal�
 ::: {.callout-important}
 ## Analytická úloha
 
-**Jaké je zastoupení lesů v ochranném pásmu 500 metrů kolem dálnic v okrese Jindřichův Hradec?**
+**Jaké je zastoupení lesů v ochranném pásmu 500 metrů kolem železnic v okrese Jindřichův Hradec?**
 :::
 
 ### Proč tato úloha?
@@ -159,8 +159,8 @@ Všechna data jsou připravena v projektu ArcGIS Pro, který si stáhnete z [odk
 - Souřadnicový systém: EPSG:3035
 - Klíčové pole: NAZ_LAU1 (název okresu)
 
-### Dálnice
-`dalnice` - linie dálnic ČR
+### Železnice
+`zeleznice` - linie železnic ČR
 
 - Souřadnicový systém: EPSG:3035
 - Geometrie: polyline
@@ -170,11 +170,11 @@ Všechna data jsou připravena v projektu ArcGIS Pro, který si stáhnete z [odk
 
 - Souřadnicový systém: EPSG:3035
 - Hodnoty:
-  - 1 = Urbanizované plochy
-  - 2 = Zemědělská půda
-  - 3 = Lesy ⭐
-  - 4 = Mokřady
-  - 5 = Vodní plochy
+  - 1xx = Urbanizované plochy
+  - 2xx = Zemědělská půda
+  - 3xx = Lesy ⭐
+  - 4xx = Mokřady
+  - 5xx = Vodní plochy
 
 :::
 
@@ -184,7 +184,7 @@ Všechna data jsou připravena v projektu ArcGIS Pro, který si stáhnete z [odk
 
 ## Analytický postup
 
-**Cíl:** Zjistit, kolik procent plochy v pásmu 500m od dálnic v okrese Jindřichův Hradec tvoří lesy.
+**Cíl:** Zjistit, kolik procent plochy v pásmu 500m od železnic v okrese Jindřichův Hradec tvoří lesy.
 
 ```{mermaid}
 %%| fig-cap: "Workflow analytického postupu"
@@ -193,9 +193,9 @@ Všechna data jsou připravena v projektu ArcGIS Pro, který si stáhnete z [odk
 flowchart TD
     A[Okresy] --> B[Vybrat JH]
     B --> C[Okres JH]
-    D[Dálnice] --> E[Oříznout okresem]
+    D[železnice] --> E[Oříznout okresem]
     C --> E
-    E --> F[Dálnice v JH]
+    E --> F[železnice v JH]
     F --> G[Buffer 500m]
     G --> H[Pásmo 500m]
     I[CLC rastr] --> J[Binární rastr lesů]
@@ -251,11 +251,11 @@ NAZ_LAU1 = 'Jindřichův Hradec'
 
 **Kontrola:** 🔵 `okresy` → 🟡 `Make Feature Layer` → 🔵 `okres_jh_layer`
 
-### Krok 2: Ořezání dálnic na okres {#sec-krok2}
+### Krok 2: Ořezání železnic na okres {#sec-krok2}
 
 **Nástroj:** Clip
 
-**Účel:** Z celé vrstvy dálnic chceme jen úseky, které jsou v okrese JH.
+**Účel:** Z celé vrstvy železnic chceme jen úseky, které jsou v okrese JH.
 
 **Postup:**
 
@@ -296,7 +296,7 @@ NAZ_LAU1 = 'Jindřichův Hradec'
 ::: {.callout-note collapse="true"}
 ## Proč Dissolve ALL?
 
-Bez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek dálnice). S ALL se všechny spojí do jednoho (multi)polygonu.
+Bez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek železnice). S ALL se všechny spojí do jednoho (multi)polygonu.
 
 Díky tomu dostaneme v zonální statistice přímo jeden výsledek - jedno číslo představující průměr z celého pásma.
 :::
@@ -390,7 +390,7 @@ V tabulce `vysledek_lesy.dbf` najdete sloupec **MEAN**.
 
 Průměr z binárního rastru (0/1) v dané zóně = podíl pixelů s hodnotou 1 = relativní plocha lesů.
 
-Díky nastavení **Dissolve ALL** v bufferu máme jeden (multi)polygon, takže dostaneme přímo jedno číslo - procento lesů v celém pásmu kolem dálnic v okrese.
+Díky nastavení **Dissolve ALL** v bufferu máme jeden (multi)polygon, takže dostaneme přímo jedno číslo - procento lesů v celém pásmu kolem železnic v okrese.
 :::
 
 ### A co kdyby více vzdáleností?
@@ -459,7 +459,7 @@ Otevřete exportovaný soubor v textovém editoru:
 # ---------------------------------------------------------------------------
 # model_export.py
 # Created on: 2025-01-15
-# Description: Analýza lesů v pásmu kolem dálnic
+# Description: Analýza lesů v pásmu kolem železnic
 # ---------------------------------------------------------------------------
 
 # Import knihovny ArcPy
@@ -482,7 +482,7 @@ arcpy.MakeFeatureLayer_management(
     where_clause="NAZ_LAU1 = 'Jindřichův Hradec'"
 )
 
-# PROCES 2: Clip - ořezání dálnic
+# PROCES 2: Clip - ořezání železnic
 arcpy.Clip_analysis(
     in_features=dalnice,
     clip_features=okres_jh_layer,
@@ -750,7 +750,7 @@ V Pythonu jednoduché (seznam)!
 
 **Scénář:** Chceme analyzovat:
 
-- **2 typy komunikací** (dálnice, silnice I. třídy)
+- **2 typy komunikací** (železnice, silnice I. třídy)
 - **× 4 vzdálenosti** (100, 300, 500, 1000)
 - **= 8 kombinací**
 
@@ -760,7 +760,7 @@ V Pythonu jednoduché (seznam)!
 %%| fig-cap: "Vnořené modely (složité!)"
 
 flowchart TD
-    A[Model 1: Iterátor komunikací] --> B[Dálnice]
+    A[Model 1: Iterátor komunikací] --> B[železnice]
     A --> C[Silnice I.]
     B --> D[Model 2: Iterátor vzdáleností]
     C --> E[Model 2: Iterátor vzdáleností]
@@ -825,7 +825,7 @@ uloz_tabulku(vysledky, 'vsechny_vysledky.csv')
 
 - Analýza krajinného pokryvu v ochranných pásmech
 - 5 kroků: výběr → clip → buffer → binární rastr → zonální statistika
-- Výsledek: procento lesů v pásmu 500m kolem dálnic
+- Výsledek: procento lesů v pásmu 500m kolem železnic
 
 ✅ **Export do Pythonu**
 
@@ -907,7 +907,7 @@ Procvičte si látku pomocě [volitelných úkolů](#sec-volitelne-ukoly) níže
 :::
 
 **Zadání:**  
-Upravte svůj model tak, aby analyzoval **pásmo 300 metrů** (místo 500m) kolem dálnic v okrese Jindřichův Hradec.
+Upravte svůj model tak, aby analyzoval **pásmo 300 metrů** (místo 500m) kolem železnic v okrese Jindřichův Hradec.
 
 **Očekávaný výsledek:**
 
@@ -930,7 +930,7 @@ Upravte svůj model tak, aby analyzoval **pásmo 300 metrů** (místo 500m) kole
 **Otázky k zamyšlení:**
 
 - Je procento lesů v užším pásmu (300m) jiné než v širším (500m)?
-- Jak byste to vysvětlili? (Nápověda: rozmístění lesů vs. dálnic)
+- Jak byste to vysvětlili? (Nápověda: rozmístění lesů vs. železnic)
 
 ::: {.callout-tip collapse="true"}
 ## Bonus
@@ -942,7 +942,7 @@ Vytvořte tabulku v Excelu s porovnáním:
 | 300m | X.X% |
 | 500m | Y.Y% |
 
-Vytvořte graf závislosti procenta lesů na vzdálenosti od dálnic.
+Vytvořte graf závislosti procenta lesů na vzdálenosti od železnic.
 :::
 
 ## Úkol 2: Jiný okres ⭐⭐ {#sec-ukol2}
@@ -960,7 +960,7 @@ Upravte model tak, aby analyzoval okres **Praha-východ** (místo Jindřichův H
 
 - Model fungující pro okres Praha-východ
 - Výsledná tabulka s procentem lesů
-- Porovnání: má Praha-východ více nebo méně lesů v pásmech kolem dálnic než JH?
+- Porovnání: má Praha-východ více nebo méně lesů v pásmech kolem železnic než JH?
 
 ::: {.callout-tip collapse="true"}
 ## Postup
@@ -1001,7 +1001,7 @@ Vytvořte srovnávací tabulku pro 3-5 různých okresů:
 | Prachatice | ? |
 | ... | ... |
 
-Který okres má nejvíce lesů kolem dálnic?
+Který okres má nejvíce lesů kolem železnic?
 :::
 
 ## Úkol 3: Jiný typ krajinného pokryvu ⭐⭐ {#sec-ukol3}
@@ -1013,7 +1013,7 @@ Který okres má nejvíce lesů kolem dálnic?
 :::
 
 **Zadání:**  
-Analyzujte zastoupení **zemědělské půdy** (CLC kód 2) místo lesů v pásmu 500m kolem dálnic v okrese JH.
+Analyzujte zastoupení **zemědělské půdy** (CLC kód 2) místo lesů v pásmu 500m kolem železnic v okrese JH.
 
 **Očekávaný výsledek:**
 

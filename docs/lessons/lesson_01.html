@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#příprava" id="toc-příprava" class="nav-link" data-scroll-target="#příprava"><span class="header-section-number">2.4.1</span> Příprava</a></li>
   <li><a href="#sec-krok1" id="toc-sec-krok1" class="nav-link" data-scroll-target="#sec-krok1"><span class="header-section-number">2.4.2</span> Krok 1: Výběr okresu Jindřichův Hradec</a></li>
-  <li><a href="#sec-krok2" id="toc-sec-krok2" class="nav-link" data-scroll-target="#sec-krok2"><span class="header-section-number">2.4.3</span> Krok 2: Ořezání dálnic na okres</a></li>
+  <li><a href="#sec-krok2" id="toc-sec-krok2" class="nav-link" data-scroll-target="#sec-krok2"><span class="header-section-number">2.4.3</span> Krok 2: Ořezání železnic na okres</a></li>
   <li><a href="#sec-krok3" id="toc-sec-krok3" class="nav-link" data-scroll-target="#sec-krok3"><span class="header-section-number">2.4.4</span> Krok 3: Vytvoření ochranného pásma (buffer)</a></li>
   <li><a href="#sec-krok4" id="toc-sec-krok4" class="nav-link" data-scroll-target="#sec-krok4"><span class="header-section-number">2.4.5</span> Krok 4: Vytvoření binárního rastru lesů</a></li>
   <li><a href="#sec-krok5" id="toc-sec-krok5" class="nav-link" data-scroll-target="#sec-krok5"><span class="header-section-number">2.4.6</span> Krok 5: Zonální statistika</a></li>
@@ -420,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Jaké je zastoupení lesů v ochranném pásmu 500 metrů kolem dálnic v okrese Jindřichův Hradec?</strong></p>
+<p><strong>Jaké je zastoupení lesů v ochranném pásmu 500 metrů kolem železnic v okrese Jindřichův Hradec?</strong></p>
 </div>
 </div>
 <section id="proč-tato-úloha" class="level3" data-number="2.1.1">
@@ -437,7 +437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2.2" class="anchored" data-anchor-id="sec-data"><span class="header-section-number">2.2</span> Data</h2>
 <p>Všechna data jsou připravena v projektu ArcGIS Pro, který si stáhnete z [odkaz].</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Okresy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Dálnice</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Krajinný pokryv</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Okresy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">železnice</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Krajinný pokryv</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <p><code>okresy</code> - polygony okresů ČR</p>
@@ -447,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p><code>dalnice</code> - linie dálnic ČR</p>
+<p><code>zeleznice</code> - linie železnic ČR</p>
 <ul>
 <li>Souřadnicový systém: EPSG:3035</li>
 <li>Geometrie: polyline</li>
@@ -459,11 +459,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Souřadnicový systém: EPSG:3035</li>
 <li>Hodnoty:
 <ul>
-<li>1 = Urbanizované plochy</li>
-<li>2 = Zemědělská půda</li>
-<li>3 = Lesy ⭐</li>
-<li>4 = Mokřady</li>
-<li>5 = Vodní plochy</li>
+<li>1xx = Urbanizované plochy</li>
+<li>2xx = Zemědělská půda</li>
+<li>3xx = Lesy ⭐</li>
+<li>4xx = Mokřady</li>
+<li>5xx = Vodní plochy</li>
 </ul></li>
 </ul>
 </div>
@@ -485,14 +485,14 @@ Note
 </section>
 <section id="analytický-postup" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="analytický-postup"><span class="header-section-number">2.3</span> Analytický postup</h2>
-<p><strong>Cíl:</strong> Zjistit, kolik procent plochy v pásmu 500m od dálnic v okrese Jindřichův Hradec tvoří lesy.</p>
+<p><strong>Cíl:</strong> Zjistit, kolik procent plochy v pásmu 500m od železnic v okrese Jindřichův Hradec tvoří lesy.</p>
 <div class="cell" data-layout-align="default">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    A[Okresy] --&gt; B[Vybrat JH]</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Okres JH]</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    D[Dálnice] --&gt; E[Oříznout okresem]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    D[železnice] --&gt; E[Oříznout okresem]</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    C --&gt; E</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[Dálnice v JH]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[železnice v JH]</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    F --&gt; G[Buffer 500m]</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    G --&gt; H[Pásmo 500m]</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    I[CLC rastr] --&gt; J[Binární rastr lesů]</span>
@@ -513,9 +513,9 @@ Note
 <pre class="mermaid mermaid-js" data-label="fig-workflow">flowchart TD
     A[Okresy] --&gt; B[Vybrat JH]
     B --&gt; C[Okres JH]
-    D[Dálnice] --&gt; E[Oříznout okresem]
+    D[železnice] --&gt; E[Oříznout okresem]
     C --&gt; E
-    E --&gt; F[Dálnice v JH]
+    E --&gt; F[železnice v JH]
     F --&gt; G[Buffer 500m]
     G --&gt; H[Pásmo 500m]
     I[CLC rastr] --&gt; J[Binární rastr lesů]
@@ -593,9 +593,9 @@ Figure&nbsp;1: Workflow analytického postupu
 <p><strong>Kontrola:</strong> 🔵 <code>okresy</code> → 🟡 <code>Make Feature Layer</code> → 🔵 <code>okres_jh_layer</code></p>
 </section>
 <section id="sec-krok2" class="level3" data-number="2.4.3">
-<h3 data-number="2.4.3" class="anchored" data-anchor-id="sec-krok2"><span class="header-section-number">2.4.3</span> Krok 2: Ořezání dálnic na okres</h3>
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="sec-krok2"><span class="header-section-number">2.4.3</span> Krok 2: Ořezání železnic na okres</h3>
 <p><strong>Nástroj:</strong> Clip</p>
-<p><strong>Účel:</strong> Z celé vrstvy dálnic chceme jen úseky, které jsou v okrese JH.</p>
+<p><strong>Účel:</strong> Z celé vrstvy železnic chceme jen úseky, které jsou v okrese JH.</p>
 <p><strong>Postup:</strong></p>
 <ol type="1">
 <li>Insert → Tool → “Clip”</li>
@@ -657,7 +657,7 @@ Figure&nbsp;1: Workflow analytického postupu
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Bez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek dálnice). S ALL se všechny spojí do jednoho (multi)polygonu.</p>
+<p>Bez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek železnice). S ALL se všechny spojí do jednoho (multi)polygonu.</p>
 <p>Díky tomu dostaneme v zonální statistice přímo jeden výsledek - jedno číslo představující průměr z celého pásma.</p>
 </div>
 </div>
@@ -776,7 +776,7 @@ Figure&nbsp;1: Workflow analytického postupu
 </div>
 <div class="callout-body-container callout-body">
 <p>Průměr z binárního rastru (0/1) v dané zóně = podíl pixelů s hodnotou 1 = relativní plocha lesů.</p>
-<p>Díky nastavení <strong>Dissolve ALL</strong> v bufferu máme jeden (multi)polygon, takže dostaneme přímo jedno číslo - procento lesů v celém pásmu kolem dálnic v okrese.</p>
+<p>Díky nastavení <strong>Dissolve ALL</strong> v bufferu máme jeden (multi)polygon, takže dostaneme přímo jedno číslo - procento lesů v celém pásmu kolem železnic v okrese.</p>
 </div>
 </div>
 <section id="a-co-kdyby-více-vzdáleností" class="level3" data-number="2.5.1">
@@ -865,7 +865,7 @@ Figure&nbsp;1: Workflow analytického postupu
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_export.py</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Created on: 2025-01-15</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Description: Analýza lesů v pásmu kolem dálnic</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Description: Analýza lesů v pásmu kolem železnic</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Import knihovny ArcPy</span></span>
@@ -888,7 +888,7 @@ Figure&nbsp;1: Workflow analytického postupu
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    where_clause<span class="op">=</span><span class="st">"NAZ_LAU1 = 'Jindřichův Hradec'"</span></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># PROCES 2: Clip - ořezání dálnic</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># PROCES 2: Clip - ořezání železnic</span></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>arcpy.Clip_analysis(</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span>dalnice,</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    clip_features<span class="op">=</span>okres_jh_layer,</span>
@@ -1314,7 +1314,7 @@ V Pythonu jednoduché (seznam)!</p>
 <h2 data-number="4.2" class="anchored" data-anchor-id="kombinace-parametrů---motivace-pro-python"><span class="header-section-number">4.2</span> Kombinace parametrů - motivace pro Python</h2>
 <p><strong>Scénář:</strong> Chceme analyzovat:</p>
 <ul>
-<li><strong>2 typy komunikací</strong> (dálnice, silnice I. třídy)</li>
+<li><strong>2 typy komunikací</strong> (železnice, silnice I. třídy)</li>
 <li><strong>× 4 vzdálenosti</strong> (100, 300, 500, 1000)</li>
 <li><strong>= 8 kombinací</strong></li>
 </ul>
@@ -1322,7 +1322,7 @@ V Pythonu jednoduché (seznam)!</p>
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="v-model-builderu"><span class="header-section-number">4.2.1</span> V Model Builderu</h3>
 <div class="cell" data-layout-align="default">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    A[Model 1: Iterátor komunikací] --&gt; B[Dálnice]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    A[Model 1: Iterátor komunikací] --&gt; B[železnice]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    A --&gt; C[Silnice I.]</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    B --&gt; D[Model 2: Iterátor vzdáleností]</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    C --&gt; E[Model 2: Iterátor vzdáleností]</span>
@@ -1337,7 +1337,7 @@ V Pythonu jednoduché (seznam)!</p>
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart TD
-    A[Model 1: Iterátor komunikací] --&gt; B[Dálnice]
+    A[Model 1: Iterátor komunikací] --&gt; B[železnice]
     A --&gt; C[Silnice I.]
     B --&gt; D[Model 2: Iterátor vzdáleností]
     C --&gt; E[Model 2: Iterátor vzdáleností]
@@ -1430,7 +1430,7 @@ V Pythonu jednoduché (seznam)!</p>
 <ul>
 <li>Analýza krajinného pokryvu v ochranných pásmech</li>
 <li>5 kroků: výběr → clip → buffer → binární rastr → zonální statistika</li>
-<li>Výsledek: procento lesů v pásmu 500m kolem dálnic</li>
+<li>Výsledek: procento lesů v pásmu 500m kolem železnic</li>
 </ul>
 <p>✅ <strong>Export do Pythonu</strong></p>
 <ul>
@@ -1575,7 +1575,7 @@ Table&nbsp;3: Klíčové pojmy z lekce
 </div>
 </div>
 <p><strong>Zadání:</strong><br>
-Upravte svůj model tak, aby analyzoval <strong>pásmo 300 metrů</strong> (místo 500m) kolem dálnic v okrese Jindřichův Hradec.</p>
+Upravte svůj model tak, aby analyzoval <strong>pásmo 300 metrů</strong> (místo 500m) kolem železnic v okrese Jindřichův Hradec.</p>
 <p><strong>Očekávaný výsledek:</strong></p>
 <ul>
 <li>Upravený model s bufferem 300m</li>
@@ -1609,7 +1609,7 @@ Upravte svůj model tak, aby analyzoval <strong>pásmo 300 metrů</strong> (mís
 <p><strong>Otázky k zamyšlení:</strong></p>
 <ul>
 <li>Je procento lesů v užším pásmu (300m) jiné než v širším (500m)?</li>
-<li>Jak byste to vysvětlili? (Nápověda: rozmístění lesů vs.&nbsp;dálnic)</li>
+<li>Jak byste to vysvětlili? (Nápověda: rozmístění lesů vs.&nbsp;železnic)</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
@@ -1642,7 +1642,7 @@ Upravte svůj model tak, aby analyzoval <strong>pásmo 300 metrů</strong> (mís
 </tr>
 </tbody>
 </table>
-<p>Vytvořte graf závislosti procenta lesů na vzdálenosti od dálnic.</p>
+<p>Vytvořte graf závislosti procenta lesů na vzdálenosti od železnic.</p>
 </div>
 </div>
 </div>
@@ -1668,7 +1668,7 @@ Upravte model tak, aby analyzoval okres <strong>Praha-východ</strong> (místo J
 <ul>
 <li>Model fungující pro okres Praha-východ</li>
 <li>Výsledná tabulka s procentem lesů</li>
-<li>Porovnání: má Praha-východ více nebo méně lesů v pásmech kolem dálnic než JH?</li>
+<li>Porovnání: má Praha-východ více nebo méně lesů v pásmech kolem železnic než JH?</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
@@ -1758,7 +1758,7 @@ Upravte model tak, aby analyzoval okres <strong>Praha-východ</strong> (místo J
 </tr>
 </tbody>
 </table>
-<p>Který okres má nejvíce lesů kolem dálnic?</p>
+<p>Který okres má nejvíce lesů kolem železnic?</p>
 </div>
 </div>
 </div>
@@ -1779,7 +1779,7 @@ Upravte model tak, aby analyzoval okres <strong>Praha-východ</strong> (místo J
 </div>
 </div>
 <p><strong>Zadání:</strong><br>
-Analyzujte zastoupení <strong>zemědělské půdy</strong> (CLC kód 2) místo lesů v pásmu 500m kolem dálnic v okrese JH.</p>
+Analyzujte zastoupení <strong>zemědělské půdy</strong> (CLC kód 2) místo lesů v pásmu 500m kolem železnic v okrese JH.</p>
 <p><strong>Očekávaný výsledek:</strong></p>
 <ul>
 <li>Model analyzující zemědělskou půdu</li>
@@ -2845,7 +2845,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
 <span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analytická úloha</span></span>
 <span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a>**Jaké je zastoupení lesů v ochranném pásmu 500 metrů kolem dálnic v okrese Jindřichův Hradec?**</span>
+<span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a>**Jaké je zastoupení lesů v ochranném pásmu 500 metrů kolem železnic v okrese Jindřichův Hradec?**</span>
 <span id="cb22-141"><a href="#cb22-141" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb22-142"><a href="#cb22-142" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-143"><a href="#cb22-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### Proč tato úloha?</span></span>
@@ -2867,8 +2867,8 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-159"><a href="#cb22-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Souřadnicový systém: EPSG:3035</span>
 <span id="cb22-160"><a href="#cb22-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Klíčové pole: NAZ_LAU1 (název okresu)</span>
 <span id="cb22-161"><a href="#cb22-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-162"><a href="#cb22-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dálnice</span></span>
-<span id="cb22-163"><a href="#cb22-163" aria-hidden="true" tabindex="-1"></a><span class="in">`dalnice`</span> - linie dálnic ČR</span>
+<span id="cb22-162"><a href="#cb22-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### železnice</span></span>
+<span id="cb22-163"><a href="#cb22-163" aria-hidden="true" tabindex="-1"></a><span class="in">`zeleznice`</span> - linie železnic ČR</span>
 <span id="cb22-164"><a href="#cb22-164" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-165"><a href="#cb22-165" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Souřadnicový systém: EPSG:3035</span>
 <span id="cb22-166"><a href="#cb22-166" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Geometrie: polyline</span>
@@ -2878,11 +2878,11 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-171"><a href="#cb22-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Souřadnicový systém: EPSG:3035</span>
 <span id="cb22-172"><a href="#cb22-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hodnoty:</span>
-<span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>1 = Urbanizované plochy</span>
-<span id="cb22-174"><a href="#cb22-174" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>2 = Zemědělská půda</span>
-<span id="cb22-175"><a href="#cb22-175" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>3 = Lesy ⭐</span>
-<span id="cb22-176"><a href="#cb22-176" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>4 = Mokřady</span>
-<span id="cb22-177"><a href="#cb22-177" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>5 = Vodní plochy</span>
+<span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>1xx = Urbanizované plochy</span>
+<span id="cb22-174"><a href="#cb22-174" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>2xx = Zemědělská půda</span>
+<span id="cb22-175"><a href="#cb22-175" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>3xx = Lesy ⭐</span>
+<span id="cb22-176"><a href="#cb22-176" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>4xx = Mokřady</span>
+<span id="cb22-177"><a href="#cb22-177" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>5xx = Vodní plochy</span>
 <span id="cb22-178"><a href="#cb22-178" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-179"><a href="#cb22-179" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb22-180"><a href="#cb22-180" aria-hidden="true" tabindex="-1"></a></span>
@@ -2892,7 +2892,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-185"><a href="#cb22-185" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analytický postup</span></span>
 <span id="cb22-186"><a href="#cb22-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-187"><a href="#cb22-187" aria-hidden="true" tabindex="-1"></a>**Cíl:** Zjistit, kolik procent plochy v pásmu 500m od dálnic v okrese Jindřichův Hradec tvoří lesy.</span>
+<span id="cb22-187"><a href="#cb22-187" aria-hidden="true" tabindex="-1"></a>**Cíl:** Zjistit, kolik procent plochy v pásmu 500m od železnic v okrese Jindřichův Hradec tvoří lesy.</span>
 <span id="cb22-188"><a href="#cb22-188" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-191"><a href="#cb22-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
 <span id="cb22-192"><a href="#cb22-192" aria-hidden="true" tabindex="-1"></a>%%| fig-cap: <span class="ot">"</span><span class="st">Workflow analytického postupu</span><span class="ot">"</span></span>
@@ -2901,9 +2901,9 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-195"><a href="#cb22-195" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
 <span id="cb22-196"><a href="#cb22-196" aria-hidden="true" tabindex="-1"></a>    A[Okresy] --&gt; B[Vybrat JH]</span>
 <span id="cb22-197"><a href="#cb22-197" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Okres JH]</span>
-<span id="cb22-198"><a href="#cb22-198" aria-hidden="true" tabindex="-1"></a>    D[Dálnice] --&gt; E[Oříznout okresem]</span>
+<span id="cb22-198"><a href="#cb22-198" aria-hidden="true" tabindex="-1"></a>    D[železnice] --&gt; E[Oříznout okresem]</span>
 <span id="cb22-199"><a href="#cb22-199" aria-hidden="true" tabindex="-1"></a>    C --&gt; E</span>
-<span id="cb22-200"><a href="#cb22-200" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[Dálnice v JH]</span>
+<span id="cb22-200"><a href="#cb22-200" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[železnice v JH]</span>
 <span id="cb22-201"><a href="#cb22-201" aria-hidden="true" tabindex="-1"></a>    F --&gt; G[Buffer <span class="dv">500</span>m]</span>
 <span id="cb22-202"><a href="#cb22-202" aria-hidden="true" tabindex="-1"></a>    G --&gt; H[Pásmo <span class="dv">500</span>m]</span>
 <span id="cb22-203"><a href="#cb22-203" aria-hidden="true" tabindex="-1"></a>    I[CLC rastr] --&gt; J[Binární rastr lesů]</span>
@@ -2959,11 +2959,11 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-253"><a href="#cb22-253" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-254"><a href="#cb22-254" aria-hidden="true" tabindex="-1"></a>**Kontrola:** 🔵 <span class="in">`okresy`</span> → 🟡 <span class="in">`Make Feature Layer`</span> → 🔵 <span class="in">`okres_jh_layer`</span></span>
 <span id="cb22-255"><a href="#cb22-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-256"><a href="#cb22-256" aria-hidden="true" tabindex="-1"></a><span class="fu">### Krok 2: Ořezání dálnic na okres {#sec-krok2}</span></span>
+<span id="cb22-256"><a href="#cb22-256" aria-hidden="true" tabindex="-1"></a><span class="fu">### Krok 2: Ořezání železnic na okres {#sec-krok2}</span></span>
 <span id="cb22-257"><a href="#cb22-257" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-258"><a href="#cb22-258" aria-hidden="true" tabindex="-1"></a>**Nástroj:** Clip</span>
 <span id="cb22-259"><a href="#cb22-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-260"><a href="#cb22-260" aria-hidden="true" tabindex="-1"></a>**Účel:** Z celé vrstvy dálnic chceme jen úseky, které jsou v okrese JH.</span>
+<span id="cb22-260"><a href="#cb22-260" aria-hidden="true" tabindex="-1"></a>**Účel:** Z celé vrstvy železnic chceme jen úseky, které jsou v okrese JH.</span>
 <span id="cb22-261"><a href="#cb22-261" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-262"><a href="#cb22-262" aria-hidden="true" tabindex="-1"></a>**Postup:**</span>
 <span id="cb22-263"><a href="#cb22-263" aria-hidden="true" tabindex="-1"></a></span>
@@ -3004,7 +3004,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-298"><a href="#cb22-298" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true"}</span>
 <span id="cb22-299"><a href="#cb22-299" aria-hidden="true" tabindex="-1"></a><span class="fu">## Proč Dissolve ALL?</span></span>
 <span id="cb22-300"><a href="#cb22-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-301"><a href="#cb22-301" aria-hidden="true" tabindex="-1"></a>Bez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek dálnice). S ALL se všechny spojí do jednoho (multi)polygonu.</span>
+<span id="cb22-301"><a href="#cb22-301" aria-hidden="true" tabindex="-1"></a>Bez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek železnice). S ALL se všechny spojí do jednoho (multi)polygonu.</span>
 <span id="cb22-302"><a href="#cb22-302" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-303"><a href="#cb22-303" aria-hidden="true" tabindex="-1"></a>Díky tomu dostaneme v zonální statistice přímo jeden výsledek - jedno číslo představující průměr z celého pásma.</span>
 <span id="cb22-304"><a href="#cb22-304" aria-hidden="true" tabindex="-1"></a>:::</span>
@@ -3098,7 +3098,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-392"><a href="#cb22-392" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-393"><a href="#cb22-393" aria-hidden="true" tabindex="-1"></a>Průměr z binárního rastru (0/1) v dané zóně = podíl pixelů s hodnotou 1 = relativní plocha lesů.</span>
 <span id="cb22-394"><a href="#cb22-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-395"><a href="#cb22-395" aria-hidden="true" tabindex="-1"></a>Díky nastavení **Dissolve ALL** v bufferu máme jeden (multi)polygon, takže dostaneme přímo jedno číslo - procento lesů v celém pásmu kolem dálnic v okrese.</span>
+<span id="cb22-395"><a href="#cb22-395" aria-hidden="true" tabindex="-1"></a>Díky nastavení **Dissolve ALL** v bufferu máme jeden (multi)polygon, takže dostaneme přímo jedno číslo - procento lesů v celém pásmu kolem železnic v okrese.</span>
 <span id="cb22-396"><a href="#cb22-396" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb22-397"><a href="#cb22-397" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-398"><a href="#cb22-398" aria-hidden="true" tabindex="-1"></a><span class="fu">### A co kdyby více vzdáleností?</span></span>
@@ -3167,7 +3167,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-461"><a href="#cb22-461" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
 <span id="cb22-462"><a href="#cb22-462" aria-hidden="true" tabindex="-1"></a><span class="co"># model_export.py</span></span>
 <span id="cb22-463"><a href="#cb22-463" aria-hidden="true" tabindex="-1"></a><span class="co"># Created on: 2025-01-15</span></span>
-<span id="cb22-464"><a href="#cb22-464" aria-hidden="true" tabindex="-1"></a><span class="co"># Description: Analýza lesů v pásmu kolem dálnic</span></span>
+<span id="cb22-464"><a href="#cb22-464" aria-hidden="true" tabindex="-1"></a><span class="co"># Description: Analýza lesů v pásmu kolem železnic</span></span>
 <span id="cb22-465"><a href="#cb22-465" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------------------------------------------------------------</span></span>
 <span id="cb22-466"><a href="#cb22-466" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-467"><a href="#cb22-467" aria-hidden="true" tabindex="-1"></a><span class="co"># Import knihovny ArcPy</span></span>
@@ -3190,7 +3190,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-484"><a href="#cb22-484" aria-hidden="true" tabindex="-1"></a>    where_clause<span class="op">=</span><span class="st">"NAZ_LAU1 = 'Jindřichův Hradec'"</span></span>
 <span id="cb22-485"><a href="#cb22-485" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb22-486"><a href="#cb22-486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-487"><a href="#cb22-487" aria-hidden="true" tabindex="-1"></a><span class="co"># PROCES 2: Clip - ořezání dálnic</span></span>
+<span id="cb22-487"><a href="#cb22-487" aria-hidden="true" tabindex="-1"></a><span class="co"># PROCES 2: Clip - ořezání železnic</span></span>
 <span id="cb22-488"><a href="#cb22-488" aria-hidden="true" tabindex="-1"></a>arcpy.Clip_analysis(</span>
 <span id="cb22-489"><a href="#cb22-489" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span>dalnice,</span>
 <span id="cb22-490"><a href="#cb22-490" aria-hidden="true" tabindex="-1"></a>    clip_features<span class="op">=</span>okres_jh_layer,</span>
@@ -3458,7 +3458,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-754"><a href="#cb22-754" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-755"><a href="#cb22-755" aria-hidden="true" tabindex="-1"></a>**Scénář:** Chceme analyzovat:</span>
 <span id="cb22-756"><a href="#cb22-756" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-757"><a href="#cb22-757" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**2 typy komunikací** (dálnice, silnice I. třídy)</span>
+<span id="cb22-757"><a href="#cb22-757" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**2 typy komunikací** (železnice, silnice I. třídy)</span>
 <span id="cb22-758"><a href="#cb22-758" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**× 4 vzdálenosti** (100, 300, 500, 1000)</span>
 <span id="cb22-759"><a href="#cb22-759" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**= 8 kombinací**</span>
 <span id="cb22-760"><a href="#cb22-760" aria-hidden="true" tabindex="-1"></a></span>
@@ -3468,7 +3468,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-766"><a href="#cb22-766" aria-hidden="true" tabindex="-1"></a>%%| fig-cap: <span class="ot">"</span><span class="st">Vnořené modely (složité!)</span><span class="ot">"</span></span>
 <span id="cb22-767"><a href="#cb22-767" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-768"><a href="#cb22-768" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
-<span id="cb22-769"><a href="#cb22-769" aria-hidden="true" tabindex="-1"></a>    A[Model <span class="dv">1</span>: Iterátor komunikací] --&gt; B[Dálnice]</span>
+<span id="cb22-769"><a href="#cb22-769" aria-hidden="true" tabindex="-1"></a>    A[Model <span class="dv">1</span>: Iterátor komunikací] --&gt; B[železnice]</span>
 <span id="cb22-770"><a href="#cb22-770" aria-hidden="true" tabindex="-1"></a>    A --&gt; C[Silnice I.]</span>
 <span id="cb22-771"><a href="#cb22-771" aria-hidden="true" tabindex="-1"></a>    B --&gt; D[Model <span class="dv">2</span>: Iterátor vzdáleností]</span>
 <span id="cb22-772"><a href="#cb22-772" aria-hidden="true" tabindex="-1"></a>    C --&gt; E[Model <span class="dv">2</span>: Iterátor vzdáleností]</span>
@@ -3533,7 +3533,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-831"><a href="#cb22-831" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-832"><a href="#cb22-832" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Analýza krajinného pokryvu v ochranných pásmech</span>
 <span id="cb22-833"><a href="#cb22-833" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>5 kroků: výběr → clip → buffer → binární rastr → zonální statistika</span>
-<span id="cb22-834"><a href="#cb22-834" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Výsledek: procento lesů v pásmu 500m kolem dálnic</span>
+<span id="cb22-834"><a href="#cb22-834" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Výsledek: procento lesů v pásmu 500m kolem železnic</span>
 <span id="cb22-835"><a href="#cb22-835" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-836"><a href="#cb22-836" aria-hidden="true" tabindex="-1"></a>✅ **Export do Pythonu**</span>
 <span id="cb22-837"><a href="#cb22-837" aria-hidden="true" tabindex="-1"></a></span>
@@ -3615,7 +3615,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-913"><a href="#cb22-913" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb22-914"><a href="#cb22-914" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-915"><a href="#cb22-915" aria-hidden="true" tabindex="-1"></a>**Zadání:**  </span>
-<span id="cb22-916"><a href="#cb22-916" aria-hidden="true" tabindex="-1"></a>Upravte svůj model tak, aby analyzoval **pásmo 300 metrů** (místo 500m) kolem dálnic v okrese Jindřichův Hradec.</span>
+<span id="cb22-916"><a href="#cb22-916" aria-hidden="true" tabindex="-1"></a>Upravte svůj model tak, aby analyzoval **pásmo 300 metrů** (místo 500m) kolem železnic v okrese Jindřichův Hradec.</span>
 <span id="cb22-917"><a href="#cb22-917" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-918"><a href="#cb22-918" aria-hidden="true" tabindex="-1"></a>**Očekávaný výsledek:**</span>
 <span id="cb22-919"><a href="#cb22-919" aria-hidden="true" tabindex="-1"></a></span>
@@ -3638,7 +3638,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-936"><a href="#cb22-936" aria-hidden="true" tabindex="-1"></a>**Otázky k zamyšlení:**</span>
 <span id="cb22-937"><a href="#cb22-937" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-938"><a href="#cb22-938" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Je procento lesů v užším pásmu (300m) jiné než v širším (500m)?</span>
-<span id="cb22-939"><a href="#cb22-939" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Jak byste to vysvětlili? (Nápověda: rozmístění lesů vs. dálnic)</span>
+<span id="cb22-939"><a href="#cb22-939" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Jak byste to vysvětlili? (Nápověda: rozmístění lesů vs. železnic)</span>
 <span id="cb22-940"><a href="#cb22-940" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-941"><a href="#cb22-941" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
 <span id="cb22-942"><a href="#cb22-942" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bonus</span></span>
@@ -3650,7 +3650,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-948"><a href="#cb22-948" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 300m <span class="pp">|</span> X.X% <span class="pp">|</span></span>
 <span id="cb22-949"><a href="#cb22-949" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 500m <span class="pp">|</span> Y.Y% <span class="pp">|</span></span>
 <span id="cb22-950"><a href="#cb22-950" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-951"><a href="#cb22-951" aria-hidden="true" tabindex="-1"></a>Vytvořte graf závislosti procenta lesů na vzdálenosti od dálnic.</span>
+<span id="cb22-951"><a href="#cb22-951" aria-hidden="true" tabindex="-1"></a>Vytvořte graf závislosti procenta lesů na vzdálenosti od železnic.</span>
 <span id="cb22-952"><a href="#cb22-952" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb22-953"><a href="#cb22-953" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-954"><a href="#cb22-954" aria-hidden="true" tabindex="-1"></a><span class="fu">## Úkol 2: Jiný okres ⭐⭐ {#sec-ukol2}</span></span>
@@ -3668,7 +3668,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-966"><a href="#cb22-966" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-967"><a href="#cb22-967" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Model fungující pro okres Praha-východ</span>
 <span id="cb22-968"><a href="#cb22-968" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Výsledná tabulka s procentem lesů</span>
-<span id="cb22-969"><a href="#cb22-969" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Porovnání: má Praha-východ více nebo méně lesů v pásmech kolem dálnic než JH?</span>
+<span id="cb22-969"><a href="#cb22-969" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Porovnání: má Praha-východ více nebo méně lesů v pásmech kolem železnic než JH?</span>
 <span id="cb22-970"><a href="#cb22-970" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-971"><a href="#cb22-971" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
 <span id="cb22-972"><a href="#cb22-972" aria-hidden="true" tabindex="-1"></a><span class="fu">## Postup</span></span>
@@ -3709,7 +3709,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-1007"><a href="#cb22-1007" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Prachatice <span class="pp">|</span> ? <span class="pp">|</span></span>
 <span id="cb22-1008"><a href="#cb22-1008" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ... <span class="pp">|</span> ... <span class="pp">|</span></span>
 <span id="cb22-1009"><a href="#cb22-1009" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-1010"><a href="#cb22-1010" aria-hidden="true" tabindex="-1"></a>Který okres má nejvíce lesů kolem dálnic?</span>
+<span id="cb22-1010"><a href="#cb22-1010" aria-hidden="true" tabindex="-1"></a>Který okres má nejvíce lesů kolem železnic?</span>
 <span id="cb22-1011"><a href="#cb22-1011" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb22-1012"><a href="#cb22-1012" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-1013"><a href="#cb22-1013" aria-hidden="true" tabindex="-1"></a><span class="fu">## Úkol 3: Jiný typ krajinného pokryvu ⭐⭐ {#sec-ukol3}</span></span>
@@ -3721,7 +3721,7 @@ Hotovo! Všechny 4 vzdálenosti zpracovány.</code></pre>
 <span id="cb22-1019"><a href="#cb22-1019" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb22-1020"><a href="#cb22-1020" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-1021"><a href="#cb22-1021" aria-hidden="true" tabindex="-1"></a>**Zadání:**  </span>
-<span id="cb22-1022"><a href="#cb22-1022" aria-hidden="true" tabindex="-1"></a>Analyzujte zastoupení **zemědělské půdy** (CLC kód 2) místo lesů v pásmu 500m kolem dálnic v okrese JH.</span>
+<span id="cb22-1022"><a href="#cb22-1022" aria-hidden="true" tabindex="-1"></a>Analyzujte zastoupení **zemědělské půdy** (CLC kód 2) místo lesů v pásmu 500m kolem železnic v okrese JH.</span>
 <span id="cb22-1023"><a href="#cb22-1023" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-1024"><a href="#cb22-1024" aria-hidden="true" tabindex="-1"></a>**Očekávaný výsledek:**</span>
 <span id="cb22-1025"><a href="#cb22-1025" aria-hidden="true" tabindex="-1"></a></span>
