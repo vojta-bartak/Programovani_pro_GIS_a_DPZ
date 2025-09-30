@@ -13,7 +13,6 @@ format:
     code-tools: true
     theme: 
       - cosmo
-      - custom.scss
     css: styles.css
   pdf:
     toc: true
@@ -34,7 +33,7 @@ execute:
 ## Informace o lekci
 
 **Časová dotace:** 90 minut (1,5 hodiny)  
-**Předpoklady:** Základní znalost ArcGIS Pro (GIS 1, GIS 2)  
+**Předpoklady:** Základní znalost ArcGIS Pro a Model Builderu (GIS 1, GIS 2)  
 **Materiály:** ArcGIS Pro projekt ke stažení na [odkaz]
 :::
 
@@ -52,33 +51,38 @@ Tento kurz vás provede cestou od vizuálního programování v Model Builderu k
 - Úvod do automatizace
 - První pohled na Python kód
 - Export modelů
+- Iterátory a limity Model Builderu
 
 ### Týdny 3-5
 **Základy programování v Pythonu**
 
 - Proměnné, cykly, funkce
-- Práce se soubory
+- Práce se soubory a CSV
 - Algoritmické myšlení
+- Třídící algoritmy
 
 ### Týdny 6-9
 **ArcPy - Python pro GIS**
 
 - Automatizace analýz
 - Tabulkové operace
-- Rastrové analýzy
+- Vektorové a rastrové analýzy
+- Kurzory a geometrie
 
 ### Týdny 10-11
 **Pokročilé techniky**
 
-- Kurzory
-- Geometrie
+- Práce s geometriemi
+- Python Toolboxy
 - Tvorba nástrojů s GUI
+- Optimalizace kódu
 
 ### Týden 12
 **Závěrečný projekt**
 
 - Vlastní nástroj
 - Řešení reálného problému
+- Dokumentace
 
 :::
 
@@ -123,159 +127,8 @@ Už umíte pracovat s ArcGIS Pro - znáte nástroje, dokážete provádět anal�
 
 - ArcGIS Pro (máte nainstalované?)
 - Python 3.x (součást ArcGIS Pro)
-- Textový editor (dnes ukážeme)
-- Později: Jupyter Notebook, VS Code
-
-# Proč automatizovat GIS úlohy? {#sec-automatizace}
-
-## Motivační příklad
-
-Představte si, že máte tuto úlohu:
-
-::: {.callout-warning}
-## Zadání
-
-Spočítejte vzdálenost od každého okresu v ČR k nejbližší dálnici a vytvořte mapu s výsledky.
-:::
-
-### Řešení ručně
-
-1. Vybrat okres Praha
-2. Spustit nástroj Near
-3. Zapsat výsledek
-4. Vybrat okres Benešov
-5. Spustit nástroj Near
-6. Zapsat výsledek
-7. ... opakovat 75×
-8. Vytvořit mapu
-
-⏱️ **Čas:** 2-3 hodiny  
-😫 **Riziko chyby:** Vysoké (únava, překlep, zapomenutý okres)
-
-### Řešení s automatizací
-
-1. Vytvořit model/skript
-2. Spustit
-
-⏱️ **Čas:** 5 minut běhu + 30 minut na přípravu modelu  
-✅ **Riziko chyby:** Minimální  
-🔄 **Bonus:** Příště to použijete znovu!
-
-## Výhody automatizace
-
-| Výhoda | Popis | Příklad |
-|--------|-------|---------|
-| ⏱️ **Časová úspora** | Tisíce opakování za vás | Analýza pro 77 okresů × 10 parametrů = 770 opakování |
-| 🎯 **Přesnost** | Žádné chyby z nepozornosti | Vždy stejný postup, stejné výsledky |
-| 📝 **Dokumentace** | Workflow je viditelný | Model = dokumentace postupu |
-| 🔄 **Opakovatelnost** | Snadno spustit znovu | Aktualizace dat? Jeden klik. |
-| 🔧 **Parametrizace** | Snadná změna nastavení | Změnit vzdálenost z 500m na 1000m |
-| 🤝 **Sdílení** | Kolegové mohou použít | Vytvořit nástroj pro celý tým |
-
-: Přehled výhod automatizace {#tbl-vyhody}
-
-## Kdy automatizovat?
-
-::: {.columns}
-
-::: {.column width="48%"}
-### ✅ ANO - automatizujte když:
-
-- Úlohu budete opakovat víc než 2-3×
-- Úloha má jasné kroky
-- Pracujete s mnoha datovými sadami
-- Potřebujete konzistentní výsledky
-- Chcete ušetřit čas (i přes přípravu)
-:::
-
-::: {.column width="4%"}
-:::
-
-::: {.column width="48%"}
-### ❌ NE - neautomatizujte když:
-
-- Úloha je jednorázová a jednoduchá
-- Trvá 2 minuty
-- Příprava automatizace by trvala déle než ruční práce
-- Není jasný postup (ještě experimentujete)
-:::
-
-:::
-
-# Model Builder - vizuální programování {#sec-modelbuilder}
-
-## Co je Model Builder?
-
-**Model Builder** je nástroj v ArcGIS Pro pro grafické sestavování workflow (pracovních postupů). Je to forma **"programování bez psaní kódu"** - místo textových příkazů skládáte nástroje jako puzzle.
-
-## Základní koncepty
-
-Model se skládá ze tří typů prvků:
-
-```{mermaid}
-%%| fig-cap: "Základní struktura modelu"
-%%| label: fig-model-struktura
-
-flowchart LR
-    A[Vstupní data] --> B[Nástroj/Proces]
-    B --> C[Výstupní data]
-    
-    style A fill:#6baed6
-    style B fill:#fee391
-    style C fill:#6baed6
-```
-
-- **🔵 Modrý ovál** = Data (vrstvy, tabulky, rastry)
-- **🟡 Žlutý obdélník** = Nástroj (Buffer, Clip, Intersect, ...)
-- **➡️ Šipky** = Tok dat (co se používá kam)
-
-## Jednoduchý příklad
-
-**Úloha:** Vytvořit 500m buffer kolem řek
-
-```{mermaid}
-%%| fig-cap: "Jednoduchý model - Buffer řek"
-
-flowchart LR
-    A[Řeky.shp] --> B[Buffer 500m]
-    B --> C[Reky_buffer_500m.shp]
-    
-    style A fill:#6baed6
-    style B fill:#fee391
-    style C fill:#6baed6
-```
-
-**Co se děje:**
-
-1. Model načte vrstvu řek
-2. Spustí nástroj Buffer s parametrem 500 metrů
-3. Uloží výsledek
-
-## Jak vytvořit model
-
-::: {.callout-note collapse="true"}
-## Krok za krokem - Vytvoření modelu
-
-1. **Otevřít ModelBuilder:**
-   - V ArcGIS Pro: Insert → New Toolbox
-   - Pravý klik na toolbox → New → Model
-
-2. **Přidat vstupní data:**
-   - Přetáhnout vrstvu z Contents pane do modelu
-   - NEBO: Insert → Variable → [typ dat]
-
-3. **Přidat nástroj:**
-   - Přetáhnout z ArcToolbox
-   - NEBO: Insert → Tool → vybrat nástroj
-
-4. **Propojit:**
-   - Přetáhnout šipku z dat do nástroje
-   - Nastavit parametry nástroje (dvojklik)
-
-5. **Spustit:**
-   - Nejdřív uložit! (File → Save)
-   - Pak Run (tlačítko ▶️)
-:::
+- Textový editor (Notepad++, VS Code)
+- Později: Jupyter Notebook
 
 # Praktická úloha {#sec-uloha}
 
@@ -291,7 +144,7 @@ flowchart LR
 
 - ✅ **Realistická** - ochranná pásma, hlukové mapování, dostupnost
 - ✅ **Jednoduchá** - pochopitelné kroky
-- ✅ **Rozšiřitelná** - později přidáme další parametry
+- ✅ **Rozšiřitelná** - později přidáme iterátory a Python
 - ✅ **Ukáže limity** Model Builderu → motivace pro Python
 
 ## Data {#sec-data}
@@ -331,7 +184,7 @@ Všechna data jsou připravena v projektu ArcGIS Pro, který si stáhnete z [odk
 
 ## Analytický postup
 
-**Cíl:** Zjistit, kolik procent plochy okresu Jindřichův Hradec v pásmu 500m od dálnic tvoří lesy.
+**Cíl:** Zjistit, kolik procent plochy v pásmu 500m od dálnic v okrese Jindřichův Hradec tvoří lesy.
 
 ```{mermaid}
 %%| fig-cap: "Workflow analytického postupu"
@@ -375,7 +228,7 @@ flowchart TD
 **Nástroj:** Make Feature Layer
 
 ::: {.callout-tip}
-## Proč ne Select?
+## Proč Make Feature Layer?
 
 Nástroj *Select* vytváří novou datovou sadu na disku. *Make Feature Layer* vytváří pouze dočasnou vrstvu v paměti, což je rychlejší a efektivnější.
 :::
@@ -444,6 +297,8 @@ NAZ_LAU1 = 'Jindřichův Hradec'
 ## Proč Dissolve ALL?
 
 Bez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek dálnice). S ALL se všechny spojí do jednoho (multi)polygonu.
+
+Díky tomu dostaneme v zonální statistice přímo jeden výsledek - jedno číslo představující průměr z celého pásma.
 :::
 
 ### Krok 4: Vytvoření binárního rastru lesů {#sec-krok4}
@@ -535,37 +390,36 @@ V tabulce `vysledek_lesy.dbf` najdete sloupec **MEAN**.
 
 Průměr z binárního rastru (0/1) v dané zóně = podíl pixelů s hodnotou 1 = relativní plocha lesů.
 
-Pro procenta: **MEAN × 100**
+Díky nastavení **Dissolve ALL** v bufferu máme jeden (multi)polygon, takže dostaneme přímo jedno číslo - procento lesů v celém pásmu kolem dálnic v okrese.
 :::
 
-### Manuální dopočítání
+### A co kdyby více vzdáleností?
 
-Výslednou hodnotu MEAN musíme **ručně vynásobit 100**, abychom dostali procenta.
-
-**Postup:**
-
-1. Otevřít tabulku `vysledek_lesy.dbf`
-2. Najít hodnotu MEAN (např. 0.354)
-3. Kalkulačka: 0.354 × 100 = **35.4%**
-4. Zapsat si výsledek
+**Situace:**  
+"Váš šéf říká: 'Chci vidět, jak se to mění s vzdáleností. Spočítej to pro 100m, 300m, 500m a 1000m.'"
 
 ::: {.callout-warning}
-## Problém?
+## Problém
 
-Ano! Musíme počítat ručně. Co kdybychom chtěli analyzovat všech 77 okresů? 77× otevřít tabulku a počítat...
+**Co byste museli udělat?**
 
-**Diskuze:**  
-"Dalo by se to automatizovat v Model Builderu?"  
-→ Ano, pomocí Calculate Field, ale komplikované.  
-→ V Pythonu? Jednoduchý výpočet!
+1. Změnit Buffer distance na 100m → spustit
+2. Změnit na 300m → spustit
+3. Změnit na 500m → spustit (už máme)
+4. Změnit na 1000m → spustit
+
+**= 4× ručně spustit model, pokaždé změnit parametr**
+
+**A pak:** 4 samostatné tabulky → jak je dát dohromady pro porovnání?
 :::
 
-```python
-# Python řešení
-mean_value = 0.354
-procento = mean_value * 100
-print(f"Podíl lesů: {procento:.1f}%")
-```
+::: {.callout-tip}
+## Řešení
+
+**Příští týden:** Naučíme se **ITERÁTORY** - automatické procházení různých hodnot
+
+**Za měsíc:** Naučíme se **PYTHON** - elegantní řešení s vnořenými cykly
+:::
 
 # Export modelu do Pythonu {#sec-export}
 
@@ -573,8 +427,8 @@ print(f"Podíl lesů: {procento:.1f}%")
 
 Model Builder je skvělý pro vizualizaci workflow, ale má limity:
 
-- Těžko se kopírují části modelu
-- Složité sdílení (musíte sdílet toolbox)
+- Těžko se verzuje (Git, SVN)
+- Složité sdílení (musíte sdílet celý toolbox)
 - Omezené možnosti logiky (podmínky, cykly)
 
 **Python** nám dává:
@@ -582,7 +436,7 @@ Model Builder je skvělý pro vizualizaci workflow, ale má limity:
 - ✅ Textový soubor (snadno sdílitelný, verzovatelný)
 - ✅ Možnost úprav v textovém editoru
 - ✅ Přidání vlastní logiky
-- ✅ Spuštění mimo ArcGIS Pro
+- ✅ Spuštění mimo ArcGIS Pro (automatizace)
 
 ## Jak exportovat
 
@@ -776,22 +630,28 @@ buffer_distance_or_field=f"{vzdalenost} Meters"
 where_clause="NAZ_LAU1 = 'Jindřichův Hradec'"
 
 # Můžeme:
-okres = "Praha"
+okres = "Praha-východ"
 where_clause=f"NAZ_LAU1 = '{okres}'"
 ```
 
-### Automatický výpočet procent
+### Více vzdáleností najednou
 
 ```python
-# Po Zonal Statistics přidat:
-import arcpy
+# V Pythonu bychom mohli:
+vzdalenosti = [100, 300, 500, 1000]
+vysledky = []
 
-# Přečíst výsledek
-with arcpy.da.SearchCursor(vysledek_lesy, ["MEAN"]) as cursor:
-    for row in cursor:
-        mean_value = row[0]
-        procento = mean_value * 100
-        print(f"Podíl lesů: {procento:.1f}%")
+for vzd in vzdalenosti:
+    # Buffer
+    buffer = arcpy.Buffer_analysis(..., f"{vzd} Meters")
+    
+    # Zonal Statistics
+    vysledek = arcpy.ZonalStatisticsAsTable(...)
+    
+    # Uložit výsledek
+    vysledky.append(vysledek)
+
+# Hotovo! Všechny vzdálenosti v jednom běhu!
 ```
 
 :::
@@ -804,6 +664,7 @@ V Pythonu můžeme snadno:
 - Měnit parametry
 - Přidávat výpočty
 - Automatizovat opakování
+- **Spojovat výsledky do jedné struktury!**
 :::
 
 ## Výhody Pythonu vs. Model Builder {#sec-srovnani-vyhod}
@@ -819,49 +680,36 @@ V Pythonu můžeme snadno:
 | **Výpočty** | ⚠️ Calculate Field | ✅ Jakékoli operace |
 | **Debugging** | ⚠️ Obtížné | ✅ Snadné |
 | **Rychlost běhu** | ⚠️ Pomalejší | ✅ Rychlejší |
+| **Spojování výsledků** | ⚠️ Velmi složité | ✅ Jednoduché (seznamy) |
 
 : Srovnání Model Builder vs. Python {#tbl-srovnani-mb-python}
 
 ::: {.callout-important}
 ## Závěr
 
-**Model Builder** = skvělý start  
-**Python** = mocný nástroj pro pokročilé úlohy
+**Model Builder** = skvělý start, vizuální, rychlý pro jednoduché úlohy  
+**Python** = mocný nástroj pro opakování, složitou logiku, automatizaci
 :::
 
 # Možnosti rozšíření {#sec-rozsireni}
 
-## Co kdybychom chtěli víc?
+## Různé vzdálenosti - motivace pro iterátory
 
-Nyní máme řešení pro:
+**Scénář:** Chceme analyzovat 4 různé vzdálenosti: 100m, 300m, 500m, 1000m
 
-- ✅ 1 okres (Jindřichův Hradec)
-- ✅ 1 vzdálenost (500m)
-- ✅ 1 typ krajinného pokryvu (lesy)
+### V Model Builderu bez iterátoru
 
-**Co když chceme:**
+**Museli byste:**
 
-- 🤔 Všechny okresy? (77×)
-- 🤔 Různé vzdálenosti? (100m, 300m, 500m, 1000m)
-- 🤔 Všechny typy pokryvu? (lesy, pole, města, voda, ...)
+1. Změnit Buffer distance na 100m → Spustit → `vysledek_100.dbf`
+2. Změnit na 300m → Spustit → `vysledek_300.dbf`
+3. Změnit na 500m → Spustit → `vysledek_500.dbf`
+4. Změnit na 1000m → Spustit → `vysledek_1000.dbf`
 
-## Možnost A: Spustit model víckrát ručně {#sec-rucni}
+⏱️ **Čas:** 15-20 minut  
+😫 **Problém:** Nudné, náchylné k chybě, 4 samostatné tabulky
 
-**Pro různé vzdálenosti:**
-
-1. Otevřít model
-2. Změnit parametr bufferu na 100m
-3. Spustit
-4. Změnit na 300m
-5. Spustit
-6. ...
-
-⏱️ **Čas:** 10-15 minut  
-😫 **Problém:** Nudné, opakující se, náchylné k chybám
-
-## Možnost B: Použít iterátor (příště!) {#sec-iterator}
-
-**V Lekci 2 se naučíme:**
+### S iterátorem (příští týden)
 
 ```{mermaid}
 %%| fig-cap: "Model s iterátorem"
@@ -870,62 +718,43 @@ flowchart TD
     A[Tabulka vzdáleností:<br/>100, 300, 500, 1000] --> B[ITERÁTOR]
     B --> C[Buffer %Distance%]
     C --> D[Zonal Statistics]
-    D --> E[výsledek_%Distance%.dbf]
+    D --> E[vysledek_%Distance%.dbf]
     
     style B fill:#fd8d3c
     style E fill:#6baed6
 ```
 
-**Výsledek:** 4 tabulky (jedna pro každou vzdálenost)
-
-::: {.callout-warning}
-**Stále problém:** Jak spojit 4 tabulky do jedné?
-:::
-
-## Možnost C: Python (za 2-3 týdny) {#sec-python-reseni}
-
-```{.python}
-# Elegantní řešení v Pythonu
-vzdalenosti = [100, 300, 500, 1000]
-vysledky = []
-
-for vzd in vzdalenosti:
-    # Buffer
-    buffer = vytvor_buffer(vzd)
-    
-    # Analýza
-    procento = vypocitej_lesy(buffer)
-    
-    # Uložit
-    vysledky.append({
-        'Vzdalenost': vzd,
-        'Procento_lesu': procento
-    })
-
-# Jedna tabulka se všemi výsledky!
-uloz_tabulku(vysledky, 'vysledky_vsechny.csv')
-```
-
 ::: {.callout-tip}
 ## Výhoda
 
-- ✅ Jeden skript
-- ✅ Jedna výsledná tabulka
-- ✅ Snadno rozšířit o další parametry
-- ✅ Rychlé
+Spustíte **jednou**, iterator automaticky projde všechny vzdálenosti!
 :::
 
-## A co kombinace parametrů? {#sec-kombinace}
+::: {.callout-warning}
+## Ale...
+
+Dostanete **4 samostatné tabulky**:
+
+- vysledek_100.dbf  → MEAN = 0.42
+- vysledek_300.dbf  → MEAN = 0.38
+- vysledek_500.dbf  → MEAN = 0.35
+- vysledek_1000.dbf → MEAN = 0.31
+
+**Jak je spojíte do jedné pro porovnání?**
+
+V Model Builderu složité (Add Field + Calculate Field + Merge pro každou tabulku).  
+V Pythonu jednoduché (seznam)!
+:::
+
+## Kombinace parametrů - motivace pro Python
 
 **Scénář:** Chceme analyzovat:
 
-- 2 typy komunikací (dálnice, silnice I. třídy)
-- 3 vzdálenosti (100m, 500m, 1000m)
-- = **6 kombinací**
+- **2 typy komunikací** (dálnice, silnice I. třídy)
+- **× 4 vzdálenosti** (100, 300, 500, 1000)
+- **= 8 kombinací**
 
 ### V Model Builderu
-
-Potřebovali bychom **vnořené iterátory** = 2 modely propojené dohromady → velmi složité!
 
 ```{mermaid}
 %%| fig-cap: "Vnořené modely (složité!)"
@@ -935,41 +764,49 @@ flowchart TD
     A --> C[Silnice I.]
     B --> D[Model 2: Iterátor vzdáleností]
     C --> E[Model 2: Iterátor vzdáleností]
-    D --> F[3 tabulky]
-    E --> G[3 tabulky]
+    D --> F[4 tabulky]
+    E --> G[4 tabulky]
     
     style A fill:#fd8d3c
     style D fill:#fee391
     style E fill:#fee391
 ```
 
+::: {.callout-warning}
+## Problémy
+
+1. Potřebujete **2 vnořené modely** (složité nastavení!)
+2. Model 1 (vnější) volá Model 2 (vnitřní)
+3. Výsledek: **8 samostatných tabulek**
+4. Jak je spojit? Velmi složité...
+:::
+
 ### V Pythonu
 
 ```{.python}
 komunikace = ['dalnice', 'silnice1']
-vzdalenosti = [100, 500, 1000]
+vzdalenosti = [100, 300, 500, 1000]
+
+vysledky = []
 
 for kom in komunikace:
     for vzd in vzdalenosti:
-        analyzuj(kom, vzd)
+        vysledek = analyzuj(kom, vzd)
+        vysledky.append({
+            'Komunikace': kom,
+            'Vzdalenost': vzd,
+            'Procento_lesu': vysledek
+        })
+
+# Jedna tabulka, 8 řádků!
+uloz_tabulku(vysledky, 'vsechny_vysledky.csv')
 ```
 
 ::: {.callout-important}
-## 3 řádky!
+## Vidíte rozdíl?
 
-Vidíte rozdíl?
-:::
-
-## Diskuze {#sec-diskuze}
-
-::: {.callout-note icon=false}
-## Otázky k zamyšlení
-
-1. Kolik času byste strávili vytvořením vnořených modelů v Model Builderu?
-2. Jak byste spojili 6 výsledných tabulek do jedné?
-3. Co kdyby zadání změnilo: "Teď to chceme pro 5 typů komunikací a 10 vzdáleností" (50 kombinací)?
-
-**Odpověď:** Proto se učíme Python! 🐍
+**Model Builder:** 2 modely, 8 tabulek, složité spojování  
+**Python:** Vnořený for cyklus (5 řádků), hotovo!
 :::
 
 # Shrnutí {#sec-shrnuti}
@@ -979,24 +816,16 @@ Vidíte rozdíl?
 ::: {.callout-tip icon=false}
 ## Přehled lekce
 
-✅ **Proč automatizovat GIS úlohy**
+✅ **Struktura kurzu**
 
-- Úspora času
-- Eliminace chyb
-- Opakovatelnost
-- Dokumentace
-
-✅ **Model Builder - základy**
-
-- Vizuální programování
-- Skládání nástrojů do workflow
-- Vytvoření funkčního modelu
+- 12 týdnů od Model Builderu k Pythonu
+- Praktické příklady motivace
 
 ✅ **Praktická úloha**
 
 - Analýza krajinného pokryvu v ochranných pásmech
 - 5 kroků: výběr → clip → buffer → binární rastr → zonální statistika
-- Interpretace výsledků
+- Výsledek: procento lesů v pásmu 500m kolem dálnic
 
 ✅ **Export do Pythonu**
 
@@ -1006,9 +835,10 @@ Vidíte rozdíl?
 
 ✅ **Limity Model Builderu**
 
-- Složité operace (vnořené cykly)
-- Spojování výsledků
-- Motivace pro Python
+- Opakování = ruční spouštění nebo iterátory
+- Více tabulek = složité spojování
+- Vnořené cykly = velmi složité
+- **Motivace pro Python!**
 :::
 
 ## Co nás čeká příště (Lekce 2) {#sec-priste}
@@ -1017,15 +847,24 @@ Vidíte rozdíl?
 
 ### První část - Iterátory
 
-- Jak automatizovat opakování v Model Builderu
+- **ITERÁTORY** v Model Builderu
 - Iterate Field Values - procházení různých vzdáleností
-- Problém: mnoho výstupních tabulek
+- Automatické opakování
+- **Problém:** 4 samostatné tabulky - jak spojit?
 
-### Druhá část - Python Tool
+### Druhá část - Model Tool
 
-- Z modelu vytvoříme nástroj s GUI
-- Parametry: uživatel si vybere okres, vzdálenost
+- Z modelu vytvoříme **nástroj s GUI**
+- Parametry: uživatel si vybere vzdálenost
 - Nástroj můžete sdílet s kolegy
+- Použití v dalších modelech
+
+### Třetí část - Vnořené modely
+
+- Model volá jiný model
+- Způsob, jak obejít "max 1 iterátor"
+- **Ukáže limity** Model Builderu
+- **Motivace** pro Python vnořené cykly
 
 :::
 
@@ -1036,23 +875,25 @@ Vidíte rozdíl?
 | **Automatizace** | Opakované spouštění úloh bez lidského zásahu |
 | **Model Builder** | Nástroj pro vizuální tvorbu workflow |
 | **Workflow** | Posloupnost kroků vedoucí k výsledku |
-| **Iterator** | Mechanismus pro opakování (příště) |
+| **Iterator** | Mechanismus pro automatické opakování (příště) |
 | **ArcPy** | Python knihovna pro ArcGIS |
 | **Zonální statistika** | Výpočet statistik v definovaných zónách |
 | **Binární rastr** | Rastr s hodnotami 0/1 (ano/ne) |
+| **Dissolve** | Spojení více prvků do jednoho |
 
 : Klíčové pojmy z lekce {#tbl-pojmy}
 
 ## Domácí úkol (volitelný) {#sec-ukol}
 
-Procvičte si látku pomocí [volitelných úkolů](#sec-volitelne-ukoly) níže.
+Procvičte si látku pomocě [volitelných úkolů](#sec-volitelne-ukoly) níže.
 
 ::: {.callout-tip}
 ## Doporučení
 
-- Začněte Úkolem 1 (lehký) - určitě zvládnete!
-- Pokud vás to baví, zkuste Úkol 2
-- Úkol 3 je pro ty, kdo chtějí výzvu 😊
+- Začněte **Úkolem 1** (lehký) - určitě zvládnete!
+- Pokud vás to baví, zkuste **Úkol 2** nebo **3**
+- **Úkol 4** je pro prozkoumání Python kódu
+- **Úkol 5 (BONUS)** je záměrně velmi těžký - ukáže vám limity MB
 :::
 
 # Volitelné úkoly {#sec-volitelne-ukoly}
@@ -1100,6 +941,8 @@ Vytvořte tabulku v Excelu s porovnáním:
 |------------|---------------|
 | 300m | X.X% |
 | 500m | Y.Y% |
+
+Vytvořte graf závislosti procenta lesů na vzdálenosti od dálnic.
 :::
 
 ## Úkol 2: Jiný okres ⭐⭐ {#sec-ukol2}
@@ -1149,7 +992,16 @@ Upravte model tak, aby analyzoval okres **Praha-východ** (místo Jindřichův H
 ::: {.callout-tip collapse="true"}
 ## Bonus
 
-Vytvořte srovnávací tabulku pro 3-5 různých okresů.
+Vytvořte srovnávací tabulku pro 3-5 různých okresů:
+
+| Okres | Procento lesů |
+|-------|---------------|
+| Jindřichův Hradec | 35.4% |
+| Praha-východ | ? |
+| Prachatice | ? |
+| ... | ... |
+
+Který okres má nejvíce lesů kolem dálnic?
 :::
 
 ## Úkol 3: Jiný typ krajinného pokryvu ⭐⭐ {#sec-ukol3}
@@ -1188,7 +1040,7 @@ Vytvořte tabulku se všemi typy krajinného pokryvu:
 |---------|-----|----------|
 | 1 | Urbanizované plochy | ? |
 | 2 | Zemědělská půda | ? |
-| 3 | Lesy | ? |
+| 3 | Lesy | 35.4% |
 | 4 | Mokřady | ? |
 | 5 | Vodní plochy | ? |
 
@@ -1196,10 +1048,11 @@ Vytvořte tabulku se všemi typy krajinného pokryvu:
 :::
 
 ::: {.callout-important}
-## Otázka
+## Otázka k zamyšlení
 
 Je tento postup efektivní? Co kdybyste chtěli 10 kategorií? 50?  
-→ Proto se naučíme iterátory a Python!
+
+**Odpověď:** Proto se naučíme iterátory (příště) a Python (za měsíc)!
 :::
 
 ## Úkol 4: Export a zkoumání Python kódu ⭐ {#sec-ukol4}
@@ -1249,6 +1102,7 @@ Exportujte váš model do Pythonu a prozkoumejte kód.
 - Je kód čitelný? Rozumíte alespoň trochu, co dělá?
 - Které části jsou jasné, které ne?
 - Vidíte výhody textové podoby vs. grafické?
+- Jak by se v Pythonu řešilo 4 různé vzdálenosti?
 
 :::
 
@@ -1256,136 +1110,128 @@ Exportujte váš model do Pythonu a prozkoumejte kód.
 **Poznámka:** Kód zatím nespouštějte - to se naučíme příště. Teď jen pozorujte strukturu.
 :::
 
-## Úkol 5 (BONUS): Vnořené modely - výzva! ⭐⭐⭐ {#sec-ukol5}
+## Úkol 5 (BONUS): Čtyři vzdálenosti - ukázka problému ⭐⭐⭐ {#sec-ukol5}
 
 ::: {.callout-warning}
 ## Obtížnost: Velmi těžká
 
-**VAROVÁNÍ:** Tento úkol je záměrně velmi obtížný! Jeho cílem je ukázat vám, že některé věci jsou v Model Builderu nepraktické. Nebojte se, pokud se vám to nepodaří - právě proto se učíme Python! 😊
+**VAROVÁNÍ:** Tento úkol je záměrně obtížný! Jeho cílem je ukázat vám problém, který v příští lekci vyřešíme iterátorem, a za měsíc elegantně v Pythonu. 
+
+Nebojte se, pokud se vám to nepodaří - právě proto se učíme Python! 😊
 :::
 
 **Zadání:**  
-Vytvořte řešení, které analyzuje **2 okresy × 2 vzdálenosti = 4 kombinace**:
-
-- Okresy: Jindřichův Hradec, Praha-východ
-- Vzdálenosti: 300m, 500m
+Spočítejte procento lesů pro **4 různé vzdálenosti**: 100m, 300m, 500m, 1000m
 
 **Očekávaný výsledek:**  
-4 tabulky:
+Tabulka (v Excelu nebo jako poznámky):
 
-- `vysledek_JH_300.dbf`
-- `vysledek_JH_500.dbf`
-- `vysledek_Praha_300.dbf`
-- `vysledek_Praha_500.dbf`
+| Vzdálenost | Procento lesů |
+|------------|---------------|
+| 100m | ? |
+| 300m | ? |
+| 500m | 35.4% |
+| 1000m | ? |
 
 ::: {.panel-tabset}
 
-### Přístup A
+### Přístup A (manuální)
 
-**Přístup A (jednodušší, ale nudný):**
+**Přístup A (nejjednodušší, ale nudný):**
 
-- Spusťte model 4× ručně, pokaždé změňte parametry
-- Zapište časy: Jak dlouho to celkem trvalo?
+1. Spusťte model s 100m → zapište výsledek
+2. Změňte na 300m, spusťte → zapište výsledek
+3. Změňte na 500m, spusťte → zapište výsledek (už máte)
+4. Změňte na 1000m, spusťte → zapište výsledek
 
-### Přístup B
+**Měřte čas:** Kolik celkem trvalo všech 4 spuštění?
 
-**Přístup B (složitý - vnořené modely):**
+### Přístup B (preview iterátoru)
 
-- Vytvořte Model 2 (vnitřní) s iterátorem přes vzdálenosti
-- Vytvořte Model 1 (vnější) s iterátorem přes okresy, který volá Model 2
-- Poznámka: Je to VELMI složité nastavit!
+**Přístup B (pokročilý - preview na příští týden):**
 
-:::
+Pokud se chcete pokusit o iterátor již nyní:
 
-::: {.callout-tip collapse="true"}
-## Podrobný postup Přístupu B
+1. Vytvořte v Excelu nebo jako DBF tabulku se vzdálenostmi:
+   ```
+   Distance
+   100
+   300
+   500
+   1000
+   ```
 
-**Krok 1: Vytvoř Model 2 (vnitřní - "Detail_Analysis")**
+2. Přidejte do modelu **Iterate Field Values**
+3. Zkuste propojit s bufferem...
 
-Tento model zpracuje JEDNU komunikaci pro různé vzdálenosti
+**Poznámka:** Pravděpodobně narazíte na problémy! To je v pořádku - příští týden to společně vyřešíme.
 
-**Parametry modelu:**
-
-- Input: Komunikace (vrstva linií) [nastavit jako Model Parameter]
-- Input: Název komunikace (text) [Model Parameter]
-
-**Model:**
-
-1. Iterate Field Values přes tabulku vzdáleností (100, 500, 1000)
-2. Buffer s distance = %Distance%
-3. Intersect s okresem
-4. Equal To (lesy)
-5. Zonal Statistics → vysledek_%Název%_%Distance%.dbf
-
-**Krok 2: Vytvoř Model 1 (vnější - "Master_Analysis")**
-
-Tento model prochází komunikace a volá Model 2
-
-**Model:**
-
-1. Iterate Feature Classes přes komunikace (dalnice, silnice1)
-2. Pro každou komunikaci zavolej Model 2:
-   - Nástroj: Detail_Analysis (váš Model 2)
-   - Parameter Komunikace: %Name%
-   - Parameter Název: %Name%
-
-**Krok 3: Spusť Model 1**
-:::
-
-::: {.callout-note collapse="true"}
-## Nápověda
-
-- Model se volá jako nástroj přes: Insert → Model → [název modelu]
-- Aby model šel zavolat z jiného modelu, musí mít definované Model Parameters (pravý klik na proměnnou → Model Parameter)
-- Můžeš potřebovat nastavit "Preconditions" (šipka s tečkou)
-- Pokud to nefunguje, zkus nejdřív každý model otestovat samostatně
-:::
-
-::: {.callout-tip collapse="true"}
-## Alternativní přístup (jednodušší, ale nudnější)
-
-Pokud vnořené modely nefungují, můžeš Model 2 spustit 2× ručně:
-
-1. První spuštění: pro dálnice → vytvoří 3 tabulky
-2. Druhé spuštění: pro silnice I. → vytvoří další 3 tabulky
 :::
 
 ### Reflexe (důležitější než řešení!)
 
-Po dokončení (nebo pokusu) napište:
+Po dokončení napište:
 
-1. Kolik času vám to zabralo?
-2. Kolikrát jste museli model upravovat?
-3. Kolik chyb jste udělali?
-4. Jak byste se cítili, kdyby zadání bylo 10 okresů × 10 vzdáleností?
+1. **Kolik času vám to zabralo?**
+2. **Kolik chyb jste udělali?** (zapomenuté změny parametru, špatné názvy...)
+3. **Jak byste se cítili, kdyby zadání bylo 20 vzdáleností?**
+4. **Vidíte potřebu automatizace?**
 
 ::: {.callout-important collapse="true"}
-## Ukázka Python řešení
+## Ukázka Python řešení (jen se podívejte)
 
 ```{.python}
 # V Pythonu by to vypadalo takto (nemusíte rozumět detailům):
 
-okresy = ['Jindřichův Hradec', 'Praha-východ']
-vzdalenosti = [300, 500]
+vzdalenosti = [100, 300, 500, 1000]
+vysledky = []
 
-for okres in okresy:
-    for vzd in vzdalenosti:
-        # Výběr okresu
-        arcpy.MakeFeatureLayer_management(
-            "okresy", "temp_layer", 
-            f"NAZ_LAU1 = '{okres}'"
-        )
-        
-        # Buffer
-        arcpy.Buffer_analysis(
-            "dalnice_clip", "buffer_temp",
-            f"{vzd} Meters"
-        )
-        
-        # Analýza...
-        # Uložit: f"vysledek_{okres}_{vzd}.dbf"
+for vzd in vzdalenosti:
+    # Buffer
+    buffer = arcpy.Buffer_analysis(
+        dalnice_clip, 
+        f"buffer_{vzd}m",
+        f"{vzd} Meters",
+        dissolve_option="ALL"
+    )
+    
+    # Equal To
+    binary = arcpy.sa.EqualTo(clc_2018, 3)
+    
+    # Zonal Statistics
+    stats = arcpy.sa.ZonalStatisticsAsTable(
+        buffer, "OBJECTID", binary,
+        f"stats_{vzd}.dbf", statistics_type="MEAN"
+    )
+    
+    # Přečíst výsledek
+    with arcpy.da.SearchCursor(stats, ["MEAN"]) as cursor:
+        mean_value = next(cursor)[0]
+    
+    # Uložit
+    vysledky.append({
+        'Vzdalenost': vzd,
+        'Procento': mean_value * 100
+    })
 
-print("Hotovo! 4 kombinace zpracovány.")
+# Vytvoř jednu tabulku se všemi výsledky
+import pandas as pd
+df = pd.DataFrame(vysledky)
+df.to_csv('vysledky_vsechny.csv')
+
+print("Hotovo! Všechny 4 vzdálenosti zpracovány.")
+print(df)
+```
+
+**Výstup:**
+```
+   Vzdalenost  Procento
+0         100     42.3
+1         300     38.1
+2         500     35.4
+3        1000     31.2
+
+Hotovo! Všechny 4 vzdálenosti zpracovány.
 ```
 
 **Ponaučení:** Vidíte, proč se učíme Python? 😊
@@ -1400,6 +1246,7 @@ print("Hotovo! 4 kombinace zpracovány.")
 
 - [Model Builder dokumentace](https://pro.arcgis.com/en/pro-app/latest/help/analysis/geoprocessing/modelbuilder/what-is-modelbuilder-.htm)
 - [Geoprocessing nástroje](https://pro.arcgis.com/en/pro-app/latest/tool-reference/main/arcgis-pro-tool-reference.htm)
+- [Iterators in ModelBuilder](https://pro.arcgis.com/en/pro-app/latest/help/analysis/geoprocessing/modelbuilder/iterators.htm)
 :::
 
 ::: {.callout-tip}
@@ -1408,11 +1255,6 @@ print("Hotovo! 4 kombinace zpracovány.")
 - [ArcPy dokumentace](https://pro.arcgis.com/en/pro-app/latest/arcpy/main/arcgis-pro-arcpy-reference.htm)
 - [ArcPy Get Started](https://pro.arcgis.com/en/pro-app/latest/arcpy/get-started/what-is-arcpy-.htm)
 :::
-
-## Video tutoriály (volitelné)
-
-- [Esri: Introduction to ModelBuilder](https://www.esri.com/training/)
-- [Esri: Automating Workflows with Python](https://www.esri.com/training/)
 
 ## Corine Land Cover
 
@@ -1424,15 +1266,15 @@ print("Hotovo! 4 kombinace zpracovány.")
 1. **Procvičujte:** Čím víc modelů vytvoříte, tím lépe pochopíte workflow
 2. **Experimentujte:** Zkuste různé nástroje a parametry
 3. **Dokumentujte:** Pište si poznámky k modelům (Description v properties)
-4. **Sdílejte:** Diskutujte s kolegy, učte se od ostatních
-5. **Připravte se na Python:** Příští lekce už začneme s kódem!
+4. **Připravte se na iterátory:** Přemýšlejte, co by se dalo automatizovat
+5. **Sledujte Python kód:** I když mu ještě nerozumíte, zvykejte si na syntax
 
 # Kontakt a dotazy {#sec-kontakt}
 
 ::: {.callout-note icon=false}
 ## Kontaktní informace
 
-**Vyučující:** [Vaše jméno]  
+**Vyučující:** Vojtěch Barták  
 **Email:** [email]  
 **Konzultační hodiny:** [čas a místo]
 
@@ -1454,16 +1296,25 @@ print("Hotovo! 4 kombinace zpracovány.")
 
 - Funkční ArcGIS Pro
 - Uložený toolbox s modelem z dnešní lekce
-- Nápady: Jaké úlohy byste chtěli automatizovat ve vaší praxi?
+- Případně vyřešené volitelné úkoly (pokud chcete ukázat)
 :::
 
 ::: {.callout-note}
-## Na co se těšit
+## Na co se těšit v Lekci 2
 
-- Iterátory v Model Builderu
-- Automatické procházení různých parametrů
-- Tvorba Python Tool s GUI
-- Ještě jeden krok blíž k Pythonu!
+**ITERÁTORY - automatické opakování:**
+- Iterate Field Values - projde 4 vzdálenosti automaticky!
+- Problém: 4 tabulky - jak spojit?
+
+**MODEL TOOL - nástroj s GUI:**
+- Z modelu uděláme nástroj
+- Parametry, které může nastavit uživatel
+- Sdílení s kolegy
+
+**VNOŘENÉ MODELY:**
+- Model volá jiný model
+- Obchází limit "1 iterátor na model"
+- Uvidíte limity → motivace pro Python!
 :::
 
 ---
@@ -1473,7 +1324,13 @@ print("Hotovo! 4 kombinace zpracovány.")
 
 Úspěšně jste dokončili první lekci. Vytvořili jste funkční model, exportovali ho do Pythonu, a pochopili základy automatizace GIS úloh.
 
-**Next step:** Lekce 2 - Iterátory a Python Tools
+**Viděli jste:**
+- Jak Model Builder funguje
+- Jak vypadá Python kód
+- Kde jsou limity Model Builderu
+- **Proč se budeme učit Python!**
+
+**Next step:** Lekce 2 - Iterátory, Model Tools a vnořené modely
 :::
 
 ---
