@@ -1,0 +1,296 @@
+[
+  {
+    "objectID": "lessons/lesson_01.html",
+    "href": "lessons/lesson_01.html",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "",
+    "text": "NoteInformace o lekci\n\n\n\nČasová dotace: 90 minut (1,5 hodiny)\nPředpoklady: Základní znalost ArcGIS Pro (GIS 1, GIS 2)\nMateriály: ArcGIS Pro projekt ke stažení na [odkaz]"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#co-se-v-tomto-kurzu-naučíte",
+    "href": "lessons/lesson_01.html#co-se-v-tomto-kurzu-naučíte",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "1.1 Co se v tomto kurzu naučíte",
+    "text": "1.1 Co se v tomto kurzu naučíte\nTento kurz vás provede cestou od vizuálního programování v Model Builderu k psaní vlastních Python skriptů pro automatizaci GIS úloh.\n\nTýdny 1-2Týdny 3-5Týdny 6-9Týdny 10-11Týden 12\n\n\nModel Builder → Python\n\nÚvod do automatizace\nPrvní pohled na Python kód\nExport modelů\n\n\n\nZáklady programování v Pythonu\n\nProměnné, cykly, funkce\nPráce se soubory\nAlgoritmické myšlení\n\n\n\nArcPy - Python pro GIS\n\nAutomatizace analýz\nTabulkové operace\nRastrové analýzy\n\n\n\nPokročilé techniky\n\nKurzory\nGeometrie\nTvorba nástrojů s GUI\n\n\n\nZávěrečný projekt\n\nVlastní nástroj\nŘešení reálného problému"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#proč-tento-kurz",
+    "href": "lessons/lesson_01.html#proč-tento-kurz",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "1.2 Proč tento kurz?",
+    "text": "1.2 Proč tento kurz?\nUž umíte pracovat s ArcGIS Pro - znáte nástroje, dokážete provádět analýzy, vytvářet mapy. Nyní se naučíte GIS automatizovat a programovat.\n\n\n\n\n\n\nTipPříklady z praxe\n\n\n\n🔄 Opakující se úlohy\n“Každý měsíc musíme aktualizovat mapy dostupnosti zdravotnických zařízení pro 14 krajů.”\n→ Řešení: Napsat skript, který to udělá automaticky za 5 minut.\n📊 Velké množství dat\n“Potřebujeme zpracovat 500 rastrových snímků z družice.”\n→ Řešení: Python skript běžící přes noc, vy ráno kontrolujete výsledky.\n🎯 Složité analýzy\n“Chceme optimalizovat umístění větrných elektráren na základě 10 různých kritérií.”\n→ Řešení: Vlastní nástroj s GUI, který může používat kdokoli v týmu."
+  },
+  {
+    "objectID": "lessons/lesson_01.html#struktura-výuky",
+    "href": "lessons/lesson_01.html#struktura-výuky",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "1.3 Struktura výuky",
+    "text": "1.3 Struktura výuky\nKaždý týden:\n\n2× 1,5 hodiny praktických cvičení\nKombinace výkladu + samostatné práce\nVolitelné úkoly k procvičení\n\nHodnocení:\n\nAktivita na cvičeních\nPrůběžné úkoly (malé, týdenní)\nZávěrečný projekt (hlavní část hodnocení)\n\nFunkční Python nástroj\nŘeší reálný GIS problém\nS dokumentací\n\n\nNástroje:\n\nArcGIS Pro (máte nainstalované?)\nPython 3.x (součást ArcGIS Pro)\nTextový editor (dnes ukážeme)\nPozději: Jupyter Notebook, VS Code"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#motivační-příklad",
+    "href": "lessons/lesson_01.html#motivační-příklad",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "2.1 Motivační příklad",
+    "text": "2.1 Motivační příklad\nPředstavte si, že máte tuto úlohu:\n\n\n\n\n\n\nWarningZadání\n\n\n\nSpočítejte vzdálenost od každého okresu v ČR k nejbližší dálnici a vytvořte mapu s výsledky.\n\n\n\n2.1.1 Řešení ručně\n\nVybrat okres Praha\nSpustit nástroj Near\nZapsat výsledek\nVybrat okres Benešov\nSpustit nástroj Near\nZapsat výsledek\n… opakovat 75×\nVytvořit mapu\n\n⏱️ Čas: 2-3 hodiny\n😫 Riziko chyby: Vysoké (únava, překlep, zapomenutý okres)\n\n\n2.1.2 Řešení s automatizací\n\nVytvořit model/skript\nSpustit\n\n⏱️ Čas: 5 minut běhu + 30 minut na přípravu modelu\n✅ Riziko chyby: Minimální\n🔄 Bonus: Příště to použijete znovu!"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#výhody-automatizace",
+    "href": "lessons/lesson_01.html#výhody-automatizace",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "2.2 Výhody automatizace",
+    "text": "2.2 Výhody automatizace\n\n\n\nTable 1: Přehled výhod automatizace\n\n\n\n\n\n\n\n\n\n\nVýhoda\nPopis\nPříklad\n\n\n\n\n⏱️ Časová úspora\nTisíce opakování za vás\nAnalýza pro 77 okresů × 10 parametrů = 770 opakování\n\n\n🎯 Přesnost\nŽádné chyby z nepozornosti\nVždy stejný postup, stejné výsledky\n\n\n📝 Dokumentace\nWorkflow je viditelný\nModel = dokumentace postupu\n\n\n🔄 Opakovatelnost\nSnadno spustit znovu\nAktualizace dat? Jeden klik.\n\n\n🔧 Parametrizace\nSnadná změna nastavení\nZměnit vzdálenost z 500m na 1000m\n\n\n🤝 Sdílení\nKolegové mohou použít\nVytvořit nástroj pro celý tým"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#kdy-automatizovat",
+    "href": "lessons/lesson_01.html#kdy-automatizovat",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "2.3 Kdy automatizovat?",
+    "text": "2.3 Kdy automatizovat?\n\n\n\n2.3.1 ✅ ANO - automatizujte když:\n\nÚlohu budete opakovat víc než 2-3×\nÚloha má jasné kroky\nPracujete s mnoha datovými sadami\nPotřebujete konzistentní výsledky\nChcete ušetřit čas (i přes přípravu)\n\n\n\n\n\n\n2.3.2 ❌ NE - neautomatizujte když:\n\nÚloha je jednorázová a jednoduchá\nTrvá 2 minuty\nPříprava automatizace by trvala déle než ruční práce\nNení jasný postup (ještě experimentujete)"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#co-je-model-builder",
+    "href": "lessons/lesson_01.html#co-je-model-builder",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "3.1 Co je Model Builder?",
+    "text": "3.1 Co je Model Builder?\nModel Builder je nástroj v ArcGIS Pro pro grafické sestavování workflow (pracovních postupů). Je to forma “programování bez psaní kódu” - místo textových příkazů skládáte nástroje jako puzzle."
+  },
+  {
+    "objectID": "lessons/lesson_01.html#základní-koncepty",
+    "href": "lessons/lesson_01.html#základní-koncepty",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "3.2 Základní koncepty",
+    "text": "3.2 Základní koncepty\nModel se skládá ze tří typů prvků:\n\nflowchart LR\n    A[Vstupní data] --&gt; B[Nástroj/Proces]\n    B --&gt; C[Výstupní data]\n    \n    style A fill:#6baed6\n    style B fill:#fee391\n    style C fill:#6baed6\n\n\n\n\n\nflowchart LR\n    A[Vstupní data] --&gt; B[Nástroj/Proces]\n    B --&gt; C[Výstupní data]\n    \n    style A fill:#6baed6\n    style B fill:#fee391\n    style C fill:#6baed6\n\n\n\n\nFigure 1: Základní struktura modelu\n\n\n\n\n\n\n🔵 Modrý ovál = Data (vrstvy, tabulky, rastry)\n🟡 Žlutý obdélník = Nástroj (Buffer, Clip, Intersect, …)\n➡️ Šipky = Tok dat (co se používá kam)"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#jednoduchý-příklad",
+    "href": "lessons/lesson_01.html#jednoduchý-příklad",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "3.3 Jednoduchý příklad",
+    "text": "3.3 Jednoduchý příklad\nÚloha: Vytvořit 500m buffer kolem řek\n\nflowchart LR\n    A[Řeky.shp] --&gt; B[Buffer 500m]\n    B --&gt; C[Reky_buffer_500m.shp]\n    \n    style A fill:#6baed6\n    style B fill:#fee391\n    style C fill:#6baed6\n\n\n\n\nflowchart LR\n    A[Řeky.shp] --&gt; B[Buffer 500m]\n    B --&gt; C[Reky_buffer_500m.shp]\n    \n    style A fill:#6baed6\n    style B fill:#fee391\n    style C fill:#6baed6\n\n\n Jednoduchý model - Buffer řek \n\n\n\nCo se děje:\n\nModel načte vrstvu řek\nSpustí nástroj Buffer s parametrem 500 metrů\nUloží výsledek"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#jak-vytvořit-model",
+    "href": "lessons/lesson_01.html#jak-vytvořit-model",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "3.4 Jak vytvořit model",
+    "text": "3.4 Jak vytvořit model\n\n\n\n\n\n\nNoteKrok za krokem - Vytvoření modelu\n\n\n\n\n\n\nOtevřít ModelBuilder:\n\nV ArcGIS Pro: Insert → New Toolbox\nPravý klik na toolbox → New → Model\n\nPřidat vstupní data:\n\nPřetáhnout vrstvu z Contents pane do modelu\nNEBO: Insert → Variable → [typ dat]\n\nPřidat nástroj:\n\nPřetáhnout z ArcToolbox\nNEBO: Insert → Tool → vybrat nástroj\n\nPropojit:\n\nPřetáhnout šipku z dat do nástroje\nNastavit parametry nástroje (dvojklik)\n\nSpustit:\n\nNejdřív uložit! (File → Save)\nPak Run (tlačítko ▶️)"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#zadání-1",
+    "href": "lessons/lesson_01.html#zadání-1",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "4.1 Zadání",
+    "text": "4.1 Zadání\n\n\n\n\n\n\nImportantAnalytická úloha\n\n\n\nJaké je zastoupení lesů v ochranném pásmu 500 metrů kolem dálnic v okrese Jindřichův Hradec?\n\n\n\n4.1.1 Proč tato úloha?\n\n✅ Realistická - ochranná pásma, hlukové mapování, dostupnost\n✅ Jednoduchá - pochopitelné kroky\n✅ Rozšiřitelná - později přidáme další parametry\n✅ Ukáže limity Model Builderu → motivace pro Python"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-data",
+    "href": "lessons/lesson_01.html#sec-data",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "4.2 Data",
+    "text": "4.2 Data\nVšechna data jsou připravena v projektu ArcGIS Pro, který si stáhnete z [odkaz].\n\nOkresyDálniceKrajinný pokryv\n\n\nokresy - polygony okresů ČR\n\nSouřadnicový systém: EPSG:3035\nKlíčové pole: NAZ_LAU1 (název okresu)\n\n\n\ndalnice - linie dálnic ČR\n\nSouřadnicový systém: EPSG:3035\nGeometrie: polyline\n\n\n\nclc_2018 - rastr Corine Land Cover\n\nSouřadnicový systém: EPSG:3035\nHodnoty:\n\n1 = Urbanizované plochy\n2 = Zemědělská půda\n3 = Lesy ⭐\n4 = Mokřady\n5 = Vodní plochy\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nPoznámka: Data jsou už transformována do jednotného souřadnicového systému ETRS89 LAEA (EPSG: 3035)."
+  },
+  {
+    "objectID": "lessons/lesson_01.html#analytický-postup",
+    "href": "lessons/lesson_01.html#analytický-postup",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "4.3 Analytický postup",
+    "text": "4.3 Analytický postup\nCíl: Zjistit, kolik procent plochy okresu Jindřichův Hradec v pásmu 500m od dálnic tvoří lesy.\n\nflowchart TD\n    A[Okresy] --&gt; B[Vybrat JH]\n    B --&gt; C[Okres JH]\n    D[Dálnice] --&gt; E[Oříznout okresem]\n    C --&gt; E\n    E --&gt; F[Dálnice v JH]\n    F --&gt; G[Buffer 500m]\n    G --&gt; H[Pásmo 500m]\n    I[CLC rastr] --&gt; J[Binární rastr lesů]\n    H --&gt; K[Zónální statistika]\n    J --&gt; K\n    K --&gt; L[Výsledek]\n    \n    style C fill:#6baed6\n    style F fill:#6baed6\n    style H fill:#6baed6\n    style J fill:#74c476\n    style L fill:#fd8d3c\n\n\n\n\n\nflowchart TD\n    A[Okresy] --&gt; B[Vybrat JH]\n    B --&gt; C[Okres JH]\n    D[Dálnice] --&gt; E[Oříznout okresem]\n    C --&gt; E\n    E --&gt; F[Dálnice v JH]\n    F --&gt; G[Buffer 500m]\n    G --&gt; H[Pásmo 500m]\n    I[CLC rastr] --&gt; J[Binární rastr lesů]\n    H --&gt; K[Zónální statistika]\n    J --&gt; K\n    K --&gt; L[Výsledek]\n    \n    style C fill:#6baed6\n    style F fill:#6baed6\n    style H fill:#6baed6\n    style J fill:#74c476\n    style L fill:#fd8d3c\n\n\n\n\nFigure 2: Workflow analytického postupu"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-kroky",
+    "href": "lessons/lesson_01.html#sec-kroky",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "4.4 Krok za krokem",
+    "text": "4.4 Krok za krokem\n\n4.4.1 Příprava\n\nOtevřete ArcGIS Pro projekt Lekce1_AutomatizaceGIS.aprx\nProhlédněte si data v mapě\nVytvořte nový toolbox:\n\nPravý klik v Catalog Pane → New → Toolbox\nPojmenujte: Lekce1_Tools.atbx\n\nVytvořte nový model:\n\nPravý klik na toolbox → New → Model\nPojmenujte: Analyza_Lesu_v_Pasmu\n\n\n\n\n4.4.2 Krok 1: Výběr okresu Jindřichův Hradec\nNástroj: Make Feature Layer\n\n\n\n\n\n\nTipProč ne Select?\n\n\n\nNástroj Select vytváří novou datovou sadu na disku. Make Feature Layer vytváří pouze dočasnou vrstvu v paměti, což je rychlejší a efektivnější.\n\n\nPostup:\n\nV modelu: Insert → Tool → vyhledat “Make Feature Layer”\nPřetáhněte vrstvu okresy do modelu\nPropojte okresy s nástrojem Make Feature Layer\nDvojklik na nástroj → nastavit parametry:\n\nInput Features: okresy\nOutput Layer: okres_jh_layer\nExpression: Klikněte SQL 🔧\n\n\nNAZ_LAU1 = 'Jindřichův Hradec'\n\nOK\n\nKontrola: 🔵 okresy → 🟡 Make Feature Layer → 🔵 okres_jh_layer\n\n\n4.4.3 Krok 2: Ořezání dálnic na okres\nNástroj: Clip\nÚčel: Z celé vrstvy dálnic chceme jen úseky, které jsou v okrese JH.\nPostup:\n\nInsert → Tool → “Clip”\nPřetáhněte vrstvu dalnice do modelu\nPropojte:\n\ndalnice → Clip (jako Input Features)\nokres_jh_layer → Clip (jako Clip Features)\n\nDvojklik na Clip → parametry:\n\nInput Features: dalnice\nClip Features: okres_jh_layer\nOutput: dalnice_clip\n\nOK\n\n\n\n4.4.4 Krok 3: Vytvoření ochranného pásma (buffer)\nNástroj: Buffer\n\n\n\n\n\n\nImportantDůležité nastavení\n\n\n\nDissolve Type = ALL (spojí všechny buffery do jednoho)\n\n\nPostup:\n\nInsert → Tool → “Buffer”\nPropojte dalnice_clip → Buffer\nDvojklik na Buffer → parametry:\n\nInput Features: dalnice_clip\nOutput: buffer_500m\nDistance: 500 Meters\nDissolve Type: ALL ← důležité!\nSide Type: FULL\nEnd Type: ROUND\n\nOK\n\n\n\n\n\n\n\nNoteProč Dissolve ALL?\n\n\n\n\n\nBez dissolve bychom měli desítky překrývajících se bufferů (jeden pro každý úsek dálnice). S ALL se všechny spojí do jednoho (multi)polygonu.\n\n\n\n\n\n4.4.5 Krok 4: Vytvoření binárního rastru lesů\nNástroj: Equal To (Spatial Analyst)\nÚčel: Z CLC rastru (hodnoty 1,2,3,4,5) vytvořit rastr s hodnotami 0/1, kde 1 = les.\nPostup:\n\nInsert → Tool → “Equal To” (v kategorii Spatial Analyst → Math → Logical)\nPřetáhněte rastr clc_2018 do modelu\nPropojte clc_2018 → Equal To\nDvojklik na Equal To:\n\nInput raster: clc_2018\nInput value: 3 (kód pro lesy)\nOutput: lesy_binarni\n\nOK\n\n\n\n\n\n\n\nNoteCo se stane?\n\n\n\nRastr bude mít hodnotu 1 tam, kde je les (CLC=3), a hodnotu 0 všude jinde.\n\n\n\n\n4.4.6 Krok 5: Zonální statistika\nNástroj: Zonal Statistics as Table\nÚčel: Spočítat průměr z binárního rastru v rámci bufferu.\n\n\n\n\n\n\nTipMatematický trik\n\n\n\nPrůměr z nul a jedniček = podíl jedniček = relativní plocha lesů!\nPokud je průměr 0.35, znamená to, že 35% pixelů má hodnotu 1 (les).\n\n\nPostup:\n\nInsert → Tool → “Zonal Statistics as Table”\nPropojte:\n\nbuffer_500m → Zonal Statistics (jako Input Zone Data)\nlesy_binarni → Zonal Statistics (jako Input Value Raster)\n\nDvojklik na Zonal Statistics:\n\nInput Zone Data: buffer_500m\nZone Field: OBJECTID\nInput Value Raster: lesy_binarni\nOutput Table: vysledek_lesy.dbf\nStatistics Type: MEAN (průměr)\nIgnore NoData: zaškrtnuto\n\nOK\n\n\n\n4.4.7 Uložení a spuštění modelu\n\n1. Uložit2. Ověřit3. Spustit4. Počkat5. Výsledek\n\n\nFile → Save (Ctrl+S)\n\n\nModel → Validate Entire Model\nPokud je vše OK, všechny nástroje budou barevné (ne šedé)\n\n\nKlikněte na ▶️ Run\n\n\nModel běží, sledujte progress\n\n\nOtevřete vysledek_lesy.dbf"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-vysledek",
+    "href": "lessons/lesson_01.html#sec-vysledek",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "4.5 Interpretace výsledku",
+    "text": "4.5 Interpretace výsledku\nV tabulce vysledek_lesy.dbf najdete sloupec MEAN.\nVýznam:\n\nMEAN = 0.354 → 35.4% plochy v pásmu tvoří lesy\nMEAN = 0.205 → 20.5% plochy v pásmu tvoří lesy\n\n\n\n\n\n\n\nNoteProč to funguje?\n\n\n\nPrůměr z binárního rastru (0/1) v dané zóně = podíl pixelů s hodnotou 1 = relativní plocha lesů.\nPro procenta: MEAN × 100\n\n\n\n4.5.1 Manuální dopočítání\nVýslednou hodnotu MEAN musíme ručně vynásobit 100, abychom dostali procenta.\nPostup:\n\nOtevřít tabulku vysledek_lesy.dbf\nNajít hodnotu MEAN (např. 0.354)\nKalkulačka: 0.354 × 100 = 35.4%\nZapsat si výsledek\n\n\n\n\n\n\n\nWarningProblém?\n\n\n\nAno! Musíme počítat ručně. Co kdybychom chtěli analyzovat všech 77 okresů? 77× otevřít tabulku a počítat…\nDiskuze:\n“Dalo by se to automatizovat v Model Builderu?”\n→ Ano, pomocí Calculate Field, ale komplikované.\n→ V Pythonu? Jednoduchý výpočet!\n\n\n# Python řešení\nmean_value = 0.354\nprocento = mean_value * 100\nprint(f\"Podíl lesů: {procento:.1f}%\")"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#proč-exportovat",
+    "href": "lessons/lesson_01.html#proč-exportovat",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "5.1 Proč exportovat?",
+    "text": "5.1 Proč exportovat?\nModel Builder je skvělý pro vizualizaci workflow, ale má limity:\n\nTěžko se kopírují části modelu\nSložité sdílení (musíte sdílet toolbox)\nOmezené možnosti logiky (podmínky, cykly)\n\nPython nám dává:\n\n✅ Textový soubor (snadno sdílitelný, verzovatelný)\n✅ Možnost úprav v textovém editoru\n✅ Přidání vlastní logiky\n✅ Spuštění mimo ArcGIS Pro"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#jak-exportovat",
+    "href": "lessons/lesson_01.html#jak-exportovat",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "5.2 Jak exportovat",
+    "text": "5.2 Jak exportovat\n\nV Model Builderu: Model → Export → To Python Script\nUložit jako: model_export.py\nVybrat lokaci a uložit"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-python-kod",
+    "href": "lessons/lesson_01.html#sec-python-kod",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "5.3 Prohlédnutí Python kódu",
+    "text": "5.3 Prohlédnutí Python kódu\nOtevřete exportovaný soubor v textovém editoru:\n\nNotepad++ (doporučeno - zvýrazňuje syntax)\nVS Code (pokud máte)\nPoznámkový blok (funguje, ale bez barev)\n\n\n5.3.1 Struktura kódu\n\n\nmodel_export.py\n\n# -*- coding: utf-8 -*-\n# ---------------------------------------------------------------------------\n# model_export.py\n# Created on: 2025-01-15\n# Description: Analýza lesů v pásmu kolem dálnic\n# ---------------------------------------------------------------------------\n\n# Import knihovny ArcPy\nimport arcpy\n\n# Lokální proměnné (cesty k datům)\nokresy = \"okresy\"\ndalnice = \"dalnice\"\nclc_2018 = \"clc_2018\"\nokres_jh_layer = \"okres_jh_layer\"\ndalnice_clip = \"C:\\\\Data\\\\dalnice_clip.shp\"\nbuffer_500m = \"C:\\\\Data\\\\buffer_500m.shp\"\nlesy_binarni = \"C:\\\\Data\\\\lesy_binarni.tif\"\nvysledek_lesy = \"C:\\\\Data\\\\vysledek_lesy.dbf\"\n\n# PROCES 1: Make Feature Layer - výběr okresu\narcpy.MakeFeatureLayer_management(\n    in_features=okresy,\n    out_layer=okres_jh_layer,\n    where_clause=\"NAZ_LAU1 = 'Jindřichův Hradec'\"\n)\n\n# PROCES 2: Clip - ořezání dálnic\narcpy.Clip_analysis(\n    in_features=dalnice,\n    clip_features=okres_jh_layer,\n    out_feature_class=dalnice_clip\n)\n\n# PROCES 3: Buffer - ochranné pásmo\narcpy.Buffer_analysis(\n    in_features=dalnice_clip,\n    out_feature_class=buffer_500m,\n    buffer_distance_or_field=\"500 Meters\",\n    dissolve_option=\"ALL\"\n)\n\n# PROCES 4: Equal To - binární rastr lesů\narcpy.gp.EqualTo_sa(\n    in_raster_or_constant1=clc_2018,\n    in_raster_or_constant2=\"3\",\n    out_raster=lesy_binarni\n)\n\n# PROCES 5: Zonal Statistics as Table\narcpy.gp.ZonalStatisticsAsTable_sa(\n    in_zone_data=buffer_500m,\n    zone_field=\"OBJECTID\",\n    in_value_raster=lesy_binarni,\n    out_table=vysledek_lesy,\n    statistics_type=\"MEAN\"\n)\n\nprint(\"Model dokončen!\")"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-rozbor-kodu",
+    "href": "lessons/lesson_01.html#sec-rozbor-kodu",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "5.4 Co vidíme v kódu?",
+    "text": "5.4 Co vidíme v kódu?\n\n5.4.1 1. Import ArcPy\nimport arcpy\n\n\n\n\n\n\nNote\n\n\n\nVýznam: “Chci použít nástroje ArcGIS v Pythonu”\nAnalogie: Jako když v ArcGIS Pro otevřete ArcToolbox - získáte přístup k nástrojům.\n\n\n\n\n5.4.2 2. Proměnné\nokresy = \"okresy\"\nvzdalenost = \"500 Meters\"\n\n\n\n\n\n\nTip\n\n\n\nVýhoda proměnných: Můžeme snadno změnit na jednom místě:\nvzdalenost = \"1000 Meters\"  # Změna parametru!\n\n\n\n\n5.4.3 3. Volání nástroje\narcpy.Buffer_analysis(\n    in_features=dalnice_clip,\n    out_feature_class=buffer_500m,\n    buffer_distance_or_field=\"500 Meters\",\n    dissolve_option=\"ALL\"\n)\nSrovnání s Model Builderem:\n\n\n\nTable 2: Srovnání Model Builder vs. Python\n\n\n\n\n\nModel Builder\nPython\n\n\n\n\nŽlutý obdélník “Buffer”\narcpy.Buffer_analysis()\n\n\nDialog s parametry\nParametry v závorkách\n\n\nPropojení šipkou\nProměnné jako parametry\n\n\nKliknutí na Run\npython script.py\n\n\n\n\n\n\n\n\n\n\n\n\nImportantKlíčové poznání\n\n\n\nJe to STEJNÉ, jen jinak zapsané!"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-prozkoumani",
+    "href": "lessons/lesson_01.html#sec-prozkoumani",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "5.5 Interaktivní prozkoumání",
+    "text": "5.5 Interaktivní prozkoumání\n\n\n\n\n\n\nNoteÚkol 1: Najděte v kódu\n\n\n\n\n\nKde je napsáno “Jindřichův Hradec”?\nwhere_clause=\"NAZ_LAU1 = 'Jindřichův Hradec'\"\n\n\n\n\n\n\n\n\n\nNoteÚkol 2: Najděte v kódu\n\n\n\n\n\nKde je vzdálenost bufferu?\nbuffer_distance_or_field=\"500 Meters\"\n\n\n\n\n\n\n\n\n\nNoteÚkol 3: Najděte v kódu\n\n\n\n\n\nKde se vytváří binární rastr lesů?\narcpy.gp.EqualTo_sa(\n    in_raster_or_constant1=clc_2018,\n    in_raster_or_constant2=\"3\",  # ← tady je kód pro lesy\n    out_raster=lesy_binarni\n)"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-zmeny",
+    "href": "lessons/lesson_01.html#sec-zmeny",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "5.6 Co by se dalo snadno změnit v Pythonu?",
+    "text": "5.6 Co by se dalo snadno změnit v Pythonu?\n\nZměna vzdálenostiJiný okresAutomatický výpočet procent\n\n\n# Místo:\nbuffer_distance_or_field=\"500 Meters\"\n\n# Můžeme:\nvzdalenost = 1000  # metry\nbuffer_distance_or_field=f\"{vzdalenost} Meters\"\n\n\n# Místo:\nwhere_clause=\"NAZ_LAU1 = 'Jindřichův Hradec'\"\n\n# Můžeme:\nokres = \"Praha\"\nwhere_clause=f\"NAZ_LAU1 = '{okres}'\"\n\n\n# Po Zonal Statistics přidat:\nimport arcpy\n\n# Přečíst výsledek\nwith arcpy.da.SearchCursor(vysledek_lesy, [\"MEAN\"]) as cursor:\n    for row in cursor:\n        mean_value = row[0]\n        procento = mean_value * 100\n        print(f\"Podíl lesů: {procento:.1f}%\")\n\n\n\n\n\n\n\n\n\nTipVidíte?\n\n\n\nV Pythonu můžeme snadno:\n\nMěnit parametry\nPřidávat výpočty\nAutomatizovat opakování"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-srovnani-vyhod",
+    "href": "lessons/lesson_01.html#sec-srovnani-vyhod",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "5.7 Výhody Pythonu vs. Model Builder",
+    "text": "5.7 Výhody Pythonu vs. Model Builder\n\n\n\nTable 3: Srovnání Model Builder vs. Python\n\n\n\n\n\nAspekt\nModel Builder\nPython\n\n\n\n\nVizualizace\n✅ Výborná\n❌ Žádná (jen text)\n\n\nRychlé vytvoření\n✅ Drag & drop\n❌ Musíte psát\n\n\nSdílení\n⚠️ Toolbox soubor\n✅ Textový .py soubor\n\n\nVerzování (Git)\n❌ Binární formát\n✅ Textový formát\n\n\nPodmínky (IF)\n⚠️ Omezené\n✅ Plná podpora\n\n\nCykly (FOR)\n⚠️ Jen iterátory\n✅ Plná flexibilita\n\n\nVýpočty\n⚠️ Calculate Field\n✅ Jakékoli operace\n\n\nDebugging\n⚠️ Obtížné\n✅ Snadné\n\n\nRychlost běhu\n⚠️ Pomalejší\n✅ Rychlejší\n\n\n\n\n\n\n\n\n\n\n\n\nImportantZávěr\n\n\n\nModel Builder = skvělý start\nPython = mocný nástroj pro pokročilé úlohy"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#co-kdybychom-chtěli-víc",
+    "href": "lessons/lesson_01.html#co-kdybychom-chtěli-víc",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "6.1 Co kdybychom chtěli víc?",
+    "text": "6.1 Co kdybychom chtěli víc?\nNyní máme řešení pro:\n\n✅ 1 okres (Jindřichův Hradec)\n✅ 1 vzdálenost (500m)\n✅ 1 typ krajinného pokryvu (lesy)\n\nCo když chceme:\n\n🤔 Všechny okresy? (77×)\n🤔 Různé vzdálenosti? (100m, 300m, 500m, 1000m)\n🤔 Všechny typy pokryvu? (lesy, pole, města, voda, …)"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-rucni",
+    "href": "lessons/lesson_01.html#sec-rucni",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "6.2 Možnost A: Spustit model víckrát ručně",
+    "text": "6.2 Možnost A: Spustit model víckrát ručně\nPro různé vzdálenosti:\n\nOtevřít model\nZměnit parametr bufferu na 100m\nSpustit\nZměnit na 300m\nSpustit\n…\n\n⏱️ Čas: 10-15 minut\n😫 Problém: Nudné, opakující se, náchylné k chybám"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-iterator",
+    "href": "lessons/lesson_01.html#sec-iterator",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "6.3 Možnost B: Použít iterátor (příště!)",
+    "text": "6.3 Možnost B: Použít iterátor (příště!)\nV Lekci 2 se naučíme:\n\nflowchart TD\n    A[Tabulka vzdáleností:&lt;br/&gt;100, 300, 500, 1000] --&gt; B[ITERÁTOR]\n    B --&gt; C[Buffer %Distance%]\n    C --&gt; D[Zonal Statistics]\n    D --&gt; E[výsledek_%Distance%.dbf]\n    \n    style B fill:#fd8d3c\n    style E fill:#6baed6\n\n\n\n\nflowchart TD\n    A[Tabulka vzdáleností:&lt;br/&gt;100, 300, 500, 1000] --&gt; B[ITERÁTOR]\n    B --&gt; C[Buffer %Distance%]\n    C --&gt; D[Zonal Statistics]\n    D --&gt; E[výsledek_%Distance%.dbf]\n    \n    style B fill:#fd8d3c\n    style E fill:#6baed6\n\n\n Model s iterátorem \n\n\n\nVýsledek: 4 tabulky (jedna pro každou vzdálenost)\n\n\n\n\n\n\nWarning\n\n\n\nStále problém: Jak spojit 4 tabulky do jedné?"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-python-reseni",
+    "href": "lessons/lesson_01.html#sec-python-reseni",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "6.4 Možnost C: Python (za 2-3 týdny)",
+    "text": "6.4 Možnost C: Python (za 2-3 týdny)\n# Elegantní řešení v Pythonu\nvzdalenosti = [100, 300, 500, 1000]\nvysledky = []\n\nfor vzd in vzdalenosti:\n    # Buffer\n    buffer = vytvor_buffer(vzd)\n    \n    # Analýza\n    procento = vypocitej_lesy(buffer)\n    \n    # Uložit\n    vysledky.append({\n        'Vzdalenost': vzd,\n        'Procento_lesu': procento\n    })\n\n# Jedna tabulka se všemi výsledky!\nuloz_tabulku(vysledky, 'vysledky_vsechny.csv')\n\n\n\n\n\n\nTipVýhoda\n\n\n\n\n✅ Jeden skript\n✅ Jedna výsledná tabulka\n✅ Snadno rozšířit o další parametry\n✅ Rychlé"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-kombinace",
+    "href": "lessons/lesson_01.html#sec-kombinace",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "6.5 A co kombinace parametrů?",
+    "text": "6.5 A co kombinace parametrů?\nScénář: Chceme analyzovat:\n\n2 typy komunikací (dálnice, silnice I. třídy)\n3 vzdálenosti (100m, 500m, 1000m)\n= 6 kombinací\n\n\n6.5.1 V Model Builderu\nPotřebovali bychom vnořené iterátory = 2 modely propojené dohromady → velmi složité!\n\nflowchart TD\n    A[Model 1: Iterátor komunikací] --&gt; B[Dálnice]\n    A --&gt; C[Silnice I.]\n    B --&gt; D[Model 2: Iterátor vzdáleností]\n    C --&gt; E[Model 2: Iterátor vzdáleností]\n    D --&gt; F[3 tabulky]\n    E --&gt; G[3 tabulky]\n    \n    style A fill:#fd8d3c\n    style D fill:#fee391\n    style E fill:#fee391\n\n\n\n\nflowchart TD\n    A[Model 1: Iterátor komunikací] --&gt; B[Dálnice]\n    A --&gt; C[Silnice I.]\n    B --&gt; D[Model 2: Iterátor vzdáleností]\n    C --&gt; E[Model 2: Iterátor vzdáleností]\n    D --&gt; F[3 tabulky]\n    E --&gt; G[3 tabulky]\n    \n    style A fill:#fd8d3c\n    style D fill:#fee391\n    style E fill:#fee391\n\n\n Vnořené modely (složité!) \n\n\n\n\n\n6.5.2 V Pythonu\nkomunikace = ['dalnice', 'silnice1']\nvzdalenosti = [100, 500, 1000]\n\nfor kom in komunikace:\n    for vzd in vzdalenosti:\n        analyzuj(kom, vzd)\n\n\n\n\n\n\nImportant3 řádky!\n\n\n\nVidíte rozdíl?"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-diskuze",
+    "href": "lessons/lesson_01.html#sec-diskuze",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "6.6 Diskuze",
+    "text": "6.6 Diskuze\n\n\n\n\n\n\nNoteOtázky k zamyšlení\n\n\n\n\nKolik času byste strávili vytvořením vnořených modelů v Model Builderu?\nJak byste spojili 6 výsledných tabulek do jedné?\nCo kdyby zadání změnilo: “Teď to chceme pro 5 typů komunikací a 10 vzdáleností” (50 kombinací)?\n\nOdpověď: Proto se učíme Python! 🐍"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#co-jsme-se-dnes-naučili",
+    "href": "lessons/lesson_01.html#co-jsme-se-dnes-naučili",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "7.1 Co jsme se dnes naučili",
+    "text": "7.1 Co jsme se dnes naučili\n\n\n\n\n\n\nTipPřehled lekce\n\n\n\n✅ Proč automatizovat GIS úlohy\n\nÚspora času\nEliminace chyb\nOpakovatelnost\nDokumentace\n\n✅ Model Builder - základy\n\nVizuální programování\nSkládání nástrojů do workflow\nVytvoření funkčního modelu\n\n✅ Praktická úloha\n\nAnalýza krajinného pokryvu v ochranných pásmech\n5 kroků: výběr → clip → buffer → binární rastr → zonální statistika\nInterpretace výsledků\n\n✅ Export do Pythonu\n\nModel = Python kód\nPrvní pohled na Python syntax\nSrovnání Model Builder vs. Python\n\n✅ Limity Model Builderu\n\nSložité operace (vnořené cykly)\nSpojování výsledků\nMotivace pro Python"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-priste",
+    "href": "lessons/lesson_01.html#sec-priste",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "7.2 Co nás čeká příště (Lekce 2)",
+    "text": "7.2 Co nás čeká příště (Lekce 2)\n\nPrvní část - IterátoryDruhá část - Python Tool\n\n\n\nJak automatizovat opakování v Model Builderu\nIterate Field Values - procházení různých vzdáleností\nProblém: mnoho výstupních tabulek\n\n\n\n\nZ modelu vytvoříme nástroj s GUI\nParametry: uživatel si vybere okres, vzdálenost\nNástroj můžete sdílet s kolegy"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-pojmy",
+    "href": "lessons/lesson_01.html#sec-pojmy",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "7.3 Klíčové pojmy",
+    "text": "7.3 Klíčové pojmy\n\n\n\nTable 4: Klíčové pojmy z lekce\n\n\n\n\n\nPojem\nVýznam\n\n\n\n\nAutomatizace\nOpakované spouštění úloh bez lidského zásahu\n\n\nModel Builder\nNástroj pro vizuální tvorbu workflow\n\n\nWorkflow\nPosloupnost kroků vedoucí k výsledku\n\n\nIterator\nMechanismus pro opakování (příště)\n\n\nArcPy\nPython knihovna pro ArcGIS\n\n\nZonální statistika\nVýpočet statistik v definovaných zónách\n\n\nBinární rastr\nRastr s hodnotami 0/1 (ano/ne)"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-ukol",
+    "href": "lessons/lesson_01.html#sec-ukol",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "7.4 Domácí úkol (volitelný)",
+    "text": "7.4 Domácí úkol (volitelný)\nProcvičte si látku pomocí volitelných úkolů níže.\n\n\n\n\n\n\nTipDoporučení\n\n\n\n\nZačněte Úkolem 1 (lehký) - určitě zvládnete!\nPokud vás to baví, zkuste Úkol 2\nÚkol 3 je pro ty, kdo chtějí výzvu 😊"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-ukol1",
+    "href": "lessons/lesson_01.html#sec-ukol1",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "8.1 Úkol 1: Změna parametrů modelu ⭐",
+    "text": "8.1 Úkol 1: Změna parametrů modelu ⭐\n\n\n\n\n\n\nNoteObtížnost: Lehká\n\n\n\nCíl: Naučit se měnit parametry v modelu a vidět, jak to ovlivní výsledky.\n\n\nZadání:\nUpravte svůj model tak, aby analyzoval pásmo 300 metrů (místo 500m) kolem dálnic v okrese Jindřichův Hradec.\nOčekávaný výsledek:\n\nUpravený model s bufferem 300m\nNová výsledná tabulka\nPorovnání: je procento lesů v pásmu 300m vyšší nebo nižší než v 500m? Proč?\n\n\n\n\n\n\n\nTipPostup\n\n\n\n\n\n\nOtevřete svůj model Analyza_Lesu_v_Pasmu\nDvojklik na nástroj Buffer\nZměňte Distance: 500 Meters → 300 Meters\nZměňte název výstupu: buffer_500m → buffer_300m\nZměňte název výsledné tabulky: vysledek_lesy.dbf → vysledek_lesy_300m.dbf\nUložte a spusťte model\nPorovnejte výsledky (MEAN hodnoty)\n\n\n\n\nOtázky k zamyšlení:\n\nJe procento lesů v užším pásmu (300m) jiné než v širším (500m)?\nJak byste to vysvětlili? (Nápověda: rozmístění lesů vs. dálnic)\n\n\n\n\n\n\n\nTipBonus\n\n\n\n\n\nVytvořte tabulku v Excelu s porovnáním:\n\n\n\nVzdálenost\nProcento lesů\n\n\n\n\n300m\nX.X%\n\n\n500m\nY.Y%"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-ukol2",
+    "href": "lessons/lesson_01.html#sec-ukol2",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "8.2 Úkol 2: Jiný okres ⭐⭐",
+    "text": "8.2 Úkol 2: Jiný okres ⭐⭐\n\n\n\n\n\n\nNoteObtížnost: Střední\n\n\n\nCíl: Pochopit, jak změnit atributový dotaz v modelu.\n\n\nZadání:\nUpravte model tak, aby analyzoval okres Praha-východ (místo Jindřichův Hradec).\nOčekávaný výsledek:\n\nModel fungující pro okres Praha-východ\nVýsledná tabulka s procentem lesů\nPorovnání: má Praha-východ více nebo méně lesů v pásmech kolem dálnic než JH?\n\n\n\n\n\n\n\nTipPostup\n\n\n\n\n\n\nNejdřív zjistěte přesný název okresu:\n\nOtevřete atributovou tabulku vrstvy okresy\nNajděte pole NAZ_LAU1\nNajděte řádek s Prahou-východ (může být “Praha-východ” nebo “Praha - východ”)\n\nV modelu: dvojklik na Make Feature Layer\nZměňte Expression:\nNAZ_LAU1 = 'Praha-východ'\n(Pozor na přesný zápis!)\nZměňte názvy výstupů, aby bylo jasné, že jde o jiný okres\nSpusťte model\n\n\n\n\n\n\n\n\n\n\nWarningNápověda\n\n\n\n\n\n\nPokud model hlásí “0 features selected”, zkontrolujte přesný název okresu v datech\nMůže být potřeba použít LIKE místo =:\nNAZ_LAU1 LIKE '%Praha%východ%'\n\n\n\n\n\n\n\n\n\n\nTipBonus\n\n\n\n\n\nVytvořte srovnávací tabulku pro 3-5 různých okresů."
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-ukol3",
+    "href": "lessons/lesson_01.html#sec-ukol3",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "8.3 Úkol 3: Jiný typ krajinného pokryvu ⭐⭐",
+    "text": "8.3 Úkol 3: Jiný typ krajinného pokryvu ⭐⭐\n\n\n\n\n\n\nNoteObtížnost: Střední\n\n\n\nCíl: Naučit se analyzovat různé kategorie dat změnou jednoho parametru.\n\n\nZadání:\nAnalyzujte zastoupení zemědělské půdy (CLC kód 2) místo lesů v pásmu 500m kolem dálnic v okrese JH.\nOčekávaný výsledek:\n\nModel analyzující zemědělskou půdu\nPorovnání: je v pásmu více lesů nebo zemědělské půdy?\n\n\n\n\n\n\n\nTipPostup\n\n\n\n\n\n\nV modelu: dvojklik na nástroj Equal To\nZměňte Input value: 3 → 2\nZměňte názvy výstupů:\n\nlesy_binarni → zempuda_binarni\nvysledek_lesy.dbf → vysledek_zempuda.dbf\n\nSpusťte model\n\n\n\n\n\n\n\n\n\n\nTipRozšíření\n\n\n\n\n\nVytvořte tabulku se všemi typy krajinného pokryvu:\n\n\n\nCLC kód\nTyp\nProcento\n\n\n\n\n1\nUrbanizované plochy\n?\n\n\n2\nZemědělská půda\n?\n\n\n3\nLesy\n?\n\n\n4\nMokřady\n?\n\n\n5\nVodní plochy\n?\n\n\n\n(Musíte spustit model 5× s různými kódy)\n\n\n\n\n\n\n\n\n\nImportantOtázka\n\n\n\nJe tento postup efektivní? Co kdybyste chtěli 10 kategorií? 50?\n→ Proto se naučíme iterátory a Python!"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-ukol4",
+    "href": "lessons/lesson_01.html#sec-ukol4",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "8.4 Úkol 4: Export a zkoumání Python kódu ⭐",
+    "text": "8.4 Úkol 4: Export a zkoumání Python kódu ⭐\n\n\n\n\n\n\nNoteObtížnost: Lehká\n\n\n\nCíl: Seznámit se s Python syntaxí na vašem vlastním modelu.\n\n\nZadání:\nExportujte váš model do Pythonu a prozkoumejte kód.\n\n\n\n\n\n\nTipPostup\n\n\n\n\n\n\nV Model Builderu: Model → Export → To Python Script\nUložte jako muj_model.py\nOtevřete v textovém editoru (Notepad++, VS Code, nebo Poznámkový blok)\n\n\n\n\nÚkoly v kódu:\n\nA) NajděteB) ExperimentujteC) Přemýšlejte\n\n\nNajděte a zvýrazněte:\n\nŘádek s importem arcpy\nŘádek, kde se vytváří buffer 500m\nŘádek s SQL dotazem pro okres\nŘádek s hodnotou pro lesy (3)\n\n\n\nExperimentujte (bez spouštění!):\n\nZkuste změnit \"500 Meters\" na \"1000 Meters\" - na kterém řádku?\nNajděte místo, kde byste změnili okres na jiný\nKolik řádků by bylo potřeba změnit, abyste změnili vzdálenost? A v modelu?\n\n\n\nPřemýšlejte:\n\nJe kód čitelný? Rozumíte alespoň trochu, co dělá?\nKteré části jsou jasné, které ne?\nVidíte výhody textové podoby vs. grafické?\n\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nPoznámka: Kód zatím nespouštějte - to se naučíme příště. Teď jen pozorujte strukturu."
+  },
+  {
+    "objectID": "lessons/lesson_01.html#sec-ukol5",
+    "href": "lessons/lesson_01.html#sec-ukol5",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "8.5 Úkol 5 (BONUS): Vnořené modely - výzva! ⭐⭐⭐",
+    "text": "8.5 Úkol 5 (BONUS): Vnořené modely - výzva! ⭐⭐⭐\n\n\n\n\n\n\nWarningObtížnost: Velmi těžká\n\n\n\nVAROVÁNÍ: Tento úkol je záměrně velmi obtížný! Jeho cílem je ukázat vám, že některé věci jsou v Model Builderu nepraktické. Nebojte se, pokud se vám to nepodaří - právě proto se učíme Python! 😊\n\n\nZadání:\nVytvořte řešení, které analyzuje 2 okresy × 2 vzdálenosti = 4 kombinace:\n\nOkresy: Jindřichův Hradec, Praha-východ\nVzdálenosti: 300m, 500m\n\nOčekávaný výsledek:\n4 tabulky:\n\nvysledek_JH_300.dbf\nvysledek_JH_500.dbf\nvysledek_Praha_300.dbf\nvysledek_Praha_500.dbf\n\n\nPřístup APřístup B\n\n\nPřístup A (jednodušší, ale nudný):\n\nSpusťte model 4× ručně, pokaždé změňte parametry\nZapište časy: Jak dlouho to celkem trvalo?\n\n\n\nPřístup B (složitý - vnořené modely):\n\nVytvořte Model 2 (vnitřní) s iterátorem přes vzdálenosti\nVytvořte Model 1 (vnější) s iterátorem přes okresy, který volá Model 2\nPoznámka: Je to VELMI složité nastavit!\n\n\n\n\n\n\n\n\n\n\nTipPodrobný postup Přístupu B\n\n\n\n\n\nKrok 1: Vytvoř Model 2 (vnitřní - “Detail_Analysis”)\nTento model zpracuje JEDNU komunikaci pro různé vzdálenosti\nParametry modelu:\n\nInput: Komunikace (vrstva linií) [nastavit jako Model Parameter]\nInput: Název komunikace (text) [Model Parameter]\n\nModel:\n\nIterate Field Values přes tabulku vzdáleností (100, 500, 1000)\nBuffer s distance = %Distance%\nIntersect s okresem\nEqual To (lesy)\nZonal Statistics → vysledek_%Název%_%Distance%.dbf\n\nKrok 2: Vytvoř Model 1 (vnější - “Master_Analysis”)\nTento model prochází komunikace a volá Model 2\nModel:\n\nIterate Feature Classes přes komunikace (dalnice, silnice1)\nPro každou komunikaci zavolej Model 2:\n\nNástroj: Detail_Analysis (váš Model 2)\nParameter Komunikace: %Name%\nParameter Název: %Name%\n\n\nKrok 3: Spusť Model 1\n\n\n\n\n\n\n\n\n\nNoteNápověda\n\n\n\n\n\n\nModel se volá jako nástroj přes: Insert → Model → [název modelu]\nAby model šel zavolat z jiného modelu, musí mít definované Model Parameters (pravý klik na proměnnou → Model Parameter)\nMůžeš potřebovat nastavit “Preconditions” (šipka s tečkou)\nPokud to nefunguje, zkus nejdřív každý model otestovat samostatně\n\n\n\n\n\n\n\n\n\n\nTipAlternativní přístup (jednodušší, ale nudnější)\n\n\n\n\n\nPokud vnořené modely nefungují, můžeš Model 2 spustit 2× ručně:\n\nPrvní spuštění: pro dálnice → vytvoří 3 tabulky\nDruhé spuštění: pro silnice I. → vytvoří další 3 tabulky\n\n\n\n\n\n8.5.1 Reflexe (důležitější než řešení!)\nPo dokončení (nebo pokusu) napište:\n\nKolik času vám to zabralo?\nKolikrát jste museli model upravovat?\nKolik chyb jste udělali?\nJak byste se cítili, kdyby zadání bylo 10 okresů × 10 vzdáleností?\n\n\n\n\n\n\n\nImportantUkázka Python řešení\n\n\n\n\n\n# V Pythonu by to vypadalo takto (nemusíte rozumět detailům):\n\nokresy = ['Jindřichův Hradec', 'Praha-východ']\nvzdalenosti = [300, 500]\n\nfor okres in okresy:\n    for vzd in vzdalenosti:\n        # Výběr okresu\n        arcpy.MakeFeatureLayer_management(\n            \"okresy\", \"temp_layer\", \n            f\"NAZ_LAU1 = '{okres}'\"\n        )\n        \n        # Buffer\n        arcpy.Buffer_analysis(\n            \"dalnice_clip\", \"buffer_temp\",\n            f\"{vzd} Meters\"\n        )\n        \n        # Analýza...\n        # Uložit: f\"vysledek_{okres}_{vzd}.dbf\"\n\nprint(\"Hotovo! 4 kombinace zpracovány.\")\nPonaučení: Vidíte, proč se učíme Python? 😊"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#dokumentace",
+    "href": "lessons/lesson_01.html#dokumentace",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "9.1 Dokumentace",
+    "text": "9.1 Dokumentace\n\n\n\n\n\n\nTipArcGIS Pro\n\n\n\n\nModel Builder dokumentace\nGeoprocessing nástroje\n\n\n\n\n\n\n\n\n\nTipArcPy (Python)\n\n\n\n\nArcPy dokumentace\nArcPy Get Started"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#video-tutoriály-volitelné",
+    "href": "lessons/lesson_01.html#video-tutoriály-volitelné",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "9.2 Video tutoriály (volitelné)",
+    "text": "9.2 Video tutoriály (volitelné)\n\nEsri: Introduction to ModelBuilder\nEsri: Automating Workflows with Python"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#corine-land-cover",
+    "href": "lessons/lesson_01.html#corine-land-cover",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "9.3 Corine Land Cover",
+    "text": "9.3 Corine Land Cover\n\nCorine Land Cover - dokumentace\nCLC Nomenclature"
+  },
+  {
+    "objectID": "lessons/lesson_01.html#tipy-na-další-studium",
+    "href": "lessons/lesson_01.html#tipy-na-další-studium",
+    "title": "Lekce 1: Úvod do automatizace GIS pomocí Model Builderu",
+    "section": "9.4 Tipy na další studium",
+    "text": "9.4 Tipy na další studium\n\nProcvičujte: Čím víc modelů vytvoříte, tím lépe pochopíte workflow\nExperimentujte: Zkuste různé nástroje a parametry\nDokumentujte: Pište si poznámky k modelům (Description v properties)\nSdílejte: Diskutujte s kolegy, učte se od ostatních\nPřipravte se na Python: Příští lekce už začneme s kódem!"
+  }
+]
