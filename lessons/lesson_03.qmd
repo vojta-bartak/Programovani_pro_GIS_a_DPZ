@@ -1,0 +1,606 @@
+---
+title: "Lekce 3: Úvod do Pythonu I – První program"
+subtitle: "Python pro GIS - Základy programování"
+author: "Váš kurz"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    theme: cosmo
+---
+
+# Cíle lekce
+
+Po absolvování této lekce budete umět:
+
+- Vysvětlit, co je Python a proč se používá v GIS
+- Spustit první Python program
+- Pracovat se základními datovými typy (čísla, text)
+- Používat proměnné pro ukládání dat
+- Komunikovat s uživatelem pomocí `print()` a `input()`
+- Pracovat se seznamy (vytvoření, indexování, přidávání prvků)
+
+**Časová dotace:** 90 minut
+
+---
+
+# Proč Python?
+
+Jazyk Python vyvinul nizozemský vývojář **Guido van Rossum** koncem 80. let 20. století, první verze spatřila světlo světa v roce **1991**. Motivací přitom bylo vyvinout opravdu jednoduchý, efektivní, ale také zábavný jazyk. Poslední aspekt se odráží i v samotném jméně jazyka (česky "krajta"), které je reminiscencí na známou britskou komickou skupinu **Monty Python**.
+
+## Důvody pro použití Pythonu v GIS
+
+**Za prvé**, programovací jazyk Python je velmi **jednoduchý** a snadno ho zvládne i úplný začátečník bez jakýchkoli zkušeností s programováním.
+
+**Za druhé**, Python je **výkonný a vyspělý** objektově orientovaný jazyk, navržený pro psaní krátkých skriptů, ale snadno použitelný i pro tvorbu rozsáhlých programů.
+
+**Za třetí**, Python je **nezávislý na operačním systému**, tj. pracuje stejně dobře ve Windows jako v Linuxu a v jiných operačních systémech.
+
+**Za čtvrté**, Python je **velmi populární**, díky čemuž k němu existuje rozsáhlá dokumentace, výukové materiály, internetová fóra a především velké množství knihoven (nebo v pythonovské hantýrce „modulů" a "balíčků") pro řešení úloh z nejrůznějších oblastí.
+
+**Za páté**, Python je tzv. **open source program**, což mimo jiné znamená, že je zdarma.
+
+**Za šesté**, existuje velké množství volně přístupných pythonovských modulů pro **práci s prostorovými daty**, od vektorových a rastrových analýz až po tvorbu map a jejich publikaci na internetu.
+
+**Za sedmé**, Python je podporován jako jazyk pro psaní skriptů v programovém prostředí **ArcGIS Pro**. ArcGIS Pro používá Python 3 jako výlučný skriptovací jazyk.
+
+---
+
+# Jak funguje Python?
+
+## Od zdrojového kódu ke spuštění
+
+Python je tzv. **interpretovaný jazyk**. To znamená:
+
+```
+Váš kód (text.py) → Python interpret → Spuštění
+```
+
+Na rozdíl od kompilovaných jazyků (C, C++), kde se kód nejprve přeloží do strojového kódu:
+
+```
+Váš kód (program.c) → Kompilátor → Strojový kód → Spuštění
+```
+
+### Co je to strojový kód?
+
+- **Strojový kód**: Binární instrukce (sekvence 0 a 1) přímo pro procesor
+- **Assembly**: Nejnižší "lidsky čitelná" forma (MOV, ADD, JMP...), pořád velmi blízko hardwaru
+- **Python, C++, Java**: Vysokoúrovňové jazyky - čitelné, srozumitelné
+
+**Výhoda interpretovaného jazyka**: Píšete kód a hned ho spouštíte, bez kompilace.
+
+---
+
+# Kde psát Python kód?
+
+## Možnosti prostředí
+
+### 1. **Python příkazový řádek (interaktivní režim)**
+- Otevřete Command Prompt nebo PowerShell
+- Napište `python` a stiskněte Enter
+- Vhodné pro rychlé testování
+
+### 2. **Textový editor + spuštění z příkazové řádky**
+- Notepad, Notepad++, Sublime Text
+- Uložíte soubor jako `.py`
+- Spustíte: `python soubor.py`
+
+### 3. **Integrované vývojové prostředí (IDE)**
+- **VS Code** (doporučeno) - lehký, mocný, rozšiřitelný
+- **PyCharm** - komplexní IDE pro Python
+- **Spyder** - IDE podobné MATLABu
+
+### 4. **Jupyter Notebook** (interaktivní prostředí)
+- Kombinuje kód, výsledky a text
+- Ideální pro analýzy a výuku
+- Integrovaný v ArcGIS Pro!
+
+::: {.callout-note}
+## Jupyter Notebook v ArcGIS Pro
+ArcGIS Pro má zabudovaný Jupyter Notebook. Otevřete ho přes:
+**Insert → New Notebook**
+
+Výhoda: Můžete rovnou pracovat s ArcPy a vidět výsledky krok za krokem.
+:::
+
+## Virtuální prostředí (stručně)
+
+Python umožňuje vytvářet **izolovaná prostředí** pro různé projekty. ArcGIS Pro má vlastní conda prostředí s nainstalovaným ArcPy a dalšími knihovnami.
+
+- **Conda**: Správce balíčků a prostředí (součást ArcGIS Pro)
+- **Venv**: Standardní nástroj Pythonu pro virtuální prostředí
+
+::: {.callout-tip}
+## Pro tento kurz
+Zatím se nemusíte starat o prostředí. ArcGIS Pro má vše připravené. Pokud budete pracovat s Pythonem mimo ArcGIS, vrátíme se k tomuto tématu později.
+:::
+
+---
+
+# První program: Hello World
+
+## Klasický začátek
+
+Každý programátor začíná programem, který vypíše "Hello World". Pojďme to zkusit!
+
+### Způsob 1: Interaktivní režim
+
+1. Otevřete **Command Prompt**
+2. Napište `python` a stiskněte Enter
+3. Uvidíte něco jako:
+```python
+Python 3.9.11 (...)
+>>> 
+```
+4. Napište:
+```python
+>>> print("Hello World")
+```
+5. Stiskněte Enter
+
+**Výsledek:**
+```
+Hello World
+```
+
+### Způsob 2: Python skript
+
+1. Otevřete textový editor (Notepad, VS Code)
+2. Napište:
+```python
+print("Hello World")
+```
+3. Uložte jako `hello.py`
+4. V příkazové řádce (v adresáři se souborem) spusťte:
+```bash
+python hello.py
+```
+
+::: {.callout-important}
+## Funkce `print()`
+`print()` je základní funkce pro **výpis textu** na obrazovku. Používá se pro:
+
+- Zobrazení výsledků
+- Ladění programu (debugging)
+- Komunikaci s uživatelem
+:::
+
+---
+
+# Proměnné a datové typy
+
+## Co je proměnná?
+
+Proměnná je **pojmenované místo v paměti**, kde ukládáme data.
+
+```python
+jmeno = "Jan"
+vek = 25
+```
+
+- `jmeno` je proměnná, která obsahuje text `"Jan"`
+- `vek` je proměnná, která obsahuje číslo `25`
+
+## Základní datové typy
+
+### 1. **Celá čísla (`int`)**
+
+```python
+vek = 25
+pocet_bodu = 150
+```
+
+### 2. **Desetinná čísla (`float`)**
+
+```python
+prumerna_teplota = 15.7
+nadmorska_vyska = 234.5
+```
+
+### 3. **Text (`string` nebo `str`)**
+
+```python
+jmeno = "Jan Novák"
+mesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky
+```
+
+### 4. **Logické hodnoty (`bool`)**
+
+```python
+je_student = True
+je_zamestnanec = False
+```
+
+::: {.callout-warning}
+## Pozor na velká písmena!
+V Pythonu záleží na velikosti písmen:
+
+- `True` a `False` - správně (s velkým písmenem)
+- `true` a `false` - CHYBA!
+:::
+
+## Pojmenování proměnných
+
+**Pravidla:**
+
+- Začíná písmenem nebo podtržítkem: `jmeno`, `_temp`
+- Může obsahovat písmena, čísla, podtržítka: `vek_2`, `pocet_bodu`
+- **Nesmí** obsahovat mezery: `moje jmeno` ❌
+- **Nesmí** začínat číslem: `2vek` ❌
+- Je case-sensitive: `Jmeno` ≠ `jmeno`
+
+**Konvence (doporučení):**
+
+- Používejte malá písmena s podtržítky: `pocet_obyvatel`
+- Výstižné názvy: `teplota` je lepší než `t`
+
+---
+
+# Práce s čísly
+
+## Základní operace
+
+```python
+# Sčítání
+5 + 3  # 8
+
+# Odčítání
+10 - 4  # 6
+
+# Násobení
+3 * 4  # 12
+
+# Dělení (výsledek je vždy float!)
+10 / 3  # 3.3333...
+
+# Celočíselné dělení
+10 // 3  # 3
+
+# Zbytek po dělení (modulo)
+10 % 3  # 1
+
+# Mocnina
+2 ** 3  # 8 (2 na třetí)
+```
+
+## Příklady s proměnnými
+
+```python
+vyska = 180  # cm
+hmotnost = 75  # kg
+
+# BMI = hmotnost / (vyska v metrech)^2
+vyska_m = vyska / 100
+bmi = hmotnost / (vyska_m ** 2)
+
+print(bmi)  # 23.148...
+```
+
+---
+
+# Práce s textem (stringy)
+
+## Spojování stringů
+
+```python
+jmeno = "Jan"
+prijmeni = "Novák"
+
+# Spojení (concatenation)
+cele_jmeno = jmeno + " " + prijmeni
+print(cele_jmeno)  # Jan Novák
+```
+
+## f-stringy (doporučený způsob!)
+
+**f-stringy** jsou nejmodernější a nejčitelnější způsob práce s textem:
+
+```python
+jmeno = "Jan"
+vek = 25
+
+# Starý způsob (concatenation)
+zprava = "Jmenuji se " + jmeno + " a je mi " + str(vek) + " let."
+
+# f-string (moderní způsob)
+zprava = f"Jmenuji se {jmeno} a je mi {vek} let."
+
+print(zprava)
+# Výsledek: Jmenuji se Jan a je mi 25 let.
+```
+
+::: {.callout-tip}
+## Proč f-stringy?
+- Čitelnější kód
+- Automatická konverze typů
+- Můžete vkládat výrazy: `f"BMI: {hmotnost / (vyska ** 2)}"`
+:::
+
+## Převod mezi typy
+
+```python
+vek = 25
+vek_text = str(vek)  # "25"
+
+cislo_text = "100"
+cislo = int(cislo_text)  # 100
+
+desetinne_cislo_text = "3.14"
+desetinne_cislo = float(desetinne_cislo_text)  # 3.14
+```
+
+---
+
+# Komunikace s uživatelem
+
+## Funkce `input()`
+
+`input()` slouží k **načtení vstupu od uživatele**:
+
+```python
+jmeno = input("Jak se jmenujete? ")
+print(f"Zdravím vás, {jmeno}!")
+```
+
+**Průběh:**
+```
+Jak se jmenujete? Jan
+Zdravím vás, Jan!
+```
+
+::: {.callout-warning}
+## Pozor! `input()` vrací vždy STRING!
+I když uživatel zadá číslo, `input()` vrací text:
+
+```python
+vek = input("Kolik je vám let? ")  # vek je STRING!
+# Musíme převést:
+vek = int(input("Kolik je vám let? "))  # Teď je to INT
+```
+:::
+
+## Praktický příklad
+
+```python
+# Kalkulačka BMI
+jmeno = input("Vaše jméno: ")
+vyska = float(input("Výška v cm: "))
+hmotnost = float(input("Hmotnost v kg: "))
+
+vyska_m = vyska / 100
+bmi = hmotnost / (vyska_m ** 2)
+
+print(f"{jmeno}, vaše BMI je: {bmi:.2f}")
+```
+
+**Příklad běhu:**
+```
+Vaše jméno: Jan
+Výška v cm: 180
+Hmotnost v kg: 75
+Jan, vaše BMI je: 23.15
+```
+
+---
+
+# Seznamy (Lists)
+
+## Co je seznam?
+
+Seznam je **uspořádaná kolekce prvků**. Může obsahovat čísla, text, nebo cokoliv jiného:
+
+```python
+teploty = [15, 18, 22, 19, 16]
+mesta = ["Praha", "Brno", "Ostrava"]
+smiseny = [1, "text", 3.14, True]  # Může být i mix!
+```
+
+## Vytvoření seznamu
+
+```python
+prazdny_seznam = []
+cisla = [1, 2, 3, 4, 5]
+jmena = ["Anna", "Petr", "Jana"]
+```
+
+## Indexování
+
+**DŮLEŽITÉ: Python indexuje od 0!**
+
+```python
+mesta = ["Praha", "Brno", "Ostrava", "Plzeň"]
+
+print(mesta[0])   # Praha (první prvek!)
+print(mesta[1])   # Brno (druhý prvek)
+print(mesta[3])   # Plzeň (čtvrtý prvek)
+print(mesta[-1])  # Plzeň (poslední prvek)
+print(mesta[-2])  # Ostrava (předposlední)
+```
+
+::: {.callout-warning}
+## Pozor na indexování od 0!
+Toto je častá chyba začátečníků:
+
+```python
+cisla = [10, 20, 30, 40, 50]
+print(cisla[1])  # 20, NE 10!
+print(cisla[5])  # CHYBA! Index mimo rozsah
+```
+:::
+
+## Délka seznamu
+
+```python
+mesta = ["Praha", "Brno", "Ostrava"]
+pocet = len(mesta)  # 3
+```
+
+## Přidávání prvků
+
+```python
+cisla = [1, 2, 3]
+cisla.append(4)  # Přidá 4 na konec
+print(cisla)  # [1, 2, 3, 4]
+
+cisla.append(5)
+print(cisla)  # [1, 2, 3, 4, 5]
+```
+
+## Praktický příklad
+
+```python
+# Program pro sběr teplot
+teploty = []
+
+teploty.append(float(input("Teplota v pondělí: ")))
+teploty.append(float(input("Teplota v úterý: ")))
+teploty.append(float(input("Teplota ve středu: ")))
+
+print(f"Naměřené teploty: {teploty}")
+print(f"První den: {teploty[0]}°C")
+print(f"Poslední den: {teploty[-1]}°C")
+```
+
+---
+
+# Praktické cvičení
+
+## Cvičení 1: Kalkulačka vzdálenosti
+
+Napište program, který:
+
+1. Zeptá se uživatele na souřadnice dvou bodů (X1, Y1, X2, Y2)
+2. Vypočítá vzdálenost mezi nimi pomocí Pythagorovy věty: $d = \sqrt{(X_2-X_1)^2 + (Y_2-Y_1)^2}$
+3. Vypíše výsledek
+
+**Nápověda:**
+```python
+# Odmocninu získáte pomocí mocniny 0.5:
+odmocnina = cislo ** 0.5
+```
+
+## Cvičení 2: Průměrná teplota
+
+Napište program, který:
+
+1. Vytvoří prázdný seznam
+2. Zeptá se uživatele na teploty pro 5 dní (použijte `append()`)
+3. Vypočítá průměrnou teplotu: `prumer = sum(seznam) / len(seznam)`
+4. Vypíše výsledek ve formátu: "Průměrná teplota byla: XX.X°C"
+
+## Cvičení 3: Seznam měst
+
+Napište program, který:
+
+1. Vytvoří seznam 3 českých měst
+2. Vypíše první město
+3. Vypíše poslední město
+4. Přidá 2 další města pomocí `append()`
+5. Vypíše celý seznam
+6. Vypíše počet měst v seznamu
+
+---
+
+# Shrnutí
+
+## Co jsme se naučili
+
+✅ Python je interpretovaný jazyk vhodný pro GIS  
+✅ `print()` pro výpis, `input()` pro načtení vstupu  
+✅ Základní datové typy: `int`, `float`, `str`, `bool`  
+✅ Proměnné ukládají data  
+✅ f-stringy pro práci s textem  
+✅ Seznamy (`list`) - indexování od 0!  
+✅ `append()` pro přidávání prvků  
+✅ `len()` pro zjištění délky  
+
+## Co bude příště?
+
+V další lekci se naučíme:
+
+- **Podmínky** (`if`, `elif`, `else`)
+- **Cykly** (`for`, `while`)
+- **Složitější práce se seznamy** (slicing, metody)
+
+---
+
+# Cheatsheet
+
+```python
+# === ZÁKLADY ===
+print("text")              # Výpis
+input("otázka? ")          # Načtení textu
+int(input("číslo? "))      # Načtení čísla
+
+# === DATOVÉ TYPY ===
+int      # celá čísla: 5, -10, 100
+float    # desetinná: 3.14, -0.5
+str      # text: "ahoj", 'svět'
+bool     # logická hodnota: True, False
+
+# === ARITMETIKA ===
++, -, *, /     # základní operace
+//             # celočíselné dělení
+%              # zbytek po dělení
+**             # mocnina
+
+# === STRINGY ===
+"ahoj" + "svět"            # spojení
+f"Věk: {vek}"              # f-string
+str(5)                     # převod na string
+
+# === SEZNAMY ===
+lista = [1, 2, 3]          # vytvoření
+lista[0]                   # první prvek (index 0!)
+lista[-1]                  # poslední prvek
+len(lista)                 # délka
+lista.append(4)            # přidání prvku
+sum(lista)                 # součet prvků
+```
+
+---
+
+# Poznámky pro vyučujícího
+
+## Běžné chyby studentů
+
+```python
+# 1. Zapomínají uvozovky
+jmeno = Jan        # ❌ CHYBA
+jmeno = "Jan"      # ✅ SPRÁVNĚ
+
+# 2. Sčítání čísla + string
+"Věk: " + 25       # ❌ CHYBA
+f"Věk: {25}"       # ✅ SPRÁVNĚ
+
+# 3. Zapomínají int() u inputu
+vek = input()      # vrací string!
+vek = int(input()) # vrací int ✅
+
+# 4. Indexování od 1
+lista[1]           # to je DRUHÝ prvek!
+lista[0]           # to je PRVNÍ prvek! ✅
+```
+
+## Časový plán (90 min)
+
+| Čas | Obsah |
+|-----|-------|
+| 0-10 min | Úvod, motivace, proč Python |
+| 10-25 min | Hello World, první program, prostředí |
+| 25-40 min | Proměnné, datové typy, čísla |
+| 40-55 min | Stringy, f-stringy, input/output |
+| 55-70 min | Seznamy, indexování, append |
+| 70-85 min | Praktická cvičení |
+| 85-90 min | Shrnutí, Q&A |
+
+## Klíčové momenty
+
+- **Indexování od 0** - zdůraznit vícekrát!
+- **Input vrací string** - ukázat chybu a řešení
+- **f-stringy** - naučit hned, je to nejlepší způsob
+- **Seznamy** - základ pro cykly (příští lekce)

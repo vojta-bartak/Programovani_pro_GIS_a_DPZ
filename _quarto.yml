@@ -10,6 +10,10 @@ website:
         menu:
           - text: "Lekce 1: Jednoduchý model"
             href: lessons/lesson_01.qmd
+      - text: "Úvod do Pythonu"
+        menu:
+          - text: "Lekce 3: První program v Pythonu"
+            href: lessons/lesson_03.qmd
 
 format:
   html:
