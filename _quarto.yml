@@ -6,6 +6,8 @@ website:
   title: "Programování pro GIS a DPZ"
   navbar:
     left:
+      - text: "Home"
+        href: index.md
       - text: "Model Builder"
         menu:
           - text: "Lekce 1: Jednoduchý model"
