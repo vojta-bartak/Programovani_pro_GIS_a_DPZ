@@ -615,12 +615,13 @@ f"Věk: {vek}"              # f-string
 str(5)                     # převod na string
 
 # === SEZNAMY ===
-lista = [1, 2, 3]          # vytvoření
-lista[0]                   # první prvek (index 0!)
-lista[-1]                  # poslední prvek
-len(lista)                 # délka
-lista.append(4)            # přidání prvku
-sum(lista)                 # součet prvků
+list_a = [1, 4, 3]          # vytvoření
+list_a[0]                   # první prvek (index 0!)
+list_a[-1]                  # poslední prvek
+list_a[1] = 2               # přepsání (druhého) prvku
+len(list_a)                 # délka
+list_a.append(4)            # přidání prvku
+sum(list_a)                 # součet prvků
 ```
 
 ------------------------------------------------------------------------
