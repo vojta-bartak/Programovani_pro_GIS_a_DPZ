@@ -121,8 +121,6 @@ Pro většinu GIS úloh je rychlost Pythonu více než dostatečná. Co ušetř�
 
 # První program: Hello World
 
-# První program: Hello World
-
 Každý programátor začíná programem, který vypíše "Hello World". Existuje několik způsobů, jak Python kód spustit - od jednoduchého příkazového řádku až po pokročilá vývojová prostředí. Začneme těmi nejjednodušším způsoby.
 
 ::: callout-note

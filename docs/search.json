@@ -542,162 +542,162 @@
     "objectID": "lessons/lesson_03.html#způsob-1-interaktivní-režim",
     "href": "lessons/lesson_03.html#způsob-1-interaktivní-režim",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "4.1 Způsob 1: Interaktivní režim",
-    "text": "4.1 Způsob 1: Interaktivní režim\n\nOtevřete Command Prompt (Windows) nebo Terminal (Mac/Linux)\nNapište python a stiskněte Enter\nUvidíte něco jako:\n\nPython 3.9.11 (...)\n&gt;&gt;&gt; \n\nNapište:\n\n&gt;&gt;&gt; print(\"Hello World\")\n\nStiskněte Enter\n\nVýsledek:\nHello World\n\n\n\n\n\n\nTipInteraktivní režim\n\n\n\nTento režim je skvělý pro rychlé testování kódu. Každý příkaz se provede okamžitě po stisku Enter. Pro ukončení napište exit() nebo stiskněte Ctrl+Z (Windows) / Ctrl+D (Mac/Linux)."
+    "section": "3.1 Způsob 1: Interaktivní režim",
+    "text": "3.1 Způsob 1: Interaktivní režim\n\nOtevřete Command Prompt (Windows) nebo Terminal (Mac/Linux)\nNapište python a stiskněte Enter\nUvidíte něco jako:\n\nPython 3.9.11 (...)\n&gt;&gt;&gt; \n\nNapište:\n\n&gt;&gt;&gt; print(\"Hello World\")\n\nStiskněte Enter\n\nVýsledek:\nHello World\n\n\n\n\n\n\nTipInteraktivní režim\n\n\n\nTento režim je skvělý pro rychlé testování kódu. Každý příkaz se provede okamžitě po stisku Enter. Pro ukončení napište exit() nebo stiskněte Ctrl+Z (Windows) / Ctrl+D (Mac/Linux)."
   },
   {
     "objectID": "lessons/lesson_03.html#způsob-2-python-skript",
     "href": "lessons/lesson_03.html#způsob-2-python-skript",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "4.2 Způsob 2: Python skript",
-    "text": "4.2 Způsob 2: Python skript\n\nOtevřete textový editor (Notepad, VS Code, Notepad++)\nNapište:\n\nprint(\"Hello World\")\n\nUložte jako hello.py (důležité je přípona .py)\nV příkazové řádce (v adresáři se souborem) spusťte:\n\npython hello.py\nVýsledek:\nHello World\n\n\n\n\n\n\nTipPython skripty\n\n\n\nSoubory s příponou .py jsou Python skripty. Výhoda oproti interaktivnímu režimu:\n\nKód můžete uložit a znovu použít\nMůžete psát delší programy\nSnadno se sdílí s kolegy\n\n\n\n\n\n\n\n\n\nNoteJupyter Notebook v ArcGIS Pro\n\n\n\nPozději v kurzu budeme používat Jupyter Notebook, který je integrovaný v ArcGIS Pro. Otevřete ho přes: Insert → New Notebook\nVýhoda: Kombinuje kód, výsledky a text v jednom dokumentu. Ideální pro analýzy a experimenty s ArcPy.\n\n\n\n\n\n\n\n\nTipVirtuální prostředí (pro pokročilé)\n\n\n\nArcGIS Pro má vlastní conda prostředí s nainstalovaným Pythonem a ArcPy. Zatím se o to nemusíte starat - vše je připravené. Pokud budete později pracovat s Pythonem mimo ArcGIS, vrátíme se k tématu virtuálních prostředí.\n\n\n\n\n\n\n\n\nImportantFunkce print()\n\n\n\nprint() je základní funkce pro výpis textu na obrazovku. Používá se pro:\n\nZobrazení výsledků\nLadění programu (debugging)\nKomunikaci s uživatelem"
+    "section": "3.2 Způsob 2: Python skript",
+    "text": "3.2 Způsob 2: Python skript\n\nOtevřete textový editor (Notepad, VS Code, Notepad++)\nNapište:\n\nprint(\"Hello World\")\n\nUložte jako hello.py (důležité je přípona .py)\nV příkazové řádce (v adresáři se souborem) spusťte:\n\npython hello.py\nVýsledek:\nHello World\n\n\n\n\n\n\nTipPython skripty\n\n\n\nSoubory s příponou .py jsou Python skripty. Výhoda oproti interaktivnímu režimu:\n\nKód můžete uložit a znovu použít\nMůžete psát delší programy\nSnadno se sdílí s kolegy\n\n\n\n\n\n\n\n\n\nNoteJupyter Notebook v ArcGIS Pro\n\n\n\nPozději v kurzu budeme používat Jupyter Notebook, který je integrovaný v ArcGIS Pro. Otevřete ho přes: Insert → New Notebook\nVýhoda: Kombinuje kód, výsledky a text v jednom dokumentu. Ideální pro analýzy a experimenty s ArcPy.\n\n\n\n\n\n\n\n\nTipVirtuální prostředí (pro pokročilé)\n\n\n\nArcGIS Pro má vlastní conda prostředí s nainstalovaným Pythonem a ArcPy. Zatím se o to nemusíte starat - vše je připravené. Pokud budete později pracovat s Pythonem mimo ArcGIS, vrátíme se k tématu virtuálních prostředí.\n\n\n\n\n\n\n\n\nImportantFunkce print()\n\n\n\nprint() je základní funkce pro výpis textu na obrazovku. Používá se pro:\n\nZobrazení výsledků\nLadění programu (debugging)\nKomunikaci s uživatelem"
   },
   {
     "objectID": "lessons/lesson_03.html#co-je-proměnná",
     "href": "lessons/lesson_03.html#co-je-proměnná",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "5.1 Co je proměnná?",
-    "text": "5.1 Co je proměnná?\nProměnná je pojmenované místo v paměti, kde ukládáme data.\njmeno = \"Jan\"\nvek = 25\n\njmeno je proměnná, která obsahuje text \"Jan\"\nvek je proměnná, která obsahuje číslo 25"
+    "section": "4.1 Co je proměnná?",
+    "text": "4.1 Co je proměnná?\nProměnná je pojmenované místo v paměti, kde ukládáme data.\njmeno = \"Jan\"\nvek = 25\n\njmeno je proměnná, která obsahuje text \"Jan\"\nvek je proměnná, která obsahuje číslo 25"
   },
   {
     "objectID": "lessons/lesson_03.html#základní-datové-typy",
     "href": "lessons/lesson_03.html#základní-datové-typy",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "5.2 Základní datové typy",
-    "text": "5.2 Základní datové typy\n\n5.2.1 Celá čísla (int)\nvek = 25\npocet_bodu = 150\n\n\n5.2.2 Desetinná čísla (float)\nprumerna_teplota = 15.7\nnadmorska_vyska = 234.5\n\n\n5.2.3 Text (string nebo str)\njmeno = \"Jan Novák\"\nmesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky\n\n\n5.2.4 Logické hodnoty (bool)\nje_student = True\nje_zamestnanec = False\n\n\n\n\n\n\nWarningPozor na velká písmena!\n\n\n\nV Pythonu záleží na velikosti písmen:\n\nTrue a False - správně (s velkým písmenem)\ntrue a false - CHYBA!"
+    "section": "4.2 Základní datové typy",
+    "text": "4.2 Základní datové typy\n\n4.2.1 Celá čísla (int)\nvek = 25\npocet_bodu = 150\n\n\n4.2.2 Desetinná čísla (float)\nprumerna_teplota = 15.7\nnadmorska_vyska = 234.5\n\n\n4.2.3 Text (string nebo str)\njmeno = \"Jan Novák\"\nmesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky\n\n\n4.2.4 Logické hodnoty (bool)\nje_student = True\nje_zamestnanec = False\n\n\n\n\n\n\nWarningPozor na velká písmena!\n\n\n\nV Pythonu záleží na velikosti písmen:\n\nTrue a False - správně (s velkým písmenem)\ntrue a false - CHYBA!"
   },
   {
     "objectID": "lessons/lesson_03.html#pojmenování-proměnných",
     "href": "lessons/lesson_03.html#pojmenování-proměnných",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "5.3 Pojmenování proměnných",
-    "text": "5.3 Pojmenování proměnných\nPravidla:\n\nZačíná písmenem nebo podtržítkem: jmeno, _temp\nMůže obsahovat písmena, čísla, podtržítka: vek_2, pocet_bodu\nNesmí obsahovat mezery: moje jmeno ❌\nNesmí začínat číslem: 2vek ❌\nJe case-sensitive: Jmeno ≠ jmeno\n\nKonvence (doporučení):\n\nPoužívejte malá písmena s podtržítky: pocet_obyvatel\nVýstižné názvy: teplota je lepší než t"
+    "section": "4.3 Pojmenování proměnných",
+    "text": "4.3 Pojmenování proměnných\nPravidla:\n\nZačíná písmenem nebo podtržítkem: jmeno, _temp\nMůže obsahovat písmena, čísla, podtržítka: vek_2, pocet_bodu\nNesmí obsahovat mezery: moje jmeno ❌\nNesmí začínat číslem: 2vek ❌\nJe case-sensitive: Jmeno ≠ jmeno\n\nKonvence (doporučení):\n\nPoužívejte malá písmena s podtržítky: pocet_obyvatel\nVýstižné názvy: teplota je lepší než t"
   },
   {
     "objectID": "lessons/lesson_03.html#základní-operace",
     "href": "lessons/lesson_03.html#základní-operace",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "6.1 Základní operace",
-    "text": "6.1 Základní operace\n# Sčítání\n5 + 3  # 8\n\n# Odčítání\n10 - 4  # 6\n\n# Násobení\n3 * 4  # 12\n\n# Dělení (výsledek je vždy float!)\n10 / 3  # 3.3333...\n\n# Celočíselné dělení\n10 // 3  # 3\n\n# Zbytek po dělení (modulo)\n10 % 3  # 1\n\n# Mocnina\n2 ** 3  # 8 (2 na třetí)"
+    "section": "5.1 Základní operace",
+    "text": "5.1 Základní operace\n# Sčítání\n5 + 3  # 8\n\n# Odčítání\n10 - 4  # 6\n\n# Násobení\n3 * 4  # 12\n\n# Dělení (výsledek je vždy float!)\n10 / 3  # 3.3333...\n\n# Celočíselné dělení\n10 // 3  # 3\n\n# Zbytek po dělení (modulo)\n10 % 3  # 1\n\n# Mocnina\n2 ** 3  # 8 (2 na třetí)"
   },
   {
     "objectID": "lessons/lesson_03.html#příklady-s-proměnnými",
     "href": "lessons/lesson_03.html#příklady-s-proměnnými",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "6.2 Příklady s proměnnými",
-    "text": "6.2 Příklady s proměnnými\nvyska = 180  # cm\nhmotnost = 75  # kg\n\n# BMI = hmotnost / (vyska v metrech)^2\nvyska_m = vyska / 100\nbmi = hmotnost / (vyska_m ** 2)\n\nprint(bmi)  # 23.148..."
+    "section": "5.2 Příklady s proměnnými",
+    "text": "5.2 Příklady s proměnnými\nvyska = 180  # cm\nhmotnost = 75  # kg\n\n# BMI = hmotnost / (vyska v metrech)^2\nvyska_m = vyska / 100\nbmi = hmotnost / (vyska_m ** 2)\n\nprint(bmi)  # 23.148..."
   },
   {
     "objectID": "lessons/lesson_03.html#spojování-stringů",
     "href": "lessons/lesson_03.html#spojování-stringů",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "7.1 Spojování stringů",
-    "text": "7.1 Spojování stringů\njmeno = \"Jan\"\nprijmeni = \"Novák\"\n\n# Spojení (concatenation)\ncele_jmeno = jmeno + \" \" + prijmeni\nprint(cele_jmeno)  # Jan Novák"
+    "section": "6.1 Spojování stringů",
+    "text": "6.1 Spojování stringů\njmeno = \"Jan\"\nprijmeni = \"Novák\"\n\n# Spojení (concatenation)\ncele_jmeno = jmeno + \" \" + prijmeni\nprint(cele_jmeno)  # Jan Novák"
   },
   {
     "objectID": "lessons/lesson_03.html#f-stringy-doporučený-způsob",
     "href": "lessons/lesson_03.html#f-stringy-doporučený-způsob",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "7.2 f-stringy (doporučený způsob!)",
-    "text": "7.2 f-stringy (doporučený způsob!)\nf-stringy jsou nejmodernější a nejčitelnější způsob práce s textem:\njmeno = \"Jan\"\nvek = 25\n\n# Starý způsob (concatenation)\nzprava = \"Jmenuji se \" + jmeno + \" a je mi \" + str(vek) + \" let.\"\n\n# f-string (moderní způsob)\nzprava = f\"Jmenuji se {jmeno} a je mi {vek} let.\"\n\nprint(zprava)\n# Výsledek: Jmenuji se Jan a je mi 25 let.\n\n\n\n\n\n\nTipProč f-stringy?\n\n\n\n\nČitelnější kód\nAutomatická konverze typů\nMůžete vkládat výrazy: f\"BMI: {hmotnost / (vyska ** 2)}\""
+    "section": "6.2 f-stringy (doporučený způsob!)",
+    "text": "6.2 f-stringy (doporučený způsob!)\nf-stringy jsou nejmodernější a nejčitelnější způsob práce s textem:\njmeno = \"Jan\"\nvek = 25\n\n# Starý způsob (concatenation)\nzprava = \"Jmenuji se \" + jmeno + \" a je mi \" + str(vek) + \" let.\"\n\n# f-string (moderní způsob)\nzprava = f\"Jmenuji se {jmeno} a je mi {vek} let.\"\n\nprint(zprava)\n# Výsledek: Jmenuji se Jan a je mi 25 let.\n\n\n\n\n\n\nTipProč f-stringy?\n\n\n\n\nČitelnější kód\nAutomatická konverze typů\nMůžete vkládat výrazy: f\"BMI: {hmotnost / (vyska ** 2)}\""
   },
   {
     "objectID": "lessons/lesson_03.html#převod-mezi-typy",
     "href": "lessons/lesson_03.html#převod-mezi-typy",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "7.3 Převod mezi typy",
-    "text": "7.3 Převod mezi typy\nvek = 25\nvek_text = str(vek)  # \"25\"\n\ncislo_text = \"100\"\ncislo = int(cislo_text)  # 100\n\ndesetinne_cislo_text = \"3.14\"\ndesetinne_cislo = float(desetinne_cislo_text)  # 3.14"
+    "section": "6.3 Převod mezi typy",
+    "text": "6.3 Převod mezi typy\nvek = 25\nvek_text = str(vek)  # \"25\"\n\ncislo_text = \"100\"\ncislo = int(cislo_text)  # 100\n\ndesetinne_cislo_text = \"3.14\"\ndesetinne_cislo = float(desetinne_cislo_text)  # 3.14"
   },
   {
     "objectID": "lessons/lesson_03.html#funkce-input",
     "href": "lessons/lesson_03.html#funkce-input",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "8.1 Funkce input()",
-    "text": "8.1 Funkce input()\ninput() slouží k načtení vstupu od uživatele:\njmeno = input(\"Jak se jmenujete? \")\nprint(f\"Zdravím vás, {jmeno}!\")\nPrůběh:\nJak se jmenujete? Jan\nZdravím vás, Jan!\n\n\n\n\n\n\nWarningPozor! input() vrací vždy STRING!\n\n\n\nI když uživatel zadá číslo, input() vrací text:\nvek = input(\"Kolik je vám let? \")  # vek je STRING!\n# Musíme převést:\nvek = int(input(\"Kolik je vám let? \"))  # Teď je to INT"
+    "section": "7.1 Funkce input()",
+    "text": "7.1 Funkce input()\ninput() slouží k načtení vstupu od uživatele:\njmeno = input(\"Jak se jmenujete? \")\nprint(f\"Zdravím vás, {jmeno}!\")\nPrůběh:\nJak se jmenujete? Jan\nZdravím vás, Jan!\n\n\n\n\n\n\nWarningPozor! input() vrací vždy STRING!\n\n\n\nI když uživatel zadá číslo, input() vrací text:\nvek = input(\"Kolik je vám let? \")  # vek je STRING!\n# Musíme převést:\nvek = int(input(\"Kolik je vám let? \"))  # Teď je to INT"
   },
   {
     "objectID": "lessons/lesson_03.html#praktický-příklad",
     "href": "lessons/lesson_03.html#praktický-příklad",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "8.2 Praktický příklad",
-    "text": "8.2 Praktický příklad\n# Kalkulačka BMI\njmeno = input(\"Vaše jméno: \")\nvyska = float(input(\"Výška v cm: \"))\nhmotnost = float(input(\"Hmotnost v kg: \"))\n\nvyska_m = vyska / 100\nbmi = hmotnost / (vyska_m ** 2)\n\nprint(f\"{jmeno}, vaše BMI je: {bmi:.2f}\")\nPříklad běhu:\nVaše jméno: Jan\nVýška v cm: 180\nHmotnost v kg: 75\nJan, vaše BMI je: 23.15"
+    "section": "7.2 Praktický příklad",
+    "text": "7.2 Praktický příklad\n# Kalkulačka BMI\njmeno = input(\"Vaše jméno: \")\nvyska = float(input(\"Výška v cm: \"))\nhmotnost = float(input(\"Hmotnost v kg: \"))\n\nvyska_m = vyska / 100\nbmi = hmotnost / (vyska_m ** 2)\n\nprint(f\"{jmeno}, vaše BMI je: {bmi:.2f}\")\nPříklad běhu:\nVaše jméno: Jan\nVýška v cm: 180\nHmotnost v kg: 75\nJan, vaše BMI je: 23.15"
   },
   {
     "objectID": "lessons/lesson_03.html#co-je-seznam",
     "href": "lessons/lesson_03.html#co-je-seznam",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "9.1 Co je seznam?",
-    "text": "9.1 Co je seznam?\nSeznam je uspořádaná kolekce prvků. Může obsahovat čísla, text, nebo cokoliv jiného:\nteploty = [15, 18, 22, 19, 16]\nmesta = [\"Praha\", \"Brno\", \"Ostrava\"]\nsmiseny = [1, \"text\", 3.14, True]  # Může být i mix!"
+    "section": "8.1 Co je seznam?",
+    "text": "8.1 Co je seznam?\nSeznam je uspořádaná kolekce prvků. Může obsahovat čísla, text, nebo cokoliv jiného:\nteploty = [15, 18, 22, 19, 16]\nmesta = [\"Praha\", \"Brno\", \"Ostrava\"]\nsmiseny = [1, \"text\", 3.14, True]  # Může být i mix!"
   },
   {
     "objectID": "lessons/lesson_03.html#vytvoření-seznamu",
     "href": "lessons/lesson_03.html#vytvoření-seznamu",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "9.2 Vytvoření seznamu",
-    "text": "9.2 Vytvoření seznamu\nprazdny_seznam = []\ncisla = [1, 2, 3, 4, 5]\njmena = [\"Anna\", \"Petr\", \"Jana\"]"
+    "section": "8.2 Vytvoření seznamu",
+    "text": "8.2 Vytvoření seznamu\nprazdny_seznam = []\ncisla = [1, 2, 3, 4, 5]\njmena = [\"Anna\", \"Petr\", \"Jana\"]"
   },
   {
     "objectID": "lessons/lesson_03.html#indexování",
     "href": "lessons/lesson_03.html#indexování",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "9.3 Indexování",
-    "text": "9.3 Indexování\nDŮLEŽITÉ: Python indexuje od 0!\nmesta = [\"Praha\", \"Brno\", \"Ostrava\", \"Plzeň\"]\n\nprint(mesta[0])   # Praha (první prvek!)\nprint(mesta[1])   # Brno (druhý prvek)\nprint(mesta[3])   # Plzeň (čtvrtý prvek)\nprint(mesta[-1])  # Plzeň (poslední prvek)\nprint(mesta[-2])  # Ostrava (předposlední)\n\n\n\n\n\n\nWarningPozor na indexování od 0!\n\n\n\nToto je častá chyba začátečníků:\ncisla = [10, 20, 30, 40, 50]\nprint(cisla[1])  # 20, NE 10!\nprint(cisla[5])  # CHYBA! Index mimo rozsah"
+    "section": "8.3 Indexování",
+    "text": "8.3 Indexování\nDŮLEŽITÉ: Python indexuje od 0!\nmesta = [\"Praha\", \"Brno\", \"Ostrava\", \"Plzeň\"]\n\nprint(mesta[0])   # Praha (první prvek!)\nprint(mesta[1])   # Brno (druhý prvek)\nprint(mesta[3])   # Plzeň (čtvrtý prvek)\nprint(mesta[-1])  # Plzeň (poslední prvek)\nprint(mesta[-2])  # Ostrava (předposlední)\n\n\n\n\n\n\nWarningPozor na indexování od 0!\n\n\n\nToto je častá chyba začátečníků:\ncisla = [10, 20, 30, 40, 50]\nprint(cisla[1])  # 20, NE 10!\nprint(cisla[5])  # CHYBA! Index mimo rozsah"
   },
   {
     "objectID": "lessons/lesson_03.html#délka-seznamu",
     "href": "lessons/lesson_03.html#délka-seznamu",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "9.4 Délka seznamu",
-    "text": "9.4 Délka seznamu\nmesta = [\"Praha\", \"Brno\", \"Ostrava\"]\npocet = len(mesta)  # 3"
+    "section": "8.4 Délka seznamu",
+    "text": "8.4 Délka seznamu\nmesta = [\"Praha\", \"Brno\", \"Ostrava\"]\npocet = len(mesta)  # 3"
   },
   {
     "objectID": "lessons/lesson_03.html#přidávání-prvků",
     "href": "lessons/lesson_03.html#přidávání-prvků",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "9.5 Přidávání prvků",
-    "text": "9.5 Přidávání prvků\ncisla = [1, 2, 3]\ncisla.append(4)  # Přidá 4 na konec\nprint(cisla)  # [1, 2, 3, 4]\n\ncisla.append(5)\nprint(cisla)  # [1, 2, 3, 4, 5]"
+    "section": "8.5 Přidávání prvků",
+    "text": "8.5 Přidávání prvků\ncisla = [1, 2, 3]\ncisla.append(4)  # Přidá 4 na konec\nprint(cisla)  # [1, 2, 3, 4]\n\ncisla.append(5)\nprint(cisla)  # [1, 2, 3, 4, 5]"
   },
   {
     "objectID": "lessons/lesson_03.html#praktický-příklad-1",
     "href": "lessons/lesson_03.html#praktický-příklad-1",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "9.6 Praktický příklad",
-    "text": "9.6 Praktický příklad\n# Program pro sběr teplot\nteploty = []\n\nteploty.append(float(input(\"Teplota v pondělí: \")))\nteploty.append(float(input(\"Teplota v úterý: \")))\nteploty.append(float(input(\"Teplota ve středu: \")))\n\nprint(f\"Naměřené teploty: {teploty}\")\nprint(f\"První den: {teploty[0]}°C\")\nprint(f\"Poslední den: {teploty[-1]}°C\")"
+    "section": "8.6 Praktický příklad",
+    "text": "8.6 Praktický příklad\n# Program pro sběr teplot\nteploty = []\n\nteploty.append(float(input(\"Teplota v pondělí: \")))\nteploty.append(float(input(\"Teplota v úterý: \")))\nteploty.append(float(input(\"Teplota ve středu: \")))\n\nprint(f\"Naměřené teploty: {teploty}\")\nprint(f\"První den: {teploty[0]}°C\")\nprint(f\"Poslední den: {teploty[-1]}°C\")"
   },
   {
     "objectID": "lessons/lesson_03.html#cvičení-1-kalkulačka-vzdálenosti",
     "href": "lessons/lesson_03.html#cvičení-1-kalkulačka-vzdálenosti",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "10.1 Cvičení 1: Kalkulačka vzdálenosti",
-    "text": "10.1 Cvičení 1: Kalkulačka vzdálenosti\nNapište program, který:\n\nZeptá se uživatele na souřadnice dvou bodů (X1, Y1, X2, Y2)\nVypočítá vzdálenost mezi nimi pomocí Pythagorovy věty: \\(d = \\sqrt{(X_2-X_1)^2 + (Y_2-Y_1)^2}\\)\nVypíše výsledek\n\nNápověda:\n# Odmocninu získáte pomocí mocniny 0.5:\nodmocnina = cislo ** 0.5"
+    "section": "9.1 Cvičení 1: Kalkulačka vzdálenosti",
+    "text": "9.1 Cvičení 1: Kalkulačka vzdálenosti\nNapište program, který:\n\nZeptá se uživatele na souřadnice dvou bodů (X1, Y1, X2, Y2)\nVypočítá vzdálenost mezi nimi pomocí Pythagorovy věty: \\(d = \\sqrt{(X_2-X_1)^2 + (Y_2-Y_1)^2}\\)\nVypíše výsledek\n\nNápověda:\n# Odmocninu získáte pomocí mocniny 0.5:\nodmocnina = cislo ** 0.5"
   },
   {
     "objectID": "lessons/lesson_03.html#cvičení-2-průměrná-teplota",
     "href": "lessons/lesson_03.html#cvičení-2-průměrná-teplota",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "10.2 Cvičení 2: Průměrná teplota",
-    "text": "10.2 Cvičení 2: Průměrná teplota\nNapište program, který:\n\nVytvoří prázdný seznam\nZeptá se uživatele na teploty pro 5 dní (použijte append())\nVypočítá průměrnou teplotu: prumer = sum(seznam) / len(seznam)\nVypíše výsledek ve formátu: “Průměrná teplota byla: XX.X°C”"
+    "section": "9.2 Cvičení 2: Průměrná teplota",
+    "text": "9.2 Cvičení 2: Průměrná teplota\nNapište program, který:\n\nVytvoří prázdný seznam\nZeptá se uživatele na teploty pro 5 dní (použijte append())\nVypočítá průměrnou teplotu: prumer = sum(seznam) / len(seznam)\nVypíše výsledek ve formátu: “Průměrná teplota byla: XX.X°C”"
   },
   {
     "objectID": "lessons/lesson_03.html#cvičení-3-seznam-měst",
     "href": "lessons/lesson_03.html#cvičení-3-seznam-měst",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "10.3 Cvičení 3: Seznam měst",
-    "text": "10.3 Cvičení 3: Seznam měst\nNapište program, který:\n\nVytvoří seznam 3 českých měst\nVypíše první město\nVypíše poslední město\nPřidá 2 další města pomocí append()\nVypíše celý seznam\nVypíše počet měst v seznamu"
+    "section": "9.3 Cvičení 3: Seznam měst",
+    "text": "9.3 Cvičení 3: Seznam měst\nNapište program, který:\n\nVytvoří seznam 3 českých měst\nVypíše první město\nVypíše poslední město\nPřidá 2 další města pomocí append()\nVypíše celý seznam\nVypíše počet měst v seznamu"
   },
   {
     "objectID": "lessons/lesson_03.html#co-jsme-se-naučili",
     "href": "lessons/lesson_03.html#co-jsme-se-naučili",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "11.1 Co jsme se naučili",
-    "text": "11.1 Co jsme se naučili\n✅ Python je interpretovaný jazyk vhodný pro GIS\n✅ print() pro výpis, input() pro načtení vstupu\n✅ Základní datové typy: int, float, str, bool\n✅ Proměnné ukládají data\n✅ f-stringy pro práci s textem\n✅ Seznamy (list) - indexování od 0!\n✅ append() pro přidávání prvků\n✅ len() pro zjištění délky"
+    "section": "10.1 Co jsme se naučili",
+    "text": "10.1 Co jsme se naučili\n✅ Python je interpretovaný jazyk vhodný pro GIS\n✅ print() pro výpis, input() pro načtení vstupu\n✅ Základní datové typy: int, float, str, bool\n✅ Proměnné ukládají data\n✅ f-stringy pro práci s textem\n✅ Seznamy (list) - indexování od 0!\n✅ append() pro přidávání prvků\n✅ len() pro zjištění délky"
   },
   {
     "objectID": "lessons/lesson_03.html#co-bude-příště",
     "href": "lessons/lesson_03.html#co-bude-příště",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "11.2 Co bude příště?",
-    "text": "11.2 Co bude příště?\nV další lekci se naučíme:\n\nPodmínky (if, elif, else)\nCykly (for, while)\nSložitější práce se seznamy (slicing, metody)"
+    "section": "10.2 Co bude příště?",
+    "text": "10.2 Co bude příště?\nV další lekci se naučíme:\n\nPodmínky (if, elif, else)\nCykly (for, while)\nSložitější práce se seznamy (slicing, metody)"
   },
   {
     "objectID": "material/old_materials/04_part2.html",
