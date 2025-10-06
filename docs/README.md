@@ -1,9 +1,0 @@
-# Python-for-ArcGIS-CZU
-
-Zde naleznete materiály k předmětu **Programování pro GIS a DPZ**, vyučovaným na Fakultě životního prostředí ČZU v Praze. Obsahem předmětu jsou pokročilé metody ovládání funkcionality programu ArcGIS: Model Builder, ale především psaní skriptů v programovacím jazyce Python. Nepředpokládá se žádná předchozí znalost programování (i když je jistě výhodou), naopak součástí kurzu je úvod do programování v Pythonu.
-
-
-
-## 
-
-

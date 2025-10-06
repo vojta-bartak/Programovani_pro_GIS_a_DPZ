@@ -7,7 +7,7 @@ website:
   navbar:
     left:
       - text: "Home"
-        href: README.md
+        href: index.qmd
       - text: "Model Builder"
         menu:
           - text: "Lekce 1: Jednoduchý model"
