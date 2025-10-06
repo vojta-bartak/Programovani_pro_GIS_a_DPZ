@@ -511,6 +511,13 @@
     "text": "7.3 Tipy na další studium\n\nProcvičujte: Čím víc modelů vytvoříte, tím lépe pochopíte workflow\nExperimentujte: Zkuste různé nástroje a parametry\nDokumentujte: Pište si poznámky k modelům (Description v properties)\nPřipravte se na iterátory: Přemýšlejte, co by se dalo automatizovat\nSledujte Python kód: I když mu ještě nerozumíte, zvykejte si na syntax"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Python-for-ArcGIS-CZU",
+    "section": "",
+    "text": "Python-for-ArcGIS-CZU\nZde naleznete materiály k předmětu Programování pro GIS a DPZ, vyučovaným na Fakultě životního prostředí ČZU v Praze. Obsahem předmětu jsou pokročilé metody ovládání funkcionality programu ArcGIS: Model Builder, ale především psaní skriptů v programovacím jazyce Python. Nepředpokládá se žádná předchozí znalost programování (i když je jistě výhodou), naopak součástí kurzu je úvod do programování v Pythonu."
+  },
+  {
     "objectID": "lessons/lesson_03.html",
     "href": "lessons/lesson_03.html",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
