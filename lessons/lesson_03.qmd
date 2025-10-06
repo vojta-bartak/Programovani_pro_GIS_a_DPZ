@@ -1,7 +1,7 @@
 ---
 title: "Lekce 3: Úvod do Pythonu I – První program"
 subtitle: "Python pro GIS - Základy programování"
-author: "Váš kurz"
+author: "Vojtěch Barták"
 date: today
 format:
   html:
@@ -27,7 +27,7 @@ Po absolvování této lekce budete umět:
 
 ------------------------------------------------------------------------
 
-# 1. Co je Python?
+# Co je Python?
 
 Jazyk Python vyvinul nizozemský vývojář **Guido van Rossum** koncem 80. let, první verze vyšla v roce **1991**. Název odkazuje na britskou komediální skupinu **Monty Python**.
 
@@ -227,7 +227,7 @@ ArcGIS Pro má vlastní **conda prostředí** s nainstalovaným Pythonem a ArcPy
 
 ------------------------------------------------------------------------
 
-# 3. Proměnné a datové typy
+# Proměnné a datové typy
 
 ## Co je proměnná?
 
@@ -243,28 +243,28 @@ vek = 25
 
 ## Základní datové typy
 
-### 1. **Celá čísla (`int`)**
+### **Celá čísla (`int`)**
 
 ``` python
 vek = 25
 pocet_bodu = 150
 ```
 
-### 2. **Desetinná čísla (`float`)**
+### **Desetinná čísla (`float`)**
 
 ``` python
 prumerna_teplota = 15.7
 nadmorska_vyska = 234.5
 ```
 
-### 3. **Text (`string` nebo `str`)**
+### **Text (`string` nebo `str`)**
 
 ``` python
 jmeno = "Jan Novák"
 mesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky
 ```
 
-### 4. **Logické hodnoty (`bool`)**
+### **Logické hodnoty (`bool`)**
 
 ``` python
 je_student = True
@@ -297,7 +297,7 @@ V Pythonu záleží na velikosti písmen:
 
 ------------------------------------------------------------------------
 
-# 4. Práce s čísly
+# Práce s čísly
 
 ## Základní operace
 
@@ -339,7 +339,7 @@ print(bmi)  # 23.148...
 
 ------------------------------------------------------------------------
 
-# 5. Práce s textem (stringy)
+# Práce s textem (stringy)
 
 ## Spojování stringů
 
@@ -393,7 +393,7 @@ desetinne_cislo = float(desetinne_cislo_text)  # 3.14
 
 ------------------------------------------------------------------------
 
-# 6. Komunikace s uživatelem
+# Komunikace s uživatelem
 
 ## Funkce `input()`
 
@@ -448,7 +448,7 @@ Jan, vaše BMI je: 23.15
 
 ------------------------------------------------------------------------
 
-# 7. Seznamy (Lists)
+# Seznamy (Lists)
 
 ## Co je seznam?
 
@@ -529,7 +529,7 @@ print(f"Poslední den: {teploty[-1]}°C")
 
 ------------------------------------------------------------------------
 
-# 8. Praktické cvičení
+# Praktická cvičení
 
 ## Cvičení 1: Kalkulačka vzdálenosti
 
@@ -568,7 +568,7 @@ Napište program, který:
 
 ------------------------------------------------------------------------
 
-# 9. Shrnutí
+# Shrnutí
 
 ## Co jsme se naučili
 
@@ -591,7 +591,7 @@ V další lekci se naučíme:
 
 ------------------------------------------------------------------------
 
-# 10. Cheatsheet
+# Cheatsheet
 
 ``` python
 # === ZÁKLADY ===
@@ -627,7 +627,8 @@ sum(lista)                 # součet prvků
 
 ------------------------------------------------------------------------
 
-# 11. Poznámky pro vyučujícího
+<!--
+# Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
 
@@ -667,3 +668,4 @@ lista[0]           # to je PRVNÍ prvek! ✅
 -   **Input vrací string** - ukázat chybu a řešení
 -   **f-stringy** - naučit hned, je to nejlepší způsob
 -   **Seznamy** - základ pro cykly (příští lekce)
+-->

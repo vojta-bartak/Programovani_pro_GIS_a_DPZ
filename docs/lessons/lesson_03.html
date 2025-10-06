@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Váš kurz">
+<meta name="author" content="Vojtěch Barták">
 <meta name="dcterms.date" content="2025-10-06">
 
 <title>Lekce 3: Úvod do Pythonu I – První program – Programování pro GIS a DPZ</title>
@@ -200,7 +200,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
-  <li><a href="#co-je-python" id="toc-co-je-python" class="nav-link" data-scroll-target="#co-je-python"><span class="header-section-number">2</span> 1. Co je Python?</a>
+  <li><a href="#co-je-python" id="toc-co-je-python" class="nav-link" data-scroll-target="#co-je-python"><span class="header-section-number">2</span> Co je Python?</a>
   <ul class="collapse">
   <li><a href="#úrovně-programovacích-jazyků" id="toc-úrovně-programovacích-jazyků" class="nav-link" data-scroll-target="#úrovně-programovacích-jazyků"><span class="header-section-number">2.1</span> Úrovně programovacích jazyků</a>
   <ul class="collapse">
@@ -217,35 +217,35 @@ window.Quarto = {
   <li><a href="#způsob-1-interaktivní-režim" id="toc-způsob-1-interaktivní-režim" class="nav-link" data-scroll-target="#způsob-1-interaktivní-režim"><span class="header-section-number">4.1</span> Způsob 1: Interaktivní režim</a></li>
   <li><a href="#způsob-2-python-skript" id="toc-způsob-2-python-skript" class="nav-link" data-scroll-target="#způsob-2-python-skript"><span class="header-section-number">4.2</span> Způsob 2: Python skript</a></li>
   </ul></li>
-  <li><a href="#proměnné-a-datové-typy" id="toc-proměnné-a-datové-typy" class="nav-link" data-scroll-target="#proměnné-a-datové-typy"><span class="header-section-number">5</span> 3. Proměnné a datové typy</a>
+  <li><a href="#proměnné-a-datové-typy" id="toc-proměnné-a-datové-typy" class="nav-link" data-scroll-target="#proměnné-a-datové-typy"><span class="header-section-number">5</span> Proměnné a datové typy</a>
   <ul class="collapse">
   <li><a href="#co-je-proměnná" id="toc-co-je-proměnná" class="nav-link" data-scroll-target="#co-je-proměnná"><span class="header-section-number">5.1</span> Co je proměnná?</a></li>
   <li><a href="#základní-datové-typy" id="toc-základní-datové-typy" class="nav-link" data-scroll-target="#základní-datové-typy"><span class="header-section-number">5.2</span> Základní datové typy</a>
   <ul class="collapse">
-  <li><a href="#celá-čísla-int" id="toc-celá-čísla-int" class="nav-link" data-scroll-target="#celá-čísla-int"><span class="header-section-number">5.2.1</span> 1. <strong>Celá čísla (<code>int</code>)</strong></a></li>
-  <li><a href="#desetinná-čísla-float" id="toc-desetinná-čísla-float" class="nav-link" data-scroll-target="#desetinná-čísla-float"><span class="header-section-number">5.2.2</span> 2. <strong>Desetinná čísla (<code>float</code>)</strong></a></li>
-  <li><a href="#text-string-nebo-str" id="toc-text-string-nebo-str" class="nav-link" data-scroll-target="#text-string-nebo-str"><span class="header-section-number">5.2.3</span> 3. <strong>Text (<code>string</code> nebo <code>str</code>)</strong></a></li>
-  <li><a href="#logické-hodnoty-bool" id="toc-logické-hodnoty-bool" class="nav-link" data-scroll-target="#logické-hodnoty-bool"><span class="header-section-number">5.2.4</span> 4. <strong>Logické hodnoty (<code>bool</code>)</strong></a></li>
+  <li><a href="#celá-čísla-int" id="toc-celá-čísla-int" class="nav-link" data-scroll-target="#celá-čísla-int"><span class="header-section-number">5.2.1</span> <strong>Celá čísla (<code>int</code>)</strong></a></li>
+  <li><a href="#desetinná-čísla-float" id="toc-desetinná-čísla-float" class="nav-link" data-scroll-target="#desetinná-čísla-float"><span class="header-section-number">5.2.2</span> <strong>Desetinná čísla (<code>float</code>)</strong></a></li>
+  <li><a href="#text-string-nebo-str" id="toc-text-string-nebo-str" class="nav-link" data-scroll-target="#text-string-nebo-str"><span class="header-section-number">5.2.3</span> <strong>Text (<code>string</code> nebo <code>str</code>)</strong></a></li>
+  <li><a href="#logické-hodnoty-bool" id="toc-logické-hodnoty-bool" class="nav-link" data-scroll-target="#logické-hodnoty-bool"><span class="header-section-number">5.2.4</span> <strong>Logické hodnoty (<code>bool</code>)</strong></a></li>
   </ul></li>
   <li><a href="#pojmenování-proměnných" id="toc-pojmenování-proměnných" class="nav-link" data-scroll-target="#pojmenování-proměnných"><span class="header-section-number">5.3</span> Pojmenování proměnných</a></li>
   </ul></li>
-  <li><a href="#práce-s-čísly" id="toc-práce-s-čísly" class="nav-link" data-scroll-target="#práce-s-čísly"><span class="header-section-number">6</span> 4. Práce s čísly</a>
+  <li><a href="#práce-s-čísly" id="toc-práce-s-čísly" class="nav-link" data-scroll-target="#práce-s-čísly"><span class="header-section-number">6</span> Práce s čísly</a>
   <ul class="collapse">
   <li><a href="#základní-operace" id="toc-základní-operace" class="nav-link" data-scroll-target="#základní-operace"><span class="header-section-number">6.1</span> Základní operace</a></li>
   <li><a href="#příklady-s-proměnnými" id="toc-příklady-s-proměnnými" class="nav-link" data-scroll-target="#příklady-s-proměnnými"><span class="header-section-number">6.2</span> Příklady s proměnnými</a></li>
   </ul></li>
-  <li><a href="#práce-s-textem-stringy" id="toc-práce-s-textem-stringy" class="nav-link" data-scroll-target="#práce-s-textem-stringy"><span class="header-section-number">7</span> 5. Práce s textem (stringy)</a>
+  <li><a href="#práce-s-textem-stringy" id="toc-práce-s-textem-stringy" class="nav-link" data-scroll-target="#práce-s-textem-stringy"><span class="header-section-number">7</span> Práce s textem (stringy)</a>
   <ul class="collapse">
   <li><a href="#spojování-stringů" id="toc-spojování-stringů" class="nav-link" data-scroll-target="#spojování-stringů"><span class="header-section-number">7.1</span> Spojování stringů</a></li>
   <li><a href="#f-stringy-doporučený-způsob" id="toc-f-stringy-doporučený-způsob" class="nav-link" data-scroll-target="#f-stringy-doporučený-způsob"><span class="header-section-number">7.2</span> f-stringy (doporučený způsob!)</a></li>
   <li><a href="#převod-mezi-typy" id="toc-převod-mezi-typy" class="nav-link" data-scroll-target="#převod-mezi-typy"><span class="header-section-number">7.3</span> Převod mezi typy</a></li>
   </ul></li>
-  <li><a href="#komunikace-s-uživatelem" id="toc-komunikace-s-uživatelem" class="nav-link" data-scroll-target="#komunikace-s-uživatelem"><span class="header-section-number">8</span> 6. Komunikace s uživatelem</a>
+  <li><a href="#komunikace-s-uživatelem" id="toc-komunikace-s-uživatelem" class="nav-link" data-scroll-target="#komunikace-s-uživatelem"><span class="header-section-number">8</span> Komunikace s uživatelem</a>
   <ul class="collapse">
   <li><a href="#funkce-input" id="toc-funkce-input" class="nav-link" data-scroll-target="#funkce-input"><span class="header-section-number">8.1</span> Funkce <code>input()</code></a></li>
   <li><a href="#praktický-příklad" id="toc-praktický-příklad" class="nav-link" data-scroll-target="#praktický-příklad"><span class="header-section-number">8.2</span> Praktický příklad</a></li>
   </ul></li>
-  <li><a href="#seznamy-lists" id="toc-seznamy-lists" class="nav-link" data-scroll-target="#seznamy-lists"><span class="header-section-number">9</span> 7. Seznamy (Lists)</a>
+  <li><a href="#seznamy-lists" id="toc-seznamy-lists" class="nav-link" data-scroll-target="#seznamy-lists"><span class="header-section-number">9</span> Seznamy (Lists)</a>
   <ul class="collapse">
   <li><a href="#co-je-seznam" id="toc-co-je-seznam" class="nav-link" data-scroll-target="#co-je-seznam"><span class="header-section-number">9.1</span> Co je seznam?</a></li>
   <li><a href="#vytvoření-seznamu" id="toc-vytvoření-seznamu" class="nav-link" data-scroll-target="#vytvoření-seznamu"><span class="header-section-number">9.2</span> Vytvoření seznamu</a></li>
@@ -254,24 +254,18 @@ window.Quarto = {
   <li><a href="#přidávání-prvků" id="toc-přidávání-prvků" class="nav-link" data-scroll-target="#přidávání-prvků"><span class="header-section-number">9.5</span> Přidávání prvků</a></li>
   <li><a href="#praktický-příklad-1" id="toc-praktický-příklad-1" class="nav-link" data-scroll-target="#praktický-příklad-1"><span class="header-section-number">9.6</span> Praktický příklad</a></li>
   </ul></li>
-  <li><a href="#praktické-cvičení" id="toc-praktické-cvičení" class="nav-link" data-scroll-target="#praktické-cvičení"><span class="header-section-number">10</span> 8. Praktické cvičení</a>
+  <li><a href="#praktická-cvičení" id="toc-praktická-cvičení" class="nav-link" data-scroll-target="#praktická-cvičení"><span class="header-section-number">10</span> Praktická cvičení</a>
   <ul class="collapse">
   <li><a href="#cvičení-1-kalkulačka-vzdálenosti" id="toc-cvičení-1-kalkulačka-vzdálenosti" class="nav-link" data-scroll-target="#cvičení-1-kalkulačka-vzdálenosti"><span class="header-section-number">10.1</span> Cvičení 1: Kalkulačka vzdálenosti</a></li>
   <li><a href="#cvičení-2-průměrná-teplota" id="toc-cvičení-2-průměrná-teplota" class="nav-link" data-scroll-target="#cvičení-2-průměrná-teplota"><span class="header-section-number">10.2</span> Cvičení 2: Průměrná teplota</a></li>
   <li><a href="#cvičení-3-seznam-měst" id="toc-cvičení-3-seznam-měst" class="nav-link" data-scroll-target="#cvičení-3-seznam-měst"><span class="header-section-number">10.3</span> Cvičení 3: Seznam měst</a></li>
   </ul></li>
-  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">11</span> 9. Shrnutí</a>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">11</span> Shrnutí</a>
   <ul class="collapse">
   <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">11.1</span> Co jsme se naučili</a></li>
   <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">11.2</span> Co bude příště?</a></li>
   </ul></li>
-  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">12</span> 10. Cheatsheet</a></li>
-  <li><a href="#poznámky-pro-vyučujícího" id="toc-poznámky-pro-vyučujícího" class="nav-link" data-scroll-target="#poznámky-pro-vyučujícího"><span class="header-section-number">13</span> 11. Poznámky pro vyučujícího</a>
-  <ul class="collapse">
-  <li><a href="#běžné-chyby-studentů" id="toc-běžné-chyby-studentů" class="nav-link" data-scroll-target="#běžné-chyby-studentů"><span class="header-section-number">13.1</span> Běžné chyby studentů</a></li>
-  <li><a href="#časový-plán-90-min" id="toc-časový-plán-90-min" class="nav-link" data-scroll-target="#časový-plán-90-min"><span class="header-section-number">13.2</span> Časový plán (90 min)</a></li>
-  <li><a href="#klíčové-momenty" id="toc-klíčové-momenty" class="nav-link" data-scroll-target="#klíčové-momenty"><span class="header-section-number">13.3</span> Klíčové momenty</a></li>
-  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">12</span> Cheatsheet</a></li>
   </ul>
 </nav>
     </div>
@@ -291,7 +285,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Váš kurz </p>
+             <p>Vojtěch Barták </p>
           </div>
   </div>
     
@@ -325,7 +319,7 @@ window.Quarto = {
 <hr>
 </section>
 <section id="co-je-python" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 1. Co je Python?</h1>
+<h1 data-number="2"><span class="header-section-number">2</span> Co je Python?</h1>
 <p>Jazyk Python vyvinul nizozemský vývojář <strong>Guido van Rossum</strong> koncem 80. let, první verze vyšla v roce <strong>1991</strong>. Název odkazuje na britskou komediální skupinu <strong>Monty Python</strong>.</p>
 <section id="úrovně-programovacích-jazyků" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="úrovně-programovacích-jazyků"><span class="header-section-number">2.1</span> Úrovně programovacích jazyků</h2>
@@ -537,7 +531,7 @@ Python, Java</code></pre>
 </section>
 </section>
 <section id="proměnné-a-datové-typy" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 3. Proměnné a datové typy</h1>
+<h1 data-number="5"><span class="header-section-number">5</span> Proměnné a datové typy</h1>
 <section id="co-je-proměnná" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="co-je-proměnná"><span class="header-section-number">5.1</span> Co je proměnná?</h2>
 <p>Proměnná je <strong>pojmenované místo v paměti</strong>, kde ukládáme data.</p>
@@ -551,22 +545,22 @@ Python, Java</code></pre>
 <section id="základní-datové-typy" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="základní-datové-typy"><span class="header-section-number">5.2</span> Základní datové typy</h2>
 <section id="celá-čísla-int" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="celá-čísla-int"><span class="header-section-number">5.2.1</span> 1. <strong>Celá čísla (<code>int</code>)</strong></h3>
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="celá-čísla-int"><span class="header-section-number">5.2.1</span> <strong>Celá čísla (<code>int</code>)</strong></h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="dv">25</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pocet_bodu <span class="op">=</span> <span class="dv">150</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="desetinná-čísla-float" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="desetinná-čísla-float"><span class="header-section-number">5.2.2</span> 2. <strong>Desetinná čísla (<code>float</code>)</strong></h3>
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="desetinná-čísla-float"><span class="header-section-number">5.2.2</span> <strong>Desetinná čísla (<code>float</code>)</strong></h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>prumerna_teplota <span class="op">=</span> <span class="fl">15.7</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>nadmorska_vyska <span class="op">=</span> <span class="fl">234.5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="text-string-nebo-str" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="text-string-nebo-str"><span class="header-section-number">5.2.3</span> 3. <strong>Text (<code>string</code> nebo <code>str</code>)</strong></h3>
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="text-string-nebo-str"><span class="header-section-number">5.2.3</span> <strong>Text (<code>string</code> nebo <code>str</code>)</strong></h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="st">"Jan Novák"</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mesto <span class="op">=</span> <span class="st">'Praha'</span>  <span class="co"># Fungují jednoduché i dvojité uvozovky</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="logické-hodnoty-bool" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="logické-hodnoty-bool"><span class="header-section-number">5.2.4</span> 4. <strong>Logické hodnoty (<code>bool</code>)</strong></h3>
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="logické-hodnoty-bool"><span class="header-section-number">5.2.4</span> <strong>Logické hodnoty (<code>bool</code>)</strong></h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>je_student <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>je_zamestnanec <span class="op">=</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -607,7 +601,7 @@ Python, Java</code></pre>
 </section>
 </section>
 <section id="práce-s-čísly" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 4. Práce s čísly</h1>
+<h1 data-number="6"><span class="header-section-number">6</span> Práce s čísly</h1>
 <section id="základní-operace" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="základní-operace"><span class="header-section-number">6.1</span> Základní operace</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sčítání</span></span>
@@ -645,7 +639,7 @@ Python, Java</code></pre>
 </section>
 </section>
 <section id="práce-s-textem-stringy" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 5. Práce s textem (stringy)</h1>
+<h1 data-number="7"><span class="header-section-number">7</span> Práce s textem (stringy)</h1>
 <section id="spojování-stringů" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="spojování-stringů"><span class="header-section-number">7.1</span> Spojování stringů</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="st">"Jan"</span></span>
@@ -701,7 +695,7 @@ Python, Java</code></pre>
 </section>
 </section>
 <section id="komunikace-s-uživatelem" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 6. Komunikace s uživatelem</h1>
+<h1 data-number="8"><span class="header-section-number">8</span> Komunikace s uživatelem</h1>
 <section id="funkce-input" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="funkce-input"><span class="header-section-number">8.1</span> Funkce <code>input()</code></h2>
 <p><code>input()</code> slouží k <strong>načtení vstupu od uživatele</strong>:</p>
@@ -747,7 +741,7 @@ Jan, vaše BMI je: 23.15</code></pre>
 </section>
 </section>
 <section id="seznamy-lists" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 7. Seznamy (Lists)</h1>
+<h1 data-number="9"><span class="header-section-number">9</span> Seznamy (Lists)</h1>
 <section id="co-je-seznam" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="co-je-seznam"><span class="header-section-number">9.1</span> Co je seznam?</h2>
 <p>Seznam je <strong>uspořádaná kolekce prvků</strong>. Může obsahovat čísla, text, nebo cokoliv jiného:</p>
@@ -817,8 +811,8 @@ Jan, vaše BMI je: 23.15</code></pre>
 <hr>
 </section>
 </section>
-<section id="praktické-cvičení" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 8. Praktické cvičení</h1>
+<section id="praktická-cvičení" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Praktická cvičení</h1>
 <section id="cvičení-1-kalkulačka-vzdálenosti" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="cvičení-1-kalkulačka-vzdálenosti"><span class="header-section-number">10.1</span> Cvičení 1: Kalkulačka vzdálenosti</h2>
 <p>Napište program, který:</p>
@@ -856,7 +850,7 @@ Jan, vaše BMI je: 23.15</code></pre>
 </section>
 </section>
 <section id="shrnutí" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 9. Shrnutí</h1>
+<h1 data-number="11"><span class="header-section-number">11</span> Shrnutí</h1>
 <section id="co-jsme-se-naučili" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">11.1</span> Co jsme se naučili</h2>
 <p>✅ Python je interpretovaný jazyk vhodný pro GIS<br>
@@ -880,7 +874,7 @@ Jan, vaše BMI je: 23.15</code></pre>
 </section>
 </section>
 <section id="cheatsheet" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 10. Cheatsheet</h1>
+<h1 data-number="12"><span class="header-section-number">12</span> Cheatsheet</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === ZÁKLADY ===</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"text"</span>)              <span class="co"># Výpis</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span>(<span class="st">"otázka? "</span>)          <span class="co"># Načtení textu</span></span>
@@ -911,79 +905,50 @@ Jan, vaše BMI je: 23.15</code></pre>
 <span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>lista.append(<span class="dv">4</span>)            <span class="co"># přidání prvku</span></span>
 <span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(lista)                 <span class="co"># součet prvků</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-</section>
-<section id="poznámky-pro-vyučujícího" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> 11. Poznámky pro vyučujícího</h1>
-<section id="běžné-chyby-studentů" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="běžné-chyby-studentů"><span class="header-section-number">13.1</span> Běžné chyby studentů</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Zapomínají uvozovky</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> Jan        <span class="co"># ❌ CHYBA</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="st">"Jan"</span>      <span class="co"># ✅ SPRÁVNĚ</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Sčítání čísla + string</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co">"Věk: "</span> <span class="op">+</span> <span class="dv">25</span>       <span class="co"># ❌ CHYBA</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="ss">f"Věk: </span><span class="sc">{</span><span class="dv">25</span><span class="sc">}</span><span class="ss">"</span>       <span class="co"># ✅ SPRÁVNĚ</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Zapomínají int() u inputu</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="bu">input</span>()      <span class="co"># vrací string!</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>()) <span class="co"># vrací int ✅</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Indexování od 1</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>lista[<span class="dv">1</span>]           <span class="co"># to je DRUHÝ prvek!</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>lista[<span class="dv">0</span>]           <span class="co"># to je PRVNÍ prvek! ✅</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="časový-plán-90-min" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="časový-plán-90-min"><span class="header-section-number">13.2</span> Časový plán (90 min)</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Čas</th>
-<th>Obsah</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0-10 min</td>
-<td>Úvod, motivace, proč Python</td>
-</tr>
-<tr class="even">
-<td>10-25 min</td>
-<td>Hello World, první program, prostředí</td>
-</tr>
-<tr class="odd">
-<td>25-40 min</td>
-<td>Proměnné, datové typy, čísla</td>
-</tr>
-<tr class="even">
-<td>40-55 min</td>
-<td>Stringy, f-stringy, input/output</td>
-</tr>
-<tr class="odd">
-<td>55-70 min</td>
-<td>Seznamy, indexování, append</td>
-</tr>
-<tr class="even">
-<td>70-85 min</td>
-<td>Praktická cvičení</td>
-</tr>
-<tr class="odd">
-<td>85-90 min</td>
-<td>Shrnutí, Q&amp;A</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="klíčové-momenty" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="klíčové-momenty"><span class="header-section-number">13.3</span> Klíčové momenty</h2>
-<ul>
-<li><strong>Indexování od 0</strong> - zdůraznit vícekrát!</li>
-<li><strong>Input vrací string</strong> - ukázat chybu a řešení</li>
-<li><strong>f-stringy</strong> - naučit hned, je to nejlepší způsob</li>
-<li><strong>Seznamy</strong> - základ pro cykly (příští lekce)</li>
-</ul>
+<!--
+# Poznámky pro vyučujícího
+
+## Běžné chyby studentů
+
+``` python
+# 1. Zapomínají uvozovky
+jmeno = Jan        # ❌ CHYBA
+jmeno = "Jan"      # ✅ SPRÁVNĚ
+
+# 2. Sčítání čísla + string
+"Věk: " + 25       # ❌ CHYBA
+f"Věk: {25}"       # ✅ SPRÁVNĚ
+
+# 3. Zapomínají int() u inputu
+vek = input()      # vrací string!
+vek = int(input()) # vrací int ✅
+
+# 4. Indexování od 1
+lista[1]           # to je DRUHÝ prvek!
+lista[0]           # to je PRVNÍ prvek! ✅
+```
+
+## Časový plán (90 min)
+
+| Čas       | Obsah                                 |
+|-----------|---------------------------------------|
+| 0-10 min  | Úvod, motivace, proč Python           |
+| 10-25 min | Hello World, první program, prostředí |
+| 25-40 min | Proměnné, datové typy, čísla          |
+| 40-55 min | Stringy, f-stringy, input/output      |
+| 55-70 min | Seznamy, indexování, append           |
+| 70-85 min | Praktická cvičení                     |
+| 85-90 min | Shrnutí, Q&A                          |
+
+## Klíčové momenty
+
+-   **Indexování od 0** - zdůraznit vícekrát!
+-   **Input vrací string** - ukázat chybu a řešení
+-   **f-stringy** - naučit hned, je to nejlepší způsob
+-   **Seznamy** - základ pro cykly (příští lekce)
+-->
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

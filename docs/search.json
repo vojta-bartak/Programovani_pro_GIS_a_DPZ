@@ -564,7 +564,7 @@
     "href": "lessons/lesson_03.html#základní-datové-typy",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
     "section": "5.2 Základní datové typy",
-    "text": "5.2 Základní datové typy\n\n5.2.1 1. Celá čísla (int)\nvek = 25\npocet_bodu = 150\n\n\n5.2.2 2. Desetinná čísla (float)\nprumerna_teplota = 15.7\nnadmorska_vyska = 234.5\n\n\n5.2.3 3. Text (string nebo str)\njmeno = \"Jan Novák\"\nmesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky\n\n\n5.2.4 4. Logické hodnoty (bool)\nje_student = True\nje_zamestnanec = False\n\n\n\n\n\n\nWarningPozor na velká písmena!\n\n\n\nV Pythonu záleží na velikosti písmen:\n\nTrue a False - správně (s velkým písmenem)\ntrue a false - CHYBA!"
+    "text": "5.2 Základní datové typy\n\n5.2.1 Celá čísla (int)\nvek = 25\npocet_bodu = 150\n\n\n5.2.2 Desetinná čísla (float)\nprumerna_teplota = 15.7\nnadmorska_vyska = 234.5\n\n\n5.2.3 Text (string nebo str)\njmeno = \"Jan Novák\"\nmesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky\n\n\n5.2.4 Logické hodnoty (bool)\nje_student = True\nje_zamestnanec = False\n\n\n\n\n\n\nWarningPozor na velká písmena!\n\n\n\nV Pythonu záleží na velikosti písmen:\n\nTrue a False - správně (s velkým písmenem)\ntrue a false - CHYBA!"
   },
   {
     "objectID": "lessons/lesson_03.html#pojmenování-proměnných",
@@ -698,27 +698,6 @@
     "title": "Lekce 3: Úvod do Pythonu I – První program",
     "section": "11.2 Co bude příště?",
     "text": "11.2 Co bude příště?\nV další lekci se naučíme:\n\nPodmínky (if, elif, else)\nCykly (for, while)\nSložitější práce se seznamy (slicing, metody)"
-  },
-  {
-    "objectID": "lessons/lesson_03.html#běžné-chyby-studentů",
-    "href": "lessons/lesson_03.html#běžné-chyby-studentů",
-    "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "13.1 Běžné chyby studentů",
-    "text": "13.1 Běžné chyby studentů\n# 1. Zapomínají uvozovky\njmeno = Jan        # ❌ CHYBA\njmeno = \"Jan\"      # ✅ SPRÁVNĚ\n\n# 2. Sčítání čísla + string\n\"Věk: \" + 25       # ❌ CHYBA\nf\"Věk: {25}\"       # ✅ SPRÁVNĚ\n\n# 3. Zapomínají int() u inputu\nvek = input()      # vrací string!\nvek = int(input()) # vrací int ✅\n\n# 4. Indexování od 1\nlista[1]           # to je DRUHÝ prvek!\nlista[0]           # to je PRVNÍ prvek! ✅"
-  },
-  {
-    "objectID": "lessons/lesson_03.html#časový-plán-90-min",
-    "href": "lessons/lesson_03.html#časový-plán-90-min",
-    "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "13.2 Časový plán (90 min)",
-    "text": "13.2 Časový plán (90 min)\n\n\n\nČas\nObsah\n\n\n\n\n0-10 min\nÚvod, motivace, proč Python\n\n\n10-25 min\nHello World, první program, prostředí\n\n\n25-40 min\nProměnné, datové typy, čísla\n\n\n40-55 min\nStringy, f-stringy, input/output\n\n\n55-70 min\nSeznamy, indexování, append\n\n\n70-85 min\nPraktická cvičení\n\n\n85-90 min\nShrnutí, Q&A"
-  },
-  {
-    "objectID": "lessons/lesson_03.html#klíčové-momenty",
-    "href": "lessons/lesson_03.html#klíčové-momenty",
-    "title": "Lekce 3: Úvod do Pythonu I – První program",
-    "section": "13.3 Klíčové momenty",
-    "text": "13.3 Klíčové momenty\n\nIndexování od 0 - zdůraznit vícekrát!\nInput vrací string - ukázat chybu a řešení\nf-stringy - naučit hned, je to nejlepší způsob\nSeznamy - základ pro cykly (příští lekce)"
   },
   {
     "objectID": "material/old_materials/04_part2.html",
