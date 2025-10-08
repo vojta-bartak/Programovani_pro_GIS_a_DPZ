@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "lessons/*.qmd"
+    - "!material/"
 
 website:
   title: "Programování pro GIS a DPZ"
@@ -8,14 +12,16 @@ website:
     left:
       - text: "Home"
         href: index.qmd
-      - text: "Model Builder"
+      - text: "Ćást 1: Model Builder"
         menu:
           - text: "Lekce 1: Jednoduchý model"
             href: lessons/lesson_01.qmd
-      - text: "Úvod do Pythonu"
+      - text: "Část 2: Úvod do Pythonu"
         menu:
           - text: "Lekce 3: První program v Pythonu"
             href: lessons/lesson_03.qmd
+          - text: "Lekce 4: Cykly a podmínky"
+            href: lessons/lesson_04.qmd
 
 format:
   html:

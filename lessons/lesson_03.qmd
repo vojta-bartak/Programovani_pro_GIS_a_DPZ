@@ -1,7 +1,7 @@
 ---
 title: "Lekce 3: Úvod do Pythonu I – První program"
 subtitle: "Python pro GIS - Základy programování"
-author: "Vojtěch Barták"
+author: "Vojtěch Barták, FŽP ČZU Praha"
 date: today
 format:
   html:
@@ -585,7 +585,7 @@ V další lekci se naučíme:
 
 -   **Podmínky** (`if`, `elif`, `else`)
 -   **Cykly** (`for`, `while`)
--   **Složitější práce se seznamy** (slicing, metody)
+-   **Algoritmizace** (vyřešit úlohu pomocí kódu)
 
 ------------------------------------------------------------------------
 
@@ -626,6 +626,7 @@ sum(list_a)                 # součet prvků
 
 ------------------------------------------------------------------------
 
+````{=html}
 <!--
 # Poznámky pro vyučujícího
 
@@ -668,3 +669,4 @@ lista[0]           # to je PRVNÍ prvek! ✅
 -   **f-stringy** - naučit hned, je to nejlepší způsob
 -   **Seznamy** - základ pro cykly (příští lekce)
 -->
+````
