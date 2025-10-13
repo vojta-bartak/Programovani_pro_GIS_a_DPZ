@@ -1,5 +1,5 @@
 ---
-title: "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál"
+title: "Lekce 4: Podmínky a cykly"
 subtitle: "Python pro GIS - Rozhodování a opakování"
 author: "Vojtěch Barták, FŽP ČZU Praha"
 date: today

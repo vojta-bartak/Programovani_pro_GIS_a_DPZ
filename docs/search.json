@@ -450,210 +450,210 @@
   {
     "objectID": "lessons/lesson_04.html",
     "href": "lessons/lesson_04.html",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "",
     "text": "Po absolvování této lekce budete umět:\n\nPoužívat porovnávací operátory (==, &lt;, &gt;, …)\nPoužívat logické operátory (and, or, not)\nPsát podmíněné příkazy (if, elif, else)\nPoužívat cyklus for s funkcí range()\nPoužívat cyklus while\nImplementovat algoritmus pro výpočet Fibonacciho posloupnosti a faktoriálu\n\nČasová dotace: 90 minut"
   },
   {
     "objectID": "lessons/lesson_04.html#co-už-znáte",
     "href": "lessons/lesson_04.html#co-už-znáte",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "2.1 Co už znáte",
     "text": "2.1 Co už znáte\nZ minulé lekce už znáte datový typ bool (boolean) s hodnotami True a False:\nje_student = True\nje_zamestnanec = False\nDnes se naučíme, jak tyto hodnoty vytvářet porovnáváním a jak je používat pro rozhodování."
   },
   {
     "objectID": "lessons/lesson_04.html#porovnávací-operátory",
     "href": "lessons/lesson_04.html#porovnávací-operátory",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "2.2 Porovnávací operátory",
     "text": "2.2 Porovnávací operátory\nPorovnáním dvou hodnot získáme logickou hodnotu (True nebo False):\nvek = 18\n\nvek &gt;= 18  # True (je větší nebo rovno 18?)\nvek == 21  # False (je přesně 21?)\nvek &lt; 15   # False (je menší než 15?)\n\n2.2.1 Přehled operátorů:\n\n\n\nOperátor\nVýznam\nPříklad\nVýsledek\n\n\n\n\n==\nrovná se\n5 == 5\nTrue\n\n\n!=\nnerovná se\n5 != 3\nTrue\n\n\n&lt;\nmenší než\n3 &lt; 5\nTrue\n\n\n&gt;\nvětší než\n5 &gt; 3\nTrue\n\n\n&lt;=\nmenší nebo rovno\n5 &lt;= 5\nTrue\n\n\n&gt;=\nvětší nebo rovno\n6 &gt;= 5\nTrue\n\n\n\n\n\n\n\n\n\nWarningPozor na == vs. =\n\n\n\n\n= je přiřazení hodnoty: vek = 18\n== je porovnání: vek == 18\n\nToto je častá chyba začátečníků!"
   },
   {
     "objectID": "lessons/lesson_04.html#logické-operátory",
     "href": "lessons/lesson_04.html#logické-operátory",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "2.3 Logické operátory",
     "text": "2.3 Logické operátory\nPomocí logických operátorů můžeme kombinovat více podmínek:\n\n2.3.1 and (a zároveň)\nObě podmínky musí být pravdivé:\nvek = 25\n\nvek &gt;= 18 and vek &lt; 65  # True - je dospělý a není důchodce\n\n\n2.3.2 or (nebo)\nAlespoň jedna podmínka musí být pravdivá:\nteplota = -5\n\nteplota &lt; 0 or teplota &gt; 35  # True - extrémní počasí\n\n\n2.3.3 not (negace)\nObrací pravdivostní hodnotu:\nje_prazdny = False\n\nnot je_prazdny  # True - není prázdný\n\n\n2.3.4 Kombinace operátorů\nvek = 20\nma_ridicak = True\n\n# Může řídit auto?\nvek &gt;= 18 and ma_ridicak  # True\n\n# Je dítě nebo senior?\nvek &lt; 15 or vek &gt;= 65  # False"
   },
   {
     "objectID": "lessons/lesson_04.html#praktické-příklady",
     "href": "lessons/lesson_04.html#praktické-příklady",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "2.4 Praktické příklady",
     "text": "2.4 Praktické příklady\n# Kontrola rozsahu\ncislo = 50\ncislo &gt;= 0 and cislo &lt;= 100  # Je číslo mezi 0 a 100?\n\n# Kontrola sudosti\ncislo % 2 == 0  # Je číslo sudé?\n\n# Kontrola dělitelnosti\ncislo % 3 == 0  # Je číslo dělitelné třemi?"
   },
   {
     "objectID": "lessons/lesson_04.html#základní-if",
     "href": "lessons/lesson_04.html#základní-if",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "3.1 Základní if",
     "text": "3.1 Základní if\nPokud je podmínka pravdivá, provede se odsazený kód:\nvek = int(input(\"Váš věk: \"))\n\nif vek &gt;= 18:\n    print(\"Můžete řídit auto\")\n\n\n\n\n\n\nImportantOdsazování je POVINNÉ!\n\n\n\nPython používá odsazení (4 mezery = 1 tabulátor) k označení bloků kódu. Špatné odsazení způsobí chybu!\nif vek &gt;= 18:\nprint(\"Chyba!\")  # CHYBA - není odsazené!"
   },
   {
     "objectID": "lessons/lesson_04.html#if-else",
     "href": "lessons/lesson_04.html#if-else",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "3.2 if-else",
     "text": "3.2 if-else\nCo když chceme něco provést v případě, že podmínka není splněna?\nvek = int(input(\"Váš věk: \"))\n\nif vek &gt;= 18:\n    print(\"Dospělý\")\nelse:\n    print(\"Dítě\")"
   },
   {
     "objectID": "lessons/lesson_04.html#if-elif-else",
     "href": "lessons/lesson_04.html#if-elif-else",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "3.3 if-elif-else",
     "text": "3.3 if-elif-else\nPro více možností použijeme elif (else if):\nvek = int(input(\"Váš věk: \"))\n\nif vek &lt; 15:\n    print(\"Vstup zdarma\")\nelif vek &lt; 65:\n    print(\"Plné vstupné: 150 Kč\")\nelse:\n    print(\"Seniorské vstupné: 80 Kč\")\nJak to funguje: 1. Zkontroluje první podmínku (vek &lt; 15) 2. Pokud není splněna, zkontroluje další (vek &lt; 65) 3. Pokud žádná není splněna, provede else\n\n\n\n\n\n\nTipMůžete mít více elif\n\n\n\nif znamka == 1:\n    print(\"Výborně\")\nelif znamka == 2:\n    print(\"Chvalitebně\")\nelif znamka == 3:\n    print(\"Dobře\")\nelif znamka == 4:\n    print(\"Dostatečně\")\nelse:\n    print(\"Nedostatečně\")"
   },
   {
     "objectID": "lessons/lesson_04.html#vnořené-podmínky",
     "href": "lessons/lesson_04.html#vnořené-podmínky",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "3.4 Vnořené podmínky",
     "text": "3.4 Vnořené podmínky\nPodmínky můžete vnořovat do sebe:\nvek = int(input(\"Věk: \"))\nma_ridicak = input(\"Máte řidičák? (ano/ne): \") == \"ano\"\n\nif vek &gt;= 18:\n    if ma_ridicak:\n        print(\"Můžete řídit\")\n    else:\n        print(\"Musíte udělat řidičák\")\nelse:\n    print(\"Jste příliš mladí\")\nAle elegantněji pomocí and:\nif vek &gt;= 18 and ma_ridicak:\n    print(\"Můžete řídit\")\nelif vek &gt;= 18:\n    print(\"Musíte udělat řidičák\")\nelse:\n    print(\"Jste příliš mladí\")"
   },
   {
     "objectID": "lessons/lesson_04.html#cvičení-1-kategorizace-čísla",
     "href": "lessons/lesson_04.html#cvičení-1-kategorizace-čísla",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "3.5 Cvičení 1: Kategorizace čísla",
     "text": "3.5 Cvičení 1: Kategorizace čísla\nNapište program, který: 1. Načte číslo od uživatele 2. Rozhodne, zda je: - Kladné, záporné nebo nula - Sudé nebo liché (pokud není nula)\nNápověda:\ncislo = int(input(\"Zadejte číslo: \"))\n\n# Zde přidejte podmínky..."
   },
   {
     "objectID": "lessons/lesson_04.html#procházení-seznamu",
     "href": "lessons/lesson_04.html#procházení-seznamu",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "4.1 Procházení seznamu",
     "text": "4.1 Procházení seznamu\nNejjednodušší použití - projít všechny prvky seznamu:\nmesta = [\"Praha\", \"Brno\", \"Ostrava\"]\n\nfor mesto in mesta:\n    print(f\"Město: {mesto}\")\nVýsledek:\nMěsto: Praha\nMěsto: Brno\nMěsto: Ostrava\nJak to funguje: - Proměnná mesto postupně nabývá hodnot \"Praha\", \"Brno\", \"Ostrava\" - Pro každou hodnotu se provede odsazený kód"
   },
   {
     "objectID": "lessons/lesson_04.html#funkce-range",
     "href": "lessons/lesson_04.html#funkce-range",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "4.2 Funkce range()",
     "text": "4.2 Funkce range()\nPro opakování N-krát použijeme funkci range():\n\n4.2.1 range(n) - od 0 do n-1\nfor i in range(5):\n    print(i)\nVýsledek:\n0\n1\n2\n3\n4\n\n\n\n\n\n\nWarningrange(5) končí na 4, ne na 5!\n\n\n\nPython počítá od 0, takže range(5) znamená: 0, 1, 2, 3, 4\n\n\n\n\n4.2.2 range(start, stop) - od start do stop-1\nfor i in range(2, 6):\n    print(i)\nVýsledek:\n2\n3\n4\n5\n\n\n4.2.3 range(start, stop, step) - s krokem\nfor i in range(0, 10, 2):\n    print(i)\nVýsledek:\n0\n2\n4\n6\n8\n\n\n4.2.4 Další příklady\n# Zpětně (od 10 do 1)\nfor i in range(10, 0, -1):\n    print(i)\n\n# Od 1 do 10 (často potřebujeme)\nfor i in range(1, 11):\n    print(i)"
   },
   {
     "objectID": "lessons/lesson_04.html#akumulace-v-cyklu",
     "href": "lessons/lesson_04.html#akumulace-v-cyklu",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "4.3 Akumulace v cyklu",
     "text": "4.3 Akumulace v cyklu\nČasto potřebujeme v cyklu sbírat výsledky (akumulovat):\n\n4.3.1 Součet čísel\nsoucet = 0  # Inicializace\n\nfor i in range(1, 11):\n    soucet = soucet + i  # Přičtení k součtu\n\nprint(f\"Součet čísel 1-10: {soucet}\")  # 55\nKratší zápis: soucet += i je totéž jako soucet = soucet + i\n\n\n4.3.2 Součin čísel (faktoriál)\nsoucin = 1  # DŮLEŽITÉ: inicializovat na 1, ne 0!\n\nfor i in range(1, 6):\n    soucin = soucin * i  # Vynásobení\n\nprint(f\"5! = {soucin}\")  # 120"
   },
   {
     "objectID": "lessons/lesson_04.html#cvičení-2-druhé-mocniny",
     "href": "lessons/lesson_04.html#cvičení-2-druhé-mocniny",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "4.4 Cvičení 2: Druhé mocniny",
     "text": "4.4 Cvičení 2: Druhé mocniny\nNapište program, který vytvoří seznam druhých mocnin čísel od 1 do 10.\nNápověda:\nmocniny = []  # Prázdný seznam\n\nfor i in range(1, 11):\n    # Přidejte druhou mocninu do seznamu..."
   },
   {
     "objectID": "lessons/lesson_04.html#základní-syntaxe",
     "href": "lessons/lesson_04.html#základní-syntaxe",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "5.1 Základní syntaxe",
     "text": "5.1 Základní syntaxe\npocitadlo = 0\n\nwhile pocitadlo &lt; 5:\n    print(pocitadlo)\n    pocitadlo = pocitadlo + 1\nVýsledek:\n0\n1\n2\n3\n4\n\n\n\n\n\n\nWarningPozor na nekonečný cyklus!\n\n\n\nPokud podmínka nikdy nepřestane platit, cyklus poběží donekonečna:\npocitadlo = 0\nwhile pocitadlo &lt; 5:\n    print(pocitadlo)\n    # CHYBA - zapomněli jsme zvýšit pocitadlo!\nProgram musíte přerušit: Ctrl+C"
   },
   {
     "objectID": "lessons/lesson_04.html#kdy-použít-for-vs.-while",
     "href": "lessons/lesson_04.html#kdy-použít-for-vs.-while",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "5.2 Kdy použít for vs. while?",
     "text": "5.2 Kdy použít for vs. while?\n\n5.2.1 for - když víme předem, kolikrát opakovat\n# Chci 10x opakovat něco\nfor i in range(10):\n    print(\"Opakování\")\n\n# Chci projít seznam\nfor prvek in seznam:\n    print(prvek)\n\n\n5.2.2 while - když opakujeme, dokud platí podmínka\n# Opakuj, dokud uživatel nezadá správně\nheslo = \"\"\nwhile heslo != \"tajne\":\n    heslo = input(\"Zadejte heslo: \")\n\nprint(\"Správně!\")"
   },
   {
     "objectID": "lessons/lesson_04.html#příklad-hádání-čísla",
     "href": "lessons/lesson_04.html#příklad-hádání-čísla",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "5.3 Příklad: Hádání čísla",
     "text": "5.3 Příklad: Hádání čísla\ntajne_cislo = 42\ntip = 0\n\nwhile tip != tajne_cislo:\n    tip = int(input(\"Hádej číslo: \"))\n    \n    if tip &lt; tajne_cislo:\n        print(\"Větší!\")\n    elif tip &gt; tajne_cislo:\n        print(\"Menší!\")\n\nprint(\"Správně!\")"
   },
   {
     "objectID": "lessons/lesson_04.html#break-a-continue",
     "href": "lessons/lesson_04.html#break-a-continue",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "5.4 break a continue",
     "text": "5.4 break a continue\n\n5.4.1 break - okamžité ukončení cyklu\nfor i in range(100):\n    if i == 5:\n        break  # Ukončí cyklus\n    print(i)\n\n# Vypíše: 0, 1, 2, 3, 4\n\n\n5.4.2 continue - přeskočení zbytku iterace\nfor i in range(10):\n    if i % 2 == 0:\n        continue  # Přeskoč sudá čísla\n    print(i)\n\n# Vypíše: 1, 3, 5, 7, 9"
   },
   {
     "objectID": "lessons/lesson_04.html#co-je-fibonacciho-posloupnost",
     "href": "lessons/lesson_04.html#co-je-fibonacciho-posloupnost",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "6.1 Co je Fibonacciho posloupnost?",
     "text": "6.1 Co je Fibonacciho posloupnost?\nFibonacciho posloupnost je sekvence čísel, kde každé číslo je součtem dvou předchozích:\nF(0) = 0\nF(1) = 1\nF(n) = F(n-1) + F(n-2)\n\nPosloupnost: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, ...\nPříklady: - F(2) = F(1) + F(0) = 1 + 0 = 1 - F(3) = F(2) + F(1) = 1 + 1 = 2 - F(4) = F(3) + F(2) = 2 + 1 = 3 - F(5) = F(4) + F(3) = 3 + 2 = 5"
   },
   {
     "objectID": "lessons/lesson_04.html#implementace-krok-za-krokem",
     "href": "lessons/lesson_04.html#implementace-krok-za-krokem",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "6.2 Implementace krok za krokem",
     "text": "6.2 Implementace krok za krokem\n\n6.2.1 Krok 1: Načtení vstupu\nn = int(input(\"Který člen Fibonacciho posloupnosti? \"))\n\n\n6.2.2 Krok 2: Inicializace\nPotřebujeme dvě proměnné pro dva předchozí členy:\na = 0  # F(0)\nb = 1  # F(1)\n\n\n6.2.3 Krok 3: Cyklus\nV každém kroku posuneme hodnoty:\nfor i in range(n):\n    a, b = b, a + b\nCo se děje: - a, b = b, a + b je současné přiřazení - Nejprve se vypočítá pravá strana: nové_a = b, nové_b = a + b - Pak se přiřadí: a = nové_a, b = nové_b\nPříklad pro n=5:\nKrok 0: a=0, b=1  →  a=1, b=0+1=1\nKrok 1: a=1, b=1  →  a=1, b=1+1=2\nKrok 2: a=1, b=2  →  a=2, b=1+2=3\nKrok 3: a=2, b=3  →  a=3, b=2+3=5\nKrok 4: a=3, b=5  →  a=5, b=3+5=8\n\n\n6.2.4 Krok 4: Výpis výsledku\nprint(f\"{n}. člen Fibonacciho posloupnosti: {a}\")"
   },
   {
     "objectID": "lessons/lesson_04.html#celý-program",
     "href": "lessons/lesson_04.html#celý-program",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "6.3 Celý program",
     "text": "6.3 Celý program\nn = int(input(\"Který člen Fibonacciho posloupnosti? \"))\n\na, b = 0, 1\n\nfor i in range(n):\n    a, b = b, a + b\n\nprint(f\"{n}. člen: {a}\")"
   },
   {
     "objectID": "lessons/lesson_04.html#test-programu",
     "href": "lessons/lesson_04.html#test-programu",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "6.4 Test programu",
     "text": "6.4 Test programu\nKterý člen Fibonacciho posloupnosti? 10\n10. člen: 55\n\n\n\n\n\n\nTipProč to funguje?\n\n\n\nKouzlo je v a, b = b, a + b. Python nejprve vyhodnotí celou pravou stranu, pak přiřadí:\n# Špatně (nefunguje):\na = b\nb = a + b  # Tady už je a změněné!\n\n# Správně (funguje):\na, b = b, a + b  # Python přiřadí obě hodnoty najednou"
   },
   {
     "objectID": "lessons/lesson_04.html#zadání",
     "href": "lessons/lesson_04.html#zadání",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "7.1 Zadání",
     "text": "7.1 Zadání\nFaktoriál čísla n (označuje se n!) je součin všech přirozených čísel od 1 do n:\nn! = n × (n-1) × (n-2) × ... × 2 × 1\n\nPříklady:\n0! = 1  (definice)\n1! = 1\n2! = 2 × 1 = 2\n3! = 3 × 2 × 1 = 6\n4! = 4 × 3 × 2 × 1 = 24\n5! = 5 × 4 × 3 × 2 × 1 = 120"
   },
   {
     "objectID": "lessons/lesson_04.html#úkol",
     "href": "lessons/lesson_04.html#úkol",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "7.2 Úkol",
     "text": "7.2 Úkol\nNapište program, který: 1. Načte číslo n od uživatele 2. Vypočítá faktoriál tohoto čísla 3. Vypíše výsledek\nNápověda: - Použijte cyklus for s range() - Začněte s vysledek = 1 (DŮLEŽITÉ - ne 0!) - V každém kroku násobte - Rozmyslete si správný rozsah pro range()\nKostra programu:\nn = int(input(\"Zadejte číslo: \"))\n\nvysledek = 1  # Inicializace\n\n# Zde přidejte cyklus...\n\nprint(f\"{n}! = {vysledek}\")"
   },
   {
     "objectID": "lessons/lesson_04.html#řešení",
     "href": "lessons/lesson_04.html#řešení",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "7.3 Řešení",
     "text": "7.3 Řešení"
   },
   {
     "objectID": "lessons/lesson_04.html#co-jsme-se-naučili",
     "href": "lessons/lesson_04.html#co-jsme-se-naučili",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "8.1 Co jsme se naučili",
     "text": "8.1 Co jsme se naučili\n✅ Porovnávací operátory: ==, !=, &lt;, &gt;, &lt;=, &gt;=\n✅ Logické operátory: and, or, not\n✅ Podmínky: if, elif, else\n✅ For cyklus: procházení seznamů, funkce range()\n✅ While cyklus: opakování dokud platí podmínka\n✅ break a continue: ovládání cyklů\n✅ Fibonacci: iterativní algoritmus s akumulací\n✅ Faktoriál: součin čísel pomocí cyklu"
   },
   {
     "objectID": "lessons/lesson_04.html#co-bude-příště",
     "href": "lessons/lesson_04.html#co-bude-příště",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "8.2 Co bude příště?",
     "text": "8.2 Co bude příště?\nV příští lekci:\n\nRozšíření práce se seznamy (slicing, metody)\nPrvočísla - složitější podmínky v cyklech\nTřídění - vnořené cykly a algoritmické myšlení\nPropojení s Model Builder - vnořené modely vs. vnořené cykly"
   },
   {
     "objectID": "lessons/lesson_04.html#varianta-a-základní",
     "href": "lessons/lesson_04.html#varianta-a-základní",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "9.1 Varianta A (základní)",
     "text": "9.1 Varianta A (základní)\n\nDokončete faktoriál (pokud jste ho nestihli)\nTabulka faktoriálů: Vypište faktoriály čísel 1-10 ve formátu:\n1! = 1\n2! = 2\n3! = 6\n...\n10! = 3628800"
   },
   {
     "objectID": "lessons/lesson_04.html#varianta-b-pokročilá",
     "href": "lessons/lesson_04.html#varianta-b-pokročilá",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "9.2 Varianta B (pokročilá)",
     "text": "9.2 Varianta B (pokročilá)\n\nFibonacci pro seznam: Vypočítejte Fibonacci čísla pro seznam [5, 10, 15, 20]\nNejvětší Fibonacci pod 1000: Najděte největší Fibonacci číslo menší než 1000\n\nNápověda pro B2:\na, b = 0, 1\n\nwhile b &lt; 1000:\n    # Co dál?"
   },
   {
     "objectID": "lessons/lesson_04.html#bonusový-úkol-nepovinný",
     "href": "lessons/lesson_04.html#bonusový-úkol-nepovinný",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
+    "title": "Lekce 4: Podmínky a cykly",
     "section": "9.3 Bonusový úkol (nepovinný)",
     "text": "9.3 Bonusový úkol (nepovinný)\nPalindrom: Napište program, který zjistí, zda je číslo palindrom (čte se stejně zepředu i zezadu).\nPříklady: 121, 1331, 12321\nNápověda: Převeďte číslo na string a porovnejte ho s obráceným stringem."
   },
@@ -870,9 +870,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Python-for-ArcGIS-CZU",
+    "title": "Programování pro GIS a DPZ",
     "section": "",
-    "text": "Python-for-ArcGIS-CZU\nZde naleznete materiály k předmětu Programování pro GIS a DPZ, vyučovaným na Fakultě životního prostředí ČZU v Praze. Obsahem předmětu jsou pokročilé metody ovládání funkcionality programu ArcGIS: Model Builder, ale především psaní skriptů v programovacím jazyce Python. Nepředpokládá se žádná předchozí znalost programování (i když je jistě výhodou), naopak součástí kurzu je úvod do programování v Pythonu."
+    "text": "Programování pro GIS a DPZ\nZde naleznete materiály k předmětu Programování pro GIS a DPZ, vyučovaným na Fakultě životního prostředí ČZU v Praze. Obsahem předmětu jsou pokročilé metody ovládání funkcionality programu ArcGIS: Model Builder, ale především psaní skriptů v programovacím jazyce Python. Nepředpokládá se žádná předchozí znalost programování (i když je jistě výhodou), naopak součástí kurzu je úvod do programování v Pythonu."
   },
   {
     "objectID": "lessons/lesson_03.html",
@@ -1066,147 +1066,147 @@
   {
     "objectID": "lessons/lesson_05.html",
     "href": "lessons/lesson_05.html",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "",
     "text": "Po absolvování této lekce budete umět:\n\nPracovat s řezy seznamů (slicing)\nPoužívat pokročilé metody seznamů\nImplementovat algoritmus pro hledání prvočísel\nNavrhnout a implementovat třídící algoritmus\nPracovat s vnořenými cykly\nPropojit vnořené cykly s vnořenými modely z Model Builderu\n\nČasová dotace: 90 minut"
   },
   {
     "objectID": "lessons/lesson_05.html#rychlá-rekapitulace-z-minula",
     "href": "lessons/lesson_05.html#rychlá-rekapitulace-z-minula",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "2.1 Rychlá rekapitulace z minula",
     "text": "2.1 Rychlá rekapitulace z minula\n# Co už umíme ze seznamů:\ncisla = [1, 2, 3, 4, 5]\n\ncisla[0]           # 1 - první prvek (index 0!)\ncisla[-1]          # 5 - poslední prvek\nlen(cisla)         # 5 - délka seznamu\ncisla.append(6)    # Přidání prvku na konec"
   },
   {
     "objectID": "lessons/lesson_05.html#slicing-řezy---nová-technika",
     "href": "lessons/lesson_05.html#slicing-řezy---nová-technika",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "2.2 Slicing (řezy) - nová technika",
     "text": "2.2 Slicing (řezy) - nová technika\nSlicing umožňuje vybrat část seznamu:\n\n2.2.1 Základní syntaxe: seznam[start:stop]\ncisla = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n\ncisla[2:5]     # [2, 3, 4] - od indexu 2 do 5 (bez 5!)\ncisla[:3]      # [0, 1, 2] - od začátku do indexu 3\ncisla[7:]      # [7, 8, 9] - od indexu 7 do konce\ncisla[-3:]     # [7, 8, 9] - poslední 3 prvky\n\n\n\n\n\n\nTipZapamatujte si\n\n\n\n\nstart je včetně (from)\nstop je bez (to, but not including)\ncisla[2:5] znamená: “od indexu 2 až po (ale bez) index 5”\n\n\n\n\n\n2.2.2 Slicing s krokem: seznam[start:stop:step]\ncisla = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n\ncisla[::2]     # [0, 2, 4, 6, 8] - každý druhý\ncisla[1::2]    # [1, 3, 5, 7, 9] - každý druhý, ale od indexu 1\ncisla[::3]     # [0, 3, 6, 9] - každý třetí\ncisla[::-1]    # [9, 8, 7, ..., 0] - OTOČENÍ seznamu!\n\n\n2.2.3 Praktické příklady\ntext = \"Python\"\ntext[::-1]     # \"nohtyP\" - otočený string\n\n# První polovina seznamu\npolovina = len(cisla) // 2\nprvni_cast = cisla[:polovina]\n\n# Druhá polovina\ndruha_cast = cisla[polovina:]"
   },
   {
     "objectID": "lessons/lesson_05.html#užitečné-metody-seznamů",
     "href": "lessons/lesson_05.html#užitečné-metody-seznamů",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "2.3 Užitečné metody seznamů",
     "text": "2.3 Užitečné metody seznamů\n\n2.3.1 extend() - připojení více prvků\na = [1, 2, 3]\na.extend([4, 5, 6])    # [1, 2, 3, 4, 5, 6]\n\n# Alternativně:\na = a + [4, 5, 6]      # Totéž, ale vytvoří nový seznam\n\n\n2.3.2 insert() - vložení na konkrétní pozici\ncisla = [1, 2, 4, 5]\ncisla.insert(2, 3)     # [1, 2, 3, 4, 5] - vložit 3 na index 2\n\n\n2.3.3 remove() - odstranění první hodnoty\ncisla = [1, 2, 3, 2, 4]\ncisla.remove(2)        # [1, 3, 2, 4] - odstraní první výskyt 2\n\n\n2.3.4 pop() - odstranění a vrácení prvku\ncisla = [1, 2, 3, 4, 5]\nposledni = cisla.pop()     # posledni = 5, cisla = [1,2,3,4]\ndruhy = cisla.pop(1)       # druhy = 2, cisla = [1,3,4]\n\n\n2.3.5 reverse() - otočení seznamu\ncisla = [1, 2, 3, 4, 5]\ncisla.reverse()        # [5, 4, 3, 2, 1] - mění původní seznam!\n\n# Alternativně (vytvoří nový):\notoceny = cisla[::-1]\n\n\n2.3.6 sort() - seřazení\ncisla = [5, 2, 8, 1, 9]\ncisla.sort()           # [1, 2, 5, 8, 9] - vzestupně\n\ncisla.sort(reverse=True)  # [9, 8, 5, 2, 1] - sestupně\n\n# Alternativně (vytvoří nový):\nserazeny = sorted(cisla)"
   },
   {
     "objectID": "lessons/lesson_05.html#cvičení-1-práce-se-seznamem",
     "href": "lessons/lesson_05.html#cvičení-1-práce-se-seznamem",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "2.4 Cvičení 1: Práce se seznamem",
     "text": "2.4 Cvičení 1: Práce se seznamem\ncisla = [10, 25, 3, 47, 8, 19, 33, 5]\n\n# 1. Vypište první tři čísla\n# 2. Vypište poslední dvě čísla\n# 3. Vypište každé druhé číslo\n# 4. Otočte seznam a vypište ho\n# 5. Seřaďte seznam vzestupně"
   },
   {
     "objectID": "lessons/lesson_05.html#co-je-prvočíslo",
     "href": "lessons/lesson_05.html#co-je-prvočíslo",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "3.1 Co je prvočíslo?",
     "text": "3.1 Co je prvočíslo?\nPrvočíslo je přirozené číslo větší než 1, které je dělitelné pouze 1 a sebou samým.\nPrvočísla: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, …\nNejsou prvočísla: 1 (příliš malé podle definice), 4 (dělitelné 2), 6 (dělitelné 2 a 3), 8 (dělitelné 2 a 4), 9 (dělitelné 3)"
   },
   {
     "objectID": "lessons/lesson_05.html#algoritmus-je-číslo-prvočíslo",
     "href": "lessons/lesson_05.html#algoritmus-je-číslo-prvočíslo",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "3.2 Algoritmus: Je číslo prvočíslo?",
     "text": "3.2 Algoritmus: Je číslo prvočíslo?\n\n3.2.1 Logika\nČíslo n je prvočíslo, pokud není dělitelné žádným číslem od 2 do n-1.\nJe 7 prvočíslo?\n- 7 % 2 != 0 ✓\n- 7 % 3 != 0 ✓\n- 7 % 4 != 0 ✓\n- 7 % 5 != 0 ✓\n- 7 % 6 != 0 ✓\n→ Ano, 7 je prvočíslo!\n\nJe 8 prvočíslo?\n- 8 % 2 == 0 ✗\n→ Ne, 8 není prvočíslo (dělitelné 2)\n\n\n3.2.2 Implementace - společně\nn = int(input(\"Číslo: \"))\n\n# Speciální případy\nif n &lt; 2:\n    print(f\"{n} není prvočíslo\")\nelse:\n    je_prvocislo = True  # Předpokládáme, že je prvočíslo\n    \n    for i in range(2, n):\n        if n % i == 0:  # Našli jsme dělitele\n            je_prvocislo = False\n            break  # Můžeme skončit, není prvočíslo\n    \n    if je_prvocislo:\n        print(f\"{n} je prvočíslo\")\n    else:\n        print(f\"{n} není prvočíslo\")\n\n\n\n\n\n\nTipOptimalizace\n\n\n\nStačí zkoušet dělitele do sqrt(n), protože větší dělitel by musel mít menšího partnera:\nimport math\nfor i in range(2, int(math.sqrt(n)) + 1):\nAle pro učení stačí jednodušší verze!"
   },
   {
     "objectID": "lessons/lesson_05.html#samostatná-úloha-všechna-prvočísla-do-n",
     "href": "lessons/lesson_05.html#samostatná-úloha-všechna-prvočísla-do-n",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "3.3 Samostatná úloha: Všechna prvočísla do N",
     "text": "3.3 Samostatná úloha: Všechna prvočísla do N\nZadání: Napište program, který najde všechna prvočísla do 100 (nebo do čísla zadaného uživatelem).\nNápověda:\nn = int(input(\"Hledat prvočísla do: \"))\nprvocisla = []\n\nfor cislo in range(2, n + 1):\n    # Zkontrolovat, zda je cislo prvočíslo\n    # Pokud ano, přidat do seznamu prvocisla\n    \nprint(f\"Prvočísla do {n}: {prvocisla}\")\nVýstup by měl vypadat:\nHledat prvočísla do: 20\nPrvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]"
   },
   {
     "objectID": "lessons/lesson_05.html#motivace",
     "href": "lessons/lesson_05.html#motivace",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "5.1 Motivace",
     "text": "5.1 Motivace\nÚkol: Seřaďte seznam [5, 2, 8, 1, 9] vzestupně.\nOtázka: Jak byste to udělali na papíře?\n\n\n\n\n\n\nNoteBrainstorming (5 minut)\n\n\n\nDiskutujte se spolužáky: - Jak byste řadili čísla ručně? - Jaké kroky byste opakovali? - Můžete to popsat slovně?\nVětšina lidí přijde na jeden z těchto přístupů: 1. “Najdu nejmenší, dám ho stranou, opakuji” → Selection Sort 2. “Porovnávám sousedy, když je špatné pořadí, prohodím, opakuji DOKUD prohazuji” → Bubble Sort"
   },
   {
     "objectID": "lessons/lesson_05.html#bubble-sort-bublinové-třídění",
     "href": "lessons/lesson_05.html#bubble-sort-bublinové-třídění",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "5.2 Bubble Sort (bublinové třídění)",
     "text": "5.2 Bubble Sort (bublinové třídění)\n\n5.2.1 Princip\nProcházíme seznam a porovnáváme dvojice sousedních prvků. Pokud jsou ve špatném pořadí, prohodíme je. Opakujeme DOKUD jsme něco prohazovali.\n\n\n5.2.2 Vizualizace na příkladu [5, 2, 8, 1, 9]\nPrvní průchod:\n[5, 2, 8, 1, 9]  → 5 &gt; 2? Ano, prohoď\n[2, 5, 8, 1, 9]  → 5 &gt; 8? Ne\n[2, 5, 8, 1, 9]  → 8 &gt; 1? Ano, prohoď  \n[2, 5, 1, 8, 9]  → 8 &gt; 9? Ne\n[2, 5, 1, 8, 9]  ← Prohodili jsme → pokračujeme!\nDruhý průchod:\n[2, 5, 1, 8, 9]  → 2 &gt; 5? Ne\n[2, 5, 1, 8, 9]  → 5 &gt; 1? Ano, prohoď\n[2, 1, 5, 8, 9]  → 5 &gt; 8? Ne\n[2, 1, 5, 8, 9]  → 8 &gt; 9? Ne\n[2, 1, 5, 8, 9]  ← Prohodili jsme → pokračujeme!\nTřetí průchod:\n[2, 1, 5, 8, 9]  → 2 &gt; 1? Ano, prohoď\n[1, 2, 5, 8, 9]  → 2 &gt; 5? Ne\n[1, 2, 5, 8, 9]  → 5 &gt; 8? Ne\n[1, 2, 5, 8, 9]  → 8 &gt; 9? Ne\n[1, 2, 5, 8, 9]  ← Prohodili jsme → pokračujeme!\nČtvrtý průchod:\n[1, 2, 5, 8, 9]  → 1 &gt; 2? Ne\n[1, 2, 5, 8, 9]  → 2 &gt; 5? Ne\n[1, 2, 5, 8, 9]  → 5 &gt; 8? Ne\n[1, 2, 5, 8, 9]  → 8 &gt; 9? Ne\n[1, 2, 5, 8, 9]  ← NIČÍM NEPROHODILI → HOTOVO!\n\n\n5.2.3 Implementace - společně\nseznam = [5, 2, 8, 1, 9]\nprint(f\"Původní seznam: {seznam}\")\n\n# Klíčová myšlenka: \"Opakuj DOKUD prohazuješ\"\nserazeno = False\n\nwhile not serazeno:\n    # Předpokládám, že seznam JE seřazený\n    serazeno = True\n    \n    # Projdu všechny sousední dvojice\n    for i in range(len(seznam) - 1):\n        # Porovnám sousedy\n        if seznam[i] &gt; seznam[i + 1]:\n            # Špatné pořadí → prohození\n            seznam[i], seznam[i + 1] = seznam[i + 1], seznam[i]\n            # Něco jsem prohodil → NENÍ seřazeno!\n            serazeno = False\n\nprint(f\"Seřazený seznam: {seznam}\")\n# [1, 2, 5, 8, 9]\n\n\n\n\n\n\nTipJak to funguje?\n\n\n\n\nserazeno = False: Na začátku předpokládáme, že seznam není seřazený\nwhile not serazeno:: Opakuj, DOKUD není seřazeno\nserazeno = True: Na začátku každého průchodu předpokládám “je seřazeno”\nProjdu všechny dvojice: for i in range(len(seznam) - 1)\nPokud najdu špatné pořadí: Prohodím a nastavím serazeno = False\nPokud projdu celý seznam a nic neprohodím → serazeno zůstane True → cyklus skončí!\n\n\n\n\n\n5.2.4 Alternativní implementace\nPředchozí implementace je intuitivní, protože odráží způsob, jak lidé přirozeně myslí. Ve skutečnosti není úplně efektivní, protože po prvním průchodu máme jistotu, že poslední prvek je již na správném místě. Alternativní implementace pomocí dvou vnořených ‘for’ cyklů toto zohledňuje:\nseznam = [5, 2, 8, 1, 9]\n\n# Vnější cyklus - kolik průchodů potřebujeme?\nfor i in range(len(seznam)):\n    \n    # Vnitřní cyklus - porovnání sousedů\n    for j in range(len(seznam) - 1 - i):\n        \n        # Porovnání a prohození\n        if seznam[j] &gt; seznam[j + 1]:\n            seznam[j], seznam[j + 1] = seznam[j + 1], seznam[j]\n\nprint(seznam)  # [1, 2, 5, 8, 9]\n\n\n\n\n\n\nImportantVnořené cykly!\n\n\n\nVšimněte si dvou cyklů jeden v druhém: - Vnější (for i) říká: “Kolikrát opakuji celý průchod?” - Vnitřní (for j) říká: “Jak procházím dvojice?”\nToto je vnořený cyklus - stejný princip jako vnořené modely v Model Builderu!\n\n\n\n\n5.2.5 Proč len(seznam) - 1 - i?\n# První průchod (i=0): porovnáváme všechny dvojice\nrange(len(seznam) - 1)  # 0,1,2,3\n\n# Druhý průchod (i=1): poslední je už správně, vynecháme\nrange(len(seznam) - 1 - 1)  # 0,1,2\n\n# A tak dále...\n\n\n\n\n\n\nNoteKterá verze je efektivnější?\n\n\n\nZávisí na situaci!\nWhile verze je mnohem rychlejší, když: - Seznam je už seřazený nebo skoro seřazený - Může skončit brzy (best case: jen 1 průchod)\nFor verze je rychlejší, když: - Seznam je úplně zamíchaný nebo opačně seřazený - V nejhorším případě dělá méně porovnání celkem"
   },
   {
     "objectID": "lessons/lesson_05.html#selection-sort-třídění-výběrem",
     "href": "lessons/lesson_05.html#selection-sort-třídění-výběrem",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "5.3 Selection Sort (třídění výběrem)",
     "text": "5.3 Selection Sort (třídění výběrem)\n\n5.3.1 Princip\n\nNajdi nejmenší prvek v seznamu\nProhoď ho s prvním prvkem\nOpakuj pro zbytek seznamu (od druhého prvku dál)\n\n\n\n5.3.2 Vizualizace na příkladu [5, 2, 8, 1]\nKrok 1: Najdi minimum v [5, 2, 8, 1] → 1, prohoď s první pozicí\n[1, 2, 8, 5]\n ^ vyřešeno\nKrok 2: Najdi minimum v [2, 8, 5] → 2, už je na správném místě\n[1, 2, 8, 5]\n    ^ vyřešeno\nKrok 3: Najdi minimum v [8, 5] → 5, prohoď\n[1, 2, 5, 8]\n       ^ vyřešeno\nHotovo! [1, 2, 5, 8]\n\n\n5.3.3 Implementace - společně\nseznam = [5, 2, 8, 1, 9]\n\n# Vnější cyklus - postupně řešíme pozice 0, 1, 2, ...\nfor i in range(len(seznam)):\n    \n    # Najdi index minima ve zbytku seznamu\n    min_index = i\n    \n    for j in range(i + 1, len(seznam)):\n        if seznam[j] &lt; seznam[min_index]:\n            min_index = j\n    \n    # Prohoď aktuální prvek s minimem\n    seznam[i], seznam[min_index] = seznam[min_index], seznam[i]\n\nprint(seznam)  # [1, 2, 5, 8, 9]\n\n\n\n\n\n\nTipPro praxi\n\n\n\nV reálných programech používáme vestavěnou funkci sort() nebo sorted(), která je mnohem rychlejší. Ale pochopení vlastních algoritmů je důležité pro: - Rozvoj logického myšlení - Pochopení, jak počítače fungují - Přípravu na složitější problémy"
   },
   {
     "objectID": "lessons/lesson_05.html#co-jsou-vnořené-cykly",
     "href": "lessons/lesson_05.html#co-jsou-vnořené-cykly",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "6.1 Co jsou vnořené cykly?",
     "text": "6.1 Co jsou vnořené cykly?\nVnořený cyklus = cyklus uvnitř jiného cyklu.\nfor i in range(3):\n    for j in range(2):\n        print(f\"i={i}, j={j}\")\nVýstup:\ni=0, j=0\ni=0, j=1\ni=1, j=0\ni=1, j=1\ni=2, j=0\ni=2, j=1\nJak to funguje: - Pro každou hodnotu i (vnější cyklus) - Projdeme všechny hodnoty j (vnitřní cyklus)"
   },
   {
     "objectID": "lessons/lesson_05.html#praktický-příklad-tabulka-násobení",
     "href": "lessons/lesson_05.html#praktický-příklad-tabulka-násobení",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "6.2 Praktický příklad: Tabulka násobení",
     "text": "6.2 Praktický příklad: Tabulka násobení\n# Tabulka násobení 1-5\nfor i in range(1, 6):\n    for j in range(1, 6):\n        print(f\"{i} × {j} = {i * j}\")\n    print(\"---\")  # Oddělovač"
   },
   {
     "objectID": "lessons/lesson_05.html#propojení-s-model-builderem",
     "href": "lessons/lesson_05.html#propojení-s-model-builderem",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "6.3 Propojení s Model Builderem",
     "text": "6.3 Propojení s Model Builderem\n\n\n\n\n\n\nNoteVzpomínáte na vnořené modely?\n\n\n\nV Model Builderu jste používali vnořené iterátory: - Vnější iterator: Pro každý okres - Vnitřní iterator: Pro každý rok - → Zpracovat data pro každý okres v každém roce\nV Pythonu je to stejné, jen místo Model Builderu píšete kód!\n\n\n\n6.3.1 Příklad: GIS úloha\nokresy = [\"Praha\", \"Brno\", \"Ostrava\"]\nroky = [2020, 2021, 2022]\n\nfor okres in okresy:\n    for rok in roky:\n        print(f\"Zpracovávám: {okres}, {rok}\")\n        # Zde by byl ArcPy kód pro zpracování dat\nVýstup:\nZpracovávám: Praha, 2020\nZpracovávám: Praha, 2021\nZpracovávám: Praha, 2022\nZpracovávám: Brno, 2020\nZpracovávám: Brno, 2021\nZpracovávám: Brno, 2022\nZpracovávám: Ostrava, 2020\nZpracovávám: Ostrava, 2021\nZpracovávám: Ostrava, 2022\nVypadá vám to povědomě? Přesně toto jste dělali v Model Builderu graficky. V Pythonu to napíšete přímo!"
   },
   {
     "objectID": "lessons/lesson_05.html#cvičení-2-filtrování-prvočísel-ze-seznamu",
     "href": "lessons/lesson_05.html#cvičení-2-filtrování-prvočísel-ze-seznamu",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "7.1 Cvičení 2: Filtrování prvočísel ze seznamu",
     "text": "7.1 Cvičení 2: Filtrování prvočísel ze seznamu\nMáte seznam čísel. Vytvořte nový seznam obsahující pouze prvočísla.\ncisla = [2, 4, 7, 8, 11, 12, 13, 15, 17, 20]\n\n# Zde napište kód...\n\n# Očekávaný výsledek:\n# prvocisla = [2, 7, 11, 13, 17]"
   },
   {
     "objectID": "lessons/lesson_05.html#cvičení-3-vlastní-třídící-algoritmus",
     "href": "lessons/lesson_05.html#cvičení-3-vlastní-třídící-algoritmus",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "7.2 Cvičení 3: Vlastní třídící algoritmus",
     "text": "7.2 Cvičení 3: Vlastní třídící algoritmus\nZkuste vymyslet svůj vlastní způsob třídění (nemusí být efektivní, ale musí fungovat!).\nNápověda: Můžete zkusit: - Najít maximum a přesunout na konec - Postupně budovat nový seřazený seznam - Cokoliv jiného, co vás napadne!"
   },
   {
     "objectID": "lessons/lesson_05.html#co-jsme-se-naučili",
     "href": "lessons/lesson_05.html#co-jsme-se-naučili",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "8.1 Co jsme se naučili",
     "text": "8.1 Co jsme se naučili\n✅ Slicing - řezy seznamů (seznam[start:stop:step])\n✅ Metody seznamů - extend(), insert(), remove(), pop(), reverse(), sort()\n✅ Prvočísla - algoritmus pro testování prvočíselnosti\n✅ Bubble Sort - třídění porovnáváním sousedů\n✅ Selection Sort - třídění výběrem minima\n✅ Vnořené cykly - cyklus v cyklu\n✅ Propojení s Model Builderem - vnořené cykly = vnořené iterátory"
   },
   {
     "objectID": "lessons/lesson_05.html#co-bude-příště",
     "href": "lessons/lesson_05.html#co-bude-příště",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "8.2 Co bude příště?",
     "text": "8.2 Co bude příště?\nV příští lekci:\n\nFunkce - jak psát znovupoužitelný kód\nModuly - jak organizovat program\nPřepíšeme Fibonacci, faktoriál a třídění jako funkce\nVytvoříme vlastní modul math_utils.py"
   },
   {
     "objectID": "lessons/lesson_05.html#varianta-a-základní",
     "href": "lessons/lesson_05.html#varianta-a-základní",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "9.1 Varianta A (základní)",
     "text": "9.1 Varianta A (základní)\n\nDokončete úlohy ze cvičení, pokud jste je nestihli\nN-té prvočíslo: Napište program, který najde N-té prvočíslo. Například:\nZadej N: 10\n10. prvočíslo je: 29"
   },
   {
     "objectID": "lessons/lesson_05.html#varianta-b-pokročilá",
     "href": "lessons/lesson_05.html#varianta-b-pokročilá",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "9.2 Varianta B (pokročilá)",
     "text": "9.2 Varianta B (pokročilá)\n\nPrvočísla v rozsahu: Najděte všechna prvočísla mezi čísly A a B (obojí zadává uživatel)\nImplementujte oba třídící algoritmy (Bubble Sort i Selection Sort) a porovnejte, který je čitelnější"
   },
   {
     "objectID": "lessons/lesson_05.html#varianta-c-výzva",
     "href": "lessons/lesson_05.html#varianta-c-výzva",
-    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "title": "Lekce 5: Tvorba jednoduchého algoritmu",
     "section": "9.3 Varianta C (výzva)",
     "text": "9.3 Varianta C (výzva)\nEratosthenovo síto - velmi rychlý algoritmus pro hledání prvočísel:\n\nVytvoř seznam čísel od 2 do N\nPrvní číslo (2) je prvočíslo - označ všechny jeho násobky jako ne-prvočísla\nDalší neoznačené číslo (3) je prvočíslo - označ všechny jeho násobky\nOpakuj, dokud nejsou všechna čísla označená\n\nNápověda:\nn = 100\nje_prvocislo = [True] * (n + 1)  # Seznam True hodnot\nje_prvocislo[0] = je_prvocislo[1] = False\n\n# Zde implementujte Eratosthenovo síto..."
   },

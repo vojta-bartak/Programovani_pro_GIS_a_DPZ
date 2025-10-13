@@ -1,7 +1,7 @@
 ---
-title: "Lekce 5: Podmínky a cykly II – Prvočísla a třídění"
+title: "Lekce 5: Tvorba jednoduchého algoritmu"
 subtitle: "Python pro GIS - Algoritmické myšlení"
-author: "Váš kurz"
+author: "Vojtěch Barták, FŽP ČZU Praha"
 date: today
 format:
   html:
