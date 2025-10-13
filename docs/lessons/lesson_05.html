@@ -160,6 +160,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../lessons/lesson_05.html">
  <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_06.html">
+ <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -179,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
-  <li><a href="#rekapitulace-a-rozšíření-seznamů" id="toc-rekapitulace-a-rozšíření-seznamů" class="nav-link" data-scroll-target="#rekapitulace-a-rozšíření-seznamů"><span class="header-section-number">2</span> 1. Rekapitulace a rozšíření seznamů</a>
+  <li><a href="#rekapitulace-a-rozšíření-seznamů" id="toc-rekapitulace-a-rozšíření-seznamů" class="nav-link" data-scroll-target="#rekapitulace-a-rozšíření-seznamů"><span class="header-section-number">2</span> Rekapitulace a rozšíření seznamů</a>
   <ul class="collapse">
   <li><a href="#rychlá-rekapitulace-z-minula" id="toc-rychlá-rekapitulace-z-minula" class="nav-link" data-scroll-target="#rychlá-rekapitulace-z-minula"><span class="header-section-number">2.1</span> Rychlá rekapitulace z minula</a></li>
   <li><a href="#slicing-řezy---nová-technika" id="toc-slicing-řezy---nová-technika" class="nav-link" data-scroll-target="#slicing-řezy---nová-technika"><span class="header-section-number">2.2</span> Slicing (řezy) - nová technika</a>
@@ -192,68 +196,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#extend---připojení-více-prvků" id="toc-extend---připojení-více-prvků" class="nav-link" data-scroll-target="#extend---připojení-více-prvků"><span class="header-section-number">2.3.1</span> extend() - připojení více prvků</a></li>
   <li><a href="#insert---vložení-na-konkrétní-pozici" id="toc-insert---vložení-na-konkrétní-pozici" class="nav-link" data-scroll-target="#insert---vložení-na-konkrétní-pozici"><span class="header-section-number">2.3.2</span> insert() - vložení na konkrétní pozici</a></li>
-  <li><a href="#remove---odstranění-první-hodnoty" id="toc-remove---odstranění-první-hodnoty" class="nav-link" data-scroll-target="#remove---odstranění-první-hodnoty"><span class="header-section-number">2.3.3</span> remove() - odstranění první hodnoty</a></li>
-  <li><a href="#pop---odstranění-a-vrácení-prvku" id="toc-pop---odstranění-a-vrácení-prvku" class="nav-link" data-scroll-target="#pop---odstranění-a-vrácení-prvku"><span class="header-section-number">2.3.4</span> pop() - odstranění a vrácení prvku</a></li>
-  <li><a href="#reverse---otočení-seznamu" id="toc-reverse---otočení-seznamu" class="nav-link" data-scroll-target="#reverse---otočení-seznamu"><span class="header-section-number">2.3.5</span> reverse() - otočení seznamu</a></li>
-  <li><a href="#sort---seřazení" id="toc-sort---seřazení" class="nav-link" data-scroll-target="#sort---seřazení"><span class="header-section-number">2.3.6</span> sort() - seřazení</a></li>
+  <li><a href="#remove---odstranění-prvního-výskytu-hodnoty" id="toc-remove---odstranění-prvního-výskytu-hodnoty" class="nav-link" data-scroll-target="#remove---odstranění-prvního-výskytu-hodnoty"><span class="header-section-number">2.3.3</span> remove() - odstranění prvního výskytu hodnoty</a></li>
+  <li><a href="#index---vrací-index-prvního-výskytu-hodnoty" id="toc-index---vrací-index-prvního-výskytu-hodnoty" class="nav-link" data-scroll-target="#index---vrací-index-prvního-výskytu-hodnoty"><span class="header-section-number">2.3.4</span> index() - vrací index prvního výskytu hodnoty</a></li>
+  <li><a href="#pop---odstranění-a-vrácení-prvku" id="toc-pop---odstranění-a-vrácení-prvku" class="nav-link" data-scroll-target="#pop---odstranění-a-vrácení-prvku"><span class="header-section-number">2.3.5</span> pop() - odstranění a vrácení prvku</a></li>
+  <li><a href="#reverse---otočení-seznamu" id="toc-reverse---otočení-seznamu" class="nav-link" data-scroll-target="#reverse---otočení-seznamu"><span class="header-section-number">2.3.6</span> reverse() - otočení seznamu</a></li>
+  <li><a href="#sort---seřazení" id="toc-sort---seřazení" class="nav-link" data-scroll-target="#sort---seřazení"><span class="header-section-number">2.3.7</span> sort() - seřazení</a></li>
   </ul></li>
   <li><a href="#cvičení-1-práce-se-seznamem" id="toc-cvičení-1-práce-se-seznamem" class="nav-link" data-scroll-target="#cvičení-1-práce-se-seznamem"><span class="header-section-number">2.4</span> Cvičení 1: Práce se seznamem</a></li>
   </ul></li>
-  <li><a href="#prvočísla" id="toc-prvočísla" class="nav-link" data-scroll-target="#prvočísla"><span class="header-section-number">3</span> 2. Prvočísla</a>
+  <li><a href="#hledání-minima-a-maxima" id="toc-hledání-minima-a-maxima" class="nav-link" data-scroll-target="#hledání-minima-a-maxima"><span class="header-section-number">3</span> Hledání minima a maxima</a>
   <ul class="collapse">
-  <li><a href="#co-je-prvočíslo" id="toc-co-je-prvočíslo" class="nav-link" data-scroll-target="#co-je-prvočíslo"><span class="header-section-number">3.1</span> Co je prvočíslo?</a></li>
-  <li><a href="#algoritmus-je-číslo-prvočíslo" id="toc-algoritmus-je-číslo-prvočíslo" class="nav-link" data-scroll-target="#algoritmus-je-číslo-prvočíslo"><span class="header-section-number">3.2</span> Algoritmus: Je číslo prvočíslo?</a>
-  <ul class="collapse">
-  <li><a href="#logika" id="toc-logika" class="nav-link" data-scroll-target="#logika"><span class="header-section-number">3.2.1</span> Logika</a></li>
-  <li><a href="#implementace---společně" id="toc-implementace---společně" class="nav-link" data-scroll-target="#implementace---společně"><span class="header-section-number">3.2.2</span> Implementace - společně</a></li>
+  <li><a href="#motivace" id="toc-motivace" class="nav-link" data-scroll-target="#motivace"><span class="header-section-number">3.1</span> Motivace</a></li>
+  <li><a href="#algoritmus-krok-za-krokem" id="toc-algoritmus-krok-za-krokem" class="nav-link" data-scroll-target="#algoritmus-krok-za-krokem"><span class="header-section-number">3.2</span> Algoritmus krok za krokem</a></li>
+  <li><a href="#implementace---společně" id="toc-implementace---společně" class="nav-link" data-scroll-target="#implementace---společně"><span class="header-section-number">3.3</span> Implementace - společně</a></li>
+  <li><a href="#maximum---obdobně" id="toc-maximum---obdobně" class="nav-link" data-scroll-target="#maximum---obdobně"><span class="header-section-number">3.4</span> Maximum - obdobně</a></li>
+  <li><a href="#hledání-indexu-minima" id="toc-hledání-indexu-minima" class="nav-link" data-scroll-target="#hledání-indexu-minima"><span class="header-section-number">3.5</span> Hledání indexu minima</a></li>
   </ul></li>
-  <li><a href="#samostatná-úloha-všechna-prvočísla-do-n" id="toc-samostatná-úloha-všechna-prvočísla-do-n" class="nav-link" data-scroll-target="#samostatná-úloha-všechna-prvočísla-do-n"><span class="header-section-number">3.3</span> Samostatná úloha: Všechna prvočísla do N</a></li>
-  </ul></li>
-  <li><a href="#třídění---objevujeme-algoritmy" id="toc-třídění---objevujeme-algoritmy" class="nav-link" data-scroll-target="#třídění---objevujeme-algoritmy"><span class="header-section-number">4</span> 3. Třídění - objevujeme algoritmy</a></li>
-  <li><a href="#třídění---objevujeme-algoritmy-1" id="toc-třídění---objevujeme-algoritmy-1" class="nav-link" data-scroll-target="#třídění---objevujeme-algoritmy-1"><span class="header-section-number">5</span> 3. Třídění - objevujeme algoritmy</a>
-  <ul class="collapse">
-  <li><a href="#motivace" id="toc-motivace" class="nav-link" data-scroll-target="#motivace"><span class="header-section-number">5.1</span> Motivace</a></li>
-  <li><a href="#bubble-sort-bublinové-třídění" id="toc-bubble-sort-bublinové-třídění" class="nav-link" data-scroll-target="#bubble-sort-bublinové-třídění"><span class="header-section-number">5.2</span> Bubble Sort (bublinové třídění)</a>
-  <ul class="collapse">
-  <li><a href="#princip" id="toc-princip" class="nav-link" data-scroll-target="#princip"><span class="header-section-number">5.2.1</span> Princip</a></li>
-  <li><a href="#vizualizace-na-příkladu-5-2-8-1-9" id="toc-vizualizace-na-příkladu-5-2-8-1-9" class="nav-link" data-scroll-target="#vizualizace-na-příkladu-5-2-8-1-9"><span class="header-section-number">5.2.2</span> Vizualizace na příkladu <code>[5, 2, 8, 1, 9]</code></a></li>
-  <li><a href="#implementace---společně-1" id="toc-implementace---společně-1" class="nav-link" data-scroll-target="#implementace---společně-1"><span class="header-section-number">5.2.3</span> Implementace - společně</a></li>
-  <li><a href="#alternativní-implementace" id="toc-alternativní-implementace" class="nav-link" data-scroll-target="#alternativní-implementace"><span class="header-section-number">5.2.4</span> Alternativní implementace</a></li>
-  <li><a href="#proč-lenseznam---1---i" id="toc-proč-lenseznam---1---i" class="nav-link" data-scroll-target="#proč-lenseznam---1---i"><span class="header-section-number">5.2.5</span> Proč <code>len(seznam) - 1 - i</code>?</a></li>
-  </ul></li>
-  <li><a href="#selection-sort-třídění-výběrem" id="toc-selection-sort-třídění-výběrem" class="nav-link" data-scroll-target="#selection-sort-třídění-výběrem"><span class="header-section-number">5.3</span> Selection Sort (třídění výběrem)</a>
-  <ul class="collapse">
-  <li><a href="#princip-1" id="toc-princip-1" class="nav-link" data-scroll-target="#princip-1"><span class="header-section-number">5.3.1</span> Princip</a></li>
-  <li><a href="#vizualizace-na-příkladu-5-2-8-1" id="toc-vizualizace-na-příkladu-5-2-8-1" class="nav-link" data-scroll-target="#vizualizace-na-příkladu-5-2-8-1"><span class="header-section-number">5.3.2</span> Vizualizace na příkladu <code>[5, 2, 8, 1]</code></a></li>
-  <li><a href="#implementace---společně-2" id="toc-implementace---společně-2" class="nav-link" data-scroll-target="#implementace---společně-2"><span class="header-section-number">5.3.3</span> Implementace - společně</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#vnořené-cykly-a-propojení-s-model-builderem" id="toc-vnořené-cykly-a-propojení-s-model-builderem" class="nav-link" data-scroll-target="#vnořené-cykly-a-propojení-s-model-builderem"><span class="header-section-number">6</span> 4. Vnořené cykly a propojení s Model Builderem</a>
-  <ul class="collapse">
-  <li><a href="#co-jsou-vnořené-cykly" id="toc-co-jsou-vnořené-cykly" class="nav-link" data-scroll-target="#co-jsou-vnořené-cykly"><span class="header-section-number">6.1</span> Co jsou vnořené cykly?</a></li>
-  <li><a href="#praktický-příklad-tabulka-násobení" id="toc-praktický-příklad-tabulka-násobení" class="nav-link" data-scroll-target="#praktický-příklad-tabulka-násobení"><span class="header-section-number">6.2</span> Praktický příklad: Tabulka násobení</a></li>
-  <li><a href="#propojení-s-model-builderem" id="toc-propojení-s-model-builderem" class="nav-link" data-scroll-target="#propojení-s-model-builderem"><span class="header-section-number">6.3</span> Propojení s Model Builderem</a>
-  <ul class="collapse">
-  <li><a href="#příklad-gis-úloha" id="toc-příklad-gis-úloha" class="nav-link" data-scroll-target="#příklad-gis-úloha"><span class="header-section-number">6.3.1</span> Příklad: GIS úloha</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#praktická-cvičení" id="toc-praktická-cvičení" class="nav-link" data-scroll-target="#praktická-cvičení"><span class="header-section-number">7</span> 5. Praktická cvičení</a>
-  <ul class="collapse">
-  <li><a href="#cvičení-2-filtrování-prvočísel-ze-seznamu" id="toc-cvičení-2-filtrování-prvočísel-ze-seznamu" class="nav-link" data-scroll-target="#cvičení-2-filtrování-prvočísel-ze-seznamu"><span class="header-section-number">7.1</span> Cvičení 2: Filtrování prvočísel ze seznamu</a></li>
-  <li><a href="#cvičení-3-vlastní-třídící-algoritmus" id="toc-cvičení-3-vlastní-třídící-algoritmus" class="nav-link" data-scroll-target="#cvičení-3-vlastní-třídící-algoritmus"><span class="header-section-number">7.2</span> Cvičení 3: Vlastní třídící algoritmus</a></li>
-  </ul></li>
-  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">8</span> 6. Shrnutí</a>
-  <ul class="collapse">
-  <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">8.1</span> Co jsme se naučili</a></li>
-  <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">8.2</span> Co bude příště?</a></li>
-  </ul></li>
-  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">9</span> 7. Domácí úkol</a>
-  <ul class="collapse">
-  <li><a href="#varianta-a-základní" id="toc-varianta-a-základní" class="nav-link" data-scroll-target="#varianta-a-základní"><span class="header-section-number">9.1</span> Varianta A (základní)</a></li>
-  <li><a href="#varianta-b-pokročilá" id="toc-varianta-b-pokročilá" class="nav-link" data-scroll-target="#varianta-b-pokročilá"><span class="header-section-number">9.2</span> Varianta B (pokročilá)</a></li>
-  <li><a href="#varianta-c-výzva" id="toc-varianta-c-výzva" class="nav-link" data-scroll-target="#varianta-c-výzva"><span class="header-section-number">9.3</span> Varianta C (výzva)</a></li>
-  </ul></li>
-  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">10</span> 8. Cheatsheet</a></li>
   </ul>
 </nav>
     </div>
@@ -298,8 +256,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Pracovat s řezy seznamů (slicing)</li>
 <li>Používat pokročilé metody seznamů</li>
-<li>Implementovat algoritmus pro hledání prvočísel</li>
-<li>Navrhnout a implementovat třídící algoritmus</li>
+<li>Implementovat algoritmus pro hledání minima a maxima</li>
+<li>Navrhnout a implementovat třídící algoritmus (Bubble Sort, Selection Sort)</li>
 <li>Pracovat s vnořenými cykly</li>
 <li>Propojit vnořené cykly s vnořenými modely z Model Builderu</li>
 </ul>
@@ -307,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 <section id="rekapitulace-a-rozšíření-seznamů" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 1. Rekapitulace a rozšíření seznamů</h1>
+<h1 data-number="2"><span class="header-section-number">2</span> Rekapitulace a rozšíření seznamů</h1>
 <section id="rychlá-rekapitulace-z-minula" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="rychlá-rekapitulace-z-minula"><span class="header-section-number">2.1</span> Rychlá rekapitulace z minula</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Co už umíme ze seznamů:</span></span>
@@ -316,7 +274,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cisla[<span class="dv">0</span>]           <span class="co"># 1 - první prvek (index 0!)</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>cisla[<span class="op">-</span><span class="dv">1</span>]          <span class="co"># 5 - poslední prvek</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(cisla)         <span class="co"># 5 - délka seznamu</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>cisla.append(<span class="dv">6</span>)    <span class="co"># Přidání prvku na konec</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>cisla.append(<span class="dv">6</span>)    <span class="co"># Přidání prvku na konec</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>cisla[<span class="dv">3</span>] <span class="op">=</span> <span class="dv">2</span>       <span class="co"># změna čtvrtého prvku</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="slicing-řezy---nová-technika" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="slicing-řezy---nová-technika"><span class="header-section-number">2.2</span> Slicing (řezy) - nová technika</h2>
@@ -384,135 +343,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cisla.insert(<span class="dv">2</span>, <span class="dv">3</span>)     <span class="co"># [1, 2, 3, 4, 5] - vložit 3 na index 2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="remove---odstranění-první-hodnoty" class="level3" data-number="2.3.3">
-<h3 data-number="2.3.3" class="anchored" data-anchor-id="remove---odstranění-první-hodnoty"><span class="header-section-number">2.3.3</span> remove() - odstranění první hodnoty</h3>
+<section id="remove---odstranění-prvního-výskytu-hodnoty" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="remove---odstranění-prvního-výskytu-hodnoty"><span class="header-section-number">2.3.3</span> remove() - odstranění prvního výskytu hodnoty</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cisla.remove(<span class="dv">2</span>)        <span class="co"># [1, 3, 2, 4] - odstraní první výskyt 2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="pop---odstranění-a-vrácení-prvku" class="level3" data-number="2.3.4">
-<h3 data-number="2.3.4" class="anchored" data-anchor-id="pop---odstranění-a-vrácení-prvku"><span class="header-section-number">2.3.4</span> pop() - odstranění a vrácení prvku</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>posledni <span class="op">=</span> cisla.pop()     <span class="co"># posledni = 5, cisla = [1,2,3,4]</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>druhy <span class="op">=</span> cisla.pop(<span class="dv">1</span>)       <span class="co"># druhy = 2, cisla = [1,3,4]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="index---vrací-index-prvního-výskytu-hodnoty" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="index---vrací-index-prvního-výskytu-hodnoty"><span class="header-section-number">2.3.4</span> index() - vrací index prvního výskytu hodnoty</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cisla.index(<span class="dv">2</span>)        <span class="co"># vrací 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="reverse---otočení-seznamu" class="level3" data-number="2.3.5">
-<h3 data-number="2.3.5" class="anchored" data-anchor-id="reverse---otočení-seznamu"><span class="header-section-number">2.3.5</span> reverse() - otočení seznamu</h3>
+<section id="pop---odstranění-a-vrácení-prvku" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="pop---odstranění-a-vrácení-prvku"><span class="header-section-number">2.3.5</span> pop() - odstranění a vrácení prvku</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cisla.reverse()        <span class="co"># [5, 4, 3, 2, 1] - mění původní seznam!</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternativně (vytvoří nový):</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>otoceny <span class="op">=</span> cisla[::<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>posledni <span class="op">=</span> cisla.pop()     <span class="co"># posledni = 5, cisla = [1,2,3,4]</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>druhy <span class="op">=</span> cisla.pop(<span class="dv">1</span>)       <span class="co"># druhy = 2, cisla = [1,3,4]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="sort---seřazení" class="level3" data-number="2.3.6">
-<h3 data-number="2.3.6" class="anchored" data-anchor-id="sort---seřazení"><span class="header-section-number">2.3.6</span> sort() - seřazení</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cisla.sort()           <span class="co"># [1, 2, 5, 8, 9] - vzestupně</span></span>
+<section id="reverse---otočení-seznamu" class="level3" data-number="2.3.6">
+<h3 data-number="2.3.6" class="anchored" data-anchor-id="reverse---otočení-seznamu"><span class="header-section-number">2.3.6</span> reverse() - otočení seznamu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cisla.reverse()        <span class="co"># [5, 4, 3, 2, 1] - mění původní seznam!</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>cisla.sort(reverse<span class="op">=</span><span class="va">True</span>)  <span class="co"># [9, 8, 5, 2, 1] - sestupně</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternativně (vytvoří nový):</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>serazeny <span class="op">=</span> <span class="bu">sorted</span>(cisla)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternativně (vytvoří nový):</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>otoceny <span class="op">=</span> cisla[::<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sort---seřazení" class="level3" data-number="2.3.7">
+<h3 data-number="2.3.7" class="anchored" data-anchor-id="sort---seřazení"><span class="header-section-number">2.3.7</span> sort() - seřazení</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cisla.sort()           <span class="co"># [1, 2, 5, 8, 9] - vzestupně</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>cisla.sort(reverse<span class="op">=</span><span class="va">True</span>)  <span class="co"># [9, 8, 5, 2, 1] - sestupně</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternativně (vytvoří nový):</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>serazeny <span class="op">=</span> <span class="bu">sorted</span>(cisla)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="cvičení-1-práce-se-seznamem" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="cvičení-1-práce-se-seznamem"><span class="header-section-number">2.4</span> Cvičení 1: Práce se seznamem</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">3</span>, <span class="dv">47</span>, <span class="dv">8</span>, <span class="dv">19</span>, <span class="dv">33</span>, <span class="dv">5</span>]</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Vypište první tři čísla</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Vypište poslední dvě čísla</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Vypište každé druhé číslo</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Otočte seznam a vypište ho</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Seřaďte seznam vzestupně</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">3</span>, <span class="dv">47</span>, <span class="dv">8</span>, <span class="dv">19</span>, <span class="dv">33</span>, <span class="dv">5</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Vypište první tři čísla</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Vypište poslední dvě čísla</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Vypište každé druhé číslo</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Otočte seznam a vypište ho</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Seřaďte seznam vzestupně</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
-<section id="prvočísla" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 2. Prvočísla</h1>
-<section id="co-je-prvočíslo" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="co-je-prvočíslo"><span class="header-section-number">3.1</span> Co je prvočíslo?</h2>
-<p><strong>Prvočíslo</strong> je přirozené číslo větší než 1, které je dělitelné pouze 1 a sebou samým.</p>
-<p><strong>Prvočísla:</strong> 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, …</p>
-<p><strong>Nejsou prvočísla:</strong> 1 (příliš malé podle definice), 4 (dělitelné 2), 6 (dělitelné 2 a 3), 8 (dělitelné 2 a 4), 9 (dělitelné 3)</p>
-</section>
-<section id="algoritmus-je-číslo-prvočíslo" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="algoritmus-je-číslo-prvočíslo"><span class="header-section-number">3.2</span> Algoritmus: Je číslo prvočíslo?</h2>
-<section id="logika" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="logika"><span class="header-section-number">3.2.1</span> Logika</h3>
-<p>Číslo <code>n</code> je prvočíslo, pokud <strong>není dělitelné žádným číslem</strong> od 2 do n-1.</p>
-<pre><code>Je 7 prvočíslo?
-- 7 % 2 != 0 ✓
-- 7 % 3 != 0 ✓
-- 7 % 4 != 0 ✓
-- 7 % 5 != 0 ✓
-- 7 % 6 != 0 ✓
-→ Ano, 7 je prvočíslo!
-
-Je 8 prvočíslo?
-- 8 % 2 == 0 ✗
-→ Ne, 8 není prvočíslo (dělitelné 2)</code></pre>
-</section>
-<section id="implementace---společně" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="implementace---společně"><span class="header-section-number">3.2.2</span> Implementace - společně</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Číslo: "</span>))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Speciální případy</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">2</span>:</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> není prvočíslo"</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    je_prvocislo <span class="op">=</span> <span class="va">True</span>  <span class="co"># Předpokládáme, že je prvočíslo</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n):</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:  <span class="co"># Našli jsme dělitele</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            je_prvocislo <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span>  <span class="co"># Můžeme skončit, není prvočíslo</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> je_prvocislo:</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> je prvočíslo"</span>)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> není prvočíslo"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="hledání-minima-a-maxima" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Hledání minima a maxima</h1>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Optimalizace
+<span class="screen-reader-only">Tip</span>Proč začínáme s minimem/maximem?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Stačí zkoušet dělitele do <code>sqrt(n)</code>, protože větší dělitel by musel mít menšího partnera:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">int</span>(math.sqrt(n)) <span class="op">+</span> <span class="dv">1</span>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ale pro učení stačí jednodušší verze!</p>
+<p>Tento algoritmus se <strong>přímo použije</strong> při třídění! Je to perfektní příprava na Selection Sort.</p>
+</div>
+</div>
+<section id="motivace" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="motivace"><span class="header-section-number">3.1</span> Motivace</h2>
+<p><strong>Úkol:</strong> Máte seznam čísel <code>[5, 2, 8, 1, 9, 3]</code>. Najděte nejmenší číslo.</p>
+<p><strong>Otázka pro studenty:</strong> Jak byste to udělali ručně?</p>
+<p>Většina řekne: <em>“Projdu všechna čísla a pamatuji si, jaké bylo dosud nejmenší.”</em></p>
+</section>
+<section id="algoritmus-krok-za-krokem" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="algoritmus-krok-za-krokem"><span class="header-section-number">3.2</span> Algoritmus krok za krokem</h2>
+<pre><code>Seznam: [5, 2, 8, 1, 9, 3]
+
+1. Začnu, minimum = 5 (první číslo)
+2. Další je 2 → 2 &lt; 5? Ano → nové minimum = 2
+3. Další je 8 → 8 &lt; 2? Ne
+4. Další je 1 → 1 &lt; 2? Ano → nové minimum = 1
+5. Další je 9 → 9 &lt; 1? Ne
+6. Další je 3 → 3 &lt; 1? Ne
+7. Konec → minimum = 1</code></pre>
+</section>
+<section id="implementace---společně" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="implementace---společně"><span class="header-section-number">3.3</span> Implementace - společně</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">3</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Začnu s prvním číslem jako minimem</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>minimum <span class="op">=</span> cisla[<span class="dv">0</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Projdu zbytek seznamu</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cislo <span class="kw">in</span> cisla:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cislo <span class="op">&lt;</span> minimum:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        minimum <span class="op">=</span> cislo</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nejmenší číslo: </span><span class="sc">{</span>minimum<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Nejmenší číslo: 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proč <code>minimum = cisla[0]</code>?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mohli bychom začít s velkým číslem (např. <code>minimum = 999999</code>), ale to není elegantní. Lepší je začít s prvním číslem v seznamu - víme, že minimum nemůže být větší než první prvek!</p>
 </div>
 </div>
 </section>
-</section>
-<section id="samostatná-úloha-všechna-prvočísla-do-n" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="samostatná-úloha-všechna-prvočísla-do-n"><span class="header-section-number">3.3</span> Samostatná úloha: Všechna prvočísla do N</h2>
-<p><strong>Zadání:</strong> Napište program, který najde všechna prvočísla do 100 (nebo do čísla zadaného uživatelem).</p>
-<p><strong>Nápověda:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Hledat prvočísla do: "</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>prvocisla <span class="op">=</span> []</span>
+<section id="maximum---obdobně" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="maximum---obdobně"><span class="header-section-number">3.4</span> Maximum - obdobně</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">3</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>maximum <span class="op">=</span> cisla[<span class="dv">0</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cislo <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zkontrolovat, zda je cislo prvočíslo</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pokud ano, přidat do seznamu prvocisla</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Prvočísla do </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>prvocisla<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Výstup by měl vypadat:</strong></p>
-<pre><code>Hledat prvočísla do: 20
-Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cislo <span class="kw">in</span> cisla:</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cislo <span class="op">&gt;</span> maximum:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        maximum <span class="op">=</span> cislo</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Největší číslo: </span><span class="sc">{</span>maximum<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Největší číslo: 9</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="hledání-indexu-minima" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="hledání-indexu-minima"><span class="header-section-number">3.5</span> Hledání indexu minima</h2>
+<p><strong>Důležité pro třídění!</strong> Často potřebujeme nejen hodnotu minima, ale i jeho <strong>pozici</strong> v seznamu.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">3</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Začnu s indexem 0</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>min_index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Projdu všechny indexy</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(cisla)):</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cisla[i] <span class="op">&lt;</span> cisla[min_index]:</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>        min_index <span class="op">=</span> i</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Index nejmenšího čísla: </span><span class="sc">{</span>min_index<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hodnota: </span><span class="sc">{</span>cisla[min_index]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Index nejmenšího čísla: 3</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Hodnota: 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Proč potřebujeme index?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Při třídění budeme chtít <strong>prohodit</strong> pozice prvků. K tomu potřebujeme vědět, <strong>kde</strong> se minimum nachází!</p>
 <hr>
-</section>
-</section>
-<section id="třídění---objevujeme-algoritmy" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 3. Třídění - objevujeme algoritmy</h1>
-</section>
-<section id="třídění---objevujeme-algoritmy-1" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 3. Třídění - objevujeme algoritmy</h1>
-<section id="motivace" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="motivace"><span class="header-section-number">5.1</span> Motivace</h2>
+<section id="třídění" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Třídění</h1>
+<section id="motivace-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="motivace-1"><span class="header-section-number">4.1</span> Motivace</h2>
 <p><strong>Úkol:</strong> Seřaďte seznam <code>[5, 2, 8, 1, 9]</code> vzestupně.</p>
 <p><strong>Otázka:</strong> Jak byste to udělali na papíře?</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -531,14 +514,14 @@ Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
 </div>
 <hr>
 </section>
-<section id="bubble-sort-bublinové-třídění" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="bubble-sort-bublinové-třídění"><span class="header-section-number">5.2</span> Bubble Sort (bublinové třídění)</h2>
-<section id="princip" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="princip"><span class="header-section-number">5.2.1</span> Princip</h3>
+<section id="bubble-sort-bublinové-třídění" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="bubble-sort-bublinové-třídění"><span class="header-section-number">4.2</span> Bubble Sort (bublinové třídění)</h2>
+<section id="princip" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="princip"><span class="header-section-number">4.2.1</span> Princip</h3>
 <p>Procházíme seznam a <strong>porovnáváme dvojice sousedních prvků</strong>. Pokud jsou ve špatném pořadí, prohodíme je. <strong>Opakujeme DOKUD jsme něco prohazovali.</strong></p>
 </section>
-<section id="vizualizace-na-příkladu-5-2-8-1-9" class="level3" data-number="5.2.2">
-<h3 data-number="5.2.2" class="anchored" data-anchor-id="vizualizace-na-příkladu-5-2-8-1-9"><span class="header-section-number">5.2.2</span> Vizualizace na příkladu <code>[5, 2, 8, 1, 9]</code></h3>
+<section id="vizualizace-na-příkladu-5-2-8-1-9" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="vizualizace-na-příkladu-5-2-8-1-9"><span class="header-section-number">4.2.2</span> Vizualizace na příkladu <code>[5, 2, 8, 1, 9]</code></h3>
 <p><strong>První průchod:</strong></p>
 <pre><code>[5, 2, 8, 1, 9]  → 5 &gt; 2? Ano, prohoď
 [2, 5, 8, 1, 9]  → 5 &gt; 8? Ne
@@ -562,10 +545,10 @@ Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
 [1, 2, 5, 8, 9]  → 2 &gt; 5? Ne
 [1, 2, 5, 8, 9]  → 5 &gt; 8? Ne
 [1, 2, 5, 8, 9]  → 8 &gt; 9? Ne
-[1, 2, 5, 8, 9]  ← NIČÍM NEPROHODILI → HOTOVO!</code></pre>
+[1, 2, 5, 8, 9]  ← Nic se neprohodilo → HOTOVO!</code></pre>
 </section>
-<section id="implementace---společně-1" class="level3" data-number="5.2.3">
-<h3 data-number="5.2.3" class="anchored" data-anchor-id="implementace---společně-1"><span class="header-section-number">5.2.3</span> Implementace - společně</h3>
+<section id="implementace---společně-1" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="implementace---společně-1"><span class="header-section-number">4.2.3</span> Implementace - společně</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>seznam <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Původní seznam: </span><span class="sc">{</span>seznam<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -608,8 +591,8 @@ Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
 </div>
 </div>
 </section>
-<section id="alternativní-implementace" class="level3" data-number="5.2.4">
-<h3 data-number="5.2.4" class="anchored" data-anchor-id="alternativní-implementace"><span class="header-section-number">5.2.4</span> Alternativní implementace</h3>
+<section id="alternativní-implementace-volitelně" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="alternativní-implementace-volitelně"><span class="header-section-number">4.2.4</span> Alternativní implementace (volitelně)</h3>
 <p>Předchozí implementace je intuitivní, protože odráží způsob, jak lidé <strong>přirozeně myslí</strong>. Ve skutečnosti není úplně efektivní, protože po prvním průchodu máme jistotu, že poslední prvek je již na správném místě. Alternativní implementace pomocí dvou vnořených ‘for’ cyklů toto zohledňuje:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>seznam <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -639,8 +622,8 @@ Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
 </div>
 </div>
 </section>
-<section id="proč-lenseznam---1---i" class="level3" data-number="5.2.5">
-<h3 data-number="5.2.5" class="anchored" data-anchor-id="proč-lenseznam---1---i"><span class="header-section-number">5.2.5</span> Proč <code>len(seznam) - 1 - i</code>?</h3>
+<section id="proč-lenseznam---1---i" class="level3" data-number="4.2.5">
+<h3 data-number="4.2.5" class="anchored" data-anchor-id="proč-lenseznam---1---i"><span class="header-section-number">4.2.5</span> Proč <code>len(seznam) - 1 - i</code>?</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># První průchod (i=0): porovnáváme všechny dvojice</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="bu">len</span>(seznam) <span class="op">-</span> <span class="dv">1</span>)  <span class="co"># 0,1,2,3</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -663,49 +646,99 @@ Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
 <p><strong>For verze</strong> je rychlejší, když: - Seznam je úplně zamíchaný nebo opačně seřazený - V nejhorším případě dělá méně porovnání celkem</p>
 </div>
 </div>
+<hr>
 </section>
 </section>
-<section id="selection-sort-třídění-výběrem" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="selection-sort-třídění-výběrem"><span class="header-section-number">5.3</span> Selection Sort (třídění výběrem)</h2>
-<section id="princip-1" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="princip-1"><span class="header-section-number">5.3.1</span> Princip</h3>
-<ol type="1">
-<li>Najdi <strong>nejmenší prvek</strong> v seznamu</li>
-<li>Prohoď ho s prvním prvkem</li>
-<li>Opakuj pro zbytek seznamu (od druhého prvku dál)</li>
-</ol>
+<section id="selection-sort-třídění-výběrem" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="selection-sort-třídění-výběrem"><span class="header-section-number">4.3</span> Selection Sort (třídění výběrem)</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Teď použijeme, co jsme se naučili!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pamatujete si hledání indexu minima? Přesně to teď použijeme!</p>
+</div>
+</div>
+<section id="princip-1" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="princip-1"><span class="header-section-number">4.3.1</span> Princip</h3>
+<p><strong>Myšlenka:</strong> 1. Najdi <strong>nejmenší prvek</strong> v celém seznamu → dej ho na první místo 2. Najdi <strong>nejmenší prvek</strong> ve zbytku seznamu → dej ho na druhé místo 3. Opakuj…</p>
+<p><strong>Využíváme:</strong> Algoritmus pro hledání indexu minima, který jsme právě napsali!</p>
 </section>
-<section id="vizualizace-na-příkladu-5-2-8-1" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="vizualizace-na-příkladu-5-2-8-1"><span class="header-section-number">5.3.2</span> Vizualizace na příkladu <code>[5, 2, 8, 1]</code></h3>
-<p><strong>Krok 1:</strong> Najdi minimum v <code>[5, 2, 8, 1]</code> → 1, prohoď s první pozicí</p>
-<pre><code>[1, 2, 8, 5]
- ^ vyřešeno</code></pre>
-<p><strong>Krok 2:</strong> Najdi minimum v <code>[2, 8, 5]</code> → 2, už je na správném místě</p>
-<pre><code>[1, 2, 8, 5]
-    ^ vyřešeno</code></pre>
-<p><strong>Krok 3:</strong> Najdi minimum v <code>[8, 5]</code> → 5, prohoď</p>
-<pre><code>[1, 2, 5, 8]
-       ^ vyřešeno</code></pre>
-<p><strong>Hotovo!</strong> <code>[1, 2, 5, 8]</code></p>
+<section id="vizualizace-krok-za-krokem" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="vizualizace-krok-za-krokem"><span class="header-section-number">4.3.2</span> Vizualizace krok za krokem</h3>
+<pre><code>Původní seznam: [5, 2, 8, 1, 9, 3]
+
+Krok 1: Najdi minimum v [5, 2, 8, 1, 9, 3]
+        → minimum je 1 (index 3)
+        → prohoď 5 ↔ 1
+        [1, 2, 8, 5, 9, 3]
+         ^ vyřešeno
+
+Krok 2: Najdi minimum v [2, 8, 5, 9, 3]
+        → minimum je 2 (index 1)
+        → už je na správném místě
+        [1, 2, 8, 5, 9, 3]
+            ^ vyřešeno
+
+Krok 3: Najdi minimum v [8, 5, 9, 3]
+        → minimum je 3 (index 5)
+        → prohoď 8 ↔ 3
+        [1, 2, 3, 5, 9, 8]
+               ^ vyřešeno
+
+Krok 4: Najdi minimum v [5, 9, 8]
+        → minimum je 5 (index 3)
+        → už je správně
+        [1, 2, 3, 5, 9, 8]
+                  ^ vyřešeno
+
+Krok 5: Najdi minimum v [9, 8]
+        → minimum je 8 (index 5)
+        → prohoď 9 ↔ 8
+        [1, 2, 3, 5, 8, 9]
+                     ^ vyřešeno
+
+Hotovo!</code></pre>
 </section>
-<section id="implementace---společně-2" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="implementace---společně-2"><span class="header-section-number">5.3.3</span> Implementace - společně</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>seznam <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Vnější cyklus - postupně řešíme pozice 0, 1, 2, ...</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(seznam)):</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Najdi index minima ve zbytku seznamu</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    min_index <span class="op">=</span> i</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(seznam)):</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seznam[j] <span class="op">&lt;</span> seznam[min_index]:</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>            min_index <span class="op">=</span> j</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prohoď aktuální prvek s minimem</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    seznam[i], seznam[min_index] <span class="op">=</span> seznam[min_index], seznam[i]</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seznam)  <span class="co"># [1, 2, 5, 8, 9]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="implementace---společně-2" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="implementace---společně-2"><span class="header-section-number">4.3.3</span> Implementace - společně</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>seznam <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>, <span class="dv">3</span>]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro každou pozici 0, 1, 2, ...</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(seznam)):</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Najdi index minima ve zbytku seznamu</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (od pozice i do konce)</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ↓↓↓ TOHLE JSME DĚLALI PŘED CHVÍLÍ! ↓↓↓</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    min_index <span class="op">=</span> i</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(seznam)):</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seznam[j] <span class="op">&lt;</span> seznam[min_index]:</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>            min_index <span class="op">=</span> j</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ↑↑↑ ALGORITMUS PRO HLEDÁNÍ INDEXU MINIMA ↑↑↑</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prohoď aktuální prvek s nalezeným minimem</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    seznam[i], seznam[min_index] <span class="op">=</span> seznam[min_index], seznam[i]</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seznam)  <span class="co"># [1, 2, 3, 5, 8, 9]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Všimněte si!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Vnitřní cyklus</strong> je přesně algoritmus pro hledání indexu minima, který jsme dělali před chvílí!</p>
+<p>Selection Sort = <strong>opakované použití</strong> algoritmu pro hledání minima! 🎯</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -716,21 +749,33 @@ Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>V reálných programech používáme vestavěnou funkci <code>sort()</code> nebo <code>sorted()</code>, která je <strong>mnohem rychlejší</strong>. Ale pochopení vlastních algoritmů je důležité pro: - Rozvoj logického myšlení - Pochopení, jak počítače fungují - Přípravu na složitější problémy</p>
+<p>V reálných programech používáme vestavěnou funkci <code>sort()</code> nebo <code>sorted()</code>, která je <strong>mnohem rychlejší</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>seznam <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Způsob 1: sort() - upraví původní seznam</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>seznam.sort()</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seznam)  <span class="co"># [1, 2, 5, 8, 9]</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Způsob 2: sorted() - vrátí nový seznam</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>puvodni <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>serazeny <span class="op">=</span> <span class="bu">sorted</span>(puvodni)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(puvodni)   <span class="co"># [5, 2, 8, 1, 9] - nezměněn</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(serazeny)  <span class="co"># [1, 2, 5, 8, 9]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Proč jsme pak psali vlastní algoritmus?</strong> - Rozvoj <strong>algoritmického myšlení</strong> - Pochopení, <strong>jak počítače fungují</strong> uvnitř - Příprava na <strong>složitější problémy</strong> (v GIS budete řešit vlastní algoritmy!) - Pochopení <strong>vnořených cyklů</strong></p>
 </div>
 </div>
 <hr>
 </section>
 </section>
 </section>
-<section id="vnořené-cykly-a-propojení-s-model-builderem" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 4. Vnořené cykly a propojení s Model Builderem</h1>
-<section id="co-jsou-vnořené-cykly" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="co-jsou-vnořené-cykly"><span class="header-section-number">6.1</span> Co jsou vnořené cykly?</h2>
+<section id="vnořené-cykly-a-propojení-s-model-builderem" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Vnořené cykly a propojení s Model Builderem</h1>
+<section id="co-jsou-vnořené-cykly" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="co-jsou-vnořené-cykly"><span class="header-section-number">5.1</span> Co jsou vnořené cykly?</h2>
 <p><strong>Vnořený cyklus</strong> = cyklus uvnitř jiného cyklu.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"i=</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">, j=</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"i=</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">, j=</span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Výstup:</strong></p>
 <pre><code>i=0, j=0
 i=0, j=1
@@ -740,16 +785,16 @@ i=2, j=0
 i=2, j=1</code></pre>
 <p><strong>Jak to funguje:</strong> - Pro každou hodnotu <code>i</code> (vnější cyklus) - Projdeme všechny hodnoty <code>j</code> (vnitřní cyklus)</p>
 </section>
-<section id="praktický-příklad-tabulka-násobení" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="praktický-příklad-tabulka-násobení"><span class="header-section-number">6.2</span> Praktický příklad: Tabulka násobení</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabulka násobení 1-5</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>i <span class="op">*</span> j<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"---"</span>)  <span class="co"># Oddělovač</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="praktický-příklad-tabulka-násobení" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="praktický-příklad-tabulka-násobení"><span class="header-section-number">5.2</span> Praktický příklad: Tabulka násobení</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabulka násobení 1-5</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">6</span>):</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> × </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>i <span class="op">*</span> j<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"---"</span>)  <span class="co"># Oddělovač</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="propojení-s-model-builderem" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="propojení-s-model-builderem"><span class="header-section-number">6.3</span> Propojení s Model Builderem</h2>
+<section id="propojení-s-model-builderem" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="propojení-s-model-builderem"><span class="header-section-number">5.3</span> Propojení s Model Builderem</h2>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -760,19 +805,20 @@ i=2, j=1</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>V Model Builderu jste používali <strong>vnořené iterátory</strong>: - Vnější iterator: Pro každý <strong>okres</strong> - Vnitřní iterator: Pro každý <strong>rok</strong> - → Zpracovat data pro každý okres v každém roce</p>
+<p>V Model Builderu jste používali <strong>vnořené iterátory</strong>: - Vnější iterator: Pro každý <strong>okres</strong> - Vnitřní iterator: Pro každý <strong>rok</strong><br>
+- → Zpracovat data pro každý okres v každém roce</p>
 <p><strong>V Pythonu je to stejné, jen místo Model Builderu píšete kód!</strong></p>
 </div>
 </div>
-<section id="příklad-gis-úloha" class="level3" data-number="6.3.1">
-<h3 data-number="6.3.1" class="anchored" data-anchor-id="příklad-gis-úloha"><span class="header-section-number">6.3.1</span> Příklad: GIS úloha</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>okresy <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>]</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>roky <span class="op">=</span> [<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>]</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> okres <span class="kw">in</span> okresy:</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rok <span class="kw">in</span> roky:</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Zpracovávám: </span><span class="sc">{</span>okres<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>rok<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Zde by byl ArcPy kód pro zpracování dat</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="příklad-gis-úloha" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="příklad-gis-úloha"><span class="header-section-number">5.3.1</span> Příklad: GIS úloha</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>okresy <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>roky <span class="op">=</span> [<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>]</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> okres <span class="kw">in</span> okresy:</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> rok <span class="kw">in</span> roky:</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Zpracovávám: </span><span class="sc">{</span>okres<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>rok<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Zde by byl ArcPy kód pro zpracování dat</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Výstup:</strong></p>
 <pre><code>Zpracovávám: Praha, 2020
 Zpracovávám: Praha, 2021
@@ -788,39 +834,21 @@ Zpracovávám: Ostrava, 2022</code></pre>
 </section>
 </section>
 </section>
-<section id="praktická-cvičení" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 5. Praktická cvičení</h1>
-<section id="cvičení-2-filtrování-prvočísel-ze-seznamu" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="cvičení-2-filtrování-prvočísel-ze-seznamu"><span class="header-section-number">7.1</span> Cvičení 2: Filtrování prvočísel ze seznamu</h2>
-<p>Máte seznam čísel. Vytvořte nový seznam obsahující pouze prvočísla.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">20</span>]</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Zde napište kód...</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Očekávaný výsledek:</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># prvocisla = [2, 7, 11, 13, 17]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="cvičení-3-vlastní-třídící-algoritmus" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="cvičení-3-vlastní-třídící-algoritmus"><span class="header-section-number">7.2</span> Cvičení 3: Vlastní třídící algoritmus</h2>
-<p>Zkuste vymyslet <strong>svůj vlastní</strong> způsob třídění (nemusí být efektivní, ale musí fungovat!).</p>
-<p><strong>Nápověda:</strong> Můžete zkusit: - Najít maximum a přesunout na konec - Postupně budovat nový seřazený seznam - Cokoliv jiného, co vás napadne!</p>
-<hr>
-</section>
-</section>
-<section id="shrnutí" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 6. Shrnutí</h1>
-<section id="co-jsme-se-naučili" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">8.1</span> Co jsme se naučili</h2>
+<section id="shrnutí" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Shrnutí</h1>
+<section id="co-jsme-se-naučili" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">6.1</span> Co jsme se naučili</h2>
 <p>✅ <strong>Slicing</strong> - řezy seznamů (<code>seznam[start:stop:step]</code>)<br>
 ✅ <strong>Metody seznamů</strong> - <code>extend()</code>, <code>insert()</code>, <code>remove()</code>, <code>pop()</code>, <code>reverse()</code>, <code>sort()</code><br>
-✅ <strong>Prvočísla</strong> - algoritmus pro testování prvočíselnosti<br>
-✅ <strong>Bubble Sort</strong> - třídění porovnáváním sousedů<br>
+✅ <strong>Hledání minima/maxima</strong> - algoritmus pro hledání nejmenší/největší hodnoty<br>
+✅ <strong>Index minima</strong> - klíčové pro třídění!<br>
+✅ <strong>Bubble Sort</strong> - třídění porovnáváním sousedů (while verze)<br>
 ✅ <strong>Selection Sort</strong> - třídění výběrem minima<br>
 ✅ <strong>Vnořené cykly</strong> - cyklus v cyklu<br>
 ✅ <strong>Propojení s Model Builderem</strong> - vnořené cykly = vnořené iterátory</p>
 </section>
-<section id="co-bude-příště" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="co-bude-příště"><span class="header-section-number">8.2</span> Co bude příště?</h2>
+<section id="co-bude-příště" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="co-bude-příště"><span class="header-section-number">6.2</span> Co bude příště?</h2>
 <p>V příští lekci:</p>
 <ul>
 <li><strong>Funkce</strong> - jak psát znovupoužitelný kód</li>
@@ -831,93 +859,116 @@ Zpracovávám: Ostrava, 2022</code></pre>
 <hr>
 </section>
 </section>
-<section id="domácí-úkol" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 7. Domácí úkol</h1>
-<section id="varianta-a-základní" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="varianta-a-základní"><span class="header-section-number">9.1</span> Varianta A (základní)</h2>
+<section id="domácí-úkol" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Domácí úkol</h1>
+<section id="varianta-a-základní" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="varianta-a-základní"><span class="header-section-number">7.1</span> Varianta A (základní)</h2>
 <ol type="1">
-<li><p><strong>Dokončete úlohy ze cvičení</strong>, pokud jste je nestihli</p></li>
-<li><p><strong>N-té prvočíslo:</strong> Napište program, který najde N-té prvočíslo. Například:</p>
-<pre><code>Zadej N: 10
-10. prvočíslo je: 29</code></pre></li>
+<li><p><strong>Procvičení minima/maxima:</strong></p>
+<ul>
+<li>Napište funkci, která vrátí minimum a maximum najednou</li>
+<li>Najděte druhé nejmenší číslo v seznamu</li>
+</ul></li>
+<li><p><strong>Prvočísla</strong></p>
+<ul>
+<li>Napište program, který zjistí, zda je číslo prvočíslo</li>
+<li><strong>Nápověda:</strong></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Zadej číslo: "</span>))</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>je_prvocislo <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Zkusit dělit všemi čísly od 2 do n-1</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n):</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:  <span class="co"># Je dělitelné?</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        je_prvocislo <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> je_prvocislo:</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> je prvočíslo"</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> není prvočíslo"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ol>
 </section>
-<section id="varianta-b-pokročilá" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="varianta-b-pokročilá"><span class="header-section-number">9.2</span> Varianta B (pokročilá)</h2>
+<section id="varianta-b-pokročilá" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="varianta-b-pokročilá"><span class="header-section-number">7.2</span> Varianta B (pokročilá)</h2>
 <ol type="1">
-<li><strong>Prvočísla v rozsahu:</strong> Najděte všechna prvočísla mezi čísly A a B (obojí zadává uživatel)</li>
-<li><strong>Implementujte oba třídící algoritmy</strong> (Bubble Sort i Selection Sort) a porovnejte, který je čitelnější</li>
+<li><strong>Všechna prvočísla do 100</strong> - najděte všechna prvočísla v rozsahu</li>
+<li><strong>Implementujte oba třídící algoritmy</strong> a porovnejte, který je čitelnější</li>
+<li><strong>K-té nejmenší číslo</strong> - najděte třetí nejmenší číslo v seznamu</li>
 </ol>
 </section>
-<section id="varianta-c-výzva" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="varianta-c-výzva"><span class="header-section-number">9.3</span> Varianta C (výzva)</h2>
-<p><strong>Eratosthenovo síto</strong> - velmi rychlý algoritmus pro hledání prvočísel:</p>
+<section id="varianta-c-výzva" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="varianta-c-výzva"><span class="header-section-number">7.3</span> Varianta C (výzva)</h2>
 <ol type="1">
-<li>Vytvoř seznam čísel od 2 do N</li>
-<li>První číslo (2) je prvočíslo - označ všechny jeho násobky jako ne-prvočísla</li>
-<li>Další neoznačené číslo (3) je prvočíslo - označ všechny jeho násobky</li>
-<li>Opakuj, dokud nejsou všechna čísla označená</li>
+<li><p><strong>Eratosthenovo síto</strong> - velmi rychlý algoritmus pro hledání prvočísel:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>je_prvocislo <span class="op">=</span> [<span class="va">True</span>] <span class="op">*</span> (n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>je_prvocislo[<span class="dv">0</span>] <span class="op">=</span> je_prvocislo[<span class="dv">1</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Implementujte Eratosthenovo síto...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Vlastní třídící algoritmus</strong> - vymyslete úplně jiný způsob třídění</p></li>
 </ol>
-<p><strong>Nápověda:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>je_prvocislo <span class="op">=</span> [<span class="va">True</span>] <span class="op">*</span> (n <span class="op">+</span> <span class="dv">1</span>)  <span class="co"># Seznam True hodnot</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>je_prvocislo[<span class="dv">0</span>] <span class="op">=</span> je_prvocislo[<span class="dv">1</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Zde implementujte Eratosthenovo síto...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
-<section id="cheatsheet" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 8. Cheatsheet</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === SLICING ===</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>seznam[start:stop]      <span class="co"># Od start do stop (bez stop)</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>seznam[:n]              <span class="co"># První n prvků</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>seznam[n:]              <span class="co"># Od n-tého do konce</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>seznam[<span class="op">-</span>n:]             <span class="co"># Posledních n prvků</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>seznam[::step]          <span class="co"># Každý step-tý prvek</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>seznam[::<span class="op">-</span><span class="dv">1</span>]            <span class="co"># Otočení seznamu</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># === METODY SEZNAMŮ ===</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>seznam.extend([a, b])   <span class="co"># Přidání více prvků</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>seznam.insert(i, x)     <span class="co"># Vložení x na index i</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>seznam.remove(x)        <span class="co"># Odstranění první hodnoty x</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>seznam.pop()            <span class="co"># Odstranění a vrácení posledního</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>seznam.pop(i)           <span class="co"># Odstranění a vrácení i-tého</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>seznam.reverse()        <span class="co"># Otočení seznamu (in-place)</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>seznam.sort()           <span class="co"># Seřazení (in-place)</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="bu">sorted</span>(seznam)          <span class="co"># Seřazení (nový seznam)</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="co"># === PRVOČÍSLO ===</span></span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> je_prvocislo(n):</span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">2</span>:</span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n):</span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="co"># === BUBBLE SORT ===</span></span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(seznam)):</span>
-<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(seznam) <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> i):</span>
-<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seznam[j] <span class="op">&gt;</span> seznam[j <span class="op">+</span> <span class="dv">1</span>]:</span>
-<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>            seznam[j], seznam[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> seznam[j <span class="op">+</span> <span class="dv">1</span>], seznam[j]</span>
-<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a><span class="co"># === SELECTION SORT ===</span></span>
-<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(seznam)):</span>
-<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>    min_index <span class="op">=</span> i</span>
-<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(seznam)):</span>
-<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seznam[j] <span class="op">&lt;</span> seznam[min_index]:</span>
-<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>            min_index <span class="op">=</span> j</span>
-<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a>    seznam[i], seznam[min_index] <span class="op">=</span> seznam[min_index], seznam[i]</span>
-<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a><span class="co"># === VNOŘENÉ CYKLY ===</span></span>
-<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(m):</span>
-<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Pro každé i projdi všechna j</span></span>
-<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="cheatsheet" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Cheatsheet</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === SLICING ===</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>seznam[start:stop]      <span class="co"># Od start do stop (bez stop)</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>seznam[:n]              <span class="co"># První n prvků</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>seznam[n:]              <span class="co"># Od n-tého do konce</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>seznam[<span class="op">-</span>n:]             <span class="co"># Posledních n prvků</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>seznam[::step]          <span class="co"># Každý step-tý prvek</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>seznam[::<span class="op">-</span><span class="dv">1</span>]            <span class="co"># Otočení seznamu</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># === METODY SEZNAMŮ ===</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>seznam.extend([a, b])   <span class="co"># Přidání více prvků</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>seznam.insert(i, x)     <span class="co"># Vložení x na index i</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>seznam.remove(x)        <span class="co"># Odstranění první hodnoty x</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>seznam.pop()            <span class="co"># Odstranění a vrácení posledního</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>seznam.pop(i)           <span class="co"># Odstranění a vrácení i-tého</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>seznam.reverse()        <span class="co"># Otočení seznamu (in-place)</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>seznam.sort()           <span class="co"># Seřazení (in-place)</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="bu">sorted</span>(seznam)          <span class="co"># Seřazení (nový seznam)</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co"># === MINIMUM/MAXIMUM ===</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Hodnota minima</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>minimum <span class="op">=</span> cisla[<span class="dv">0</span>]</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cislo <span class="kw">in</span> cisla:</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cislo <span class="op">&lt;</span> minimum:</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>        minimum <span class="op">=</span> cislo</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Index minima</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>min_index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(cisla)):</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cisla[i] <span class="op">&lt;</span> cisla[min_index]:</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>        min_index <span class="op">=</span> i</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="co"># === BUBBLE SORT (while verze) ===</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>serazeno <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> serazeno:</span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>    serazeno <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(seznam) <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seznam[i] <span class="op">&gt;</span> seznam[i <span class="op">+</span> <span class="dv">1</span>]:</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>            seznam[i], seznam[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> seznam[i <span class="op">+</span> <span class="dv">1</span>], seznam[i]</span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>            serazeno <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a><span class="co"># === SELECTION SORT ===</span></span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(seznam)):</span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a>    min_index <span class="op">=</span> i</span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>, <span class="bu">len</span>(seznam)):</span>
+<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seznam[j] <span class="op">&lt;</span> seznam[min_index]:</span>
+<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a>            min_index <span class="op">=</span> j</span>
+<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a>    seznam[i], seznam[min_index] <span class="op">=</span> seznam[min_index], seznam[i]</span>
+<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a><span class="co"># === VNOŘENÉ CYKLY ===</span></span>
+<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb34-51"><a href="#cb34-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(m):</span>
+<span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Pro každé i projdi všechna j</span></span>
+<span id="cb34-53"><a href="#cb34-53" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 <!--
-# 9. Poznámky pro vyučujícího
+# Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
 
@@ -925,64 +976,66 @@ Zpracovávám: Ostrava, 2022</code></pre>
 # 1. Slicing - zapomínají, že stop je bez
 seznam[2:5]  # [2, 3, 4] - NE [2, 3, 4, 5]!
 
-# 2. Bubble sort - špatný rozsah
-for j in range(len(seznam)):  # CHYBA - index out of range!
-    if seznam[j] > seznam[j + 1]:  # j+1 přesáhne délku
+# 2. Bubble sort - zapomínají range(len - 1)
+for i in range(len(seznam)):  # CHYBA - index out of range!
+    if seznam[i] > seznam[i + 1]:  # i+1 přesáhne délku
 
 # Správně:
-for j in range(len(seznam) - 1):  # nebo - 1 - i
+for i in range(len(seznam) - 1):
 
-# 3. Prvočísla - zapomínají break
-for i in range(2, n):
-    if n % i == 0:
-        je_prvocislo = False
-        # break  # Zapomněli! Cyklus zbytečně běží dál
-
-# 4. Selection sort - prohození před nalezením minima
+# 3. Selection sort - prohození před nalezením minima
 for i in range(len(seznam)):
-    # Najít minimum
-    seznam[i], seznam[min_index] = ...  # CHYBA - min_index ještě není správný!
+    min_index = i  # ✓
+    seznam[i], seznam[min_index] = ...  # ✗ CHYBA - min_index ještě není správný!
+    # Najít minimum NEJDŘÍV!
+
+# 4. Minimum - zapomínají inicializovat
+minimum = cisla[0]  # ✓ Začít s prvním prvkem!
 ```
 
 ## Časový plán (90 min)
 
-| Čas       | Obsah                                                 |
-|-----------|-------------------------------------------------------|
-| 0-25 min  | Rekapitulace + seznamy (slicing, metody)              |
-| 25-55 min | Prvočísla - společně + samostatně                     |
-| 55-90 min | Třídění - brainstorming + implementace obou algoritmů |
+| Čas | Obsah |
+|----------------|--------------------------------------------------------|
+| 0-5 min | Rekapitulace minulé lekce |
+| 5-20 min | Seznamy - slicing a metody |
+| 20-45 min | **Minimum/Maximum** - hodnota + index |
+| 45-85 min | **Třídění** - Bubble Sort (20 min) + Selection Sort (20 min) + vnořené cykly (5 min) |
+| 85-90 min | Domácí úkol |
 
 ## Klíčové momenty
 
-### Seznamy (0-25 min):
+### Seznamy (5-20 min):
 
 -   Slicing ukázat na konkrétních příkladech
 -   `[::-1]` je nejužitečnější trik
 -   Metody rychle proletět, nejsou kritické
 
-### Prvočísla (25-55 min):
+### Minimum/Maximum (20-45 min):
 
--   **Společně** implementovat základní verzi (15 min)
--   **Samostatně** všechna prvočísla do N (15 min)
--   Důležité: Nechat je vymyslet logiku sami nejprve!
+-   **Zdůrazněte:** "Tohle použijeme za chvíli v třídění!"
+-   **Index minima** je klíčový - věnujte tomu čas
+-   Nechte studenty implementovat minimum sami
+-   Ukažte debugovací verzi
 
-### Třídění (55-90 min):
+### Třídění (45-85 min):
 
 -   **KRITICKÉ:** Začít brainstormingem (5 min)
 -   Studenti často sami přijdou na algoritmy!
--   Ukázat oba - Bubble i Selection
+-   **Bubble Sort s while** - zdůrazněte přirozenou logiku
+-   **Selection Sort** - "Vidíte? To jsme dělali před chvílí!"
 -   Vizualizovat na tabuli/projektoru
 -   Zdůraznit vnořené cykly
 
-## Rizika
+## Rizika a řešení
 
-1.  **Třídění může být těžké (35 min může být málo)**
+1.  **Třídění může být těžké**
     -   Řešení: Mít připravený promítaný kód
-    -   Můžete ukázat jen jeden algoritmus (Bubble je populárnější)
-    -   Selection Sort jako domácí úkol
-2.  **Prvočísla - studenti budou různě rychlí**
+    -   Selection Sort je volitelný (můžete přeskočit)
+    -   Důležitější je dobrý Bubble Sort
+2.  **Studenti budou různě rychlí**
     -   Řešení: Rychlejší pomáhají pomalejším
-    -   Bonusový úkol: optimalizace do sqrt(n)
+    -   Bonusové úkoly pro rychlé
 3.  **Vnořené cykly jsou abstraktní**
     -   Řešení: Vizualizovat tabulku násobení
     -   Propojit s Model Builderem iterátory!
@@ -994,11 +1047,17 @@ for i in range(len(seznam)):
 -   Připravte si seznam čísel na kartičkách - fyzické třídění!
 -   **Propojení s Model Builderem** - tento moment je důležitý,
     zdůrazněte ho!
+-   **Minimum → Selection Sort** - zdůrazněte propojení
 -   Ukažte, jak elegantní je `sort()` po tom, co implementovali vlastní
     algoritmus
+
 -->
 
 
+</section>
+</div>
+</div>
+</section>
 </section>
 
 </main> <!-- /main -->

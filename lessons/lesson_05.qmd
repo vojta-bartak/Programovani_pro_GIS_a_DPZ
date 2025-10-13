@@ -21,8 +21,9 @@ Po absolvování této lekce budete umět:
 
 -   Pracovat s řezy seznamů (slicing)
 -   Používat pokročilé metody seznamů
--   Implementovat algoritmus pro hledání prvočísel
--   Navrhnout a implementovat třídící algoritmus
+-   Implementovat algoritmus pro hledání minima a maxima
+-   Navrhnout a implementovat třídící algoritmus (Bubble Sort, Selection
+    Sort)
 -   Pracovat s vnořenými cykly
 -   Propojit vnořené cykly s vnořenými modely z Model Builderu
 
@@ -30,7 +31,7 @@ Po absolvování této lekce budete umět:
 
 ------------------------------------------------------------------------
 
-# 1. Rekapitulace a rozšíření seznamů
+# Rekapitulace a rozšíření seznamů
 
 ## Rychlá rekapitulace z minula
 
@@ -42,6 +43,7 @@ cisla[0]           # 1 - první prvek (index 0!)
 cisla[-1]          # 5 - poslední prvek
 len(cisla)         # 5 - délka seznamu
 cisla.append(6)    # Přidání prvku na konec
+cisla[3] = 2       # změna čtvrtého prvku
 ```
 
 ## Slicing (řezy) - nová technika
@@ -111,11 +113,18 @@ cisla = [1, 2, 4, 5]
 cisla.insert(2, 3)     # [1, 2, 3, 4, 5] - vložit 3 na index 2
 ```
 
-### remove() - odstranění první hodnoty
+### remove() - odstranění prvního výskytu hodnoty
 
 ``` python
 cisla = [1, 2, 3, 2, 4]
 cisla.remove(2)        # [1, 3, 2, 4] - odstraní první výskyt 2
+```
+
+### index() - vrací index prvního výskytu hodnoty
+
+``` python
+cisla = [1, 2, 3, 2, 4]
+cisla.index(2)        # vrací 1
 ```
 
 ### pop() - odstranění a vrácení prvku
@@ -162,105 +171,110 @@ cisla = [10, 25, 3, 47, 8, 19, 33, 5]
 
 ------------------------------------------------------------------------
 
-# 2. Prvočísla
-
-## Co je prvočíslo?
-
-**Prvočíslo** je přirozené číslo větší než 1, které je dělitelné pouze 1
-a sebou samým.
-
-**Prvočísla:** 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, ...
-
-**Nejsou prvočísla:** 1 (příliš malé podle definice), 4 (dělitelné 2), 6
-(dělitelné 2 a 3), 8 (dělitelné 2 a 4), 9 (dělitelné 3)
-
-## Algoritmus: Je číslo prvočíslo?
-
-### Logika
-
-Číslo `n` je prvočíslo, pokud **není dělitelné žádným číslem** od 2 do
-n-1.
-
-```         
-Je 7 prvočíslo?
-- 7 % 2 != 0 ✓
-- 7 % 3 != 0 ✓
-- 7 % 4 != 0 ✓
-- 7 % 5 != 0 ✓
-- 7 % 6 != 0 ✓
-→ Ano, 7 je prvočíslo!
-
-Je 8 prvočíslo?
-- 8 % 2 == 0 ✗
-→ Ne, 8 není prvočíslo (dělitelné 2)
-```
-
-### Implementace - společně
-
-``` python
-n = int(input("Číslo: "))
-
-# Speciální případy
-if n < 2:
-    print(f"{n} není prvočíslo")
-else:
-    je_prvocislo = True  # Předpokládáme, že je prvočíslo
-    
-    for i in range(2, n):
-        if n % i == 0:  # Našli jsme dělitele
-            je_prvocislo = False
-            break  # Můžeme skončit, není prvočíslo
-    
-    if je_prvocislo:
-        print(f"{n} je prvočíslo")
-    else:
-        print(f"{n} není prvočíslo")
-```
+# Hledání minima a maxima
 
 ::: callout-tip
-## Optimalizace
+## Proč začínáme s minimem/maximem?
 
-Stačí zkoušet dělitele do `sqrt(n)`, protože větší dělitel by musel mít
-menšího partnera:
-
-``` python
-import math
-for i in range(2, int(math.sqrt(n)) + 1):
-```
-
-Ale pro učení stačí jednodušší verze!
+Tento algoritmus se **přímo použije** při třídění! Je to perfektní
+příprava na Selection Sort.
 :::
 
-## Samostatná úloha: Všechna prvočísla do N
+## Motivace
 
-**Zadání:** Napište program, který najde všechna prvočísla do 100 (nebo
-do čísla zadaného uživatelem).
+**Úkol:** Máte seznam čísel `[5, 2, 8, 1, 9, 3]`. Najděte nejmenší
+číslo.
 
-**Nápověda:**
+**Otázka pro studenty:** Jak byste to udělali ručně?
 
-``` python
-n = int(input("Hledat prvočísla do: "))
-prvocisla = []
+Většina řekne: *"Projdu všechna čísla a pamatuji si, jaké bylo dosud
+nejmenší."*
 
-for cislo in range(2, n + 1):
-    # Zkontrolovat, zda je cislo prvočíslo
-    # Pokud ano, přidat do seznamu prvocisla
-    
-print(f"Prvočísla do {n}: {prvocisla}")
-```
-
-**Výstup by měl vypadat:**
+## Algoritmus krok za krokem
 
 ```         
-Hledat prvočísla do: 20
-Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]
+Seznam: [5, 2, 8, 1, 9, 3]
+
+1. Začnu, minimum = 5 (první číslo)
+2. Další je 2 → 2 < 5? Ano → nové minimum = 2
+3. Další je 8 → 8 < 2? Ne
+4. Další je 1 → 1 < 2? Ano → nové minimum = 1
+5. Další je 9 → 9 < 1? Ne
+6. Další je 3 → 3 < 1? Ne
+7. Konec → minimum = 1
 ```
+
+## Implementace - společně
+
+``` python
+cisla = [5, 2, 8, 1, 9, 3]
+
+# Začnu s prvním číslem jako minimem
+minimum = cisla[0]
+
+# Projdu zbytek seznamu
+for cislo in cisla:
+    if cislo < minimum:
+        minimum = cislo
+
+print(f"Nejmenší číslo: {minimum}")
+# Nejmenší číslo: 1
+```
+
+::: callout-note
+## Proč `minimum = cisla[0]`?
+
+Mohli bychom začít s velkým číslem (např. `minimum = 999999`), ale to
+není elegantní. Lepší je začít s prvním číslem v seznamu - víme, že
+minimum nemůže být větší než první prvek!
+:::
+
+## Maximum - obdobně
+
+``` python
+cisla = [5, 2, 8, 1, 9, 3]
+maximum = cisla[0]
+
+for cislo in cisla:
+    if cislo > maximum:
+        maximum = cislo
+
+print(f"Největší číslo: {maximum}")
+# Největší číslo: 9
+```
+
+## Hledání indexu minima
+
+**Důležité pro třídění!** Často potřebujeme nejen hodnotu minima, ale i
+jeho **pozici** v seznamu.
+
+``` python
+cisla = [5, 2, 8, 1, 9, 3]
+
+# Začnu s indexem 0
+min_index = 0
+
+# Projdu všechny indexy
+for i in range(len(cisla)):
+    if cisla[i] < cisla[min_index]:
+        min_index = i
+
+print(f"Index nejmenšího čísla: {min_index}")
+print(f"Hodnota: {cisla[min_index]}")
+# Index nejmenšího čísla: 3
+# Hodnota: 1
+```
+
+::: callout-important
+## Proč potřebujeme index?
+
+Při třídění budeme chtít **prohodit** pozice prvků. K tomu potřebujeme
+vědět, **kde** se minimum nachází!
+
 
 ------------------------------------------------------------------------
 
-# 3. Třídění - objevujeme algoritmy
-
-# 3. Třídění - objevujeme algoritmy
+# Třídění
 
 ## Motivace
 
@@ -329,7 +343,7 @@ prohazovali.**
 [1, 2, 5, 8, 9]  → 2 > 5? Ne
 [1, 2, 5, 8, 9]  → 5 > 8? Ne
 [1, 2, 5, 8, 9]  → 8 > 9? Ne
-[1, 2, 5, 8, 9]  ← NIČÍM NEPROHODILI → HOTOVO!
+[1, 2, 5, 8, 9]  ← Nic se neprohodilo → HOTOVO!
 ```
 
 ### Implementace - společně
@@ -373,7 +387,7 @@ print(f"Seřazený seznam: {seznam}")
     `True` → cyklus skončí!
 :::
 
-### Alternativní implementace
+### Alternativní implementace (volitelně)
 
 Předchozí implementace je intuitivní, protože odráží způsob, jak lidé
 **přirozeně myslí**. Ve skutečnosti není úplně efektivní, protože po
@@ -432,72 +446,125 @@ skoro seřazený - Může skončit brzy (best case: jen 1 průchod)
 opačně seřazený - V nejhorším případě dělá méně porovnání celkem
 :::
 
+------------------------------------------------------------------------
+
 ## Selection Sort (třídění výběrem)
+
+::: callout-tip
+## Teď použijeme, co jsme se naučili!
+
+Pamatujete si hledání indexu minima? Přesně to teď použijeme!
+:::
 
 ### Princip
 
-1.  Najdi **nejmenší prvek** v seznamu
-2.  Prohoď ho s prvním prvkem
-3.  Opakuj pro zbytek seznamu (od druhého prvku dál)
+**Myšlenka:** 1. Najdi **nejmenší prvek** v celém seznamu → dej ho na
+první místo 2. Najdi **nejmenší prvek** ve zbytku seznamu → dej ho na
+druhé místo 3. Opakuj...
 
-### Vizualizace na příkladu `[5, 2, 8, 1]`
+**Využíváme:** Algoritmus pro hledání indexu minima, který jsme právě
+napsali!
 
-**Krok 1:** Najdi minimum v `[5, 2, 8, 1]` → 1, prohoď s první pozicí
-
-```         
-[1, 2, 8, 5]
- ^ vyřešeno
-```
-
-**Krok 2:** Najdi minimum v `[2, 8, 5]` → 2, už je na správném místě
+### Vizualizace krok za krokem
 
 ```         
-[1, 2, 8, 5]
-    ^ vyřešeno
+Původní seznam: [5, 2, 8, 1, 9, 3]
+
+Krok 1: Najdi minimum v [5, 2, 8, 1, 9, 3]
+        → minimum je 1 (index 3)
+        → prohoď 5 ↔ 1
+        [1, 2, 8, 5, 9, 3]
+         ^ vyřešeno
+
+Krok 2: Najdi minimum v [2, 8, 5, 9, 3]
+        → minimum je 2 (index 1)
+        → už je na správném místě
+        [1, 2, 8, 5, 9, 3]
+            ^ vyřešeno
+
+Krok 3: Najdi minimum v [8, 5, 9, 3]
+        → minimum je 3 (index 5)
+        → prohoď 8 ↔ 3
+        [1, 2, 3, 5, 9, 8]
+               ^ vyřešeno
+
+Krok 4: Najdi minimum v [5, 9, 8]
+        → minimum je 5 (index 3)
+        → už je správně
+        [1, 2, 3, 5, 9, 8]
+                  ^ vyřešeno
+
+Krok 5: Najdi minimum v [9, 8]
+        → minimum je 8 (index 5)
+        → prohoď 9 ↔ 8
+        [1, 2, 3, 5, 8, 9]
+                     ^ vyřešeno
+
+Hotovo!
 ```
-
-**Krok 3:** Najdi minimum v `[8, 5]` → 5, prohoď
-
-```         
-[1, 2, 5, 8]
-       ^ vyřešeno
-```
-
-**Hotovo!** `[1, 2, 5, 8]`
 
 ### Implementace - společně
 
 ``` python
-seznam = [5, 2, 8, 1, 9]
+seznam = [5, 2, 8, 1, 9, 3]
 
-# Vnější cyklus - postupně řešíme pozice 0, 1, 2, ...
+# Pro každou pozici 0, 1, 2, ...
 for i in range(len(seznam)):
-    
     # Najdi index minima ve zbytku seznamu
+    # (od pozice i do konce)
+    # ↓↓↓ TOHLE JSME DĚLALI PŘED CHVÍLÍ! ↓↓↓
     min_index = i
     
     for j in range(i + 1, len(seznam)):
         if seznam[j] < seznam[min_index]:
             min_index = j
+    # ↑↑↑ ALGORITMUS PRO HLEDÁNÍ INDEXU MINIMA ↑↑↑
     
-    # Prohoď aktuální prvek s minimem
+    # Prohoď aktuální prvek s nalezeným minimem
     seznam[i], seznam[min_index] = seznam[min_index], seznam[i]
 
-print(seznam)  # [1, 2, 5, 8, 9]
+print(seznam)  # [1, 2, 3, 5, 8, 9]
 ```
+
+::: callout-important
+## Všimněte si!
+
+**Vnitřní cyklus** je přesně algoritmus pro hledání indexu minima, který
+jsme dělali před chvílí!
+
+Selection Sort = **opakované použití** algoritmu pro hledání minima! 🎯
+:::
+
 
 ::: callout-tip
 ## Pro praxi
 
 V reálných programech používáme vestavěnou funkci `sort()` nebo
-`sorted()`, která je **mnohem rychlejší**. Ale pochopení vlastních
-algoritmů je důležité pro: - Rozvoj logického myšlení - Pochopení, jak
-počítače fungují - Přípravu na složitější problémy
+`sorted()`, která je **mnohem rychlejší**:
+
+``` python
+seznam = [5, 2, 8, 1, 9]
+
+# Způsob 1: sort() - upraví původní seznam
+seznam.sort()
+print(seznam)  # [1, 2, 5, 8, 9]
+
+# Způsob 2: sorted() - vrátí nový seznam
+puvodni = [5, 2, 8, 1, 9]
+serazeny = sorted(puvodni)
+print(puvodni)   # [5, 2, 8, 1, 9] - nezměněn
+print(serazeny)  # [1, 2, 5, 8, 9]
+```
+
+**Proč jsme pak psali vlastní algoritmus?** - Rozvoj **algoritmického
+myšlení** - Pochopení, **jak počítače fungují** uvnitř - Příprava na
+**složitější problémy** (v GIS budete řešit vlastní algoritmy!) -
+Pochopení **vnořených cyklů**
 :::
 
 ------------------------------------------------------------------------
 
-# 4. Vnořené cykly a propojení s Model Builderem
+# Vnořené cykly a propojení s Model Builderem
 
 ## Co jsou vnořené cykly?
 
@@ -539,8 +606,8 @@ for i in range(1, 6):
 ## Vzpomínáte na vnořené modely?
 
 V Model Builderu jste používali **vnořené iterátory**: - Vnější
-iterator: Pro každý **okres** - Vnitřní iterator: Pro každý **rok** - →
-Zpracovat data pro každý okres v každém roce
+iterator: Pro každý **okres** - Vnitřní iterator: Pro každý **rok**\
+- → Zpracovat data pro každý okres v každém roce
 
 **V Pythonu je to stejné, jen místo Model Builderu píšete kód!**
 :::
@@ -576,40 +643,17 @@ graficky. V Pythonu to napíšete přímo!
 
 ------------------------------------------------------------------------
 
-# 5. Praktická cvičení
-
-## Cvičení 2: Filtrování prvočísel ze seznamu
-
-Máte seznam čísel. Vytvořte nový seznam obsahující pouze prvočísla.
-
-``` python
-cisla = [2, 4, 7, 8, 11, 12, 13, 15, 17, 20]
-
-# Zde napište kód...
-
-# Očekávaný výsledek:
-# prvocisla = [2, 7, 11, 13, 17]
-```
-
-## Cvičení 3: Vlastní třídící algoritmus
-
-Zkuste vymyslet **svůj vlastní** způsob třídění (nemusí být efektivní,
-ale musí fungovat!).
-
-**Nápověda:** Můžete zkusit: - Najít maximum a přesunout na konec -
-Postupně budovat nový seřazený seznam - Cokoliv jiného, co vás napadne!
-
-------------------------------------------------------------------------
-
-# 6. Shrnutí
+# Shrnutí
 
 ## Co jsme se naučili
 
 ✅ **Slicing** - řezy seznamů (`seznam[start:stop:step]`)\
 ✅ **Metody seznamů** - `extend()`, `insert()`, `remove()`, `pop()`,
 `reverse()`, `sort()`\
-✅ **Prvočísla** - algoritmus pro testování prvočíselnosti\
-✅ **Bubble Sort** - třídění porovnáváním sousedů\
+✅ **Hledání minima/maxima** - algoritmus pro hledání nejmenší/největší
+hodnoty\
+✅ **Index minima** - klíčové pro třídění!\
+✅ **Bubble Sort** - třídění porovnáváním sousedů (while verze)\
 ✅ **Selection Sort** - třídění výběrem minima\
 ✅ **Vnořené cykly** - cyklus v cyklu\
 ✅ **Propojení s Model Builderem** - vnořené cykly = vnořené iterátory
@@ -625,50 +669,61 @@ V příští lekci:
 
 ------------------------------------------------------------------------
 
-# 7. Domácí úkol
+# Domácí úkol
 
 ## Varianta A (základní)
 
-1.  **Dokončete úlohy ze cvičení**, pokud jste je nestihli
+1.  **Procvičení minima/maxima:**
 
-2.  **N-té prvočíslo:** Napište program, který najde N-té prvočíslo.
-    Například:
+    -   Napište funkci, která vrátí minimum a maximum najednou
+    -   Najděte druhé nejmenší číslo v seznamu
 
-    ```         
-    Zadej N: 10
-    10. prvočíslo je: 29
+2.  **Prvočísla**
+
+    -   Napište program, který zjistí, zda je číslo prvočíslo
+    -   **Nápověda:**
+
+    ``` python
+    n = int(input("Zadej číslo: "))
+    je_prvocislo = True
+
+    # Zkusit dělit všemi čísly od 2 do n-1
+    for i in range(2, n):
+        if n % i == 0:  # Je dělitelné?
+            je_prvocislo = False
+            break
+
+    if je_prvocislo:
+        print(f"{n} je prvočíslo")
+    else:
+        print(f"{n} není prvočíslo")
     ```
 
 ## Varianta B (pokročilá)
 
-1.  **Prvočísla v rozsahu:** Najděte všechna prvočísla mezi čísly A a B
-    (obojí zadává uživatel)
-2.  **Implementujte oba třídící algoritmy** (Bubble Sort i Selection
-    Sort) a porovnejte, který je čitelnější
+1.  **Všechna prvočísla do 100** - najděte všechna prvočísla v rozsahu
+2.  **Implementujte oba třídící algoritmy** a porovnejte, který je
+    čitelnější
+3.  **K-té nejmenší číslo** - najděte třetí nejmenší číslo v seznamu
 
 ## Varianta C (výzva)
 
-**Eratosthenovo síto** - velmi rychlý algoritmus pro hledání prvočísel:
+1.  **Eratosthenovo síto** - velmi rychlý algoritmus pro hledání
+    prvočísel:
 
-1.  Vytvoř seznam čísel od 2 do N
-2.  První číslo (2) je prvočíslo - označ všechny jeho násobky jako
-    ne-prvočísla
-3.  Další neoznačené číslo (3) je prvočíslo - označ všechny jeho násobky
-4.  Opakuj, dokud nejsou všechna čísla označená
+    ``` python
+    n = 100
+    je_prvocislo = [True] * (n + 1)
+    je_prvocislo[0] = je_prvocislo[1] = False
 
-**Nápověda:**
+    # Implementujte Eratosthenovo síto...
+    ```
 
-``` python
-n = 100
-je_prvocislo = [True] * (n + 1)  # Seznam True hodnot
-je_prvocislo[0] = je_prvocislo[1] = False
-
-# Zde implementujte Eratosthenovo síto...
-```
+2.  **Vlastní třídící algoritmus** - vymyslete úplně jiný způsob třídění
 
 ------------------------------------------------------------------------
 
-# 8. Cheatsheet
+# Cheatsheet
 
 ``` python
 # === SLICING ===
@@ -689,20 +744,27 @@ seznam.reverse()        # Otočení seznamu (in-place)
 seznam.sort()           # Seřazení (in-place)
 sorted(seznam)          # Seřazení (nový seznam)
 
-# === PRVOČÍSLO ===
-def je_prvocislo(n):
-    if n < 2:
-        return False
-    for i in range(2, n):
-        if n % i == 0:
-            return False
-    return True
+# === MINIMUM/MAXIMUM ===
+# Hodnota minima
+minimum = cisla[0]
+for cislo in cisla:
+    if cislo < minimum:
+        minimum = cislo
 
-# === BUBBLE SORT ===
-for i in range(len(seznam)):
-    for j in range(len(seznam) - 1 - i):
-        if seznam[j] > seznam[j + 1]:
-            seznam[j], seznam[j + 1] = seznam[j + 1], seznam[j]
+# Index minima
+min_index = 0
+for i in range(len(cisla)):
+    if cisla[i] < cisla[min_index]:
+        min_index = i
+
+# === BUBBLE SORT (while verze) ===
+serazeno = False
+while not serazeno:
+    serazeno = True
+    for i in range(len(seznam) - 1):
+        if seznam[i] > seznam[i + 1]:
+            seznam[i], seznam[i + 1] = seznam[i + 1], seznam[i]
+            serazeno = False
 
 # === SELECTION SORT ===
 for i in range(len(seznam)):
@@ -723,7 +785,7 @@ for i in range(n):
 
 ````{=html}
 <!--
-# 9. Poznámky pro vyučujícího
+# Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
 
@@ -731,64 +793,66 @@ for i in range(n):
 # 1. Slicing - zapomínají, že stop je bez
 seznam[2:5]  # [2, 3, 4] - NE [2, 3, 4, 5]!
 
-# 2. Bubble sort - špatný rozsah
-for j in range(len(seznam)):  # CHYBA - index out of range!
-    if seznam[j] > seznam[j + 1]:  # j+1 přesáhne délku
+# 2. Bubble sort - zapomínají range(len - 1)
+for i in range(len(seznam)):  # CHYBA - index out of range!
+    if seznam[i] > seznam[i + 1]:  # i+1 přesáhne délku
 
 # Správně:
-for j in range(len(seznam) - 1):  # nebo - 1 - i
+for i in range(len(seznam) - 1):
 
-# 3. Prvočísla - zapomínají break
-for i in range(2, n):
-    if n % i == 0:
-        je_prvocislo = False
-        # break  # Zapomněli! Cyklus zbytečně běží dál
-
-# 4. Selection sort - prohození před nalezením minima
+# 3. Selection sort - prohození před nalezením minima
 for i in range(len(seznam)):
-    # Najít minimum
-    seznam[i], seznam[min_index] = ...  # CHYBA - min_index ještě není správný!
+    min_index = i  # ✓
+    seznam[i], seznam[min_index] = ...  # ✗ CHYBA - min_index ještě není správný!
+    # Najít minimum NEJDŘÍV!
+
+# 4. Minimum - zapomínají inicializovat
+minimum = cisla[0]  # ✓ Začít s prvním prvkem!
 ```
 
 ## Časový plán (90 min)
 
-| Čas       | Obsah                                                 |
-|-----------|-------------------------------------------------------|
-| 0-25 min  | Rekapitulace + seznamy (slicing, metody)              |
-| 25-55 min | Prvočísla - společně + samostatně                     |
-| 55-90 min | Třídění - brainstorming + implementace obou algoritmů |
+| Čas | Obsah |
+|----------------|--------------------------------------------------------|
+| 0-5 min | Rekapitulace minulé lekce |
+| 5-20 min | Seznamy - slicing a metody |
+| 20-45 min | **Minimum/Maximum** - hodnota + index |
+| 45-85 min | **Třídění** - Bubble Sort (20 min) + Selection Sort (20 min) + vnořené cykly (5 min) |
+| 85-90 min | Domácí úkol |
 
 ## Klíčové momenty
 
-### Seznamy (0-25 min):
+### Seznamy (5-20 min):
 
 -   Slicing ukázat na konkrétních příkladech
 -   `[::-1]` je nejužitečnější trik
 -   Metody rychle proletět, nejsou kritické
 
-### Prvočísla (25-55 min):
+### Minimum/Maximum (20-45 min):
 
--   **Společně** implementovat základní verzi (15 min)
--   **Samostatně** všechna prvočísla do N (15 min)
--   Důležité: Nechat je vymyslet logiku sami nejprve!
+-   **Zdůrazněte:** "Tohle použijeme za chvíli v třídění!"
+-   **Index minima** je klíčový - věnujte tomu čas
+-   Nechte studenty implementovat minimum sami
+-   Ukažte debugovací verzi
 
-### Třídění (55-90 min):
+### Třídění (45-85 min):
 
 -   **KRITICKÉ:** Začít brainstormingem (5 min)
 -   Studenti často sami přijdou na algoritmy!
--   Ukázat oba - Bubble i Selection
+-   **Bubble Sort s while** - zdůrazněte přirozenou logiku
+-   **Selection Sort** - "Vidíte? To jsme dělali před chvílí!"
 -   Vizualizovat na tabuli/projektoru
 -   Zdůraznit vnořené cykly
 
-## Rizika
+## Rizika a řešení
 
-1.  **Třídění může být těžké (35 min může být málo)**
+1.  **Třídění může být těžké**
     -   Řešení: Mít připravený promítaný kód
-    -   Můžete ukázat jen jeden algoritmus (Bubble je populárnější)
-    -   Selection Sort jako domácí úkol
-2.  **Prvočísla - studenti budou různě rychlí**
+    -   Selection Sort je volitelný (můžete přeskočit)
+    -   Důležitější je dobrý Bubble Sort
+2.  **Studenti budou různě rychlí**
     -   Řešení: Rychlejší pomáhají pomalejším
-    -   Bonusový úkol: optimalizace do sqrt(n)
+    -   Bonusové úkoly pro rychlé
 3.  **Vnořené cykly jsou abstraktní**
     -   Řešení: Vizualizovat tabulku násobení
     -   Propojit s Model Builderem iterátory!
@@ -800,7 +864,9 @@ for i in range(len(seznam)):
 -   Připravte si seznam čísel na kartičkách - fyzické třídění!
 -   **Propojení s Model Builderem** - tento moment je důležitý,
     zdůrazněte ho!
+-   **Minimum → Selection Sort** - zdůrazněte propojení
 -   Ukažte, jak elegantní je `sort()` po tom, co implementovali vlastní
     algoritmus
+
 -->
 ````

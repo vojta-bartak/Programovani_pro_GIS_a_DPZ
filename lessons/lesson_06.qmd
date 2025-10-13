@@ -1,7 +1,7 @@
 ---
 title: "Lekce 6: Funkce a moduly"
 subtitle: "Python pro GIS - Znovupoužitelný kód"
-author: "Váš kurz"
+author: "Vojtěch Barták, FŽP ČZU Praha"
 date: today
 format:
   html:
@@ -10,39 +10,39 @@ format:
     number-sections: true
     code-fold: false
     theme: cosmo
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 # Cíle lekce
 
 Po absolvování této lekce budete umět:
 
-- Definovat vlastní funkce pomocí `def`
-- Používat parametry a návratové hodnoty
-- Rozumět rozdílu mezi `print()` a `return`
-- Psát dokumentační řetězce (docstrings)
-- Organizovat kód do modulů
-- Importovat a používat moduly
-- Vytvořit vlastní modul `math_utils.py`
+-   Definovat vlastní funkce pomocí `def`
+-   Používat parametry a návratové hodnoty
+-   Rozumět rozdílu mezi `print()` a `return`
+-   Psát dokumentační řetězce (docstrings)
+-   Organizovat kód do modulů
+-   Importovat a používat moduly
+-   Vytvořit vlastní modul `math_utils.py`
 
 **Časová dotace:** 90 minut
 
----
+------------------------------------------------------------------------
 
-# 1. Proč funkce?
+# Proč funkce?
 
 ## Motivace
 
 **Vzpomeňte si na předchozí lekce:**
 
-Napsali jste kód pro:
-- Fibonacci číslo
-- Faktoriál
-- Test prvočíselnosti
-- Třídění seznamu
+Napsali jste kód pro: - Fibonacci číslo - Faktoriál - Hledání
+minima/maxima - Třídění seznamu - Test prvočíselnosti
 
 **Co kdybyste tyto operace potřebovali použít vícekrát?**
 
-```python
+``` python
 # Fibonacci pro číslo 10
 n = 10
 a, b = 0, 1
@@ -69,37 +69,35 @@ print(f"Fibonacci({n}) = {a}")
 
 Pokud píšete stejný kód vícekrát, měli byste ho **zabalit do funkce**.
 
-::: {.callout-tip}
+::: callout-tip
 ## Funkce = pojmenovaný kus kódu
 
-Funkce je **pojmenovaný blok kódu**, který:
-- Můžete volat kdykoli
-- Může přijímat vstupy (parametry)
-- Může vracet výstup (návratovou hodnotu)
-- Dělá kód čitelnějším a znovupoužitelným
+Funkce je **pojmenovaný blok kódu**, který: - Můžete volat kdykoli -
+Může přijímat vstupy (parametry) - Může vracet výstup (návratovou
+hodnotu) - Dělá kód čitelnějším a znovupoužitelným
 :::
 
----
+------------------------------------------------------------------------
 
-# 2. Definice funkcí
+# Definice funkcí
 
 ## Základní syntaxe
 
-```python
+``` python
 def jmeno_funkce():
     # Tělo funkce (odsazené)
     prikaz1
     prikaz2
 ```
 
-**Klíčové slovo:** `def` (define)  
-**Závorky:** `()` jsou povinné  
-**Dvojtečka:** `:` na konci řádku  
+**Klíčové slovo:** `def` (define)\
+**Závorky:** `()` jsou povinné\
+**Dvojtečka:** `:` na konci řádku\
 **Odsazení:** Tělo funkce je odsazené (4 mezery)
 
 ## První funkce
 
-```python
+``` python
 def pozdrav():
     print("Ahoj!")
     print("Vítej v kurzu Pythonu!")
@@ -109,33 +107,34 @@ pozdrav()
 ```
 
 **Výsledek:**
-```
+
+```         
 Ahoj!
 Vítej v kurzu Pythonu!
 ```
 
-::: {.callout-important}
+::: callout-important
 ## Funkci musíte ZAVOLAT!
 
-Definice funkce ji jen **vytvoří**, ale **neprovede**:
+Definice funkce ji jen **vytvoří**, ale **neprovede** (**"nezavolá"**):
 
-```python
+``` python
 def pozdrav():
     print("Ahoj!")
 
 # Nic se nevypíše! Funkce jen existuje.
 
-pozdrav()  # TEĎ se provede!
+pozdrav()  # TEĎ se zavolá!
 ```
 :::
 
----
+------------------------------------------------------------------------
 
-# 3. Parametry funkcí
+# Parametry funkcí
 
 ## Funkce s jedním parametrem
 
-```python
+``` python
 def pozdrav(jmeno):
     print(f"Ahoj, {jmeno}!")
 
@@ -147,7 +146,7 @@ pozdrav("Marie")   # Ahoj, Marie!
 
 ## Funkce s více parametry
 
-```python
+``` python
 def secti(a, b):
     vysledek = a + b
     print(f"{a} + {b} = {vysledek}")
@@ -160,7 +159,7 @@ secti(10, 7)  # 10 + 7 = 17
 
 Můžete nastavit **výchozí hodnotu** pro parametr:
 
-```python
+``` python
 def pozdrav(jmeno, jazyk="cs"):
     if jazyk == "cs":
         print(f"Ahoj, {jmeno}!")
@@ -172,13 +171,13 @@ pozdrav("John", "en")    # Hello, John!
 pozdrav("Marie", "cs")   # Ahoj, Marie!
 ```
 
----
+------------------------------------------------------------------------
 
-# 4. Návratové hodnoty - return
+# Návratové hodnoty - return
 
 ## Problém s print()
 
-```python
+``` python
 def secti(a, b):
     vysledek = a + b
     print(vysledek)
@@ -193,7 +192,7 @@ y = x + 10       # CHYBA! None + 10 nejde
 
 ## Řešení: return
 
-```python
+``` python
 def secti(a, b):
     vysledek = a + b
     return vysledek  # Vrátí hodnotu
@@ -204,13 +203,13 @@ y = x + 10         # y = 18
 print(f"Výsledek: {y}")  # Výsledek: 18
 ```
 
-::: {.callout-warning}
+::: callout-warning
 ## print() vs. return - KRITICKÝ ROZDÍL!
 
-- **print()** - vypíše na obrazovku, ale **nevrací** hodnotu
-- **return** - **vrací** hodnotu, kterou můžete použít dál
+-   **print()** - vypíše na obrazovku, ale **nevrací** hodnotu
+-   **return** - **vrací** hodnotu, kterou můžete použít dál
 
-```python
+``` python
 def spatne(x):
     print(x * 2)    # Vypíše, ale nevrací
 
@@ -221,12 +220,13 @@ a = spatne(5)       # Vypíše 10, ale a = None
 b = spravne(5)      # b = 10 (můžeme použít dál)
 ```
 
-**Pravidlo:** Funkce by měly **vracet** hodnoty pomocí `return`, ne je vypisovat pomocí `print()`!
+**Pravidlo:** Funkce by měly **vracet** hodnoty pomocí `return`, ne je
+vypisovat pomocí `print()`!
 :::
 
 ## return ukončuje funkci
 
-```python
+``` python
 def je_kladne(cislo):
     if cislo > 0:
         return True  # Funkce SKONČÍ zde
@@ -236,15 +236,16 @@ print(je_kladne(5))   # True
 print(je_kladne(-3))  # False
 ```
 
----
+------------------------------------------------------------------------
 
-# 5. Dokumentační řetězce (docstrings)
+# Dokumentační řetězce (docstrings)
 
 ## Co jsou docstrings?
 
-**Docstring** = dokumentace funkce napsaná hned pod definicí v trojitých uvozovkách.
+**Docstring** = dokumentace funkce napsaná hned pod definicí v trojitých
+uvozovkách.
 
-```python
+``` python
 def fibonacci(n):
     """Vrátí n-tý člen Fibonacciho posloupnosti.
     
@@ -262,13 +263,14 @@ def fibonacci(n):
 
 ## Proč používat docstrings?
 
-```python
+``` python
 # Můžete si přečíst dokumentaci:
 help(fibonacci)
 ```
 
 **Výstup:**
-```
+
+```         
 Help on function fibonacci:
 
 fibonacci(n)
@@ -281,25 +283,27 @@ fibonacci(n)
         n-tý člen posloupnosti (int)
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Dobrý docstring obsahuje
 
-1. **Stručný popis** - co funkce dělá
-2. **Args** - jaké přijímá parametry
-3. **Returns** - co vrací
-4. **Raises** (volitelně) - jaké může vyvolat chyby
+1.  **Stručný popis** - co funkce dělá
+2.  **Args** - jaké přijímá parametry
+3.  **Returns** - co vrací
+4.  **Raises** (volitelně) - jaké může vyvolat chyby
 
-Nemusíte psát složité docstringy, ale alespoň jednořádkový popis je dobrý!
+Nemusíte psát složité docstringy, ale alespoň jednořádkový popis je
+dobrý!
 :::
 
----
+------------------------------------------------------------------------
 
-# 6. Přepis úloh jako funkcí
+# Přepis úloh jako funkcí
 
 ## Fibonacci jako funkce
 
 **Původní kód:**
-```python
+
+``` python
 n = int(input("Které číslo? "))
 a, b = 0, 1
 for i in range(n):
@@ -308,7 +312,8 @@ print(f"{n}. člen: {a}")
 ```
 
 **Jako funkce:**
-```python
+
+``` python
 def fibonacci(n):
     """Vrátí n-tý člen Fibonacciho posloupnosti."""
     a, b = 0, 1
@@ -329,7 +334,7 @@ for i in [5, 10, 15, 20]:
 
 Přepište váš kód pro faktoriál jako funkci:
 
-```python
+``` python
 def faktorial(n):
     """Vrátí faktoriál čísla n."""
     # Zde doplňte kód...
@@ -341,7 +346,7 @@ print(faktorial(10))  # Mělo by být 3628800
 
 ## Cvičení 2: Test prvočíselnosti jako funkce
 
-```python
+``` python
 def je_prvocislo(n):
     """Vrátí True, pokud je n prvočíslo, jinak False."""
     # Zde doplňte kód...
@@ -354,7 +359,7 @@ print(je_prvocislo(17))  # True
 
 ## Cvičení 3: Bubble Sort jako funkce
 
-```python
+``` python
 def bubble_sort(seznam):
     """Seřadí seznam pomocí Bubble Sort algoritmu.
     
@@ -378,12 +383,13 @@ print(f"Původní: {cisla}")
 print(f"Seřazené: {serazene}")
 ```
 
-::: {.callout-warning}
+::: callout-warning
 ## Pozor na úpravu seznamů!
 
-Seznamy jsou **mutable** (měnitelné). Pokud funkce upravuje seznam, mění původní:
+Seznamy jsou **mutable** (měnitelné). Pokud funkce upravuje seznam, mění
+původní:
 
-```python
+``` python
 def spatne_sort(seznam):
     seznam.sort()  # Mění původní seznam!
     return seznam
@@ -400,24 +406,24 @@ def dobre_sort(seznam):
 ```
 :::
 
----
+------------------------------------------------------------------------
 
-# 7. Moduly
+# Moduly
 
 ## Co je modul?
 
-**Modul** = Python soubor (`.py`) obsahující funkce, které můžete použít v jiných programech.
+**Modul** = Python soubor (`.py`) obsahující funkce, které můžete použít
+v jiných programech.
 
-**Proč moduly?**
-- **Organizace** - rozdělení programu do logických celků
-- **Znovupoužitelnost** - jednou napíšete, použijete všude
-- **Sdílení** - můžete sdílet s kolegy
+**Proč moduly?** - **Organizace** - rozdělení programu do logických
+celků - **Znovupoužitelnost** - jednou napíšete, použijete všude -
+**Sdílení** - můžete sdílet s kolegy
 
 ## Vytvoření vlastního modulu
 
 ### Krok 1: Vytvořte soubor `math_utils.py`
 
-```python
+``` python
 # math_utils.py
 
 def fibonacci(n):
@@ -455,7 +461,7 @@ def bubble_sort(seznam):
 
 ### Krok 2: Vytvořte soubor `main.py` ve STEJNÉ složce
 
-```python
+``` python
 # main.py
 
 import math_utils
@@ -475,7 +481,7 @@ print(f"Seřazené: {math_utils.bubble_sort(cisla)}")
 
 ### 1. Import celého modulu
 
-```python
+``` python
 import math_utils
 
 math_utils.fibonacci(10)
@@ -484,7 +490,7 @@ math_utils.faktorial(5)
 
 ### 2. Import konkrétních funkcí
 
-```python
+``` python
 from math_utils import fibonacci, faktorial
 
 fibonacci(10)   # Bez math_utils.
@@ -493,7 +499,7 @@ faktorial(5)
 
 ### 3. Import s aliasem
 
-```python
+``` python
 import math_utils as mu
 
 mu.fibonacci(10)
@@ -502,18 +508,20 @@ mu.faktorial(5)
 
 ### 4. Import všeho (NEDOPORUČENO!)
 
-```python
+``` python
 from math_utils import *
 
 fibonacci(10)  # Funguje, ale není jasné, odkud funkce pochází
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Doporučení
 
-- Pro **vlastní moduly**: `import math_utils` (jasné, odkud funkce pochází)
-- Pro **specifické funkce**: `from math_utils import fibonacci` (kratší kód)
-- **Nikdy** nepoužívejte `import *` - není jasné, co importujete!
+-   Pro **vlastní moduly**: `import math_utils` (jasné, odkud funkce
+    pochází)
+-   Pro **specifické funkce**: `from math_utils import fibonacci`
+    (kratší kód)
+-   **Nikdy** nepoužívejte `import *` - není jasné, co importujete!
 :::
 
 ## Vestavěné moduly
@@ -522,7 +530,7 @@ Python má mnoho **vestavěných modulů**, které můžete rovnou použít:
 
 ### Modul `math`
 
-```python
+``` python
 import math
 
 print(math.sqrt(16))      # 4.0 - odmocnina
@@ -533,7 +541,7 @@ print(math.floor(3.8))    # 3 - zaokrouhlení dolů
 
 ### Modul `random`
 
-```python
+``` python
 import random
 
 print(random.randint(1, 10))        # Náhodné číslo 1-10
@@ -542,7 +550,7 @@ print(random.choice([1, 2, 3, 4]))  # Náhodný prvek ze seznamu
 
 ### Modul `os` (operační systém)
 
-```python
+``` python
 import os
 
 print(os.getcwd())           # Aktuální složka
@@ -551,7 +559,7 @@ print(os.listdir('.'))       # Seznam souborů
 
 ### Modul `csv` (práce s CSV)
 
-```python
+``` python
 import csv
 
 # Budeme používat příští lekci!
@@ -559,12 +567,12 @@ import csv
 
 ## Preview: import arcpy
 
-::: {.callout-note}
+::: callout-note
 ## Připravujeme se na ArcPy!
 
 V příštích týdnech budete psát:
 
-```python
+``` python
 import arcpy
 
 # Funkce z ArcPy modulu:
@@ -573,16 +581,17 @@ arcpy.Clip_analysis(...)
 arcpy.management.CreateFeatureclass(...)
 ```
 
-**Vidíte?** ArcPy je jen další modul! Funguje úplně stejně jako `math_utils`.
+**Vidíte?** ArcPy je jen další modul! Funguje úplně stejně jako
+`math_utils`.
 :::
 
----
+------------------------------------------------------------------------
 
-# 8. Struktura projektu
+# Struktura projektu
 
 ## Ideální organizace
 
-```
+```         
 muj_projekt/
 │
 ├── main.py              # Hlavní program
@@ -593,14 +602,16 @@ muj_projekt/
 ```
 
 **main.py:**
-```python
+
+``` python
 import math_utils
 
 # Hlavní program...
 ```
 
 **math_utils.py:**
-```python
+
+``` python
 def fibonacci(n):
     # ...
 
@@ -608,15 +619,16 @@ def faktorial(n):
     # ...
 ```
 
-::: {.callout-important}
+::: callout-important
 ## Soubory musí být ve stejné složce!
 
-Aby `import math_utils` fungoval, musí být `math_utils.py` ve **stejné složce** jako `main.py`, nebo v Pythonem rozpoznané cestě.
+Aby `import math_utils` fungoval, musí být `math_utils.py` ve **stejné
+složce** jako `main.py`, nebo v Pythonem rozpoznané cestě.
 :::
 
----
+------------------------------------------------------------------------
 
-# 9. Praktická úloha
+# Praktická úloha
 
 ## Zadání
 
@@ -624,29 +636,21 @@ Vytvořte kompletní projekt:
 
 ### 1. Soubor `math_utils.py`
 
-Obsahuje funkce:
-- `fibonacci(n)`
-- `faktorial(n)`
-- `je_prvocislo(n)`
-- `bubble_sort(seznam)`
+Obsahuje funkce: - `fibonacci(n)` - `faktorial(n)` - `je_prvocislo(n)` -
+`bubble_sort(seznam)`
 
 Všechny funkce mají docstringy!
 
 ### 2. Soubor `main.py`
 
-Program, který:
-1. Načte číslo N od uživatele
-2. Vypočítá a vypíše:
-   - N-tý Fibonacci číslo
-   - Faktoriál N
-   - Zda je N prvočíslo
-3. Vytvoří seznam prvních 10 Fibonacci čísel
-4. Seřadí tento seznam (ačkoli už je seřazený 😊)
-5. Vypíše výsledek
+Program, který: 1. Načte číslo N od uživatele 2. Vypočítá a vypíše: -
+N-té Fibonacci číslo - Faktoriál N - Zda je N prvočíslo 3. Vytvoří
+seznam prvních 10 Fibonacci čísel 4. Seřadí tento seznam (ačkoli už je
+seřazený 😊) 5. Vypíše výsledek
 
 **Kostra:**
 
-```python
+``` python
 # main.py
 import math_utils
 
@@ -673,55 +677,54 @@ serazeny = math_utils.bubble_sort(fibonacci_cisla)
 print(f"Seřazený seznam: {serazeny}")
 ```
 
----
+------------------------------------------------------------------------
 
-# 10. Shrnutí
+# Shrnutí
 
 ## Co jsme se naučili
 
-✅ **Definice funkcí** pomocí `def`  
-✅ **Parametry** - vstupy do funkce  
-✅ **return** - návratové hodnoty  
-✅ **Rozdíl print() vs. return** - klíčové pro pochopení!  
-✅ **Docstrings** - dokumentace funkcí  
-✅ **Moduly** - organizace kódu do souborů  
-✅ **import** - použití modulů  
-✅ **Vestavěné moduly** - math, random, os, csv  
-✅ **Preview ArcPy** - import arcpy funguje stejně!  
+✅ **Definice funkcí** pomocí `def`\
+✅ **Parametry** - vstupy do funkce\
+✅ **return** - návratové hodnoty\
+✅ **Rozdíl print() vs. return** - klíčové pro pochopení!\
+✅ **Docstrings** - dokumentace funkcí\
+✅ **Moduly** - organizace kódu do souborů\
+✅ **import** - použití modulů\
+✅ **Vestavěné moduly** - math, random, os, csv\
+✅ **Preview ArcPy** - import arcpy funguje stejně!
 
 ## Co bude příště?
 
 V příští lekci:
 
-- **Čtení textových souborů** - `open()`, `read()`, `readlines()`
-- **Zápis do souborů** - vytváření nových souborů
-- **Zpracování jednoduchých dat** - např. seznam měst s populací
-- **Použití funkcí** z `math_utils` pro zpracování dat
+-   **Čtení textových souborů** - `open()`, `read()`, `readlines()`
+-   **Zápis do souborů** - vytváření nových souborů
+-   **Zpracování jednoduchých dat** - např. seznam měst s populací
+-   **Použití funkcí** z `math_utils` pro zpracování dat
 
----
+------------------------------------------------------------------------
 
-# 11. Domácí úkol
+# Domácí úkol
 
 ## Varianta A (základní)
 
-1. **Dokončete math_utils.py** s všemi čtyřmi funkcemi
-2. **Vytvořte main.py**, který používá všechny funkce
-3. **Přidejte docstringy** ke všem funkcím
+1.  **Dokončete math_utils.py** s všemi čtyřmi funkcemi
+2.  **Vytvořte main.py**, který používá všechny funkce
+3.  **Přidejte docstringy** ke všem funkcím
 
 ## Varianta B (pokročilá)
 
-1. **Rozšiřte math_utils.py** o nové funkce:
-   - `selection_sort(seznam)` - druhý třídící algoritmus
-   - `najdi_prvocisla(n)` - seznam všech prvočísel do n
-   - `n_te_prvocislo(n)` - najde n-té prvočíslo
-
-2. **Otestujte** všechny nové funkce v `main.py`
+1.  **Rozšiřte math_utils.py** o nové funkce:
+    -   `selection_sort(seznam)` - druhý třídící algoritmus
+    -   `najdi_prvocisla(n)` - seznam všech prvočísel do n
+    -   `n_te_prvocislo(n)` - najde n-té prvočíslo
+2.  **Otestujte** všechny nové funkce v `main.py`
 
 ## Varianta C (výzva)
 
 Vytvořte modul `statistika.py` s funkcemi:
 
-```python
+``` python
 def prumer(seznam):
     """Vrátí průměr čísel v seznamu."""
     # ...
@@ -741,11 +744,11 @@ def minimum(seznam):
 
 **Bonus:** Můžete použít `math_utils.bubble_sort()` v `median()`!
 
----
+------------------------------------------------------------------------
 
-# 12. Cheatsheet
+# Cheatsheet
 
-```python
+``` python
 # === DEFINICE FUNKCE ===
 def jmeno_funkce(parametr1, parametr2):
     """Dokumentační řetězec."""
@@ -811,8 +814,10 @@ a = spatne(5)       # a = None
 b = spravne(5)      # b = 10
 ```
 
----
+------------------------------------------------------------------------
 
+````{=html}
+<!--
 # 13. Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
@@ -920,3 +925,6 @@ vysledek = spatne(5) + 10  # TypeError!
 - [ ] Ukázková main.py s použitím všech funkcí
 - [ ] Diagram struktury projektu (složky a soubory)
 - [ ] Cheatsheet pro různé způsoby importu
+
+-->
+````

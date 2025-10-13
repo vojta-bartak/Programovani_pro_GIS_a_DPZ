@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Váš kurz">
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
 <meta name="dcterms.date" content="2025-10-13">
 
 <title>Lekce 6: Funkce a moduly – Programování pro GIS a DPZ</title>
@@ -160,6 +160,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../lessons/lesson_05.html">
  <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_06.html">
+ <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -179,41 +183,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
-  <li><a href="#proč-funkce" id="toc-proč-funkce" class="nav-link" data-scroll-target="#proč-funkce"><span class="header-section-number">2</span> 1. Proč funkce?</a>
+  <li><a href="#proč-funkce" id="toc-proč-funkce" class="nav-link" data-scroll-target="#proč-funkce"><span class="header-section-number">2</span> Proč funkce?</a>
   <ul class="collapse">
   <li><a href="#motivace" id="toc-motivace" class="nav-link" data-scroll-target="#motivace"><span class="header-section-number">2.1</span> Motivace</a></li>
   <li><a href="#dry-princip" id="toc-dry-princip" class="nav-link" data-scroll-target="#dry-princip"><span class="header-section-number">2.2</span> DRY princip</a></li>
   </ul></li>
-  <li><a href="#definice-funkcí" id="toc-definice-funkcí" class="nav-link" data-scroll-target="#definice-funkcí"><span class="header-section-number">3</span> 2. Definice funkcí</a>
+  <li><a href="#definice-funkcí" id="toc-definice-funkcí" class="nav-link" data-scroll-target="#definice-funkcí"><span class="header-section-number">3</span> Definice funkcí</a>
   <ul class="collapse">
   <li><a href="#základní-syntaxe" id="toc-základní-syntaxe" class="nav-link" data-scroll-target="#základní-syntaxe"><span class="header-section-number">3.1</span> Základní syntaxe</a></li>
   <li><a href="#první-funkce" id="toc-první-funkce" class="nav-link" data-scroll-target="#první-funkce"><span class="header-section-number">3.2</span> První funkce</a></li>
   </ul></li>
-  <li><a href="#parametry-funkcí" id="toc-parametry-funkcí" class="nav-link" data-scroll-target="#parametry-funkcí"><span class="header-section-number">4</span> 3. Parametry funkcí</a>
+  <li><a href="#parametry-funkcí" id="toc-parametry-funkcí" class="nav-link" data-scroll-target="#parametry-funkcí"><span class="header-section-number">4</span> Parametry funkcí</a>
   <ul class="collapse">
   <li><a href="#funkce-s-jedním-parametrem" id="toc-funkce-s-jedním-parametrem" class="nav-link" data-scroll-target="#funkce-s-jedním-parametrem"><span class="header-section-number">4.1</span> Funkce s jedním parametrem</a></li>
   <li><a href="#funkce-s-více-parametry" id="toc-funkce-s-více-parametry" class="nav-link" data-scroll-target="#funkce-s-více-parametry"><span class="header-section-number">4.2</span> Funkce s více parametry</a></li>
   <li><a href="#default-hodnoty-parametrů" id="toc-default-hodnoty-parametrů" class="nav-link" data-scroll-target="#default-hodnoty-parametrů"><span class="header-section-number">4.3</span> Default hodnoty parametrů</a></li>
   </ul></li>
-  <li><a href="#návratové-hodnoty---return" id="toc-návratové-hodnoty---return" class="nav-link" data-scroll-target="#návratové-hodnoty---return"><span class="header-section-number">5</span> 4. Návratové hodnoty - return</a>
+  <li><a href="#návratové-hodnoty---return" id="toc-návratové-hodnoty---return" class="nav-link" data-scroll-target="#návratové-hodnoty---return"><span class="header-section-number">5</span> Návratové hodnoty - return</a>
   <ul class="collapse">
   <li><a href="#problém-s-print" id="toc-problém-s-print" class="nav-link" data-scroll-target="#problém-s-print"><span class="header-section-number">5.1</span> Problém s print()</a></li>
   <li><a href="#řešení-return" id="toc-řešení-return" class="nav-link" data-scroll-target="#řešení-return"><span class="header-section-number">5.2</span> Řešení: return</a></li>
   <li><a href="#return-ukončuje-funkci" id="toc-return-ukončuje-funkci" class="nav-link" data-scroll-target="#return-ukončuje-funkci"><span class="header-section-number">5.3</span> return ukončuje funkci</a></li>
   </ul></li>
-  <li><a href="#dokumentační-řetězce-docstrings" id="toc-dokumentační-řetězce-docstrings" class="nav-link" data-scroll-target="#dokumentační-řetězce-docstrings"><span class="header-section-number">6</span> 5. Dokumentační řetězce (docstrings)</a>
+  <li><a href="#dokumentační-řetězce-docstrings" id="toc-dokumentační-řetězce-docstrings" class="nav-link" data-scroll-target="#dokumentační-řetězce-docstrings"><span class="header-section-number">6</span> Dokumentační řetězce (docstrings)</a>
   <ul class="collapse">
   <li><a href="#co-jsou-docstrings" id="toc-co-jsou-docstrings" class="nav-link" data-scroll-target="#co-jsou-docstrings"><span class="header-section-number">6.1</span> Co jsou docstrings?</a></li>
   <li><a href="#proč-používat-docstrings" id="toc-proč-používat-docstrings" class="nav-link" data-scroll-target="#proč-používat-docstrings"><span class="header-section-number">6.2</span> Proč používat docstrings?</a></li>
   </ul></li>
-  <li><a href="#přepis-úloh-jako-funkcí" id="toc-přepis-úloh-jako-funkcí" class="nav-link" data-scroll-target="#přepis-úloh-jako-funkcí"><span class="header-section-number">7</span> 6. Přepis úloh jako funkcí</a>
+  <li><a href="#přepis-úloh-jako-funkcí" id="toc-přepis-úloh-jako-funkcí" class="nav-link" data-scroll-target="#přepis-úloh-jako-funkcí"><span class="header-section-number">7</span> Přepis úloh jako funkcí</a>
   <ul class="collapse">
   <li><a href="#fibonacci-jako-funkce" id="toc-fibonacci-jako-funkce" class="nav-link" data-scroll-target="#fibonacci-jako-funkce"><span class="header-section-number">7.1</span> Fibonacci jako funkce</a></li>
   <li><a href="#cvičení-1-faktoriál-jako-funkce" id="toc-cvičení-1-faktoriál-jako-funkce" class="nav-link" data-scroll-target="#cvičení-1-faktoriál-jako-funkce"><span class="header-section-number">7.2</span> Cvičení 1: Faktoriál jako funkce</a></li>
   <li><a href="#cvičení-2-test-prvočíselnosti-jako-funkce" id="toc-cvičení-2-test-prvočíselnosti-jako-funkce" class="nav-link" data-scroll-target="#cvičení-2-test-prvočíselnosti-jako-funkce"><span class="header-section-number">7.3</span> Cvičení 2: Test prvočíselnosti jako funkce</a></li>
   <li><a href="#cvičení-3-bubble-sort-jako-funkce" id="toc-cvičení-3-bubble-sort-jako-funkce" class="nav-link" data-scroll-target="#cvičení-3-bubble-sort-jako-funkce"><span class="header-section-number">7.4</span> Cvičení 3: Bubble Sort jako funkce</a></li>
   </ul></li>
-  <li><a href="#moduly" id="toc-moduly" class="nav-link" data-scroll-target="#moduly"><span class="header-section-number">8</span> 7. Moduly</a>
+  <li><a href="#moduly" id="toc-moduly" class="nav-link" data-scroll-target="#moduly"><span class="header-section-number">8</span> Moduly</a>
   <ul class="collapse">
   <li><a href="#co-je-modul" id="toc-co-je-modul" class="nav-link" data-scroll-target="#co-je-modul"><span class="header-section-number">8.1</span> Co je modul?</a></li>
   <li><a href="#vytvoření-vlastního-modulu" id="toc-vytvoření-vlastního-modulu" class="nav-link" data-scroll-target="#vytvoření-vlastního-modulu"><span class="header-section-number">8.2</span> Vytvoření vlastního modulu</a>
@@ -237,11 +241,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#preview-import-arcpy" id="toc-preview-import-arcpy" class="nav-link" data-scroll-target="#preview-import-arcpy"><span class="header-section-number">8.5</span> Preview: import arcpy</a></li>
   </ul></li>
-  <li><a href="#struktura-projektu" id="toc-struktura-projektu" class="nav-link" data-scroll-target="#struktura-projektu"><span class="header-section-number">9</span> 8. Struktura projektu</a>
+  <li><a href="#struktura-projektu" id="toc-struktura-projektu" class="nav-link" data-scroll-target="#struktura-projektu"><span class="header-section-number">9</span> Struktura projektu</a>
   <ul class="collapse">
   <li><a href="#ideální-organizace" id="toc-ideální-organizace" class="nav-link" data-scroll-target="#ideální-organizace"><span class="header-section-number">9.1</span> Ideální organizace</a></li>
   </ul></li>
-  <li><a href="#praktická-úloha" id="toc-praktická-úloha" class="nav-link" data-scroll-target="#praktická-úloha"><span class="header-section-number">10</span> 9. Praktická úloha</a>
+  <li><a href="#praktická-úloha" id="toc-praktická-úloha" class="nav-link" data-scroll-target="#praktická-úloha"><span class="header-section-number">10</span> Praktická úloha</a>
   <ul class="collapse">
   <li><a href="#zadání" id="toc-zadání" class="nav-link" data-scroll-target="#zadání"><span class="header-section-number">10.1</span> Zadání</a>
   <ul class="collapse">
@@ -249,32 +253,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#soubor-main.py" id="toc-soubor-main.py" class="nav-link" data-scroll-target="#soubor-main.py"><span class="header-section-number">10.1.2</span> 2. Soubor <code>main.py</code></a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">11</span> 10. Shrnutí</a>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">11</span> Shrnutí</a>
   <ul class="collapse">
   <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">11.1</span> Co jsme se naučili</a></li>
   <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">11.2</span> Co bude příště?</a></li>
   </ul></li>
-  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">12</span> 11. Domácí úkol</a>
+  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">12</span> Domácí úkol</a>
   <ul class="collapse">
   <li><a href="#varianta-a-základní" id="toc-varianta-a-základní" class="nav-link" data-scroll-target="#varianta-a-základní"><span class="header-section-number">12.1</span> Varianta A (základní)</a></li>
   <li><a href="#varianta-b-pokročilá" id="toc-varianta-b-pokročilá" class="nav-link" data-scroll-target="#varianta-b-pokročilá"><span class="header-section-number">12.2</span> Varianta B (pokročilá)</a></li>
   <li><a href="#varianta-c-výzva" id="toc-varianta-c-výzva" class="nav-link" data-scroll-target="#varianta-c-výzva"><span class="header-section-number">12.3</span> Varianta C (výzva)</a></li>
   </ul></li>
-  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">13</span> 12. Cheatsheet</a></li>
-  <li><a href="#poznámky-pro-vyučujícího" id="toc-poznámky-pro-vyučujícího" class="nav-link" data-scroll-target="#poznámky-pro-vyučujícího"><span class="header-section-number">14</span> 13. Poznámky pro vyučujícího</a>
-  <ul class="collapse">
-  <li><a href="#běžné-chyby-studentů" id="toc-běžné-chyby-studentů" class="nav-link" data-scroll-target="#běžné-chyby-studentů"><span class="header-section-number">14.1</span> Běžné chyby studentů</a></li>
-  <li><a href="#časový-plán-90-min" id="toc-časový-plán-90-min" class="nav-link" data-scroll-target="#časový-plán-90-min"><span class="header-section-number">14.2</span> Časový plán (90 min)</a></li>
-  <li><a href="#klíčové-momenty" id="toc-klíčové-momenty" class="nav-link" data-scroll-target="#klíčové-momenty"><span class="header-section-number">14.3</span> Klíčové momenty</a>
-  <ul class="collapse">
-  <li><a href="#print-vs.-return-30-40-min" id="toc-print-vs.-return-30-40-min" class="nav-link" data-scroll-target="#print-vs.-return-30-40-min"><span class="header-section-number">14.3.1</span> print() vs.&nbsp;return (30-40 min):</a></li>
-  <li><a href="#moduly-60-85-min" id="toc-moduly-60-85-min" class="nav-link" data-scroll-target="#moduly-60-85-min"><span class="header-section-number">14.3.2</span> Moduly (60-85 min):</a></li>
-  <li><a href="#docstrings-40-50-min" id="toc-docstrings-40-50-min" class="nav-link" data-scroll-target="#docstrings-40-50-min"><span class="header-section-number">14.3.3</span> Docstrings (40-50 min):</a></li>
-  </ul></li>
-  <li><a href="#rizika" id="toc-rizika" class="nav-link" data-scroll-target="#rizika"><span class="header-section-number">14.4</span> Rizika</a></li>
-  <li><a href="#tipy" id="toc-tipy" class="nav-link" data-scroll-target="#tipy"><span class="header-section-number">14.5</span> Tipy</a></li>
-  <li><a href="#materiály-k-přípravě" id="toc-materiály-k-přípravě" class="nav-link" data-scroll-target="#materiály-k-přípravě"><span class="header-section-number">14.6</span> Materiály k přípravě</a></li>
-  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">13</span> Cheatsheet</a></li>
   </ul>
 </nav>
     </div>
@@ -294,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Váš kurz </p>
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
           </div>
   </div>
     
@@ -329,11 +319,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 <section id="proč-funkce" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 1. Proč funkce?</h1>
+<h1 data-number="2"><span class="header-section-number">2</span> Proč funkce?</h1>
 <section id="motivace" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="motivace"><span class="header-section-number">2.1</span> Motivace</h2>
 <p><strong>Vzpomeňte si na předchozí lekce:</strong></p>
-<p>Napsali jste kód pro: - Fibonacci číslo - Faktoriál - Test prvočíselnosti - Třídění seznamu</p>
+<p>Napsali jste kód pro: - Fibonacci číslo - Faktoriál - Hledání minima/maxima - Třídění seznamu - Test prvočíselnosti</p>
 <p><strong>Co kdybyste tyto operace potřebovali použít vícekrát?</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fibonacci pro číslo 10</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10</span></span>
@@ -374,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="definice-funkcí" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 2. Definice funkcí</h1>
+<h1 data-number="3"><span class="header-section-number">3</span> Definice funkcí</h1>
 <section id="základní-syntaxe" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="základní-syntaxe"><span class="header-section-number">3.1</span> Základní syntaxe</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jmeno_funkce():</span>
@@ -407,20 +397,20 @@ Vítej v kurzu Pythonu!</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Definice funkce ji jen <strong>vytvoří</strong>, ale <strong>neprovede</strong>:</p>
+<p>Definice funkce ji jen <strong>vytvoří</strong>, ale <strong>neprovede</strong> (<strong>“nezavolá”</strong>):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pozdrav():</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Ahoj!"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Nic se nevypíše! Funkce jen existuje.</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pozdrav()  <span class="co"># TEĎ se provede!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pozdrav()  <span class="co"># TEĎ se zavolá!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <hr>
 </section>
 </section>
 <section id="parametry-funkcí" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 3. Parametry funkcí</h1>
+<h1 data-number="4"><span class="header-section-number">4</span> Parametry funkcí</h1>
 <section id="funkce-s-jedním-parametrem" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="funkce-s-jedním-parametrem"><span class="header-section-number">4.1</span> Funkce s jedním parametrem</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pozdrav(jmeno):</span>
@@ -455,7 +445,7 @@ Vítej v kurzu Pythonu!</code></pre>
 </section>
 </section>
 <section id="návratové-hodnoty---return" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 4. Návratové hodnoty - return</h1>
+<h1 data-number="5"><span class="header-section-number">5</span> Návratové hodnoty - return</h1>
 <section id="problém-s-print" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="problém-s-print"><span class="header-section-number">5.1</span> Problém s print()</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
@@ -518,7 +508,7 @@ Vítej v kurzu Pythonu!</code></pre>
 </section>
 </section>
 <section id="dokumentační-řetězce-docstrings" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 5. Dokumentační řetězce (docstrings)</h1>
+<h1 data-number="6"><span class="header-section-number">6</span> Dokumentační řetězce (docstrings)</h1>
 <section id="co-jsou-docstrings" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="co-jsou-docstrings"><span class="header-section-number">6.1</span> Co jsou docstrings?</h2>
 <p><strong>Docstring</strong> = dokumentace funkce napsaná hned pod definicí v trojitých uvozovkách.</p>
@@ -574,7 +564,7 @@ fibonacci(n)
 </section>
 </section>
 <section id="přepis-úloh-jako-funkcí" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 6. Přepis úloh jako funkcí</h1>
+<h1 data-number="7"><span class="header-section-number">7</span> Přepis úloh jako funkcí</h1>
 <section id="fibonacci-jako-funkce" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="fibonacci-jako-funkce"><span class="header-section-number">7.1</span> Fibonacci jako funkce</h2>
 <p><strong>Původní kód:</strong></p>
@@ -674,7 +664,7 @@ fibonacci(n)
 </section>
 </section>
 <section id="moduly" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 7. Moduly</h1>
+<h1 data-number="8"><span class="header-section-number">8</span> Moduly</h1>
 <section id="co-je-modul" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="co-je-modul"><span class="header-section-number">8.1</span> Co je modul?</h2>
 <p><strong>Modul</strong> = Python soubor (<code>.py</code>) obsahující funkce, které můžete použít v jiných programech.</p>
@@ -841,7 +831,7 @@ fibonacci(n)
 </section>
 </section>
 <section id="struktura-projektu" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 8. Struktura projektu</h1>
+<h1 data-number="9"><span class="header-section-number">9</span> Struktura projektu</h1>
 <section id="ideální-organizace" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="ideální-organizace"><span class="header-section-number">9.1</span> Ideální organizace</h2>
 <pre><code>muj_projekt/
@@ -878,7 +868,7 @@ fibonacci(n)
 </section>
 </section>
 <section id="praktická-úloha" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 9. Praktická úloha</h1>
+<h1 data-number="10"><span class="header-section-number">10</span> Praktická úloha</h1>
 <section id="zadání" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="zadání"><span class="header-section-number">10.1</span> Zadání</h2>
 <p>Vytvořte kompletní projekt:</p>
@@ -889,7 +879,7 @@ fibonacci(n)
 </section>
 <section id="soubor-main.py" class="level3" data-number="10.1.2">
 <h3 data-number="10.1.2" class="anchored" data-anchor-id="soubor-main.py"><span class="header-section-number">10.1.2</span> 2. Soubor <code>main.py</code></h3>
-<p>Program, který: 1. Načte číslo N od uživatele 2. Vypočítá a vypíše: - N-tý Fibonacci číslo - Faktoriál N - Zda je N prvočíslo 3. Vytvoří seznam prvních 10 Fibonacci čísel 4. Seřadí tento seznam (ačkoli už je seřazený 😊) 5. Vypíše výsledek</p>
+<p>Program, který: 1. Načte číslo N od uživatele 2. Vypočítá a vypíše: - N-té Fibonacci číslo - Faktoriál N - Zda je N prvočíslo 3. Vytvoří seznam prvních 10 Fibonacci čísel 4. Seřadí tento seznam (ačkoli už je seřazený 😊) 5. Vypíše výsledek</p>
 <p><strong>Kostra:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># main.py</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
@@ -920,7 +910,7 @@ fibonacci(n)
 </section>
 </section>
 <section id="shrnutí" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 10. Shrnutí</h1>
+<h1 data-number="11"><span class="header-section-number">11</span> Shrnutí</h1>
 <section id="co-jsme-se-naučili" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">11.1</span> Co jsme se naučili</h2>
 <p>✅ <strong>Definice funkcí</strong> pomocí <code>def</code><br>
@@ -946,7 +936,7 @@ fibonacci(n)
 </section>
 </section>
 <section id="domácí-úkol" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 11. Domácí úkol</h1>
+<h1 data-number="12"><span class="header-section-number">12</span> Domácí úkol</h1>
 <section id="varianta-a-základní" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="varianta-a-základní"><span class="header-section-number">12.1</span> Varianta A (základní)</h2>
 <ol type="1">
@@ -990,7 +980,7 @@ fibonacci(n)
 </section>
 </section>
 <section id="cheatsheet" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> 12. Cheatsheet</h1>
+<h1 data-number="13"><span class="header-section-number">13</span> Cheatsheet</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === DEFINICE FUNKCE ===</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jmeno_funkce(parametr1, parametr2):</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Dokumentační řetězec."""</span></span>
@@ -1055,165 +1045,118 @@ fibonacci(n)
 <span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> spatne(<span class="dv">5</span>)       <span class="co"># a = None</span></span>
 <span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> spravne(<span class="dv">5</span>)      <span class="co"># b = 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-</section>
-<section id="poznámky-pro-vyučujícího" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> 13. Poznámky pro vyučujícího</h1>
-<section id="běžné-chyby-studentů" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="běžné-chyby-studentů"><span class="header-section-number">14.1</span> Běžné chyby studentů</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Zapomínají return</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    vysledek <span class="op">=</span> a <span class="op">+</span> b</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zapomněli return!</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> secti(<span class="dv">5</span>, <span class="dv">3</span>)  <span class="co"># x = None</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Používají print místo return</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(a <span class="op">+</span> b)  <span class="co"># Špatně!</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>vysledek <span class="op">=</span> secti(<span class="dv">5</span>, <span class="dv">3</span>) <span class="op">+</span> <span class="dv">10</span>  <span class="co"># Chyba!</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Volají funkci s def</span></span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci(n)  <span class="co"># Zapomněli dvojtečku!</span></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Zapomínají závorky při volání</span></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>fibonacci  <span class="co"># Toto je funkce samotná, ne výsledek!</span></span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>fibonacci(<span class="dv">10</span>)  <span class="co"># Správně - volání</span></span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Špatný import</span></span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>fibonacci(<span class="dv">10</span>)  <span class="co"># Chyba - musí být math_utils.fibonacci(10)</span></span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Nebo:</span></span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math_utils <span class="im">import</span> fibonacci</span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>math_utils.fibonacci(<span class="dv">10</span>)  <span class="co"># Chyba - už není potřeba math_utils.</span></span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Soubory v jiných složkách</span></span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="co"># main.py je v C:\Users\Jan\projekt\</span></span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a><span class="co"># math_utils.py je v C:\Users\Jan\Desktop\</span></span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a><span class="co"># import math_utils  # NEFUNGUJE!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="časový-plán-90-min" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="časový-plán-90-min"><span class="header-section-number">14.2</span> Časový plán (90 min)</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Čas</th>
-<th>Obsah</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0-10 min</td>
-<td>Motivace - proč funkce? DRY princip</td>
-</tr>
-<tr class="even">
-<td>10-30 min</td>
-<td>Definice funkcí, parametry, return</td>
-</tr>
-<tr class="odd">
-<td>30-40 min</td>
-<td>print() vs.&nbsp;return - DŮLEŽITÉ!</td>
-</tr>
-<tr class="even">
-<td>40-50 min</td>
-<td>Docstrings, přepis Fibonacci/faktoriál</td>
-</tr>
-<tr class="odd">
-<td>50-60 min</td>
-<td>Cvičení - přepis prvočísla a třídění</td>
-</tr>
-<tr class="even">
-<td>60-75 min</td>
-<td>Moduly - vytvoření math_utils.py</td>
-</tr>
-<tr class="odd">
-<td>75-85 min</td>
-<td>Import, použití v main.py</td>
-</tr>
-<tr class="even">
-<td>85-90 min</td>
-<td>Preview ArcPy, zadání úkolu</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="klíčové-momenty" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="klíčové-momenty"><span class="header-section-number">14.3</span> Klíčové momenty</h2>
-<section id="print-vs.-return-30-40-min" class="level3" data-number="14.3.1">
-<h3 data-number="14.3.1" class="anchored" data-anchor-id="print-vs.-return-30-40-min"><span class="header-section-number">14.3.1</span> print() vs.&nbsp;return (30-40 min):</h3>
-<ul>
-<li><strong>NEJDŮLEŽITĚJŠÍ KONCEPT</strong> v této lekci!</li>
-<li>Studenti často nerozumí rozdílu</li>
-<li>Ukázat konkrétní příklad, kde print() selhává:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spatne(x):</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>vysledek <span class="op">=</span> spatne(<span class="dv">5</span>) <span class="op">+</span> <span class="dv">10</span>  <span class="co"># TypeError!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Vysvětlit: “print je pro LIDI, return je pro PROGRAM”</li>
-</ul>
-</section>
-<section id="moduly-60-85-min" class="level3" data-number="14.3.2">
-<h3 data-number="14.3.2" class="anchored" data-anchor-id="moduly-60-85-min"><span class="header-section-number">14.3.2</span> Moduly (60-85 min):</h3>
-<ul>
-<li>Prakticky vytvořit math_utils.py společně</li>
-<li>Ukázat, že musí být ve stejné složce</li>
-<li>Otestovat import v main.py</li>
-<li>Zdůraznit: “ArcPy bude fungovat úplně stejně!”</li>
-</ul>
-</section>
-<section id="docstrings-40-50-min" class="level3" data-number="14.3.3">
-<h3 data-number="14.3.3" class="anchored" data-anchor-id="docstrings-40-50-min"><span class="header-section-number">14.3.3</span> Docstrings (40-50 min):</h3>
-<ul>
-<li>Nemusí být dokonalé, ale alespoň jednořádkové</li>
-<li>Ukázat <code>help(funkce)</code></li>
-<li>Zdůraznit, že v praxi je dokumentace důležitá</li>
-</ul>
-</section>
-</section>
-<section id="rizika" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="rizika"><span class="header-section-number">14.4</span> Rizika</h2>
-<ol type="1">
-<li><strong>print() vs.&nbsp;return může být matoucí (může trvat 15 min)</strong>
-<ul>
-<li>Řešení: Věnovat tomu dostatek času, ukázat konkrétní příklady</li>
-<li>Nechat studenty experimentovat</li>
-</ul></li>
-<li><strong>Import nemusí fungovat (chyby s cestami)</strong>
-<ul>
-<li>Řešení: Zdůraznit, že soubory musí být ve stejné složce</li>
-<li>Mít připravené screenshoty struktury složek</li>
-</ul></li>
-<li><strong>Studenti budou různě rychlí s přepisem funkcí</strong>
-<ul>
-<li>Řešení: Rychlejší pomáhají pomalejším</li>
-<li>Můžete poskytnout kostru math_utils.py</li>
-</ul></li>
-</ol>
-</section>
-<section id="tipy" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="tipy"><span class="header-section-number">14.5</span> Tipy</h2>
-<ul>
-<li><strong>print() vs.&nbsp;return je nejčastější problém</strong> - věnujte tomu extra čas!</li>
-<li>Na konci vždy zdůrazněte: “ArcPy je jen modul - budete psát <code>import arcpy</code> stejně jako <code>import math_utils</code>”</li>
-<li>Ukažte <code>help()</code> funkci - je užitečná pro čtení dokumentace</li>
-<li>Vytvořte math_utils.py společně na projektoru - ať vidí celý proces</li>
-<li>Nechte je otestovat všechny funkce v main.py</li>
-</ul>
-</section>
-<section id="materiály-k-přípravě" class="level2" data-number="14.6">
-<h2 data-number="14.6" class="anchored" data-anchor-id="materiály-k-přípravě"><span class="header-section-number">14.6</span> Materiály k přípravě</h2>
-<ul class="task-list">
-<li><label><input type="checkbox">Připravit kostru math_utils.py (pro pomalé studenty)</label></li>
-<li><label><input type="checkbox">Ukázková main.py s použitím všech funkcí</label></li>
-<li><label><input type="checkbox">Diagram struktury projektu (složky a soubory)</label></li>
-<li><label><input type="checkbox">Cheatsheet pro různé způsoby importu</label></li>
-</ul>
+<!--
+# 13. Poznámky pro vyučujícího
+
+## Běžné chyby studentů
+
+```python
+# 1. Zapomínají return
+def secti(a, b):
+    vysledek = a + b
+    # Zapomněli return!
+
+x = secti(5, 3)  # x = None
+
+# 2. Používají print místo return
+def secti(a, b):
+    print(a + b)  # Špatně!
+    
+vysledek = secti(5, 3) + 10  # Chyba!
+
+# 3. Volají funkci s def
+def fibonacci(n)  # Zapomněli dvojtečku!
+
+# 4. Zapomínají závorky při volání
+fibonacci  # Toto je funkce samotná, ne výsledek!
+fibonacci(10)  # Správně - volání
+
+# 5. Špatný import
+import math_utils
+fibonacci(10)  # Chyba - musí být math_utils.fibonacci(10)
+
+# Nebo:
+from math_utils import fibonacci
+math_utils.fibonacci(10)  # Chyba - už není potřeba math_utils.
+
+# 6. Soubory v jiných složkách
+# main.py je v C:\Users\Jan\projekt\
+# math_utils.py je v C:\Users\Jan\Desktop\
+# import math_utils  # NEFUNGUJE!
+```
+
+## Časový plán (90 min)
+
+| Čas | Obsah |
+|-----|-------|
+| 0-10 min | Motivace - proč funkce? DRY princip |
+| 10-30 min | Definice funkcí, parametry, return |
+| 30-40 min | print() vs. return - DŮLEŽITÉ! |
+| 40-50 min | Docstrings, přepis Fibonacci/faktoriál |
+| 50-60 min | Cvičení - přepis prvočísla a třídění |
+| 60-75 min | Moduly - vytvoření math_utils.py |
+| 75-85 min | Import, použití v main.py |
+| 85-90 min | Preview ArcPy, zadání úkolu |
+
+## Klíčové momenty
+
+### print() vs. return (30-40 min):
+- **NEJDŮLEŽITĚJŠÍ KONCEPT** v této lekci!
+- Studenti často nerozumí rozdílu
+- Ukázat konkrétní příklad, kde print() selhává:
+
+```python
+def spatne(x):
+    print(x * 2)
+
+vysledek = spatne(5) + 10  # TypeError!
+```
+
+- Vysvětlit: "print je pro LIDI, return je pro PROGRAM"
+
+### Moduly (60-85 min):
+- Prakticky vytvořit math_utils.py společně
+- Ukázat, že musí být ve stejné složce
+- Otestovat import v main.py
+- Zdůraznit: "ArcPy bude fungovat úplně stejně!"
+
+### Docstrings (40-50 min):
+- Nemusí být dokonalé, ale alespoň jednořádkové
+- Ukázat `help(funkce)`
+- Zdůraznit, že v praxi je dokumentace důležitá
+
+## Rizika
+
+1. **print() vs. return může být matoucí (může trvat 15 min)**
+   - Řešení: Věnovat tomu dostatek času, ukázat konkrétní příklady
+   - Nechat studenty experimentovat
+
+2. **Import nemusí fungovat (chyby s cestami)**
+   - Řešení: Zdůraznit, že soubory musí být ve stejné složce
+   - Mít připravené screenshoty struktury složek
+
+3. **Studenti budou různě rychlí s přepisem funkcí**
+   - Řešení: Rychlejší pomáhají pomalejším
+   - Můžete poskytnout kostru math_utils.py
+
+## Tipy
+
+- **print() vs. return je nejčastější problém** - věnujte tomu extra čas!
+- Na konci vždy zdůrazněte: "ArcPy je jen modul - budete psát `import arcpy` stejně jako `import math_utils`"
+- Ukažte `help()` funkci - je užitečná pro čtení dokumentace
+- Vytvořte math_utils.py společně na projektoru - ať vidí celý proces
+- Nechte je otestovat všechny funkce v main.py
+
+## Materiály k přípravě
+
+- [ ] Připravit kostru math_utils.py (pro pomalé studenty)
+- [ ] Ukázková main.py s použitím všech funkcí
+- [ ] Diagram struktury projektu (složky a soubory)
+- [ ] Cheatsheet pro různé způsoby importu
+
+-->
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

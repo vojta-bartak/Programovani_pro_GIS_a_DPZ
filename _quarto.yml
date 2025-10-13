@@ -24,6 +24,8 @@ website:
             href: lessons/lesson_04.qmd
           - text: "Lekce 5: Tvorba jednoduchého algoritmu"
             href: lessons/lesson_05.qmd
+          - text: "Lekce 6: Funkce a moduly"
+            href: lessons/lesson_06.qmd
 
 
 format:
