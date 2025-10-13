@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
-<meta name="dcterms.date" content="2025-10-08">
+<meta name="dcterms.date" content="2025-10-13">
 
 <title>Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál – Programování pro GIS a DPZ</title>
 <style>
@@ -156,6 +156,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../lessons/lesson_04.html">
  <span class="dropdown-text">Lekce 4: Cykly a podmínky</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_05.html">
+ <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -262,18 +266,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bonusový-úkol-nepovinný" id="toc-bonusový-úkol-nepovinný" class="nav-link" data-scroll-target="#bonusový-úkol-nepovinný"><span class="header-section-number">9.3</span> Bonusový úkol (nepovinný)</a></li>
   </ul></li>
   <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">10</span> 9. Cheatsheet</a></li>
-  <li><a href="#poznámky-pro-vyučujícího" id="toc-poznámky-pro-vyučujícího" class="nav-link" data-scroll-target="#poznámky-pro-vyučujícího"><span class="header-section-number">11</span> 10. Poznámky pro vyučujícího</a>
-  <ul class="collapse">
-  <li><a href="#běžné-chyby-studentů" id="toc-běžné-chyby-studentů" class="nav-link" data-scroll-target="#běžné-chyby-studentů"><span class="header-section-number">11.1</span> Běžné chyby studentů</a></li>
-  <li><a href="#časový-plán-90-min" id="toc-časový-plán-90-min" class="nav-link" data-scroll-target="#časový-plán-90-min"><span class="header-section-number">11.2</span> Časový plán (90 min)</a></li>
-  <li><a href="#klíčové-momenty" id="toc-klíčové-momenty" class="nav-link" data-scroll-target="#klíčové-momenty"><span class="header-section-number">11.3</span> Klíčové momenty</a>
-  <ul class="collapse">
-  <li><a href="#fibonacci-65-80-min" id="toc-fibonacci-65-80-min" class="nav-link" data-scroll-target="#fibonacci-65-80-min"><span class="header-section-number">11.3.1</span> Fibonacci (65-80 min):</a></li>
-  <li><a href="#faktoriál-80-90-min" id="toc-faktoriál-80-90-min" class="nav-link" data-scroll-target="#faktoriál-80-90-min"><span class="header-section-number">11.3.2</span> Faktoriál (80-90 min):</a></li>
-  </ul></li>
-  <li><a href="#rizika" id="toc-rizika" class="nav-link" data-scroll-target="#rizika"><span class="header-section-number">11.4</span> Rizika</a></li>
-  <li><a href="#tipy" id="toc-tipy" class="nav-link" data-scroll-target="#tipy"><span class="header-section-number">11.5</span> Tipy</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -300,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 8, 2025</p>
+      <p class="date">October 13, 2025</p>
     </div>
   </div>
   
@@ -1025,130 +1017,91 @@ print(f"{n}! = {vysledek}")
 <span id="cb49-53"><a href="#cb49-53" aria-hidden="true" tabindex="-1"></a><span class="co"># === SOUČASNÉ PŘIŘAZENÍ ===</span></span>
 <span id="cb49-54"><a href="#cb49-54" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> b, a <span class="op">+</span> b  <span class="co"># Fibonacci výměna</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-</section>
-<section id="poznámky-pro-vyučujícího" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 10. Poznámky pro vyučujícího</h1>
-<section id="běžné-chyby-studentů" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="běžné-chyby-studentů"><span class="header-section-number">11.1</span> Běžné chyby studentů</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Záměna = a ==</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> vek <span class="op">=</span> <span class="dv">18</span>:     <span class="co"># CHYBA - přiřazení místo porovnání</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> vek <span class="op">==</span> <span class="dv">18</span>:    <span class="co"># SPRÁVNĚ</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Chybějící odsazení</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> vek <span class="op">&gt;=</span> <span class="dv">18</span>:</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"OK"</span>)      <span class="co"># CHYBA - není odsazené</span></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"OK"</span>)  <span class="co"># SPRÁVNĚ</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Zapomenuté inicializace</span></span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
-<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    soucet <span class="op">+=</span> i  <span class="co"># CHYBA - soucet neexistuje</span></span>
-<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>soucet <span class="op">=</span> <span class="dv">0</span>       <span class="co"># SPRÁVNĚ - nejprve inicializovat</span></span>
-<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
-<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    soucet <span class="op">+=</span> i</span>
-<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Špatný range</span></span>
-<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">10</span>)        <span class="co"># 0-9 (ne 1-10!)</span></span>
-<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>)     <span class="co"># 1-10 (správně pro součet 1-10)</span></span>
-<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Nekonečný while</span></span>
-<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:      <span class="co"># CHYBA - nikdy neskončí</span></span>
-<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"..."</span>)</span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Fibonacci výměna</span></span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b</span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a <span class="op">+</span> b        <span class="co"># CHYBA - a už je změněné!</span></span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> b, a <span class="op">+</span> b  <span class="co"># SPRÁVNĚ - současné přiřazení</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="časový-plán-90-min" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="časový-plán-90-min"><span class="header-section-number">11.2</span> Časový plán (90 min)</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Čas</th>
-<th>Obsah</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0-15 min</td>
-<td>Logické hodnoty, porovnávání</td>
-</tr>
-<tr class="even">
-<td>15-35 min</td>
-<td>Podmínky (if/elif/else) + cvičení</td>
-</tr>
-<tr class="odd">
-<td>35-55 min</td>
-<td>For cykly, range() + cvičení</td>
-</tr>
-<tr class="even">
-<td>55-65 min</td>
-<td>While cykly, break/continue</td>
-</tr>
-<tr class="odd">
-<td>65-80 min</td>
-<td>Fibonacci - společně krok za krokem</td>
-</tr>
-<tr class="even">
-<td>80-90 min</td>
-<td>Faktoriál - samostatně (nebo začít doma)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="klíčové-momenty" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="klíčové-momenty"><span class="header-section-number">11.3</span> Klíčové momenty</h2>
-<section id="fibonacci-65-80-min" class="level3" data-number="11.3.1">
-<h3 data-number="11.3.1" class="anchored" data-anchor-id="fibonacci-65-80-min"><span class="header-section-number">11.3.1</span> Fibonacci (65-80 min):</h3>
-<ul>
-<li><strong>DŮLEŽITÉ:</strong> Procházet KROK ZA KROKEM</li>
-<li>Na tabuli/projektoru ukázat hodnoty <code>a</code> a <code>b</code> v každé iteraci</li>
-<li>Vysvětlit <code>a, b = b, a + b</code> pečlivě</li>
-<li>Nechat studenty říct, co se stane v dalším kroku</li>
-</ul>
-</section>
-<section id="faktoriál-80-90-min" class="level3" data-number="11.3.2">
-<h3 data-number="11.3.2" class="anchored" data-anchor-id="faktoriál-80-90-min"><span class="header-section-number">11.3.2</span> Faktoriál (80-90 min):</h3>
-<ul>
-<li>Pokud nestihnou, je to OK - je to domácí úkol</li>
-<li>Důležitější je, aby rozuměli Fibonaccimu</li>
-<li>Pokud stihnou, ukázat řešení a porovnat for vs.&nbsp;while</li>
-</ul>
-</section>
-</section>
-<section id="rizika" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="rizika"><span class="header-section-number">11.4</span> Rizika</h2>
-<ol type="1">
-<li><strong>Fibonacci může trvat déle (15 min → 20 min)</strong>
-<ul>
-<li>Řešení: Zkrátit while cykly (10 min → 5 min)</li>
-<li>Mít připravený promítaný kód</li>
-</ul></li>
-<li><strong>Studenti budou různě rychlí</strong>
-<ul>
-<li>Řešení: Rychlejší pomáhají pomalejším</li>
-<li>Bonusové úkoly pro rychlé</li>
-</ul></li>
-<li><strong>Faktoriál nestihnou</strong>
-<ul>
-<li>Řešení: To je v pořádku, dokončí doma</li>
-<li>Hlavní cíl = pochopit Fibonacci</li>
-</ul></li>
-</ol>
-</section>
-<section id="tipy" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="tipy"><span class="header-section-number">11.5</span> Tipy</h2>
-<ul>
-<li><strong>Fibonacci výměna je nejdůležitější koncept</strong> - věnovat tomu čas!</li>
-<li>Ukázat na tabuli: “Co bude v <code>a</code> a <code>b</code> po každém kroku?”</li>
-<li>Nechat studenty předpovídat další krok</li>
-<li>Faktoriál je jednodušší - můžou zvládnout sami</li>
-</ul>
+<!--
+# 10. Poznámky pro vyučujícího
+
+## Běžné chyby studentů
+
+``` python
+# 1. Záměna = a ==
+if vek = 18:     # CHYBA - přiřazení místo porovnání
+if vek == 18:    # SPRÁVNĚ
+
+# 2. Chybějící odsazení
+if vek >= 18:
+print("OK")      # CHYBA - není odsazené
+    print("OK")  # SPRÁVNĚ
+
+# 3. Zapomenuté inicializace
+for i in range(10):
+    soucet += i  # CHYBA - soucet neexistuje
+
+soucet = 0       # SPRÁVNĚ - nejprve inicializovat
+for i in range(10):
+    soucet += i
+
+# 4. Špatný range
+range(10)        # 0-9 (ne 1-10!)
+range(1, 11)     # 1-10 (správně pro součet 1-10)
+
+# 5. Nekonečný while
+while True:      # CHYBA - nikdy neskončí
+    print("...")
+
+# 6. Fibonacci výměna
+a = b
+b = a + b        # CHYBA - a už je změněné!
+
+a, b = b, a + b  # SPRÁVNĚ - současné přiřazení
+```
+
+## Časový plán (90 min)
+
+| Čas       | Obsah                                    |
+|-----------|------------------------------------------|
+| 0-15 min  | Logické hodnoty, porovnávání             |
+| 15-35 min | Podmínky (if/elif/else) + cvičení        |
+| 35-55 min | For cykly, range() + cvičení             |
+| 55-65 min | While cykly, break/continue              |
+| 65-80 min | Fibonacci - společně krok za krokem      |
+| 80-90 min | Faktoriál - samostatně (nebo začít doma) |
+
+## Klíčové momenty
+
+### Fibonacci (65-80 min):
+
+-   **DŮLEŽITÉ:** Procházet KROK ZA KROKEM
+-   Na tabuli/projektoru ukázat hodnoty `a` a `b` v každé iteraci
+-   Vysvětlit `a, b = b, a + b` pečlivě
+-   Nechat studenty říct, co se stane v dalším kroku
+
+### Faktoriál (80-90 min):
+
+-   Pokud nestihnou, je to OK - je to domácí úkol
+-   Důležitější je, aby rozuměli Fibonaccimu
+-   Pokud stihnou, ukázat řešení a porovnat for vs. while
+
+## Rizika
+
+1.  **Fibonacci může trvat déle (15 min → 20 min)**
+    -   Řešení: Zkrátit while cykly (10 min → 5 min)
+    -   Mít připravený promítaný kód
+2.  **Studenti budou různě rychlí**
+    -   Řešení: Rychlejší pomáhají pomalejším
+    -   Bonusové úkoly pro rychlé
+3.  **Faktoriál nestihnou**
+    -   Řešení: To je v pořádku, dokončí doma
+    -   Hlavní cíl = pochopit Fibonacci
+
+## Tipy
+
+-   **Fibonacci výměna je nejdůležitější koncept** - věnovat tomu čas!
+-   Ukázat na tabuli: "Co bude v `a` a `b` po každém kroku?"
+-   Nechat studenty předpovídat další krok
+-   Faktoriál je jednodušší - můžou zvládnout sami
+-->
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

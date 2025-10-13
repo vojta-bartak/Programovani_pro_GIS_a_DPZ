@@ -22,6 +22,9 @@ website:
             href: lessons/lesson_03.qmd
           - text: "Lekce 4: Cykly a podmínky"
             href: lessons/lesson_04.qmd
+          - text: "Lekce 5: Tvorba jednoduchého algoritmu"
+            href: lessons/lesson_05.qmd
+
 
 format:
   html:

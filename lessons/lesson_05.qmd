@@ -1,0 +1,806 @@
+---
+title: "Lekce 5: Podmínky a cykly II – Prvočísla a třídění"
+subtitle: "Python pro GIS - Algoritmické myšlení"
+author: "Váš kurz"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    theme: cosmo
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Cíle lekce
+
+Po absolvování této lekce budete umět:
+
+-   Pracovat s řezy seznamů (slicing)
+-   Používat pokročilé metody seznamů
+-   Implementovat algoritmus pro hledání prvočísel
+-   Navrhnout a implementovat třídící algoritmus
+-   Pracovat s vnořenými cykly
+-   Propojit vnořené cykly s vnořenými modely z Model Builderu
+
+**Časová dotace:** 90 minut
+
+------------------------------------------------------------------------
+
+# 1. Rekapitulace a rozšíření seznamů
+
+## Rychlá rekapitulace z minula
+
+``` python
+# Co už umíme ze seznamů:
+cisla = [1, 2, 3, 4, 5]
+
+cisla[0]           # 1 - první prvek (index 0!)
+cisla[-1]          # 5 - poslední prvek
+len(cisla)         # 5 - délka seznamu
+cisla.append(6)    # Přidání prvku na konec
+```
+
+## Slicing (řezy) - nová technika
+
+**Slicing** umožňuje vybrat část seznamu:
+
+### Základní syntaxe: `seznam[start:stop]`
+
+``` python
+cisla = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+cisla[2:5]     # [2, 3, 4] - od indexu 2 do 5 (bez 5!)
+cisla[:3]      # [0, 1, 2] - od začátku do indexu 3
+cisla[7:]      # [7, 8, 9] - od indexu 7 do konce
+cisla[-3:]     # [7, 8, 9] - poslední 3 prvky
+```
+
+::: callout-tip
+## Zapamatujte si
+
+-   `start` je **včetně** (from)
+-   `stop` je **bez** (to, but not including)
+-   `cisla[2:5]` znamená: "od indexu 2 až po (ale bez) index 5"
+:::
+
+### Slicing s krokem: `seznam[start:stop:step]`
+
+``` python
+cisla = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+cisla[::2]     # [0, 2, 4, 6, 8] - každý druhý
+cisla[1::2]    # [1, 3, 5, 7, 9] - každý druhý, ale od indexu 1
+cisla[::3]     # [0, 3, 6, 9] - každý třetí
+cisla[::-1]    # [9, 8, 7, ..., 0] - OTOČENÍ seznamu!
+```
+
+### Praktické příklady
+
+``` python
+text = "Python"
+text[::-1]     # "nohtyP" - otočený string
+
+# První polovina seznamu
+polovina = len(cisla) // 2
+prvni_cast = cisla[:polovina]
+
+# Druhá polovina
+druha_cast = cisla[polovina:]
+```
+
+## Užitečné metody seznamů
+
+### extend() - připojení více prvků
+
+``` python
+a = [1, 2, 3]
+a.extend([4, 5, 6])    # [1, 2, 3, 4, 5, 6]
+
+# Alternativně:
+a = a + [4, 5, 6]      # Totéž, ale vytvoří nový seznam
+```
+
+### insert() - vložení na konkrétní pozici
+
+``` python
+cisla = [1, 2, 4, 5]
+cisla.insert(2, 3)     # [1, 2, 3, 4, 5] - vložit 3 na index 2
+```
+
+### remove() - odstranění první hodnoty
+
+``` python
+cisla = [1, 2, 3, 2, 4]
+cisla.remove(2)        # [1, 3, 2, 4] - odstraní první výskyt 2
+```
+
+### pop() - odstranění a vrácení prvku
+
+``` python
+cisla = [1, 2, 3, 4, 5]
+posledni = cisla.pop()     # posledni = 5, cisla = [1,2,3,4]
+druhy = cisla.pop(1)       # druhy = 2, cisla = [1,3,4]
+```
+
+### reverse() - otočení seznamu
+
+``` python
+cisla = [1, 2, 3, 4, 5]
+cisla.reverse()        # [5, 4, 3, 2, 1] - mění původní seznam!
+
+# Alternativně (vytvoří nový):
+otoceny = cisla[::-1]
+```
+
+### sort() - seřazení
+
+``` python
+cisla = [5, 2, 8, 1, 9]
+cisla.sort()           # [1, 2, 5, 8, 9] - vzestupně
+
+cisla.sort(reverse=True)  # [9, 8, 5, 2, 1] - sestupně
+
+# Alternativně (vytvoří nový):
+serazeny = sorted(cisla)
+```
+
+## Cvičení 1: Práce se seznamem
+
+``` python
+cisla = [10, 25, 3, 47, 8, 19, 33, 5]
+
+# 1. Vypište první tři čísla
+# 2. Vypište poslední dvě čísla
+# 3. Vypište každé druhé číslo
+# 4. Otočte seznam a vypište ho
+# 5. Seřaďte seznam vzestupně
+```
+
+------------------------------------------------------------------------
+
+# 2. Prvočísla
+
+## Co je prvočíslo?
+
+**Prvočíslo** je přirozené číslo větší než 1, které je dělitelné pouze 1
+a sebou samým.
+
+**Prvočísla:** 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, ...
+
+**Nejsou prvočísla:** 1 (příliš malé podle definice), 4 (dělitelné 2), 6
+(dělitelné 2 a 3), 8 (dělitelné 2 a 4), 9 (dělitelné 3)
+
+## Algoritmus: Je číslo prvočíslo?
+
+### Logika
+
+Číslo `n` je prvočíslo, pokud **není dělitelné žádným číslem** od 2 do
+n-1.
+
+```         
+Je 7 prvočíslo?
+- 7 % 2 != 0 ✓
+- 7 % 3 != 0 ✓
+- 7 % 4 != 0 ✓
+- 7 % 5 != 0 ✓
+- 7 % 6 != 0 ✓
+→ Ano, 7 je prvočíslo!
+
+Je 8 prvočíslo?
+- 8 % 2 == 0 ✗
+→ Ne, 8 není prvočíslo (dělitelné 2)
+```
+
+### Implementace - společně
+
+``` python
+n = int(input("Číslo: "))
+
+# Speciální případy
+if n < 2:
+    print(f"{n} není prvočíslo")
+else:
+    je_prvocislo = True  # Předpokládáme, že je prvočíslo
+    
+    for i in range(2, n):
+        if n % i == 0:  # Našli jsme dělitele
+            je_prvocislo = False
+            break  # Můžeme skončit, není prvočíslo
+    
+    if je_prvocislo:
+        print(f"{n} je prvočíslo")
+    else:
+        print(f"{n} není prvočíslo")
+```
+
+::: callout-tip
+## Optimalizace
+
+Stačí zkoušet dělitele do `sqrt(n)`, protože větší dělitel by musel mít
+menšího partnera:
+
+``` python
+import math
+for i in range(2, int(math.sqrt(n)) + 1):
+```
+
+Ale pro učení stačí jednodušší verze!
+:::
+
+## Samostatná úloha: Všechna prvočísla do N
+
+**Zadání:** Napište program, který najde všechna prvočísla do 100 (nebo
+do čísla zadaného uživatelem).
+
+**Nápověda:**
+
+``` python
+n = int(input("Hledat prvočísla do: "))
+prvocisla = []
+
+for cislo in range(2, n + 1):
+    # Zkontrolovat, zda je cislo prvočíslo
+    # Pokud ano, přidat do seznamu prvocisla
+    
+print(f"Prvočísla do {n}: {prvocisla}")
+```
+
+**Výstup by měl vypadat:**
+
+```         
+Hledat prvočísla do: 20
+Prvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]
+```
+
+------------------------------------------------------------------------
+
+# 3. Třídění - objevujeme algoritmy
+
+# 3. Třídění - objevujeme algoritmy
+
+## Motivace
+
+**Úkol:** Seřaďte seznam `[5, 2, 8, 1, 9]` vzestupně.
+
+**Otázka:** Jak byste to udělali na papíře?
+
+::: callout-note
+## Brainstorming (5 minut)
+
+Diskutujte se spolužáky: - Jak byste řadili čísla ručně? - Jaké kroky
+byste opakovali? - Můžete to popsat slovně?
+
+**Většina lidí přijde na jeden z těchto přístupů:** 1. **"Najdu
+nejmenší, dám ho stranou, opakuji"** → Selection Sort 2. **"Porovnávám
+sousedy, když je špatné pořadí, prohodím, opakuji DOKUD prohazuji"** →
+Bubble Sort
+:::
+
+------------------------------------------------------------------------
+
+## Bubble Sort (bublinové třídění)
+
+### Princip
+
+Procházíme seznam a **porovnáváme dvojice sousedních prvků**. Pokud jsou
+ve špatném pořadí, prohodíme je. **Opakujeme DOKUD jsme něco
+prohazovali.**
+
+### Vizualizace na příkladu `[5, 2, 8, 1, 9]`
+
+**První průchod:**
+
+```         
+[5, 2, 8, 1, 9]  → 5 > 2? Ano, prohoď
+[2, 5, 8, 1, 9]  → 5 > 8? Ne
+[2, 5, 8, 1, 9]  → 8 > 1? Ano, prohoď  
+[2, 5, 1, 8, 9]  → 8 > 9? Ne
+[2, 5, 1, 8, 9]  ← Prohodili jsme → pokračujeme!
+```
+
+**Druhý průchod:**
+
+```         
+[2, 5, 1, 8, 9]  → 2 > 5? Ne
+[2, 5, 1, 8, 9]  → 5 > 1? Ano, prohoď
+[2, 1, 5, 8, 9]  → 5 > 8? Ne
+[2, 1, 5, 8, 9]  → 8 > 9? Ne
+[2, 1, 5, 8, 9]  ← Prohodili jsme → pokračujeme!
+```
+
+**Třetí průchod:**
+
+```         
+[2, 1, 5, 8, 9]  → 2 > 1? Ano, prohoď
+[1, 2, 5, 8, 9]  → 2 > 5? Ne
+[1, 2, 5, 8, 9]  → 5 > 8? Ne
+[1, 2, 5, 8, 9]  → 8 > 9? Ne
+[1, 2, 5, 8, 9]  ← Prohodili jsme → pokračujeme!
+```
+
+**Čtvrtý průchod:**
+
+```         
+[1, 2, 5, 8, 9]  → 1 > 2? Ne
+[1, 2, 5, 8, 9]  → 2 > 5? Ne
+[1, 2, 5, 8, 9]  → 5 > 8? Ne
+[1, 2, 5, 8, 9]  → 8 > 9? Ne
+[1, 2, 5, 8, 9]  ← NIČÍM NEPROHODILI → HOTOVO!
+```
+
+### Implementace - společně
+
+``` python
+seznam = [5, 2, 8, 1, 9]
+print(f"Původní seznam: {seznam}")
+
+# Klíčová myšlenka: "Opakuj DOKUD prohazuješ"
+serazeno = False
+
+while not serazeno:
+    # Předpokládám, že seznam JE seřazený
+    serazeno = True
+    
+    # Projdu všechny sousední dvojice
+    for i in range(len(seznam) - 1):
+        # Porovnám sousedy
+        if seznam[i] > seznam[i + 1]:
+            # Špatné pořadí → prohození
+            seznam[i], seznam[i + 1] = seznam[i + 1], seznam[i]
+            # Něco jsem prohodil → NENÍ seřazeno!
+            serazeno = False
+
+print(f"Seřazený seznam: {seznam}")
+# [1, 2, 5, 8, 9]
+```
+
+::: callout-tip
+## Jak to funguje?
+
+1.  **`serazeno = False`**: Na začátku předpokládáme, že seznam není
+    seřazený
+2.  **`while not serazeno:`**: Opakuj, DOKUD není seřazeno
+3.  **`serazeno = True`**: Na začátku každého průchodu předpokládám "je
+    seřazeno"
+4.  **Projdu všechny dvojice**: `for i in range(len(seznam) - 1)`
+5.  **Pokud najdu špatné pořadí**: Prohodím a nastavím
+    `serazeno = False`
+6.  **Pokud projdu celý seznam** a nic neprohodím → `serazeno` zůstane
+    `True` → cyklus skončí!
+:::
+
+### Alternativní implementace
+
+Předchozí implementace je intuitivní, protože odráží způsob, jak lidé
+**přirozeně myslí**. Ve skutečnosti není úplně efektivní, protože po
+prvním průchodu máme jistotu, že poslední prvek je již na správném
+místě. Alternativní implementace pomocí dvou vnořených 'for' cyklů toto
+zohledňuje:
+
+``` python
+seznam = [5, 2, 8, 1, 9]
+
+# Vnější cyklus - kolik průchodů potřebujeme?
+for i in range(len(seznam)):
+    
+    # Vnitřní cyklus - porovnání sousedů
+    for j in range(len(seznam) - 1 - i):
+        
+        # Porovnání a prohození
+        if seznam[j] > seznam[j + 1]:
+            seznam[j], seznam[j + 1] = seznam[j + 1], seznam[j]
+
+print(seznam)  # [1, 2, 5, 8, 9]
+```
+
+::: callout-important
+## Vnořené cykly!
+
+Všimněte si **dvou cyklů jeden v druhém**: - **Vnější** (`for i`) říká:
+"Kolikrát opakuji celý průchod?" - **Vnitřní** (`for j`) říká: "Jak
+procházím dvojice?"
+
+Toto je **vnořený cyklus** - stejný princip jako vnořené modely v Model
+Builderu!
+:::
+
+### Proč `len(seznam) - 1 - i`?
+
+``` python
+# První průchod (i=0): porovnáváme všechny dvojice
+range(len(seznam) - 1)  # 0,1,2,3
+
+# Druhý průchod (i=1): poslední je už správně, vynecháme
+range(len(seznam) - 1 - 1)  # 0,1,2
+
+# A tak dále...
+```
+
+::: callout-note
+## Která verze je efektivnější?
+
+**Závisí na situaci!**
+
+**While verze** je mnohem rychlejší, když: - Seznam je už seřazený nebo
+skoro seřazený - Může skončit brzy (best case: jen 1 průchod)
+
+**For verze** je rychlejší, když: - Seznam je úplně zamíchaný nebo
+opačně seřazený - V nejhorším případě dělá méně porovnání celkem
+:::
+
+## Selection Sort (třídění výběrem)
+
+### Princip
+
+1.  Najdi **nejmenší prvek** v seznamu
+2.  Prohoď ho s prvním prvkem
+3.  Opakuj pro zbytek seznamu (od druhého prvku dál)
+
+### Vizualizace na příkladu `[5, 2, 8, 1]`
+
+**Krok 1:** Najdi minimum v `[5, 2, 8, 1]` → 1, prohoď s první pozicí
+
+```         
+[1, 2, 8, 5]
+ ^ vyřešeno
+```
+
+**Krok 2:** Najdi minimum v `[2, 8, 5]` → 2, už je na správném místě
+
+```         
+[1, 2, 8, 5]
+    ^ vyřešeno
+```
+
+**Krok 3:** Najdi minimum v `[8, 5]` → 5, prohoď
+
+```         
+[1, 2, 5, 8]
+       ^ vyřešeno
+```
+
+**Hotovo!** `[1, 2, 5, 8]`
+
+### Implementace - společně
+
+``` python
+seznam = [5, 2, 8, 1, 9]
+
+# Vnější cyklus - postupně řešíme pozice 0, 1, 2, ...
+for i in range(len(seznam)):
+    
+    # Najdi index minima ve zbytku seznamu
+    min_index = i
+    
+    for j in range(i + 1, len(seznam)):
+        if seznam[j] < seznam[min_index]:
+            min_index = j
+    
+    # Prohoď aktuální prvek s minimem
+    seznam[i], seznam[min_index] = seznam[min_index], seznam[i]
+
+print(seznam)  # [1, 2, 5, 8, 9]
+```
+
+::: callout-tip
+## Pro praxi
+
+V reálných programech používáme vestavěnou funkci `sort()` nebo
+`sorted()`, která je **mnohem rychlejší**. Ale pochopení vlastních
+algoritmů je důležité pro: - Rozvoj logického myšlení - Pochopení, jak
+počítače fungují - Přípravu na složitější problémy
+:::
+
+------------------------------------------------------------------------
+
+# 4. Vnořené cykly a propojení s Model Builderem
+
+## Co jsou vnořené cykly?
+
+**Vnořený cyklus** = cyklus uvnitř jiného cyklu.
+
+``` python
+for i in range(3):
+    for j in range(2):
+        print(f"i={i}, j={j}")
+```
+
+**Výstup:**
+
+```         
+i=0, j=0
+i=0, j=1
+i=1, j=0
+i=1, j=1
+i=2, j=0
+i=2, j=1
+```
+
+**Jak to funguje:** - Pro každou hodnotu `i` (vnější cyklus) - Projdeme
+všechny hodnoty `j` (vnitřní cyklus)
+
+## Praktický příklad: Tabulka násobení
+
+``` python
+# Tabulka násobení 1-5
+for i in range(1, 6):
+    for j in range(1, 6):
+        print(f"{i} × {j} = {i * j}")
+    print("---")  # Oddělovač
+```
+
+## Propojení s Model Builderem
+
+::: callout-note
+## Vzpomínáte na vnořené modely?
+
+V Model Builderu jste používali **vnořené iterátory**: - Vnější
+iterator: Pro každý **okres** - Vnitřní iterator: Pro každý **rok** - →
+Zpracovat data pro každý okres v každém roce
+
+**V Pythonu je to stejné, jen místo Model Builderu píšete kód!**
+:::
+
+### Příklad: GIS úloha
+
+``` python
+okresy = ["Praha", "Brno", "Ostrava"]
+roky = [2020, 2021, 2022]
+
+for okres in okresy:
+    for rok in roky:
+        print(f"Zpracovávám: {okres}, {rok}")
+        # Zde by byl ArcPy kód pro zpracování dat
+```
+
+**Výstup:**
+
+```         
+Zpracovávám: Praha, 2020
+Zpracovávám: Praha, 2021
+Zpracovávám: Praha, 2022
+Zpracovávám: Brno, 2020
+Zpracovávám: Brno, 2021
+Zpracovávám: Brno, 2022
+Zpracovávám: Ostrava, 2020
+Zpracovávám: Ostrava, 2021
+Zpracovávám: Ostrava, 2022
+```
+
+**Vypadá vám to povědomě?** Přesně toto jste dělali v Model Builderu
+graficky. V Pythonu to napíšete přímo!
+
+------------------------------------------------------------------------
+
+# 5. Praktická cvičení
+
+## Cvičení 2: Filtrování prvočísel ze seznamu
+
+Máte seznam čísel. Vytvořte nový seznam obsahující pouze prvočísla.
+
+``` python
+cisla = [2, 4, 7, 8, 11, 12, 13, 15, 17, 20]
+
+# Zde napište kód...
+
+# Očekávaný výsledek:
+# prvocisla = [2, 7, 11, 13, 17]
+```
+
+## Cvičení 3: Vlastní třídící algoritmus
+
+Zkuste vymyslet **svůj vlastní** způsob třídění (nemusí být efektivní,
+ale musí fungovat!).
+
+**Nápověda:** Můžete zkusit: - Najít maximum a přesunout na konec -
+Postupně budovat nový seřazený seznam - Cokoliv jiného, co vás napadne!
+
+------------------------------------------------------------------------
+
+# 6. Shrnutí
+
+## Co jsme se naučili
+
+✅ **Slicing** - řezy seznamů (`seznam[start:stop:step]`)\
+✅ **Metody seznamů** - `extend()`, `insert()`, `remove()`, `pop()`,
+`reverse()`, `sort()`\
+✅ **Prvočísla** - algoritmus pro testování prvočíselnosti\
+✅ **Bubble Sort** - třídění porovnáváním sousedů\
+✅ **Selection Sort** - třídění výběrem minima\
+✅ **Vnořené cykly** - cyklus v cyklu\
+✅ **Propojení s Model Builderem** - vnořené cykly = vnořené iterátory
+
+## Co bude příště?
+
+V příští lekci:
+
+-   **Funkce** - jak psát znovupoužitelný kód
+-   **Moduly** - jak organizovat program
+-   Přepíšeme Fibonacci, faktoriál a třídění **jako funkce**
+-   Vytvoříme vlastní modul `math_utils.py`
+
+------------------------------------------------------------------------
+
+# 7. Domácí úkol
+
+## Varianta A (základní)
+
+1.  **Dokončete úlohy ze cvičení**, pokud jste je nestihli
+
+2.  **N-té prvočíslo:** Napište program, který najde N-té prvočíslo.
+    Například:
+
+    ```         
+    Zadej N: 10
+    10. prvočíslo je: 29
+    ```
+
+## Varianta B (pokročilá)
+
+1.  **Prvočísla v rozsahu:** Najděte všechna prvočísla mezi čísly A a B
+    (obojí zadává uživatel)
+2.  **Implementujte oba třídící algoritmy** (Bubble Sort i Selection
+    Sort) a porovnejte, který je čitelnější
+
+## Varianta C (výzva)
+
+**Eratosthenovo síto** - velmi rychlý algoritmus pro hledání prvočísel:
+
+1.  Vytvoř seznam čísel od 2 do N
+2.  První číslo (2) je prvočíslo - označ všechny jeho násobky jako
+    ne-prvočísla
+3.  Další neoznačené číslo (3) je prvočíslo - označ všechny jeho násobky
+4.  Opakuj, dokud nejsou všechna čísla označená
+
+**Nápověda:**
+
+``` python
+n = 100
+je_prvocislo = [True] * (n + 1)  # Seznam True hodnot
+je_prvocislo[0] = je_prvocislo[1] = False
+
+# Zde implementujte Eratosthenovo síto...
+```
+
+------------------------------------------------------------------------
+
+# 8. Cheatsheet
+
+``` python
+# === SLICING ===
+seznam[start:stop]      # Od start do stop (bez stop)
+seznam[:n]              # První n prvků
+seznam[n:]              # Od n-tého do konce
+seznam[-n:]             # Posledních n prvků
+seznam[::step]          # Každý step-tý prvek
+seznam[::-1]            # Otočení seznamu
+
+# === METODY SEZNAMŮ ===
+seznam.extend([a, b])   # Přidání více prvků
+seznam.insert(i, x)     # Vložení x na index i
+seznam.remove(x)        # Odstranění první hodnoty x
+seznam.pop()            # Odstranění a vrácení posledního
+seznam.pop(i)           # Odstranění a vrácení i-tého
+seznam.reverse()        # Otočení seznamu (in-place)
+seznam.sort()           # Seřazení (in-place)
+sorted(seznam)          # Seřazení (nový seznam)
+
+# === PRVOČÍSLO ===
+def je_prvocislo(n):
+    if n < 2:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+# === BUBBLE SORT ===
+for i in range(len(seznam)):
+    for j in range(len(seznam) - 1 - i):
+        if seznam[j] > seznam[j + 1]:
+            seznam[j], seznam[j + 1] = seznam[j + 1], seznam[j]
+
+# === SELECTION SORT ===
+for i in range(len(seznam)):
+    min_index = i
+    for j in range(i + 1, len(seznam)):
+        if seznam[j] < seznam[min_index]:
+            min_index = j
+    seznam[i], seznam[min_index] = seznam[min_index], seznam[i]
+
+# === VNOŘENÉ CYKLY ===
+for i in range(n):
+    for j in range(m):
+        # Pro každé i projdi všechna j
+        print(f"{i}, {j}")
+```
+
+------------------------------------------------------------------------
+
+````{=html}
+<!--
+# 9. Poznámky pro vyučujícího
+
+## Běžné chyby studentů
+
+``` python
+# 1. Slicing - zapomínají, že stop je bez
+seznam[2:5]  # [2, 3, 4] - NE [2, 3, 4, 5]!
+
+# 2. Bubble sort - špatný rozsah
+for j in range(len(seznam)):  # CHYBA - index out of range!
+    if seznam[j] > seznam[j + 1]:  # j+1 přesáhne délku
+
+# Správně:
+for j in range(len(seznam) - 1):  # nebo - 1 - i
+
+# 3. Prvočísla - zapomínají break
+for i in range(2, n):
+    if n % i == 0:
+        je_prvocislo = False
+        # break  # Zapomněli! Cyklus zbytečně běží dál
+
+# 4. Selection sort - prohození před nalezením minima
+for i in range(len(seznam)):
+    # Najít minimum
+    seznam[i], seznam[min_index] = ...  # CHYBA - min_index ještě není správný!
+```
+
+## Časový plán (90 min)
+
+| Čas       | Obsah                                                 |
+|-----------|-------------------------------------------------------|
+| 0-25 min  | Rekapitulace + seznamy (slicing, metody)              |
+| 25-55 min | Prvočísla - společně + samostatně                     |
+| 55-90 min | Třídění - brainstorming + implementace obou algoritmů |
+
+## Klíčové momenty
+
+### Seznamy (0-25 min):
+
+-   Slicing ukázat na konkrétních příkladech
+-   `[::-1]` je nejužitečnější trik
+-   Metody rychle proletět, nejsou kritické
+
+### Prvočísla (25-55 min):
+
+-   **Společně** implementovat základní verzi (15 min)
+-   **Samostatně** všechna prvočísla do N (15 min)
+-   Důležité: Nechat je vymyslet logiku sami nejprve!
+
+### Třídění (55-90 min):
+
+-   **KRITICKÉ:** Začít brainstormingem (5 min)
+-   Studenti často sami přijdou na algoritmy!
+-   Ukázat oba - Bubble i Selection
+-   Vizualizovat na tabuli/projektoru
+-   Zdůraznit vnořené cykly
+
+## Rizika
+
+1.  **Třídění může být těžké (35 min může být málo)**
+    -   Řešení: Mít připravený promítaný kód
+    -   Můžete ukázat jen jeden algoritmus (Bubble je populárnější)
+    -   Selection Sort jako domácí úkol
+2.  **Prvočísla - studenti budou různě rychlí**
+    -   Řešení: Rychlejší pomáhají pomalejším
+    -   Bonusový úkol: optimalizace do sqrt(n)
+3.  **Vnořené cykly jsou abstraktní**
+    -   Řešení: Vizualizovat tabulku násobení
+    -   Propojit s Model Builderem iterátory!
+
+## Tipy
+
+-   **Brainstorming třídění je klíčový!** Dejte studentům čas přemýšlet
+-   Na tabuli vizualizujte krok za krokem
+-   Připravte si seznam čísel na kartičkách - fyzické třídění!
+-   **Propojení s Model Builderem** - tento moment je důležitý,
+    zdůrazněte ho!
+-   Ukažte, jak elegantní je `sort()` po tom, co implementovali vlastní
+    algoritmus
+-->
+````

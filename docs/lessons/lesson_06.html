@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Váš kurz">
+<meta name="dcterms.date" content="2025-10-13">
+
+<title>Lekce 6: Funkce a moduly – Programování pro GIS a DPZ</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-5c0334f9598869e85f618d5d37196c81.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Programování pro GIS a DPZ</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-1-model-builder" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ćást 1: Model Builder</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-1-model-builder">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_01.html">
+ <span class="dropdown-text">Lekce 1: Jednoduchý model</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-2-úvod-do-pythonu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 2: Úvod do Pythonu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-2-úvod-do-pythonu">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_03.html">
+ <span class="dropdown-text">Lekce 3: První program v Pythonu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_04.html">
+ <span class="dropdown-text">Lekce 4: Cykly a podmínky</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_05.html">
+ <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
+  <li><a href="#proč-funkce" id="toc-proč-funkce" class="nav-link" data-scroll-target="#proč-funkce"><span class="header-section-number">2</span> 1. Proč funkce?</a>
+  <ul class="collapse">
+  <li><a href="#motivace" id="toc-motivace" class="nav-link" data-scroll-target="#motivace"><span class="header-section-number">2.1</span> Motivace</a></li>
+  <li><a href="#dry-princip" id="toc-dry-princip" class="nav-link" data-scroll-target="#dry-princip"><span class="header-section-number">2.2</span> DRY princip</a></li>
+  </ul></li>
+  <li><a href="#definice-funkcí" id="toc-definice-funkcí" class="nav-link" data-scroll-target="#definice-funkcí"><span class="header-section-number">3</span> 2. Definice funkcí</a>
+  <ul class="collapse">
+  <li><a href="#základní-syntaxe" id="toc-základní-syntaxe" class="nav-link" data-scroll-target="#základní-syntaxe"><span class="header-section-number">3.1</span> Základní syntaxe</a></li>
+  <li><a href="#první-funkce" id="toc-první-funkce" class="nav-link" data-scroll-target="#první-funkce"><span class="header-section-number">3.2</span> První funkce</a></li>
+  </ul></li>
+  <li><a href="#parametry-funkcí" id="toc-parametry-funkcí" class="nav-link" data-scroll-target="#parametry-funkcí"><span class="header-section-number">4</span> 3. Parametry funkcí</a>
+  <ul class="collapse">
+  <li><a href="#funkce-s-jedním-parametrem" id="toc-funkce-s-jedním-parametrem" class="nav-link" data-scroll-target="#funkce-s-jedním-parametrem"><span class="header-section-number">4.1</span> Funkce s jedním parametrem</a></li>
+  <li><a href="#funkce-s-více-parametry" id="toc-funkce-s-více-parametry" class="nav-link" data-scroll-target="#funkce-s-více-parametry"><span class="header-section-number">4.2</span> Funkce s více parametry</a></li>
+  <li><a href="#default-hodnoty-parametrů" id="toc-default-hodnoty-parametrů" class="nav-link" data-scroll-target="#default-hodnoty-parametrů"><span class="header-section-number">4.3</span> Default hodnoty parametrů</a></li>
+  </ul></li>
+  <li><a href="#návratové-hodnoty---return" id="toc-návratové-hodnoty---return" class="nav-link" data-scroll-target="#návratové-hodnoty---return"><span class="header-section-number">5</span> 4. Návratové hodnoty - return</a>
+  <ul class="collapse">
+  <li><a href="#problém-s-print" id="toc-problém-s-print" class="nav-link" data-scroll-target="#problém-s-print"><span class="header-section-number">5.1</span> Problém s print()</a></li>
+  <li><a href="#řešení-return" id="toc-řešení-return" class="nav-link" data-scroll-target="#řešení-return"><span class="header-section-number">5.2</span> Řešení: return</a></li>
+  <li><a href="#return-ukončuje-funkci" id="toc-return-ukončuje-funkci" class="nav-link" data-scroll-target="#return-ukončuje-funkci"><span class="header-section-number">5.3</span> return ukončuje funkci</a></li>
+  </ul></li>
+  <li><a href="#dokumentační-řetězce-docstrings" id="toc-dokumentační-řetězce-docstrings" class="nav-link" data-scroll-target="#dokumentační-řetězce-docstrings"><span class="header-section-number">6</span> 5. Dokumentační řetězce (docstrings)</a>
+  <ul class="collapse">
+  <li><a href="#co-jsou-docstrings" id="toc-co-jsou-docstrings" class="nav-link" data-scroll-target="#co-jsou-docstrings"><span class="header-section-number">6.1</span> Co jsou docstrings?</a></li>
+  <li><a href="#proč-používat-docstrings" id="toc-proč-používat-docstrings" class="nav-link" data-scroll-target="#proč-používat-docstrings"><span class="header-section-number">6.2</span> Proč používat docstrings?</a></li>
+  </ul></li>
+  <li><a href="#přepis-úloh-jako-funkcí" id="toc-přepis-úloh-jako-funkcí" class="nav-link" data-scroll-target="#přepis-úloh-jako-funkcí"><span class="header-section-number">7</span> 6. Přepis úloh jako funkcí</a>
+  <ul class="collapse">
+  <li><a href="#fibonacci-jako-funkce" id="toc-fibonacci-jako-funkce" class="nav-link" data-scroll-target="#fibonacci-jako-funkce"><span class="header-section-number">7.1</span> Fibonacci jako funkce</a></li>
+  <li><a href="#cvičení-1-faktoriál-jako-funkce" id="toc-cvičení-1-faktoriál-jako-funkce" class="nav-link" data-scroll-target="#cvičení-1-faktoriál-jako-funkce"><span class="header-section-number">7.2</span> Cvičení 1: Faktoriál jako funkce</a></li>
+  <li><a href="#cvičení-2-test-prvočíselnosti-jako-funkce" id="toc-cvičení-2-test-prvočíselnosti-jako-funkce" class="nav-link" data-scroll-target="#cvičení-2-test-prvočíselnosti-jako-funkce"><span class="header-section-number">7.3</span> Cvičení 2: Test prvočíselnosti jako funkce</a></li>
+  <li><a href="#cvičení-3-bubble-sort-jako-funkce" id="toc-cvičení-3-bubble-sort-jako-funkce" class="nav-link" data-scroll-target="#cvičení-3-bubble-sort-jako-funkce"><span class="header-section-number">7.4</span> Cvičení 3: Bubble Sort jako funkce</a></li>
+  </ul></li>
+  <li><a href="#moduly" id="toc-moduly" class="nav-link" data-scroll-target="#moduly"><span class="header-section-number">8</span> 7. Moduly</a>
+  <ul class="collapse">
+  <li><a href="#co-je-modul" id="toc-co-je-modul" class="nav-link" data-scroll-target="#co-je-modul"><span class="header-section-number">8.1</span> Co je modul?</a></li>
+  <li><a href="#vytvoření-vlastního-modulu" id="toc-vytvoření-vlastního-modulu" class="nav-link" data-scroll-target="#vytvoření-vlastního-modulu"><span class="header-section-number">8.2</span> Vytvoření vlastního modulu</a>
+  <ul class="collapse">
+  <li><a href="#krok-1-vytvořte-soubor-math_utils.py" id="toc-krok-1-vytvořte-soubor-math_utils.py" class="nav-link" data-scroll-target="#krok-1-vytvořte-soubor-math_utils.py"><span class="header-section-number">8.2.1</span> Krok 1: Vytvořte soubor <code>math_utils.py</code></a></li>
+  <li><a href="#krok-2-vytvořte-soubor-main.py-ve-stejné-složce" id="toc-krok-2-vytvořte-soubor-main.py-ve-stejné-složce" class="nav-link" data-scroll-target="#krok-2-vytvořte-soubor-main.py-ve-stejné-složce"><span class="header-section-number">8.2.2</span> Krok 2: Vytvořte soubor <code>main.py</code> ve STEJNÉ složce</a></li>
+  </ul></li>
+  <li><a href="#způsoby-importu" id="toc-způsoby-importu" class="nav-link" data-scroll-target="#způsoby-importu"><span class="header-section-number">8.3</span> Způsoby importu</a>
+  <ul class="collapse">
+  <li><a href="#import-celého-modulu" id="toc-import-celého-modulu" class="nav-link" data-scroll-target="#import-celého-modulu"><span class="header-section-number">8.3.1</span> 1. Import celého modulu</a></li>
+  <li><a href="#import-konkrétních-funkcí" id="toc-import-konkrétních-funkcí" class="nav-link" data-scroll-target="#import-konkrétních-funkcí"><span class="header-section-number">8.3.2</span> 2. Import konkrétních funkcí</a></li>
+  <li><a href="#import-s-aliasem" id="toc-import-s-aliasem" class="nav-link" data-scroll-target="#import-s-aliasem"><span class="header-section-number">8.3.3</span> 3. Import s aliasem</a></li>
+  <li><a href="#import-všeho-nedoporučeno" id="toc-import-všeho-nedoporučeno" class="nav-link" data-scroll-target="#import-všeho-nedoporučeno"><span class="header-section-number">8.3.4</span> 4. Import všeho (NEDOPORUČENO!)</a></li>
+  </ul></li>
+  <li><a href="#vestavěné-moduly" id="toc-vestavěné-moduly" class="nav-link" data-scroll-target="#vestavěné-moduly"><span class="header-section-number">8.4</span> Vestavěné moduly</a>
+  <ul class="collapse">
+  <li><a href="#modul-math" id="toc-modul-math" class="nav-link" data-scroll-target="#modul-math"><span class="header-section-number">8.4.1</span> Modul <code>math</code></a></li>
+  <li><a href="#modul-random" id="toc-modul-random" class="nav-link" data-scroll-target="#modul-random"><span class="header-section-number">8.4.2</span> Modul <code>random</code></a></li>
+  <li><a href="#modul-os-operační-systém" id="toc-modul-os-operační-systém" class="nav-link" data-scroll-target="#modul-os-operační-systém"><span class="header-section-number">8.4.3</span> Modul <code>os</code> (operační systém)</a></li>
+  <li><a href="#modul-csv-práce-s-csv" id="toc-modul-csv-práce-s-csv" class="nav-link" data-scroll-target="#modul-csv-práce-s-csv"><span class="header-section-number">8.4.4</span> Modul <code>csv</code> (práce s CSV)</a></li>
+  </ul></li>
+  <li><a href="#preview-import-arcpy" id="toc-preview-import-arcpy" class="nav-link" data-scroll-target="#preview-import-arcpy"><span class="header-section-number">8.5</span> Preview: import arcpy</a></li>
+  </ul></li>
+  <li><a href="#struktura-projektu" id="toc-struktura-projektu" class="nav-link" data-scroll-target="#struktura-projektu"><span class="header-section-number">9</span> 8. Struktura projektu</a>
+  <ul class="collapse">
+  <li><a href="#ideální-organizace" id="toc-ideální-organizace" class="nav-link" data-scroll-target="#ideální-organizace"><span class="header-section-number">9.1</span> Ideální organizace</a></li>
+  </ul></li>
+  <li><a href="#praktická-úloha" id="toc-praktická-úloha" class="nav-link" data-scroll-target="#praktická-úloha"><span class="header-section-number">10</span> 9. Praktická úloha</a>
+  <ul class="collapse">
+  <li><a href="#zadání" id="toc-zadání" class="nav-link" data-scroll-target="#zadání"><span class="header-section-number">10.1</span> Zadání</a>
+  <ul class="collapse">
+  <li><a href="#soubor-math_utils.py" id="toc-soubor-math_utils.py" class="nav-link" data-scroll-target="#soubor-math_utils.py"><span class="header-section-number">10.1.1</span> 1. Soubor <code>math_utils.py</code></a></li>
+  <li><a href="#soubor-main.py" id="toc-soubor-main.py" class="nav-link" data-scroll-target="#soubor-main.py"><span class="header-section-number">10.1.2</span> 2. Soubor <code>main.py</code></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">11</span> 10. Shrnutí</a>
+  <ul class="collapse">
+  <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">11.1</span> Co jsme se naučili</a></li>
+  <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">11.2</span> Co bude příště?</a></li>
+  </ul></li>
+  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">12</span> 11. Domácí úkol</a>
+  <ul class="collapse">
+  <li><a href="#varianta-a-základní" id="toc-varianta-a-základní" class="nav-link" data-scroll-target="#varianta-a-základní"><span class="header-section-number">12.1</span> Varianta A (základní)</a></li>
+  <li><a href="#varianta-b-pokročilá" id="toc-varianta-b-pokročilá" class="nav-link" data-scroll-target="#varianta-b-pokročilá"><span class="header-section-number">12.2</span> Varianta B (pokročilá)</a></li>
+  <li><a href="#varianta-c-výzva" id="toc-varianta-c-výzva" class="nav-link" data-scroll-target="#varianta-c-výzva"><span class="header-section-number">12.3</span> Varianta C (výzva)</a></li>
+  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">13</span> 12. Cheatsheet</a></li>
+  <li><a href="#poznámky-pro-vyučujícího" id="toc-poznámky-pro-vyučujícího" class="nav-link" data-scroll-target="#poznámky-pro-vyučujícího"><span class="header-section-number">14</span> 13. Poznámky pro vyučujícího</a>
+  <ul class="collapse">
+  <li><a href="#běžné-chyby-studentů" id="toc-běžné-chyby-studentů" class="nav-link" data-scroll-target="#běžné-chyby-studentů"><span class="header-section-number">14.1</span> Běžné chyby studentů</a></li>
+  <li><a href="#časový-plán-90-min" id="toc-časový-plán-90-min" class="nav-link" data-scroll-target="#časový-plán-90-min"><span class="header-section-number">14.2</span> Časový plán (90 min)</a></li>
+  <li><a href="#klíčové-momenty" id="toc-klíčové-momenty" class="nav-link" data-scroll-target="#klíčové-momenty"><span class="header-section-number">14.3</span> Klíčové momenty</a>
+  <ul class="collapse">
+  <li><a href="#print-vs.-return-30-40-min" id="toc-print-vs.-return-30-40-min" class="nav-link" data-scroll-target="#print-vs.-return-30-40-min"><span class="header-section-number">14.3.1</span> print() vs.&nbsp;return (30-40 min):</a></li>
+  <li><a href="#moduly-60-85-min" id="toc-moduly-60-85-min" class="nav-link" data-scroll-target="#moduly-60-85-min"><span class="header-section-number">14.3.2</span> Moduly (60-85 min):</a></li>
+  <li><a href="#docstrings-40-50-min" id="toc-docstrings-40-50-min" class="nav-link" data-scroll-target="#docstrings-40-50-min"><span class="header-section-number">14.3.3</span> Docstrings (40-50 min):</a></li>
+  </ul></li>
+  <li><a href="#rizika" id="toc-rizika" class="nav-link" data-scroll-target="#rizika"><span class="header-section-number">14.4</span> Rizika</a></li>
+  <li><a href="#tipy" id="toc-tipy" class="nav-link" data-scroll-target="#tipy"><span class="header-section-number">14.5</span> Tipy</a></li>
+  <li><a href="#materiály-k-přípravě" id="toc-materiály-k-přípravě" class="nav-link" data-scroll-target="#materiály-k-přípravě"><span class="header-section-number">14.6</span> Materiály k přípravě</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lekce 6: Funkce a moduly</h1>
+<p class="subtitle lead">Python pro GIS - Znovupoužitelný kód</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Váš kurz </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 13, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cíle-lekce" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Cíle lekce</h1>
+<p>Po absolvování této lekce budete umět:</p>
+<ul>
+<li>Definovat vlastní funkce pomocí <code>def</code></li>
+<li>Používat parametry a návratové hodnoty</li>
+<li>Rozumět rozdílu mezi <code>print()</code> a <code>return</code></li>
+<li>Psát dokumentační řetězce (docstrings)</li>
+<li>Organizovat kód do modulů</li>
+<li>Importovat a používat moduly</li>
+<li>Vytvořit vlastní modul <code>math_utils.py</code></li>
+</ul>
+<p><strong>Časová dotace:</strong> 90 minut</p>
+<hr>
+</section>
+<section id="proč-funkce" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 1. Proč funkce?</h1>
+<section id="motivace" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="motivace"><span class="header-section-number">2.1</span> Motivace</h2>
+<p><strong>Vzpomeňte si na předchozí lekce:</strong></p>
+<p>Napsali jste kód pro: - Fibonacci číslo - Faktoriál - Test prvočíselnosti - Třídění seznamu</p>
+<p><strong>Co kdybyste tyto operace potřebovali použít vícekrát?</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fibonacci pro číslo 10</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Fibonacci(</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fibonacci pro číslo 20 - MUSÍME PSÁT ZNOVU!</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Fibonacci(</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Fibonacci pro číslo 15 - ZASE ZNOVU!</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Problém:</strong> Opakujeme stejný kód → neefektivní, náchylné k chybám</p>
+</section>
+<section id="dry-princip" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="dry-princip"><span class="header-section-number">2.2</span> DRY princip</h2>
+<p><strong>DRY = Don’t Repeat Yourself</strong> (Neopakuj se)</p>
+<p>Pokud píšete stejný kód vícekrát, měli byste ho <strong>zabalit do funkce</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Funkce = pojmenovaný kus kódu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Funkce je <strong>pojmenovaný blok kódu</strong>, který: - Můžete volat kdykoli - Může přijímat vstupy (parametry) - Může vracet výstup (návratovou hodnotu) - Dělá kód čitelnějším a znovupoužitelným</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="definice-funkcí" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 2. Definice funkcí</h1>
+<section id="základní-syntaxe" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="základní-syntaxe"><span class="header-section-number">3.1</span> Základní syntaxe</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jmeno_funkce():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tělo funkce (odsazené)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    prikaz1</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    prikaz2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Klíčové slovo:</strong> <code>def</code> (define)<br>
+<strong>Závorky:</strong> <code>()</code> jsou povinné<br>
+<strong>Dvojtečka:</strong> <code>:</code> na konci řádku<br>
+<strong>Odsazení:</strong> Tělo funkce je odsazené (4 mezery)</p>
+</section>
+<section id="první-funkce" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="první-funkce"><span class="header-section-number">3.2</span> První funkce</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pozdrav():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Ahoj!"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Vítej v kurzu Pythonu!"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Volání funkce:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>pozdrav()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výsledek:</strong></p>
+<pre><code>Ahoj!
+Vítej v kurzu Pythonu!</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Funkci musíte ZAVOLAT!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Definice funkce ji jen <strong>vytvoří</strong>, ale <strong>neprovede</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pozdrav():</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Ahoj!"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Nic se nevypíše! Funkce jen existuje.</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pozdrav()  <span class="co"># TEĎ se provede!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="parametry-funkcí" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 3. Parametry funkcí</h1>
+<section id="funkce-s-jedním-parametrem" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="funkce-s-jedním-parametrem"><span class="header-section-number">4.1</span> Funkce s jedním parametrem</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pozdrav(jmeno):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Ahoj, </span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss">!"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pozdrav(<span class="st">"Jan"</span>)     <span class="co"># Ahoj, Jan!</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>pozdrav(<span class="st">"Marie"</span>)   <span class="co"># Ahoj, Marie!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Parametr</strong> = proměnná, která přijímá hodnotu při volání funkce</p>
+</section>
+<section id="funkce-s-více-parametry" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="funkce-s-více-parametry"><span class="header-section-number">4.2</span> Funkce s více parametry</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    vysledek <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>vysledek<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>secti(<span class="dv">5</span>, <span class="dv">3</span>)   <span class="co"># 5 + 3 = 8</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>secti(<span class="dv">10</span>, <span class="dv">7</span>)  <span class="co"># 10 + 7 = 17</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="default-hodnoty-parametrů" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="default-hodnoty-parametrů"><span class="header-section-number">4.3</span> Default hodnoty parametrů</h2>
+<p>Můžete nastavit <strong>výchozí hodnotu</strong> pro parametr:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pozdrav(jmeno, jazyk<span class="op">=</span><span class="st">"cs"</span>):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> jazyk <span class="op">==</span> <span class="st">"cs"</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Ahoj, </span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss">!"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> jazyk <span class="op">==</span> <span class="st">"en"</span>:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Hello, </span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss">!"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>pozdrav(<span class="st">"Jan"</span>)           <span class="co"># Ahoj, Jan! (použije default "cs")</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>pozdrav(<span class="st">"John"</span>, <span class="st">"en"</span>)    <span class="co"># Hello, John!</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>pozdrav(<span class="st">"Marie"</span>, <span class="st">"cs"</span>)   <span class="co"># Ahoj, Marie!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="návratové-hodnoty---return" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 4. Návratové hodnoty - return</h1>
+<section id="problém-s-print" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="problém-s-print"><span class="header-section-number">5.1</span> Problém s print()</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    vysledek <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(vysledek)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Můžeme vypsat výsledek:</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>secti(<span class="dv">5</span>, <span class="dv">3</span>)  <span class="co"># 8</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ale NEMŮŽEME ho použít dál:</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> secti(<span class="dv">5</span>, <span class="dv">3</span>)  <span class="co"># x = None (funkce nic nevrací!)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> <span class="dv">10</span>       <span class="co"># CHYBA! None + 10 nejde</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="řešení-return" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="řešení-return"><span class="header-section-number">5.2</span> Řešení: return</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    vysledek <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> vysledek  <span class="co"># Vrátí hodnotu</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Teď MŮŽEME výsledek použít:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> secti(<span class="dv">5</span>, <span class="dv">3</span>)    <span class="co"># x = 8</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> x <span class="op">+</span> <span class="dv">10</span>         <span class="co"># y = 18</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Výsledek: </span><span class="sc">{</span>y<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># Výsledek: 18</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>print() vs.&nbsp;return - KRITICKÝ ROZDÍL!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>print()</strong> - vypíše na obrazovku, ale <strong>nevrací</strong> hodnotu</li>
+<li><strong>return</strong> - <strong>vrací</strong> hodnotu, kterou můžete použít dál</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spatne(x):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)    <span class="co"># Vypíše, ale nevrací</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spravne(x):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span>    <span class="co"># Vrací hodnotu</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> spatne(<span class="dv">5</span>)       <span class="co"># Vypíše 10, ale a = None</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> spravne(<span class="dv">5</span>)      <span class="co"># b = 10 (můžeme použít dál)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Pravidlo:</strong> Funkce by měly <strong>vracet</strong> hodnoty pomocí <code>return</code>, ne je vypisovat pomocí <code>print()</code>!</p>
+</div>
+</div>
+</section>
+<section id="return-ukončuje-funkci" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="return-ukončuje-funkci"><span class="header-section-number">5.3</span> return ukončuje funkci</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> je_kladne(cislo):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cislo <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span>  <span class="co"># Funkce SKONČÍ zde</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">False</span>     <span class="co"># Tohle se provede jen pokud cislo &lt;= 0</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(je_kladne(<span class="dv">5</span>))   <span class="co"># True</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(je_kladne(<span class="op">-</span><span class="dv">3</span>))  <span class="co"># False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="dokumentační-řetězce-docstrings" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 5. Dokumentační řetězce (docstrings)</h1>
+<section id="co-jsou-docstrings" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="co-jsou-docstrings"><span class="header-section-number">6.1</span> Co jsou docstrings?</h2>
+<p><strong>Docstring</strong> = dokumentace funkce napsaná hned pod definicí v trojitých uvozovkách.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci(n):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí n-tý člen Fibonacciho posloupnosti.</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">        n: Pořadové číslo členu (int)</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">        n-tý člen posloupnosti (int)</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="proč-používat-docstrings" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="proč-používat-docstrings"><span class="header-section-number">6.2</span> Proč používat docstrings?</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Můžete si přečíst dokumentaci:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">help</span>(fibonacci)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výstup:</strong></p>
+<pre><code>Help on function fibonacci:
+
+fibonacci(n)
+    Vrátí n-tý člen Fibonacciho posloupnosti.
+    
+    Args:
+        n: Pořadové číslo členu (int)
+    
+    Returns:
+        n-tý člen posloupnosti (int)</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Dobrý docstring obsahuje
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Stručný popis</strong> - co funkce dělá</li>
+<li><strong>Args</strong> - jaké přijímá parametry</li>
+<li><strong>Returns</strong> - co vrací</li>
+<li><strong>Raises</strong> (volitelně) - jaké může vyvolat chyby</li>
+</ol>
+<p>Nemusíte psát složité docstringy, ale alespoň jednořádkový popis je dobrý!</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="přepis-úloh-jako-funkcí" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> 6. Přepis úloh jako funkcí</h1>
+<section id="fibonacci-jako-funkce" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="fibonacci-jako-funkce"><span class="header-section-number">7.1</span> Fibonacci jako funkce</h2>
+<p><strong>Původní kód:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Které číslo? "</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">. člen: </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Jako funkce:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci(n):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí n-tý člen Fibonacciho posloupnosti."""</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Použití:</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"10. člen: </span><span class="sc">{</span>fibonacci(<span class="dv">10</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"20. člen: </span><span class="sc">{</span>fibonacci(<span class="dv">20</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Nebo pro seznam čísel:</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> [<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>]:</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"F(</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>fibonacci(i)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="cvičení-1-faktoriál-jako-funkce" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="cvičení-1-faktoriál-jako-funkce"><span class="header-section-number">7.2</span> Cvičení 1: Faktoriál jako funkce</h2>
+<p>Přepište váš kód pro faktoriál jako funkci:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> faktorial(n):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí faktoriál čísla n."""</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zde doplňte kód...</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Test:</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(faktorial(<span class="dv">5</span>))   <span class="co"># Mělo by být 120</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(faktorial(<span class="dv">10</span>))  <span class="co"># Mělo by být 3628800</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="cvičení-2-test-prvočíselnosti-jako-funkce" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="cvičení-2-test-prvočíselnosti-jako-funkce"><span class="header-section-number">7.3</span> Cvičení 2: Test prvočíselnosti jako funkce</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> je_prvocislo(n):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí True, pokud je n prvočíslo, jinak False."""</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zde doplňte kód...</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Test:</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(je_prvocislo(<span class="dv">7</span>))   <span class="co"># True</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(je_prvocislo(<span class="dv">8</span>))   <span class="co"># False</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(je_prvocislo(<span class="dv">17</span>))  <span class="co"># True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="cvičení-3-bubble-sort-jako-funkce" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="cvičení-3-bubble-sort-jako-funkce"><span class="header-section-number">7.4</span> Cvičení 3: Bubble Sort jako funkce</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bubble_sort(seznam):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Seřadí seznam pomocí Bubble Sort algoritmu.</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">        seznam: Seznam čísel (list)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">        Seřazený seznam (list)</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># POZOR: Měli byste vytvořit kopii!</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    serazeny <span class="op">=</span> seznam.copy()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zde doplňte třídící kód...</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> serazeny</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Test:</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>serazene <span class="op">=</span> bubble_sort(cisla)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Původní: </span><span class="sc">{</span>cisla<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Seřazené: </span><span class="sc">{</span>serazene<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Pozor na úpravu seznamů!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Seznamy jsou <strong>mutable</strong> (měnitelné). Pokud funkce upravuje seznam, mění původní:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spatne_sort(seznam):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    seznam.sort()  <span class="co"># Mění původní seznam!</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> seznam</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>]</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>vysledek <span class="op">=</span> spatne_sort(cisla)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla)  <span class="co"># [2, 5, 8] - ZMĚNĚNO!</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Lepší:</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dobre_sort(seznam):</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    kopie <span class="op">=</span> seznam.copy()</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    kopie.sort()</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> kopie</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="moduly" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> 7. Moduly</h1>
+<section id="co-je-modul" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="co-je-modul"><span class="header-section-number">8.1</span> Co je modul?</h2>
+<p><strong>Modul</strong> = Python soubor (<code>.py</code>) obsahující funkce, které můžete použít v jiných programech.</p>
+<p><strong>Proč moduly?</strong> - <strong>Organizace</strong> - rozdělení programu do logických celků - <strong>Znovupoužitelnost</strong> - jednou napíšete, použijete všude - <strong>Sdílení</strong> - můžete sdílet s kolegy</p>
+</section>
+<section id="vytvoření-vlastního-modulu" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="vytvoření-vlastního-modulu"><span class="header-section-number">8.2</span> Vytvoření vlastního modulu</h2>
+<section id="krok-1-vytvořte-soubor-math_utils.py" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="krok-1-vytvořte-soubor-math_utils.py"><span class="header-section-number">8.2.1</span> Krok 1: Vytvořte soubor <code>math_utils.py</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># math_utils.py</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci(n):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí n-tý člen Fibonacciho posloupnosti."""</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> <span class="dv">0</span>, <span class="dv">1</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        a, b <span class="op">=</span> b, a <span class="op">+</span> b</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> faktorial(n):</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí faktoriál čísla n."""</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    vysledek <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        vysledek <span class="op">*=</span> i</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> vysledek</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> je_prvocislo(n):</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí True, pokud je n prvočíslo."""</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, n):</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bubble_sort(seznam):</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Seřadí seznam pomocí Bubble Sort."""</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    serazeny <span class="op">=</span> seznam.copy()</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(serazeny)):</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(serazeny) <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> i):</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> serazeny[j] <span class="op">&gt;</span> serazeny[j <span class="op">+</span> <span class="dv">1</span>]:</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>                serazeny[j], serazeny[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> serazeny[j <span class="op">+</span> <span class="dv">1</span>], serazeny[j]</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> serazeny</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="krok-2-vytvořte-soubor-main.py-ve-stejné-složce" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="krok-2-vytvořte-soubor-main.py-ve-stejné-složce"><span class="header-section-number">8.2.2</span> Krok 2: Vytvořte soubor <code>main.py</code> ve STEJNÉ složce</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># main.py</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Teď můžeme používat funkce z math_utils:</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Zadej číslo: "</span>))</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Fibonacci: </span><span class="sc">{</span>math_utils<span class="sc">.</span>fibonacci(n)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Faktoriál: </span><span class="sc">{</span>math_utils<span class="sc">.</span>faktorial(n)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Je prvočíslo: </span><span class="sc">{</span>math_utils<span class="sc">.</span>je_prvocislo(n)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Seřazené: </span><span class="sc">{</span>math_utils<span class="sc">.</span>bubble_sort(cisla)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="způsoby-importu" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="způsoby-importu"><span class="header-section-number">8.3</span> Způsoby importu</h2>
+<section id="import-celého-modulu" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="import-celého-modulu"><span class="header-section-number">8.3.1</span> 1. Import celého modulu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>math_utils.fibonacci(<span class="dv">10</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>math_utils.faktorial(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="import-konkrétních-funkcí" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="import-konkrétních-funkcí"><span class="header-section-number">8.3.2</span> 2. Import konkrétních funkcí</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math_utils <span class="im">import</span> fibonacci, faktorial</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>fibonacci(<span class="dv">10</span>)   <span class="co"># Bez math_utils.</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>faktorial(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="import-s-aliasem" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="import-s-aliasem"><span class="header-section-number">8.3.3</span> 3. Import s aliasem</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils <span class="im">as</span> mu</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>mu.fibonacci(<span class="dv">10</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>mu.faktorial(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="import-všeho-nedoporučeno" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="import-všeho-nedoporučeno"><span class="header-section-number">8.3.4</span> 4. Import všeho (NEDOPORUČENO!)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math_utils <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>fibonacci(<span class="dv">10</span>)  <span class="co"># Funguje, ale není jasné, odkud funkce pochází</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Doporučení
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Pro <strong>vlastní moduly</strong>: <code>import math_utils</code> (jasné, odkud funkce pochází)</li>
+<li>Pro <strong>specifické funkce</strong>: <code>from math_utils import fibonacci</code> (kratší kód)</li>
+<li><strong>Nikdy</strong> nepoužívejte <code>import *</code> - není jasné, co importujete!</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="vestavěné-moduly" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="vestavěné-moduly"><span class="header-section-number">8.4</span> Vestavěné moduly</h2>
+<p>Python má mnoho <strong>vestavěných modulů</strong>, které můžete rovnou použít:</p>
+<section id="modul-math" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="modul-math"><span class="header-section-number">8.4.1</span> Modul <code>math</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.sqrt(<span class="dv">16</span>))      <span class="co"># 4.0 - odmocnina</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.pi)            <span class="co"># 3.14159... - číslo π</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.ceil(<span class="fl">3.2</span>))     <span class="co"># 4 - zaokrouhlení nahoru</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(math.floor(<span class="fl">3.8</span>))    <span class="co"># 3 - zaokrouhlení dolů</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="modul-random" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="modul-random"><span class="header-section-number">8.4.2</span> Modul <code>random</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(random.randint(<span class="dv">1</span>, <span class="dv">10</span>))        <span class="co"># Náhodné číslo 1-10</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(random.choice([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]))  <span class="co"># Náhodný prvek ze seznamu</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="modul-os-operační-systém" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="modul-os-operační-systém"><span class="header-section-number">8.4.3</span> Modul <code>os</code> (operační systém)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(os.getcwd())           <span class="co"># Aktuální složka</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(os.listdir(<span class="st">'.'</span>))       <span class="co"># Seznam souborů</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="modul-csv-práce-s-csv" class="level3" data-number="8.4.4">
+<h3 data-number="8.4.4" class="anchored" data-anchor-id="modul-csv-práce-s-csv"><span class="header-section-number">8.4.4</span> Modul <code>csv</code> (práce s CSV)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Budeme používat příští lekci!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="preview-import-arcpy" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="preview-import-arcpy"><span class="header-section-number">8.5</span> Preview: import arcpy</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Připravujeme se na ArcPy!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V příštích týdnech budete psát:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Funkce z ArcPy modulu:</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>arcpy.Buffer_analysis(...)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>arcpy.Clip_analysis(...)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Vidíte?</strong> ArcPy je jen další modul! Funguje úplně stejně jako <code>math_utils</code>.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="struktura-projektu" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> 8. Struktura projektu</h1>
+<section id="ideální-organizace" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="ideální-organizace"><span class="header-section-number">9.1</span> Ideální organizace</h2>
+<pre><code>muj_projekt/
+│
+├── main.py              # Hlavní program
+├── math_utils.py        # Matematické funkce
+│
+└── data/
+    └── data.csv         # Data (příští lekce)</code></pre>
+<p><strong>main.py:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hlavní program...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>math_utils.py:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci(n):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> faktorial(n):</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Soubory musí být ve stejné složce!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aby <code>import math_utils</code> fungoval, musí být <code>math_utils.py</code> ve <strong>stejné složce</strong> jako <code>main.py</code>, nebo v Pythonem rozpoznané cestě.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="praktická-úloha" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> 9. Praktická úloha</h1>
+<section id="zadání" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="zadání"><span class="header-section-number">10.1</span> Zadání</h2>
+<p>Vytvořte kompletní projekt:</p>
+<section id="soubor-math_utils.py" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="soubor-math_utils.py"><span class="header-section-number">10.1.1</span> 1. Soubor <code>math_utils.py</code></h3>
+<p>Obsahuje funkce: - <code>fibonacci(n)</code> - <code>faktorial(n)</code> - <code>je_prvocislo(n)</code> - <code>bubble_sort(seznam)</code></p>
+<p>Všechny funkce mají docstringy!</p>
+</section>
+<section id="soubor-main.py" class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="soubor-main.py"><span class="header-section-number">10.1.2</span> 2. Soubor <code>main.py</code></h3>
+<p>Program, který: 1. Načte číslo N od uživatele 2. Vypočítá a vypíše: - N-tý Fibonacci číslo - Faktoriál N - Zda je N prvočíslo 3. Vytvoří seznam prvních 10 Fibonacci čísel 4. Seřadí tento seznam (ačkoli už je seřazený 😊) 5. Vypíše výsledek</p>
+<p><strong>Kostra:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># main.py</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Zadej číslo: "</span>))</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Základní výpočty</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Fibonacci(</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>math_utils<span class="sc">.</span>fibonacci(n)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Faktoriál(</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>math_utils<span class="sc">.</span>faktorial(n)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> math_utils.je_prvocislo(n):</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> je prvočíslo"</span>)</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss"> není prvočíslo"</span>)</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Seznam Fibonacci čísel</span></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>fibonacci_cisla <span class="op">=</span> []</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    fibonacci_cisla.append(math_utils.fibonacci(i))</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Prvních 10 Fibonacci čísel: </span><span class="sc">{</span>fibonacci_cisla<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Seřazení (už je seřazený, ale ukážeme funkci)</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>serazeny <span class="op">=</span> math_utils.bubble_sort(fibonacci_cisla)</span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Seřazený seznam: </span><span class="sc">{</span>serazeny<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+</section>
+<section id="shrnutí" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> 10. Shrnutí</h1>
+<section id="co-jsme-se-naučili" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">11.1</span> Co jsme se naučili</h2>
+<p>✅ <strong>Definice funkcí</strong> pomocí <code>def</code><br>
+✅ <strong>Parametry</strong> - vstupy do funkce<br>
+✅ <strong>return</strong> - návratové hodnoty<br>
+✅ <strong>Rozdíl print() vs.&nbsp;return</strong> - klíčové pro pochopení!<br>
+✅ <strong>Docstrings</strong> - dokumentace funkcí<br>
+✅ <strong>Moduly</strong> - organizace kódu do souborů<br>
+✅ <strong>import</strong> - použití modulů<br>
+✅ <strong>Vestavěné moduly</strong> - math, random, os, csv<br>
+✅ <strong>Preview ArcPy</strong> - import arcpy funguje stejně!</p>
+</section>
+<section id="co-bude-příště" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="co-bude-příště"><span class="header-section-number">11.2</span> Co bude příště?</h2>
+<p>V příští lekci:</p>
+<ul>
+<li><strong>Čtení textových souborů</strong> - <code>open()</code>, <code>read()</code>, <code>readlines()</code></li>
+<li><strong>Zápis do souborů</strong> - vytváření nových souborů</li>
+<li><strong>Zpracování jednoduchých dat</strong> - např. seznam měst s populací</li>
+<li><strong>Použití funkcí</strong> z <code>math_utils</code> pro zpracování dat</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="domácí-úkol" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> 11. Domácí úkol</h1>
+<section id="varianta-a-základní" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="varianta-a-základní"><span class="header-section-number">12.1</span> Varianta A (základní)</h2>
+<ol type="1">
+<li><strong>Dokončete math_utils.py</strong> s všemi čtyřmi funkcemi</li>
+<li><strong>Vytvořte main.py</strong>, který používá všechny funkce</li>
+<li><strong>Přidejte docstringy</strong> ke všem funkcím</li>
+</ol>
+</section>
+<section id="varianta-b-pokročilá" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="varianta-b-pokročilá"><span class="header-section-number">12.2</span> Varianta B (pokročilá)</h2>
+<ol type="1">
+<li><strong>Rozšiřte math_utils.py</strong> o nové funkce:
+<ul>
+<li><code>selection_sort(seznam)</code> - druhý třídící algoritmus</li>
+<li><code>najdi_prvocisla(n)</code> - seznam všech prvočísel do n</li>
+<li><code>n_te_prvocislo(n)</code> - najde n-té prvočíslo</li>
+</ul></li>
+<li><strong>Otestujte</strong> všechny nové funkce v <code>main.py</code></li>
+</ol>
+</section>
+<section id="varianta-c-výzva" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="varianta-c-výzva"><span class="header-section-number">12.3</span> Varianta C (výzva)</h2>
+<p>Vytvořte modul <code>statistika.py</code> s funkcemi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prumer(seznam):</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí průměr čísel v seznamu."""</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> median(seznam):</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí medián seznamu (prostřední hodnota)."""</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> maximum(seznam):</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí maximum ze seznamu."""</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> minimum(seznam):</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vrátí minimum ze seznamu."""</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Bonus:</strong> Můžete použít <code>math_utils.bubble_sort()</code> v <code>median()</code>!</p>
+<hr>
+</section>
+</section>
+<section id="cheatsheet" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> 12. Cheatsheet</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === DEFINICE FUNKCE ===</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> jmeno_funkce(parametr1, parametr2):</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Dokumentační řetězec."""</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Tělo funkce</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> vysledek</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># === VOLÁNÍ FUNKCE ===</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>vysledek <span class="op">=</span> jmeno_funkce(hodnota1, hodnota2)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># === DEFAULT PARAMETRY ===</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pozdrav(jmeno, jazyk<span class="op">=</span><span class="st">"cs"</span>):</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>pozdrav(<span class="st">"Jan"</span>)          <span class="co"># Použije default</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>pozdrav(<span class="st">"John"</span>, <span class="st">"en"</span>)   <span class="co"># Přepíše default</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># === DOCSTRING ===</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> funkce(x):</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Stručný popis.</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co">        x: Popis parametru</span></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="co">        Popis návratové hodnoty</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="co"># === MODULY ===</span></span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření: uložte funkce do souboru.py</span></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Import celého modulu:</span></span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>math_utils.fibonacci(<span class="dv">10</span>)</span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Import konkrétní funkce:</span></span>
+<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math_utils <span class="im">import</span> fibonacci</span>
+<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a>fibonacci(<span class="dv">10</span>)</span>
+<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-40"><a href="#cb38-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Import s aliasem:</span></span>
+<span id="cb38-41"><a href="#cb38-41" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils <span class="im">as</span> mu</span>
+<span id="cb38-42"><a href="#cb38-42" aria-hidden="true" tabindex="-1"></a>mu.fibonacci(<span class="dv">10</span>)</span>
+<span id="cb38-43"><a href="#cb38-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-44"><a href="#cb38-44" aria-hidden="true" tabindex="-1"></a><span class="co"># === VESTAVĚNÉ MODULY ===</span></span>
+<span id="cb38-45"><a href="#cb38-45" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb38-46"><a href="#cb38-46" aria-hidden="true" tabindex="-1"></a>math.sqrt(<span class="dv">16</span>)</span>
+<span id="cb38-47"><a href="#cb38-47" aria-hidden="true" tabindex="-1"></a>math.pi</span>
+<span id="cb38-48"><a href="#cb38-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-49"><a href="#cb38-49" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb38-50"><a href="#cb38-50" aria-hidden="true" tabindex="-1"></a>random.randint(<span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb38-51"><a href="#cb38-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-52"><a href="#cb38-52" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb38-53"><a href="#cb38-53" aria-hidden="true" tabindex="-1"></a>os.getcwd()</span>
+<span id="cb38-54"><a href="#cb38-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-55"><a href="#cb38-55" aria-hidden="true" tabindex="-1"></a><span class="co"># === PRINT vs RETURN ===</span></span>
+<span id="cb38-56"><a href="#cb38-56" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spatne(x):</span>
+<span id="cb38-57"><a href="#cb38-57" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)    <span class="co"># Vypíše, ale nevrací!</span></span>
+<span id="cb38-58"><a href="#cb38-58" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb38-59"><a href="#cb38-59" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spravne(x):</span>
+<span id="cb38-60"><a href="#cb38-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span>    <span class="co"># Vrací hodnotu!</span></span>
+<span id="cb38-61"><a href="#cb38-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> spatne(<span class="dv">5</span>)       <span class="co"># a = None</span></span>
+<span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> spravne(<span class="dv">5</span>)      <span class="co"># b = 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="poznámky-pro-vyučujícího" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> 13. Poznámky pro vyučujícího</h1>
+<section id="běžné-chyby-studentů" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="běžné-chyby-studentů"><span class="header-section-number">14.1</span> Běžné chyby studentů</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Zapomínají return</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    vysledek <span class="op">=</span> a <span class="op">+</span> b</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zapomněli return!</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> secti(<span class="dv">5</span>, <span class="dv">3</span>)  <span class="co"># x = None</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Používají print místo return</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> secti(a, b):</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(a <span class="op">+</span> b)  <span class="co"># Špatně!</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>vysledek <span class="op">=</span> secti(<span class="dv">5</span>, <span class="dv">3</span>) <span class="op">+</span> <span class="dv">10</span>  <span class="co"># Chyba!</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Volají funkci s def</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fibonacci(n)  <span class="co"># Zapomněli dvojtečku!</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Zapomínají závorky při volání</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>fibonacci  <span class="co"># Toto je funkce samotná, ne výsledek!</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>fibonacci(<span class="dv">10</span>)  <span class="co"># Správně - volání</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Špatný import</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>fibonacci(<span class="dv">10</span>)  <span class="co"># Chyba - musí být math_utils.fibonacci(10)</span></span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Nebo:</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math_utils <span class="im">import</span> fibonacci</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>math_utils.fibonacci(<span class="dv">10</span>)  <span class="co"># Chyba - už není potřeba math_utils.</span></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Soubory v jiných složkách</span></span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="co"># main.py je v C:\Users\Jan\projekt\</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a><span class="co"># math_utils.py je v C:\Users\Jan\Desktop\</span></span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a><span class="co"># import math_utils  # NEFUNGUJE!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="časový-plán-90-min" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="časový-plán-90-min"><span class="header-section-number">14.2</span> Časový plán (90 min)</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Čas</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0-10 min</td>
+<td>Motivace - proč funkce? DRY princip</td>
+</tr>
+<tr class="even">
+<td>10-30 min</td>
+<td>Definice funkcí, parametry, return</td>
+</tr>
+<tr class="odd">
+<td>30-40 min</td>
+<td>print() vs.&nbsp;return - DŮLEŽITÉ!</td>
+</tr>
+<tr class="even">
+<td>40-50 min</td>
+<td>Docstrings, přepis Fibonacci/faktoriál</td>
+</tr>
+<tr class="odd">
+<td>50-60 min</td>
+<td>Cvičení - přepis prvočísla a třídění</td>
+</tr>
+<tr class="even">
+<td>60-75 min</td>
+<td>Moduly - vytvoření math_utils.py</td>
+</tr>
+<tr class="odd">
+<td>75-85 min</td>
+<td>Import, použití v main.py</td>
+</tr>
+<tr class="even">
+<td>85-90 min</td>
+<td>Preview ArcPy, zadání úkolu</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="klíčové-momenty" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="klíčové-momenty"><span class="header-section-number">14.3</span> Klíčové momenty</h2>
+<section id="print-vs.-return-30-40-min" class="level3" data-number="14.3.1">
+<h3 data-number="14.3.1" class="anchored" data-anchor-id="print-vs.-return-30-40-min"><span class="header-section-number">14.3.1</span> print() vs.&nbsp;return (30-40 min):</h3>
+<ul>
+<li><strong>NEJDŮLEŽITĚJŠÍ KONCEPT</strong> v této lekci!</li>
+<li>Studenti často nerozumí rozdílu</li>
+<li>Ukázat konkrétní příklad, kde print() selhává:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spatne(x):</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>vysledek <span class="op">=</span> spatne(<span class="dv">5</span>) <span class="op">+</span> <span class="dv">10</span>  <span class="co"># TypeError!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Vysvětlit: “print je pro LIDI, return je pro PROGRAM”</li>
+</ul>
+</section>
+<section id="moduly-60-85-min" class="level3" data-number="14.3.2">
+<h3 data-number="14.3.2" class="anchored" data-anchor-id="moduly-60-85-min"><span class="header-section-number">14.3.2</span> Moduly (60-85 min):</h3>
+<ul>
+<li>Prakticky vytvořit math_utils.py společně</li>
+<li>Ukázat, že musí být ve stejné složce</li>
+<li>Otestovat import v main.py</li>
+<li>Zdůraznit: “ArcPy bude fungovat úplně stejně!”</li>
+</ul>
+</section>
+<section id="docstrings-40-50-min" class="level3" data-number="14.3.3">
+<h3 data-number="14.3.3" class="anchored" data-anchor-id="docstrings-40-50-min"><span class="header-section-number">14.3.3</span> Docstrings (40-50 min):</h3>
+<ul>
+<li>Nemusí být dokonalé, ale alespoň jednořádkové</li>
+<li>Ukázat <code>help(funkce)</code></li>
+<li>Zdůraznit, že v praxi je dokumentace důležitá</li>
+</ul>
+</section>
+</section>
+<section id="rizika" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="rizika"><span class="header-section-number">14.4</span> Rizika</h2>
+<ol type="1">
+<li><strong>print() vs.&nbsp;return může být matoucí (může trvat 15 min)</strong>
+<ul>
+<li>Řešení: Věnovat tomu dostatek času, ukázat konkrétní příklady</li>
+<li>Nechat studenty experimentovat</li>
+</ul></li>
+<li><strong>Import nemusí fungovat (chyby s cestami)</strong>
+<ul>
+<li>Řešení: Zdůraznit, že soubory musí být ve stejné složce</li>
+<li>Mít připravené screenshoty struktury složek</li>
+</ul></li>
+<li><strong>Studenti budou různě rychlí s přepisem funkcí</strong>
+<ul>
+<li>Řešení: Rychlejší pomáhají pomalejším</li>
+<li>Můžete poskytnout kostru math_utils.py</li>
+</ul></li>
+</ol>
+</section>
+<section id="tipy" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="tipy"><span class="header-section-number">14.5</span> Tipy</h2>
+<ul>
+<li><strong>print() vs.&nbsp;return je nejčastější problém</strong> - věnujte tomu extra čas!</li>
+<li>Na konci vždy zdůrazněte: “ArcPy je jen modul - budete psát <code>import arcpy</code> stejně jako <code>import math_utils</code>”</li>
+<li>Ukažte <code>help()</code> funkci - je užitečná pro čtení dokumentace</li>
+<li>Vytvořte math_utils.py společně na projektoru - ať vidí celý proces</li>
+<li>Nechte je otestovat všechny funkce v main.py</li>
+</ul>
+</section>
+<section id="materiály-k-přípravě" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="materiály-k-přípravě"><span class="header-section-number">14.6</span> Materiály k přípravě</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Připravit kostru math_utils.py (pro pomalé studenty)</label></li>
+<li><label><input type="checkbox">Ukázková main.py s použitím všech funkcí</label></li>
+<li><label><input type="checkbox">Diagram struktury projektu (složky a soubory)</label></li>
+<li><label><input type="checkbox">Cheatsheet pro různé způsoby importu</label></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

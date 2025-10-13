@@ -1,5 +1,453 @@
 [
   {
+    "objectID": "lessons/lesson_08.html",
+    "href": "lessons/lesson_08.html",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "",
+    "text": "Po absolvování této lekce budete umět:\n\nRozumět formátu CSV a jeho problémům\nPoužívat modul csv pro čtení a zápis\nPracovat s csv.reader() a csv.DictReader()\nZapisovat pomocí csv.writer() a csv.DictWriter()\nZpracovávat reálná data s hlavičkami\nPropojit CSV data s GIS workflow\nKombinovat funkce z math_utils s CSV daty\n\nČasová dotace: 90 minut"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#comma-separated-values",
+    "href": "lessons/lesson_08.html#comma-separated-values",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "2.1 Comma-Separated Values",
+    "text": "2.1 Comma-Separated Values\nCSV = Comma-Separated Values (hodnoty oddělené čárkou)\nPříklad CSV souboru:\nOkres,Populace,Rozloha\nPraha,1300000,496\nBrno,380000,230\nOstrava,290000,214\nStruktura: - První řádek = hlavička (názvy sloupců) - Další řádky = data - Hodnoty oddělené čárkou (nebo středníkem, tabulátorem…)"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#proč-csv",
+    "href": "lessons/lesson_08.html#proč-csv",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "2.2 Proč CSV?",
+    "text": "2.2 Proč CSV?\nVýhody: - ✅ Jednoduchý textový formát - ✅ Otevřete v Excelu, LibreOffice, Google Sheets - ✅ Malá velikost souboru - ✅ Univerzální - funguje všude - ✅ ArcGIS umí exportovat atributové tabulky jako CSV!\nNevýhody: - ❌ Žádné formátování (barvy, tučné písmo…) - ❌ Jeden list (na rozdíl od Excelu)"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#problém-s-ručním-parsováním",
+    "href": "lessons/lesson_08.html#problém-s-ručním-parsováním",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "2.3 Problém s ručním parsováním",
+    "text": "2.3 Problém s ručním parsováním\nCo když máte čárku v datech?\nJméno,Věk,Adresa\nJan Novák,25,Hlavní 1, Praha\nPokus o split(“,”):\ncasti = radek.split(\",\")\n# ['Jan Novák', '25', 'Hlavní 1', ' Praha']\n# 4 části místo 3! CHYBA!\nŘešení: Použít modul csv, který řeší tyto komplikace!"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#import-modulu",
+    "href": "lessons/lesson_08.html#import-modulu",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "3.1 Import modulu",
+    "text": "3.1 Import modulu\nimport csv"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#čtení-csv---csv.reader",
+    "href": "lessons/lesson_08.html#čtení-csv---csv.reader",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "3.2 Čtení CSV - csv.reader()",
+    "text": "3.2 Čtení CSV - csv.reader()\nSoubor okresy.csv:\nOkres,Populace,Rozloha\nPraha,1300000,496\nBrno,380000,230\nOstrava,290000,214\nČtení:\nimport csv\n\nwith open(\"okresy.csv\", \"r\", encoding=\"utf-8\") as soubor:\n    reader = csv.reader(soubor)\n    \n    for radek in reader:\n        print(radek)\nVýsledek:\n['Okres', 'Populace', 'Rozloha']\n['Praha', '1300000', '496']\n['Brno', '380000', '230']\n['Ostrava', '290000', '214']\n\n\n\n\n\n\nTipcsv.reader() vrací SEZNAMY\n\n\n\nKaždý řádek je seznam stringů. Čísla musíte převádět pomocí int() nebo float()."
+  },
+  {
+    "objectID": "lessons/lesson_08.html#zpracování-s-hlavičkou",
+    "href": "lessons/lesson_08.html#zpracování-s-hlavičkou",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "3.3 Zpracování s hlavičkou",
+    "text": "3.3 Zpracování s hlavičkou\nimport csv\n\nwith open(\"okresy.csv\", \"r\", encoding=\"utf-8\") as soubor:\n    reader = csv.reader(soubor)\n    \n    hlavicka = next(reader)  # Přeskočit první řádek\n    print(f\"Sloupce: {hlavicka}\")\n    \n    for radek in reader:\n        okres = radek[0]\n        populace = int(radek[1])\n        rozloha = float(radek[2])\n        \n        hustota = populace / rozloha\n        print(f\"{okres}: {hustota:.1f} obyvatel/km²\")\nVýsledek:\nSloupce: ['Okres', 'Populace', 'Rozloha']\nPraha: 2621.0 obyvatel/km²\nBrno: 1652.2 obyvatel/km²\nOstrava: 1355.1 obyvatel/km²"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#problém-s-indexy",
+    "href": "lessons/lesson_08.html#problém-s-indexy",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "4.1 Problém s indexy",
+    "text": "4.1 Problém s indexy\nokres = radek[0]      # Co je na indexu 0? Není jasné!\npopulace = radek[1]   # Co je na indexu 1?\nLepší: Používat názvy sloupců místo indexů!"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#csv.dictreader",
+    "href": "lessons/lesson_08.html#csv.dictreader",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "4.2 csv.DictReader()",
+    "text": "4.2 csv.DictReader()\nimport csv\n\nwith open(\"okresy.csv\", \"r\", encoding=\"utf-8\") as soubor:\n    reader = csv.DictReader(soubor)\n    \n    for radek in reader:\n        print(radek)\nVýsledek:\n{'Okres': 'Praha', 'Populace': '1300000', 'Rozloha': '496'}\n{'Okres': 'Brno', 'Populace': '380000', 'Rozloha': '230'}\n{'Okres': 'Ostrava', 'Populace': '290000', 'Rozloha': '214'}\n\n\n\n\n\n\nImportantDictReader vrací SLOVNÍKY\n\n\n\nKaždý řádek je slovník s klíči podle hlavičky!\nradek['Okres']      # \"Praha\"\nradek['Populace']   # \"1300000\" (string!)"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#praktické-použití",
+    "href": "lessons/lesson_08.html#praktické-použití",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "4.3 Praktické použití",
+    "text": "4.3 Praktické použití\nimport csv\n\nokresy = []\n\nwith open(\"okresy.csv\", \"r\", encoding=\"utf-8\") as soubor:\n    reader = csv.DictReader(soubor)\n    \n    for radek in reader:\n        okres = {\n            'nazev': radek['Okres'],\n            'populace': int(radek['Populace']),\n            'rozloha': float(radek['Rozloha'])\n        }\n        okresy.append(okres)\n\n# Teď můžeme data zpracovávat\nfor o in okresy:\n    hustota = o['populace'] / o['rozloha']\n    print(f\"{o['nazev']}: {hustota:.1f} obyvatel/km²\")\n\n\n\n\n\n\nTipKdy použít DictReader?\n\n\n\nVŽDY, pokud má CSV hlavičku!\nVýhody: - Čitelnější kód - Nezáleží na pořadí sloupců - Méně chyb"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#csv.writer",
+    "href": "lessons/lesson_08.html#csv.writer",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "5.1 csv.writer()",
+    "text": "5.1 csv.writer()\nimport csv\n\ndata = [\n    ['Okres', 'Populace', 'Hustota'],\n    ['Praha', 1300000, 2621],\n    ['Brno', 380000, 1652],\n    ['Ostrava', 290000, 1355]\n]\n\nwith open(\"vysledky.csv\", \"w\", encoding=\"utf-8\", newline='') as soubor:\n    writer = csv.writer(soubor)\n    \n    for radek in data:\n        writer.writerow(radek)\n\n\n\n\n\n\nWarningnewline=’’ je DŮLEŽITÉ!\n\n\n\nBez newline='' se v některých systémech (Windows) přidávají prázdné řádky:\nwith open(\"soubor.csv\", \"w\", encoding=\"utf-8\", newline='') as f:\nVŽDY přidávejte newline='' při zápisu CSV!"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#csv.dictwriter---doporučeno",
+    "href": "lessons/lesson_08.html#csv.dictwriter---doporučeno",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "5.2 csv.DictWriter() - doporučeno!",
+    "text": "5.2 csv.DictWriter() - doporučeno!\nimport csv\n\nokresy = [\n    {'nazev': 'Praha', 'populace': 1300000, 'hustota': 2621},\n    {'nazev': 'Brno', 'populace': 380000, 'hustota': 1652},\n    {'nazev': 'Ostrava', 'populace': 290000, 'hustota': 1355}\n]\n\nwith open(\"vysledky.csv\", \"w\", encoding=\"utf-8\", newline='') as soubor:\n    fieldnames = ['nazev', 'populace', 'hustota']\n    writer = csv.DictWriter(soubor, fieldnames=fieldnames)\n    \n    writer.writeheader()  # Zapíše hlavičku\n    writer.writerows(okresy)  # Zapíše všechny řádky\nVýsledný soubor:\nnazev,populace,hustota\nPraha,1300000,2621\nBrno,380000,1652\nOstrava,290000,1355"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#zadání",
+    "href": "lessons/lesson_08.html#zadání",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "6.1 Zadání",
+    "text": "6.1 Zadání\nMáte soubor okresy.csv:\nOkres,Populace,Rozloha,Kraj\nPraha,1300000,496,Praha\nBrno,380000,230,Jihomoravský\nOstrava,290000,214,Moravskoslezský\nPlzeň,170000,261,Plzeňský\nLiberec,103000,106,Liberecký\nÚkoly: 1. Načíst data pomocí DictReader 2. Pro každý okres vypočítat hustotu obyvatel 3. Najít okresy s hustotou &gt; 1000 obyvatel/km² 4. Seřadit okresy podle hustoty (použijte bubble_sort z math_utils!) 5. Uložit výsledky do nového CSV"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#řešení-krok-za-krokem",
+    "href": "lessons/lesson_08.html#řešení-krok-za-krokem",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "6.2 Řešení krok za krokem",
+    "text": "6.2 Řešení krok za krokem\n\n6.2.1 Krok 1: Načtení dat\nimport csv\n\nokresy = []\n\nwith open(\"okresy.csv\", \"r\", encoding=\"utf-8\") as soubor:\n    reader = csv.DictReader(soubor)\n    \n    for radek in reader:\n        okres = {\n            'nazev': radek['Okres'],\n            'populace': int(radek['Populace']),\n            'rozloha': float(radek['Rozloha']),\n            'kraj': radek['Kraj']\n        }\n        okresy.append(okres)\n\nprint(f\"Načteno {len(okresy)} okresů\")\n\n\n6.2.2 Krok 2: Výpočet hustoty\n# Přidání hustoty k datům\nfor okres in okresy:\n    okres['hustota'] = okres['populace'] / okres['rozloha']\n\n# Výpis\nfor o in okresy:\n    print(f\"{o['nazev']}: {o['hustota']:.1f} obyvatel/km²\")\n\n\n6.2.3 Krok 3: Filtrace\nhuste_okresy = []\n\nfor okres in okresy:\n    if okres['hustota'] &gt; 1000:\n        huste_okresy.append(okres)\n\nprint(f\"\\nOkresy s hustotou &gt; 1000:\")\nfor o in huste_okresy:\n    print(f\"  {o['nazev']}: {o['hustota']:.1f}\")\n\n\n6.2.4 Krok 4: Třídění pomocí math_utils\nimport math_utils\n\n# Problém: bubble_sort třídí seznamy čísel, ne slovníky!\n# Řešení: Vytvoříme seznam (hustota, okres) a seřadíme\n\ndata_k_trideni = []\nfor okres in okresy:\n    data_k_trideni.append((okres['hustota'], okres))\n\n# Vlastní bubble sort pro tuto úlohu\ndef bubble_sort_okresy(data):\n    \"\"\"Seřadí okresy podle hustoty (sestupně).\"\"\"\n    serazene = data.copy()\n    \n    for i in range(len(serazene)):\n        for j in range(len(serazene) - 1 - i):\n            if serazene[j][0] &lt; serazene[j + 1][0]:  # Porovnání hustot\n                serazene[j], serazene[j + 1] = serazene[j + 1], serazene[j]\n    \n    return serazene\n\nserazene = bubble_sort_okresy(data_k_trideni)\n\n# Extrahovat okresy\nserazene_okresy = [okres for hustota, okres in serazene]\n\n\n\n\n\n\nNoteJednodušší řešení v praxi\n\n\n\nV reálných programech byste použili:\nokresy.sort(key=lambda x: x['hustota'], reverse=True)\nAle pro výukové účely je dobré ukázat, jak přizpůsobit bubble_sort!\n\n\n\n\n6.2.5 Krok 5: Export do CSV\nwith open(\"okresy_s_hustotou.csv\", \"w\", encoding=\"utf-8\", newline='') as soubor:\n    fieldnames = ['nazev', 'populace', 'rozloha', 'kraj', 'hustota']\n    writer = csv.DictWriter(soubor, fieldnames=fieldnames)\n    \n    writer.writeheader()\n    writer.writerows(serazene_okresy)\n\nprint(\"\\nVýsledky uloženy do okresy_s_hustotou.csv\")"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#kompletní-program",
+    "href": "lessons/lesson_08.html#kompletní-program",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "6.3 Kompletní program",
+    "text": "6.3 Kompletní program\nimport csv\n\n# 1. Načtení dat\nokresy = []\nwith open(\"okresy.csv\", \"r\", encoding=\"utf-8\") as soubor:\n    reader = csv.DictReader(soubor)\n    for radek in reader:\n        okres = {\n            'nazev': radek['Okres'],\n            'populace': int(radek['Populace']),\n            'rozloha': float(radek['Rozloha']),\n            'kraj': radek['Kraj']\n        }\n        okresy.append(okres)\n\n# 2. Výpočet hustoty\nfor okres in okresy:\n    okres['hustota'] = okres['populace'] / okres['rozloha']\n\n# 3. Filtrace\nhuste_okresy = [o for o in okresy if o['hustota'] &gt; 1000]\n\n# 4. Třídění (sestupně podle hustoty)\ndef bubble_sort_okresy(data):\n    serazene = data.copy()\n    for i in range(len(serazene)):\n        for j in range(len(serazene) - 1 - i):\n            if serazene[j]['hustota'] &lt; serazene[j + 1]['hustota']:\n                serazene[j], serazene[j + 1] = serazene[j + 1], serazene[j]\n    return serazene\n\nserazene_okresy = bubble_sort_okresy(okresy)\n\n# 5. Export\nwith open(\"okresy_s_hustotou.csv\", \"w\", encoding=\"utf-8\", newline='') as soubor:\n    fieldnames = ['nazev', 'populace', 'rozloha', 'kraj', 'hustota']\n    writer = csv.DictWriter(soubor, fieldnames=fieldnames)\n    writer.writeheader()\n    writer.writerows(serazene_okresy)\n\n# 6. Výpis výsledků\nprint(\"TOP 3 okresy podle hustoty:\")\nfor i, okres in enumerate(serazene_okresy[:3], 1):\n    print(f\"{i}. {okres['nazev']}: {okres['hustota']:.1f} obyvatel/km²\")"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#export-atributové-tabulky-z-arcgis",
+    "href": "lessons/lesson_08.html#export-atributové-tabulky-z-arcgis",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "7.1 Export atributové tabulky z ArcGIS",
+    "text": "7.1 Export atributové tabulky z ArcGIS\nV ArcGIS Pro můžete exportovat atributovou tabulku:\n\nPravý klik na vrstvu → Open Attribute Table\nMenu → Export → Export Table\nVybrat formát: CSV nebo dBASE\n\nVýsledek: CSV soubor s atributy vrstvy!"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#typický-gis-workflow",
+    "href": "lessons/lesson_08.html#typický-gis-workflow",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "7.2 Typický GIS workflow",
+    "text": "7.2 Typický GIS workflow\n┌─────────────────┐\n│   ArcGIS Pro    │\n│  (Feature class)│\n└────────┬────────┘\n         │ Export\n         ▼\n┌─────────────────┐\n│   CSV soubor    │\n└────────┬────────┘\n         │ Python\n         ▼\n┌─────────────────┐\n│  Zpracování     │\n│  (výpočty,      │\n│   statistiky)   │\n└────────┬────────┘\n         │ Python\n         ▼\n┌─────────────────┐\n│  Nový CSV       │\n└────────┬────────┘\n         │ Import\n         ▼\n┌─────────────────┐\n│   ArcGIS Pro    │\n│  (nová vrstva)  │\n└─────────────────┘"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#příklad-zpracování-bodů-zájmu",
+    "href": "lessons/lesson_08.html#příklad-zpracování-bodů-zájmu",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "7.3 Příklad: Zpracování bodů zájmu",
+    "text": "7.3 Příklad: Zpracování bodů zájmu\nSoubor z ArcGIS: pois.csv\nOBJECTID,Name,Type,X,Y\n1,Restaurace A,restaurant,14.4208,50.0875\n2,Restaurace B,restaurant,14.4212,50.0880\n3,Kavárna C,cafe,14.4198,50.0868\nPython zpracování:\nimport csv\n\n# Načtení\npois = []\nwith open(\"pois.csv\", \"r\", encoding=\"utf-8\") as f:\n    reader = csv.DictReader(f)\n    for row in reader:\n        pois.append({\n            'id': int(row['OBJECTID']),\n            'name': row['Name'],\n            'type': row['Type'],\n            'x': float(row['X']),\n            'y': float(row['Y'])\n        })\n\n# Filtrace - pouze restaurace\nrestaurace = [p for p in pois if p['type'] == 'restaurant']\n\n# Export\nwith open(\"restaurace.csv\", \"w\", encoding=\"utf-8\", newline='') as f:\n    fieldnames = ['id', 'name', 'type', 'x', 'y']\n    writer = csv.DictWriter(f, fieldnames=fieldnames)\n    writer.writeheader()\n    writer.writerows(restaurace)\n\nprint(f\"Exportováno {len(restaurace)} restaurací\")\nZpět do ArcGIS: 1. Add Data → vybrat restaurace.csv 2. Display XY Data → nastavit X, Y sloupce 3. Export Features → uložit jako shapefile/geodatabase\n\n\n\n\n\n\nTipVýhoda tohoto přístupu\n\n\n\n\n✅ Rychlé zpracování velkých dat\n✅ Opakovatelné (skript můžete spustit znovu)\n✅ Kombinuje sílu Pythonu s vizualizací ArcGIS\n✅ Můžete použít vlastní funkce (math_utils!)"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#cvičení-1-statistiky-okresů",
+    "href": "lessons/lesson_08.html#cvičení-1-statistiky-okresů",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "8.1 Cvičení 1: Statistiky okresů",
+    "text": "8.1 Cvičení 1: Statistiky okresů\nPoužijte soubor okresy.csv a vytvořte program, který:\n\nNačte data pomocí DictReader\nVypočítá pro každý okres:\n\nHustotu obyvatel\nZda je “velký” (populace &gt; 200 000)\n\nSpočítá statistiky:\n\nPrůměrnou hustotu\nPočet velkých okresů\nCelkovou populaci\n\nUloží výsledky do statistiky_okresu.csv:\n\nnazev,populace,rozloha,hustota,velky\nPraha,1300000,496,2621.0,True\nBrno,380000,230,1652.2,True\n..."
+  },
+  {
+    "objectID": "lessons/lesson_08.html#cvičení-2-agregace-podle-kraje",
+    "href": "lessons/lesson_08.html#cvičení-2-agregace-podle-kraje",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "8.2 Cvičení 2: Agregace podle kraje",
+    "text": "8.2 Cvičení 2: Agregace podle kraje\nVytvořte program, který:\n\nNačte okresy.csv\nSeskupí okresy podle kraje\nPro každý kraj vypočítá:\n\nCelkovou populaci\nCelkovou rozlohu\nPrůměrnou hustotu\n\nUloží do kraje_agregace.csv:\n\nKraj,Celkova_populace,Celkova_rozloha,Prumerna_hustota\nPraha,1300000,496,2621.0\nJihomoravský,380000,230,1652.2\n...\nNápověda pro agregaci:\nkraje = {}\nfor okres in okresy:\n    kraj = okres['kraj']\n    if kraj not in kraje:\n        kraje[kraj] = []\n    kraje[kraj].append(okres)"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#co-jsme-se-naučili",
+    "href": "lessons/lesson_08.html#co-jsme-se-naučili",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "9.1 Co jsme se naučili",
+    "text": "9.1 Co jsme se naučili\n✅ CSV formát - struktura, výhody, problémy\n✅ csv.reader() - čtení CSV jako seznamy\n✅ csv.DictReader() - čtení CSV jako slovníky (doporučeno!)\n✅ csv.writer() - zápis CSV\n✅ csv.DictWriter() - zápis CSV ze slovníků (doporučeno!)\n✅ newline=’’ - důležité pro správný zápis\n✅ GIS workflow - export z ArcGIS → Python → import zpět\n✅ Propojení s funkcemi - kombinace CSV s math_utils"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#co-bude-příště",
+    "href": "lessons/lesson_08.html#co-bude-příště",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "9.2 Co bude příště?",
+    "text": "9.2 Co bude příště?\nPříští týden: TEST!\nTest bude obsahovat: - Písemná část - pochopení kódu, doplňování - Praktická část - zpracování CSV souboru s použitím funkcí\nZa 2 týdny: OOP (Objektově orientované programování) - Třída Pes - Propojení s ArcPy objekty - Příprava na práci s geometriemi"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#varianta-a-povinná---základní",
+    "href": "lessons/lesson_08.html#varianta-a-povinná---základní",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "10.1 Varianta A (povinná - základní)",
+    "text": "10.1 Varianta A (povinná - základní)\nVytvořte soubor teploty_mesic.csv:\nDen,Teplota,Srazky\n1,15,0\n2,18,5\n3,22,0\n4,19,12\n5,16,8\nNapište program, který: 1. Načte data pomocí DictReader 2. Vypočítá: - Průměrnou teplotu - Celkové srážky - Den s nejvyšší teplotou 3. Uloží statistiky do vysledky_pocasi.txt:\nStatistiky počasí\n==================\nPrůměrná teplota: 18.0°C\nCelkové srážky: 25 mm\nNejteplejší den: 3 (22°C)"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#varianta-b-příprava-na-test---pokročilá",
+    "href": "lessons/lesson_08.html#varianta-b-příprava-na-test---pokročilá",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "10.2 Varianta B (příprava na test - pokročilá)",
+    "text": "10.2 Varianta B (příprava na test - pokročilá)\nVytvořte modul csv_utils.py s funkcemi:\ndef nacti_csv_dict(nazev_souboru):\n    \"\"\"Načte CSV jako seznam slovníků.\"\"\"\n    # ...\n\ndef uloz_csv_dict(nazev_souboru, data, fieldnames):\n    \"\"\"Uloží seznam slovníků jako CSV.\"\"\"\n    # ...\n\ndef vypocitaj_statistiky(data, sloupec):\n    \"\"\"Vypočítá průměr, min, max pro daný sloupec.\n    \n    Returns:\n        dict: {'prumer': ..., 'minimum': ..., 'maximum': ...}\n    \"\"\"\n    # ...\nPoužijte tyto funkce v hlavním programu!"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#varianta-c-výzva---jako-na-testu",
+    "href": "lessons/lesson_08.html#varianta-c-výzva---jako-na-testu",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "10.3 Varianta C (výzva - jako na testu)",
+    "text": "10.3 Varianta C (výzva - jako na testu)\nMáte zakaznici.csv:\nID,Jmeno,Vek,Utrata\n1,Jan Novák,25,1500\n2,Marie Svobodová,32,2300\n3,Petr Dvořák,28,1800\n4,Jana Nováková,45,3200\nNapište program, který: 1. Načte data 2. Vypočítá průměrnou útratu 3. Najde zákazníky s útratou nad průměr 4. Seřadí je podle útraty (použijte vlastní třídící funkci!) 5. Uloží do vip_zakaznici.csv s přidaným sloupcem Kategorie: - “VIP” pokud útrata &gt; 2× průměr - “Premium” pokud útrata &gt; průměr - “Standard” jinak\nStruktura programu: - zakaznici_utils.py - funkce pro zpracování - main.py - hlavní program"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#běžné-chyby-studentů",
+    "href": "lessons/lesson_08.html#běžné-chyby-studentů",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "12.1 Běžné chyby studentů",
+    "text": "12.1 Běžné chyby studentů\n# 1. Zapomínají newline=''\nwith open(\"data.csv\", \"w\", encoding=\"utf-8\") as f:  # Chyba - prázdné řádky!\n# Správně:\nwith open(\"data.csv\", \"w\", encoding=\"utf-8\", newline='') as f:\n\n# 2. Nepoužívají DictReader\nreader = csv.reader(f)\nfor radek in reader:\n    okres = radek[0]  # Co je na indexu 0? Není jasné!\n# Správně:\nreader = csv.DictReader(f)\nfor radek in reader:\n    okres = radek['Okres']  # Jasné!\n\n# 3. Zapomínají převést na číslo\npopulace = radek['Populace']  # \"1300000\" (string!)\nhustota = populace / rozloha  # CHYBA!\n# Správně:\npopulace = int(radek['Populace'])\n\n# 4. Chybný fieldnames\nfieldnames = ['nazev', 'populace']\nwriter = csv.DictWriter(f, fieldnames=fieldnames)\nwriter.writerow({'jmeno': 'Praha', 'pocet': 1000})  # CHYBA - neexistující klíče!\n\n# 5. Zapomínají writeheader()\nwriter = csv.DictWriter(f, fieldnames=fieldnames)\nwriter.writerows(data)  # Chybí hlavička!\n# Správně:\nwriter.writeheader()\nwriter.writerows(data)"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#časový-plán-90-min",
+    "href": "lessons/lesson_08.html#časový-plán-90-min",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "12.2 Časový plán (90 min)",
+    "text": "12.2 Časový plán (90 min)\n\n\n\nČas\nObsah\n\n\n\n\n0-15 min\nCSV formát, problémy, modul csv\n\n\n15-30 min\ncsv.reader(), zpracování\n\n\n30-45 min\nDictReader - lepší způsob\n\n\n45-60 min\nZápis - writer, DictWriter\n\n\n60-80 min\nPraktická úloha - kompletní workflow\n\n\n80-90 min\nGIS propojení, příprava na test"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#klíčové-momenty",
+    "href": "lessons/lesson_08.html#klíčové-momenty",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "12.3 Klíčové momenty",
+    "text": "12.3 Klíčové momenty\n\n12.3.1 DictReader vs reader (30-45 min):\n\nDŮLEŽITÉ: Zdůraznit, že DictReader je lepší\nUkázat rozdíl na projektoru vedle sebe\nŘíct: “V praxi používejte vždy DictReader pokud máte hlavičku”\n\n\n\n12.3.2 newline=’’ (45-60 min):\n\nVysvětlit proč je potřeba\nUkázat příklad ŠPATNÉHO výstupu bez newline\nŘíct: “Zapamatujte si: při zápisu CSV = vždy newline=’’”\n\n\n\n12.3.3 GIS workflow (80-90 min):\n\nMotivace pro test příští týden\nUkázat diagram: Export → Python → Import\nZdůraznit: “Tohle budete dělat v ArcPy!”\nŘíct: “Test bude podobný - CSV + funkce + výpočty”"
+  },
+  {
+    "objectID": "lessons/lesson_08.html#rizika",
+    "href": "lessons/lesson_08.html#rizika",
+    "title": "Lekce 8: Textové soubory II – CSV tabulka",
+    "section": "12.4 Rizika",
+    "text": "12.4 Rizika\n\nDictReader může být matoucí (20 min místo 15)\n\nŘešení: Praktické ukázky, porovnání s reader()\nNechat studenty experimentovat\n\nTřídění slovníků je složité (Krok 4)\n\nŘešení: Ukázat jednodušší verzi se sort(key=...)\nŘíct: ”"
+  },
+  {
+    "objectID": "lessons/lesson_06.html",
+    "href": "lessons/lesson_06.html",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "",
+    "text": "Po absolvování této lekce budete umět:\n\nDefinovat vlastní funkce pomocí def\nPoužívat parametry a návratové hodnoty\nRozumět rozdílu mezi print() a return\nPsát dokumentační řetězce (docstrings)\nOrganizovat kód do modulů\nImportovat a používat moduly\nVytvořit vlastní modul math_utils.py\n\nČasová dotace: 90 minut"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#motivace",
+    "href": "lessons/lesson_06.html#motivace",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "2.1 Motivace",
+    "text": "2.1 Motivace\nVzpomeňte si na předchozí lekce:\nNapsali jste kód pro: - Fibonacci číslo - Faktoriál - Test prvočíselnosti - Třídění seznamu\nCo kdybyste tyto operace potřebovali použít vícekrát?\n# Fibonacci pro číslo 10\nn = 10\na, b = 0, 1\nfor i in range(n):\n    a, b = b, a + b\nprint(f\"Fibonacci({n}) = {a}\")\n\n# Fibonacci pro číslo 20 - MUSÍME PSÁT ZNOVU!\nn = 20\na, b = 0, 1\nfor i in range(n):\n    a, b = b, a + b\nprint(f\"Fibonacci({n}) = {a}\")\n\n# Fibonacci pro číslo 15 - ZASE ZNOVU!\n# ...\nProblém: Opakujeme stejný kód → neefektivní, náchylné k chybám"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#dry-princip",
+    "href": "lessons/lesson_06.html#dry-princip",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "2.2 DRY princip",
+    "text": "2.2 DRY princip\nDRY = Don’t Repeat Yourself (Neopakuj se)\nPokud píšete stejný kód vícekrát, měli byste ho zabalit do funkce.\n\n\n\n\n\n\nTipFunkce = pojmenovaný kus kódu\n\n\n\nFunkce je pojmenovaný blok kódu, který: - Můžete volat kdykoli - Může přijímat vstupy (parametry) - Může vracet výstup (návratovou hodnotu) - Dělá kód čitelnějším a znovupoužitelným"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#základní-syntaxe",
+    "href": "lessons/lesson_06.html#základní-syntaxe",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "3.1 Základní syntaxe",
+    "text": "3.1 Základní syntaxe\ndef jmeno_funkce():\n    # Tělo funkce (odsazené)\n    prikaz1\n    prikaz2\nKlíčové slovo: def (define)\nZávorky: () jsou povinné\nDvojtečka: : na konci řádku\nOdsazení: Tělo funkce je odsazené (4 mezery)"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#první-funkce",
+    "href": "lessons/lesson_06.html#první-funkce",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "3.2 První funkce",
+    "text": "3.2 První funkce\ndef pozdrav():\n    print(\"Ahoj!\")\n    print(\"Vítej v kurzu Pythonu!\")\n\n# Volání funkce:\npozdrav()\nVýsledek:\nAhoj!\nVítej v kurzu Pythonu!\n\n\n\n\n\n\nImportantFunkci musíte ZAVOLAT!\n\n\n\nDefinice funkce ji jen vytvoří, ale neprovede:\ndef pozdrav():\n    print(\"Ahoj!\")\n\n# Nic se nevypíše! Funkce jen existuje.\n\npozdrav()  # TEĎ se provede!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#funkce-s-jedním-parametrem",
+    "href": "lessons/lesson_06.html#funkce-s-jedním-parametrem",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "4.1 Funkce s jedním parametrem",
+    "text": "4.1 Funkce s jedním parametrem\ndef pozdrav(jmeno):\n    print(f\"Ahoj, {jmeno}!\")\n\npozdrav(\"Jan\")     # Ahoj, Jan!\npozdrav(\"Marie\")   # Ahoj, Marie!\nParametr = proměnná, která přijímá hodnotu při volání funkce"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#funkce-s-více-parametry",
+    "href": "lessons/lesson_06.html#funkce-s-více-parametry",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "4.2 Funkce s více parametry",
+    "text": "4.2 Funkce s více parametry\ndef secti(a, b):\n    vysledek = a + b\n    print(f\"{a} + {b} = {vysledek}\")\n\nsecti(5, 3)   # 5 + 3 = 8\nsecti(10, 7)  # 10 + 7 = 17"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#default-hodnoty-parametrů",
+    "href": "lessons/lesson_06.html#default-hodnoty-parametrů",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "4.3 Default hodnoty parametrů",
+    "text": "4.3 Default hodnoty parametrů\nMůžete nastavit výchozí hodnotu pro parametr:\ndef pozdrav(jmeno, jazyk=\"cs\"):\n    if jazyk == \"cs\":\n        print(f\"Ahoj, {jmeno}!\")\n    elif jazyk == \"en\":\n        print(f\"Hello, {jmeno}!\")\n\npozdrav(\"Jan\")           # Ahoj, Jan! (použije default \"cs\")\npozdrav(\"John\", \"en\")    # Hello, John!\npozdrav(\"Marie\", \"cs\")   # Ahoj, Marie!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#problém-s-print",
+    "href": "lessons/lesson_06.html#problém-s-print",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "5.1 Problém s print()",
+    "text": "5.1 Problém s print()\ndef secti(a, b):\n    vysledek = a + b\n    print(vysledek)\n\n# Můžeme vypsat výsledek:\nsecti(5, 3)  # 8\n\n# Ale NEMŮŽEME ho použít dál:\nx = secti(5, 3)  # x = None (funkce nic nevrací!)\ny = x + 10       # CHYBA! None + 10 nejde"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#řešení-return",
+    "href": "lessons/lesson_06.html#řešení-return",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "5.2 Řešení: return",
+    "text": "5.2 Řešení: return\ndef secti(a, b):\n    vysledek = a + b\n    return vysledek  # Vrátí hodnotu\n\n# Teď MŮŽEME výsledek použít:\nx = secti(5, 3)    # x = 8\ny = x + 10         # y = 18\nprint(f\"Výsledek: {y}\")  # Výsledek: 18\n\n\n\n\n\n\nWarningprint() vs. return - KRITICKÝ ROZDÍL!\n\n\n\n\nprint() - vypíše na obrazovku, ale nevrací hodnotu\nreturn - vrací hodnotu, kterou můžete použít dál\n\ndef spatne(x):\n    print(x * 2)    # Vypíše, ale nevrací\n\ndef spravne(x):\n    return x * 2    # Vrací hodnotu\n\na = spatne(5)       # Vypíše 10, ale a = None\nb = spravne(5)      # b = 10 (můžeme použít dál)\nPravidlo: Funkce by měly vracet hodnoty pomocí return, ne je vypisovat pomocí print()!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#return-ukončuje-funkci",
+    "href": "lessons/lesson_06.html#return-ukončuje-funkci",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "5.3 return ukončuje funkci",
+    "text": "5.3 return ukončuje funkci\ndef je_kladne(cislo):\n    if cislo &gt; 0:\n        return True  # Funkce SKONČÍ zde\n    return False     # Tohle se provede jen pokud cislo &lt;= 0\n\nprint(je_kladne(5))   # True\nprint(je_kladne(-3))  # False"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#co-jsou-docstrings",
+    "href": "lessons/lesson_06.html#co-jsou-docstrings",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "6.1 Co jsou docstrings?",
+    "text": "6.1 Co jsou docstrings?\nDocstring = dokumentace funkce napsaná hned pod definicí v trojitých uvozovkách.\ndef fibonacci(n):\n    \"\"\"Vrátí n-tý člen Fibonacciho posloupnosti.\n    \n    Args:\n        n: Pořadové číslo členu (int)\n    \n    Returns:\n        n-tý člen posloupnosti (int)\n    \"\"\"\n    a, b = 0, 1\n    for i in range(n):\n        a, b = b, a + b\n    return a"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#proč-používat-docstrings",
+    "href": "lessons/lesson_06.html#proč-používat-docstrings",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "6.2 Proč používat docstrings?",
+    "text": "6.2 Proč používat docstrings?\n# Můžete si přečíst dokumentaci:\nhelp(fibonacci)\nVýstup:\nHelp on function fibonacci:\n\nfibonacci(n)\n    Vrátí n-tý člen Fibonacciho posloupnosti.\n    \n    Args:\n        n: Pořadové číslo členu (int)\n    \n    Returns:\n        n-tý člen posloupnosti (int)\n\n\n\n\n\n\nTipDobrý docstring obsahuje\n\n\n\n\nStručný popis - co funkce dělá\nArgs - jaké přijímá parametry\nReturns - co vrací\nRaises (volitelně) - jaké může vyvolat chyby\n\nNemusíte psát složité docstringy, ale alespoň jednořádkový popis je dobrý!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#fibonacci-jako-funkce",
+    "href": "lessons/lesson_06.html#fibonacci-jako-funkce",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "7.1 Fibonacci jako funkce",
+    "text": "7.1 Fibonacci jako funkce\nPůvodní kód:\nn = int(input(\"Které číslo? \"))\na, b = 0, 1\nfor i in range(n):\n    a, b = b, a + b\nprint(f\"{n}. člen: {a}\")\nJako funkce:\ndef fibonacci(n):\n    \"\"\"Vrátí n-tý člen Fibonacciho posloupnosti.\"\"\"\n    a, b = 0, 1\n    for i in range(n):\n        a, b = b, a + b\n    return a\n\n# Použití:\nprint(f\"10. člen: {fibonacci(10)}\")\nprint(f\"20. člen: {fibonacci(20)}\")\n\n# Nebo pro seznam čísel:\nfor i in [5, 10, 15, 20]:\n    print(f\"F({i}) = {fibonacci(i)}\")"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#cvičení-1-faktoriál-jako-funkce",
+    "href": "lessons/lesson_06.html#cvičení-1-faktoriál-jako-funkce",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "7.2 Cvičení 1: Faktoriál jako funkce",
+    "text": "7.2 Cvičení 1: Faktoriál jako funkce\nPřepište váš kód pro faktoriál jako funkci:\ndef faktorial(n):\n    \"\"\"Vrátí faktoriál čísla n.\"\"\"\n    # Zde doplňte kód...\n    \n# Test:\nprint(faktorial(5))   # Mělo by být 120\nprint(faktorial(10))  # Mělo by být 3628800"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#cvičení-2-test-prvočíselnosti-jako-funkce",
+    "href": "lessons/lesson_06.html#cvičení-2-test-prvočíselnosti-jako-funkce",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "7.3 Cvičení 2: Test prvočíselnosti jako funkce",
+    "text": "7.3 Cvičení 2: Test prvočíselnosti jako funkce\ndef je_prvocislo(n):\n    \"\"\"Vrátí True, pokud je n prvočíslo, jinak False.\"\"\"\n    # Zde doplňte kód...\n    \n# Test:\nprint(je_prvocislo(7))   # True\nprint(je_prvocislo(8))   # False\nprint(je_prvocislo(17))  # True"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#cvičení-3-bubble-sort-jako-funkce",
+    "href": "lessons/lesson_06.html#cvičení-3-bubble-sort-jako-funkce",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "7.4 Cvičení 3: Bubble Sort jako funkce",
+    "text": "7.4 Cvičení 3: Bubble Sort jako funkce\ndef bubble_sort(seznam):\n    \"\"\"Seřadí seznam pomocí Bubble Sort algoritmu.\n    \n    Args:\n        seznam: Seznam čísel (list)\n    \n    Returns:\n        Seřazený seznam (list)\n    \"\"\"\n    # POZOR: Měli byste vytvořit kopii!\n    serazeny = seznam.copy()\n    \n    # Zde doplňte třídící kód...\n    \n    return serazeny\n\n# Test:\ncisla = [5, 2, 8, 1, 9]\nserazene = bubble_sort(cisla)\nprint(f\"Původní: {cisla}\")\nprint(f\"Seřazené: {serazene}\")\n\n\n\n\n\n\nWarningPozor na úpravu seznamů!\n\n\n\nSeznamy jsou mutable (měnitelné). Pokud funkce upravuje seznam, mění původní:\ndef spatne_sort(seznam):\n    seznam.sort()  # Mění původní seznam!\n    return seznam\n\ncisla = [5, 2, 8]\nvysledek = spatne_sort(cisla)\nprint(cisla)  # [2, 5, 8] - ZMĚNĚNO!\n\n# Lepší:\ndef dobre_sort(seznam):\n    kopie = seznam.copy()\n    kopie.sort()\n    return kopie"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#co-je-modul",
+    "href": "lessons/lesson_06.html#co-je-modul",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "8.1 Co je modul?",
+    "text": "8.1 Co je modul?\nModul = Python soubor (.py) obsahující funkce, které můžete použít v jiných programech.\nProč moduly? - Organizace - rozdělení programu do logických celků - Znovupoužitelnost - jednou napíšete, použijete všude - Sdílení - můžete sdílet s kolegy"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#vytvoření-vlastního-modulu",
+    "href": "lessons/lesson_06.html#vytvoření-vlastního-modulu",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "8.2 Vytvoření vlastního modulu",
+    "text": "8.2 Vytvoření vlastního modulu\n\n8.2.1 Krok 1: Vytvořte soubor math_utils.py\n# math_utils.py\n\ndef fibonacci(n):\n    \"\"\"Vrátí n-tý člen Fibonacciho posloupnosti.\"\"\"\n    a, b = 0, 1\n    for i in range(n):\n        a, b = b, a + b\n    return a\n\ndef faktorial(n):\n    \"\"\"Vrátí faktoriál čísla n.\"\"\"\n    vysledek = 1\n    for i in range(1, n + 1):\n        vysledek *= i\n    return vysledek\n\ndef je_prvocislo(n):\n    \"\"\"Vrátí True, pokud je n prvočíslo.\"\"\"\n    if n &lt; 2:\n        return False\n    for i in range(2, n):\n        if n % i == 0:\n            return False\n    return True\n\ndef bubble_sort(seznam):\n    \"\"\"Seřadí seznam pomocí Bubble Sort.\"\"\"\n    serazeny = seznam.copy()\n    for i in range(len(serazeny)):\n        for j in range(len(serazeny) - 1 - i):\n            if serazeny[j] &gt; serazeny[j + 1]:\n                serazeny[j], serazeny[j + 1] = serazeny[j + 1], serazeny[j]\n    return serazeny\n\n\n8.2.2 Krok 2: Vytvořte soubor main.py ve STEJNÉ složce\n# main.py\n\nimport math_utils\n\n# Teď můžeme používat funkce z math_utils:\nn = int(input(\"Zadej číslo: \"))\n\nprint(f\"Fibonacci: {math_utils.fibonacci(n)}\")\nprint(f\"Faktoriál: {math_utils.faktorial(n)}\")\nprint(f\"Je prvočíslo: {math_utils.je_prvocislo(n)}\")\n\ncisla = [5, 2, 8, 1, 9]\nprint(f\"Seřazené: {math_utils.bubble_sort(cisla)}\")"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#způsoby-importu",
+    "href": "lessons/lesson_06.html#způsoby-importu",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "8.3 Způsoby importu",
+    "text": "8.3 Způsoby importu\n\n8.3.1 1. Import celého modulu\nimport math_utils\n\nmath_utils.fibonacci(10)\nmath_utils.faktorial(5)\n\n\n8.3.2 2. Import konkrétních funkcí\nfrom math_utils import fibonacci, faktorial\n\nfibonacci(10)   # Bez math_utils.\nfaktorial(5)\n\n\n8.3.3 3. Import s aliasem\nimport math_utils as mu\n\nmu.fibonacci(10)\nmu.faktorial(5)\n\n\n8.3.4 4. Import všeho (NEDOPORUČENO!)\nfrom math_utils import *\n\nfibonacci(10)  # Funguje, ale není jasné, odkud funkce pochází\n\n\n\n\n\n\nTipDoporučení\n\n\n\n\nPro vlastní moduly: import math_utils (jasné, odkud funkce pochází)\nPro specifické funkce: from math_utils import fibonacci (kratší kód)\nNikdy nepoužívejte import * - není jasné, co importujete!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#vestavěné-moduly",
+    "href": "lessons/lesson_06.html#vestavěné-moduly",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "8.4 Vestavěné moduly",
+    "text": "8.4 Vestavěné moduly\nPython má mnoho vestavěných modulů, které můžete rovnou použít:\n\n8.4.1 Modul math\nimport math\n\nprint(math.sqrt(16))      # 4.0 - odmocnina\nprint(math.pi)            # 3.14159... - číslo π\nprint(math.ceil(3.2))     # 4 - zaokrouhlení nahoru\nprint(math.floor(3.8))    # 3 - zaokrouhlení dolů\n\n\n8.4.2 Modul random\nimport random\n\nprint(random.randint(1, 10))        # Náhodné číslo 1-10\nprint(random.choice([1, 2, 3, 4]))  # Náhodný prvek ze seznamu\n\n\n8.4.3 Modul os (operační systém)\nimport os\n\nprint(os.getcwd())           # Aktuální složka\nprint(os.listdir('.'))       # Seznam souborů\n\n\n8.4.4 Modul csv (práce s CSV)\nimport csv\n\n# Budeme používat příští lekci!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#preview-import-arcpy",
+    "href": "lessons/lesson_06.html#preview-import-arcpy",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "8.5 Preview: import arcpy",
+    "text": "8.5 Preview: import arcpy\n\n\n\n\n\n\nNotePřipravujeme se na ArcPy!\n\n\n\nV příštích týdnech budete psát:\nimport arcpy\n\n# Funkce z ArcPy modulu:\narcpy.Buffer_analysis(...)\narcpy.Clip_analysis(...)\narcpy.management.CreateFeatureclass(...)\nVidíte? ArcPy je jen další modul! Funguje úplně stejně jako math_utils."
+  },
+  {
+    "objectID": "lessons/lesson_06.html#ideální-organizace",
+    "href": "lessons/lesson_06.html#ideální-organizace",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "9.1 Ideální organizace",
+    "text": "9.1 Ideální organizace\nmuj_projekt/\n│\n├── main.py              # Hlavní program\n├── math_utils.py        # Matematické funkce\n│\n└── data/\n    └── data.csv         # Data (příští lekce)\nmain.py:\nimport math_utils\n\n# Hlavní program...\nmath_utils.py:\ndef fibonacci(n):\n    # ...\n\ndef faktorial(n):\n    # ...\n\n\n\n\n\n\nImportantSoubory musí být ve stejné složce!\n\n\n\nAby import math_utils fungoval, musí být math_utils.py ve stejné složce jako main.py, nebo v Pythonem rozpoznané cestě."
+  },
+  {
+    "objectID": "lessons/lesson_06.html#zadání",
+    "href": "lessons/lesson_06.html#zadání",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "10.1 Zadání",
+    "text": "10.1 Zadání\nVytvořte kompletní projekt:\n\n10.1.1 1. Soubor math_utils.py\nObsahuje funkce: - fibonacci(n) - faktorial(n) - je_prvocislo(n) - bubble_sort(seznam)\nVšechny funkce mají docstringy!\n\n\n10.1.2 2. Soubor main.py\nProgram, který: 1. Načte číslo N od uživatele 2. Vypočítá a vypíše: - N-tý Fibonacci číslo - Faktoriál N - Zda je N prvočíslo 3. Vytvoří seznam prvních 10 Fibonacci čísel 4. Seřadí tento seznam (ačkoli už je seřazený 😊) 5. Vypíše výsledek\nKostra:\n# main.py\nimport math_utils\n\nn = int(input(\"Zadej číslo: \"))\n\n# Základní výpočty\nprint(f\"Fibonacci({n}) = {math_utils.fibonacci(n)}\")\nprint(f\"Faktoriál({n}) = {math_utils.faktorial(n)}\")\n\nif math_utils.je_prvocislo(n):\n    print(f\"{n} je prvočíslo\")\nelse:\n    print(f\"{n} není prvočíslo\")\n\n# Seznam Fibonacci čísel\nfibonacci_cisla = []\nfor i in range(10):\n    fibonacci_cisla.append(math_utils.fibonacci(i))\n\nprint(f\"\\nPrvních 10 Fibonacci čísel: {fibonacci_cisla}\")\n\n# Seřazení (už je seřazený, ale ukážeme funkci)\nserazeny = math_utils.bubble_sort(fibonacci_cisla)\nprint(f\"Seřazený seznam: {serazeny}\")"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#co-jsme-se-naučili",
+    "href": "lessons/lesson_06.html#co-jsme-se-naučili",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "11.1 Co jsme se naučili",
+    "text": "11.1 Co jsme se naučili\n✅ Definice funkcí pomocí def\n✅ Parametry - vstupy do funkce\n✅ return - návratové hodnoty\n✅ Rozdíl print() vs. return - klíčové pro pochopení!\n✅ Docstrings - dokumentace funkcí\n✅ Moduly - organizace kódu do souborů\n✅ import - použití modulů\n✅ Vestavěné moduly - math, random, os, csv\n✅ Preview ArcPy - import arcpy funguje stejně!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#co-bude-příště",
+    "href": "lessons/lesson_06.html#co-bude-příště",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "11.2 Co bude příště?",
+    "text": "11.2 Co bude příště?\nV příští lekci:\n\nČtení textových souborů - open(), read(), readlines()\nZápis do souborů - vytváření nových souborů\nZpracování jednoduchých dat - např. seznam měst s populací\nPoužití funkcí z math_utils pro zpracování dat"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#varianta-a-základní",
+    "href": "lessons/lesson_06.html#varianta-a-základní",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "12.1 Varianta A (základní)",
+    "text": "12.1 Varianta A (základní)\n\nDokončete math_utils.py s všemi čtyřmi funkcemi\nVytvořte main.py, který používá všechny funkce\nPřidejte docstringy ke všem funkcím"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#varianta-b-pokročilá",
+    "href": "lessons/lesson_06.html#varianta-b-pokročilá",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "12.2 Varianta B (pokročilá)",
+    "text": "12.2 Varianta B (pokročilá)\n\nRozšiřte math_utils.py o nové funkce:\n\nselection_sort(seznam) - druhý třídící algoritmus\nnajdi_prvocisla(n) - seznam všech prvočísel do n\nn_te_prvocislo(n) - najde n-té prvočíslo\n\nOtestujte všechny nové funkce v main.py"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#varianta-c-výzva",
+    "href": "lessons/lesson_06.html#varianta-c-výzva",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "12.3 Varianta C (výzva)",
+    "text": "12.3 Varianta C (výzva)\nVytvořte modul statistika.py s funkcemi:\ndef prumer(seznam):\n    \"\"\"Vrátí průměr čísel v seznamu.\"\"\"\n    # ...\n\ndef median(seznam):\n    \"\"\"Vrátí medián seznamu (prostřední hodnota).\"\"\"\n    # ...\n\ndef maximum(seznam):\n    \"\"\"Vrátí maximum ze seznamu.\"\"\"\n    # ...\n\ndef minimum(seznam):\n    \"\"\"Vrátí minimum ze seznamu.\"\"\"\n    # ...\nBonus: Můžete použít math_utils.bubble_sort() v median()!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#běžné-chyby-studentů",
+    "href": "lessons/lesson_06.html#běžné-chyby-studentů",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "14.1 Běžné chyby studentů",
+    "text": "14.1 Běžné chyby studentů\n# 1. Zapomínají return\ndef secti(a, b):\n    vysledek = a + b\n    # Zapomněli return!\n\nx = secti(5, 3)  # x = None\n\n# 2. Používají print místo return\ndef secti(a, b):\n    print(a + b)  # Špatně!\n    \nvysledek = secti(5, 3) + 10  # Chyba!\n\n# 3. Volají funkci s def\ndef fibonacci(n)  # Zapomněli dvojtečku!\n\n# 4. Zapomínají závorky při volání\nfibonacci  # Toto je funkce samotná, ne výsledek!\nfibonacci(10)  # Správně - volání\n\n# 5. Špatný import\nimport math_utils\nfibonacci(10)  # Chyba - musí být math_utils.fibonacci(10)\n\n# Nebo:\nfrom math_utils import fibonacci\nmath_utils.fibonacci(10)  # Chyba - už není potřeba math_utils.\n\n# 6. Soubory v jiných složkách\n# main.py je v C:\\Users\\Jan\\projekt\\\n# math_utils.py je v C:\\Users\\Jan\\Desktop\\\n# import math_utils  # NEFUNGUJE!"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#časový-plán-90-min",
+    "href": "lessons/lesson_06.html#časový-plán-90-min",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "14.2 Časový plán (90 min)",
+    "text": "14.2 Časový plán (90 min)\n\n\n\nČas\nObsah\n\n\n\n\n0-10 min\nMotivace - proč funkce? DRY princip\n\n\n10-30 min\nDefinice funkcí, parametry, return\n\n\n30-40 min\nprint() vs. return - DŮLEŽITÉ!\n\n\n40-50 min\nDocstrings, přepis Fibonacci/faktoriál\n\n\n50-60 min\nCvičení - přepis prvočísla a třídění\n\n\n60-75 min\nModuly - vytvoření math_utils.py\n\n\n75-85 min\nImport, použití v main.py\n\n\n85-90 min\nPreview ArcPy, zadání úkolu"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#klíčové-momenty",
+    "href": "lessons/lesson_06.html#klíčové-momenty",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "14.3 Klíčové momenty",
+    "text": "14.3 Klíčové momenty\n\n14.3.1 print() vs. return (30-40 min):\n\nNEJDŮLEŽITĚJŠÍ KONCEPT v této lekci!\nStudenti často nerozumí rozdílu\nUkázat konkrétní příklad, kde print() selhává:\n\ndef spatne(x):\n    print(x * 2)\n\nvysledek = spatne(5) + 10  # TypeError!\n\nVysvětlit: “print je pro LIDI, return je pro PROGRAM”\n\n\n\n14.3.2 Moduly (60-85 min):\n\nPrakticky vytvořit math_utils.py společně\nUkázat, že musí být ve stejné složce\nOtestovat import v main.py\nZdůraznit: “ArcPy bude fungovat úplně stejně!”\n\n\n\n14.3.3 Docstrings (40-50 min):\n\nNemusí být dokonalé, ale alespoň jednořádkové\nUkázat help(funkce)\nZdůraznit, že v praxi je dokumentace důležitá"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#rizika",
+    "href": "lessons/lesson_06.html#rizika",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "14.4 Rizika",
+    "text": "14.4 Rizika\n\nprint() vs. return může být matoucí (může trvat 15 min)\n\nŘešení: Věnovat tomu dostatek času, ukázat konkrétní příklady\nNechat studenty experimentovat\n\nImport nemusí fungovat (chyby s cestami)\n\nŘešení: Zdůraznit, že soubory musí být ve stejné složce\nMít připravené screenshoty struktury složek\n\nStudenti budou různě rychlí s přepisem funkcí\n\nŘešení: Rychlejší pomáhají pomalejším\nMůžete poskytnout kostru math_utils.py"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#tipy",
+    "href": "lessons/lesson_06.html#tipy",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "14.5 Tipy",
+    "text": "14.5 Tipy\n\nprint() vs. return je nejčastější problém - věnujte tomu extra čas!\nNa konci vždy zdůrazněte: “ArcPy je jen modul - budete psát import arcpy stejně jako import math_utils”\nUkažte help() funkci - je užitečná pro čtení dokumentace\nVytvořte math_utils.py společně na projektoru - ať vidí celý proces\nNechte je otestovat všechny funkce v main.py"
+  },
+  {
+    "objectID": "lessons/lesson_06.html#materiály-k-přípravě",
+    "href": "lessons/lesson_06.html#materiály-k-přípravě",
+    "title": "Lekce 6: Funkce a moduly",
+    "section": "14.6 Materiály k přípravě",
+    "text": "14.6 Materiály k přípravě\n\nPřipravit kostru math_utils.py (pro pomalé studenty)\nUkázková main.py s použitím všech funkcí\nDiagram struktury projektu (složky a soubory)\nCheatsheet pro různé způsoby importu"
+  },
+  {
     "objectID": "lessons/lesson_04.html",
     "href": "lessons/lesson_04.html",
     "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
@@ -208,41 +656,6 @@
     "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
     "section": "9.3 Bonusový úkol (nepovinný)",
     "text": "9.3 Bonusový úkol (nepovinný)\nPalindrom: Napište program, který zjistí, zda je číslo palindrom (čte se stejně zepředu i zezadu).\nPříklady: 121, 1331, 12321\nNápověda: Převeďte číslo na string a porovnejte ho s obráceným stringem."
-  },
-  {
-    "objectID": "lessons/lesson_04.html#běžné-chyby-studentů",
-    "href": "lessons/lesson_04.html#běžné-chyby-studentů",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
-    "section": "11.1 Běžné chyby studentů",
-    "text": "11.1 Běžné chyby studentů\n# 1. Záměna = a ==\nif vek = 18:     # CHYBA - přiřazení místo porovnání\nif vek == 18:    # SPRÁVNĚ\n\n# 2. Chybějící odsazení\nif vek &gt;= 18:\nprint(\"OK\")      # CHYBA - není odsazené\n    print(\"OK\")  # SPRÁVNĚ\n\n# 3. Zapomenuté inicializace\nfor i in range(10):\n    soucet += i  # CHYBA - soucet neexistuje\n\nsoucet = 0       # SPRÁVNĚ - nejprve inicializovat\nfor i in range(10):\n    soucet += i\n\n# 4. Špatný range\nrange(10)        # 0-9 (ne 1-10!)\nrange(1, 11)     # 1-10 (správně pro součet 1-10)\n\n# 5. Nekonečný while\nwhile True:      # CHYBA - nikdy neskončí\n    print(\"...\")\n\n# 6. Fibonacci výměna\na = b\nb = a + b        # CHYBA - a už je změněné!\n\na, b = b, a + b  # SPRÁVNĚ - současné přiřazení"
-  },
-  {
-    "objectID": "lessons/lesson_04.html#časový-plán-90-min",
-    "href": "lessons/lesson_04.html#časový-plán-90-min",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
-    "section": "11.2 Časový plán (90 min)",
-    "text": "11.2 Časový plán (90 min)\n\n\n\nČas\nObsah\n\n\n\n\n0-15 min\nLogické hodnoty, porovnávání\n\n\n15-35 min\nPodmínky (if/elif/else) + cvičení\n\n\n35-55 min\nFor cykly, range() + cvičení\n\n\n55-65 min\nWhile cykly, break/continue\n\n\n65-80 min\nFibonacci - společně krok za krokem\n\n\n80-90 min\nFaktoriál - samostatně (nebo začít doma)"
-  },
-  {
-    "objectID": "lessons/lesson_04.html#klíčové-momenty",
-    "href": "lessons/lesson_04.html#klíčové-momenty",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
-    "section": "11.3 Klíčové momenty",
-    "text": "11.3 Klíčové momenty\n\n11.3.1 Fibonacci (65-80 min):\n\nDŮLEŽITÉ: Procházet KROK ZA KROKEM\nNa tabuli/projektoru ukázat hodnoty a a b v každé iteraci\nVysvětlit a, b = b, a + b pečlivě\nNechat studenty říct, co se stane v dalším kroku\n\n\n\n11.3.2 Faktoriál (80-90 min):\n\nPokud nestihnou, je to OK - je to domácí úkol\nDůležitější je, aby rozuměli Fibonaccimu\nPokud stihnou, ukázat řešení a porovnat for vs. while"
-  },
-  {
-    "objectID": "lessons/lesson_04.html#rizika",
-    "href": "lessons/lesson_04.html#rizika",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
-    "section": "11.4 Rizika",
-    "text": "11.4 Rizika\n\nFibonacci může trvat déle (15 min → 20 min)\n\nŘešení: Zkrátit while cykly (10 min → 5 min)\nMít připravený promítaný kód\n\nStudenti budou různě rychlí\n\nŘešení: Rychlejší pomáhají pomalejším\nBonusové úkoly pro rychlé\n\nFaktoriál nestihnou\n\nŘešení: To je v pořádku, dokončí doma\nHlavní cíl = pochopit Fibonacci"
-  },
-  {
-    "objectID": "lessons/lesson_04.html#tipy",
-    "href": "lessons/lesson_04.html#tipy",
-    "title": "Lekce 4: Podmínky a cykly I – Fibonacci a faktoriál",
-    "section": "11.5 Tipy",
-    "text": "11.5 Tipy\n\nFibonacci výměna je nejdůležitější koncept - věnovat tomu čas!\nUkázat na tabuli: “Co bude v a a b po každém kroku?”\nNechat studenty předpovídat další krok\nFaktoriál je jednodušší - můžou zvládnout sami"
   },
   {
     "objectID": "lessons/lesson_01.html",
@@ -649,5 +1062,355 @@
     "title": "Lekce 3: Úvod do Pythonu I – První program",
     "section": "10.2 Co bude příště?",
     "text": "10.2 Co bude příště?\nV další lekci se naučíme:\n\nPodmínky (if, elif, else)\nCykly (for, while)\nAlgoritmizace (vyřešit úlohu pomocí kódu)"
+  },
+  {
+    "objectID": "lessons/lesson_05.html",
+    "href": "lessons/lesson_05.html",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "",
+    "text": "Po absolvování této lekce budete umět:\n\nPracovat s řezy seznamů (slicing)\nPoužívat pokročilé metody seznamů\nImplementovat algoritmus pro hledání prvočísel\nNavrhnout a implementovat třídící algoritmus\nPracovat s vnořenými cykly\nPropojit vnořené cykly s vnořenými modely z Model Builderu\n\nČasová dotace: 90 minut"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#rychlá-rekapitulace-z-minula",
+    "href": "lessons/lesson_05.html#rychlá-rekapitulace-z-minula",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "2.1 Rychlá rekapitulace z minula",
+    "text": "2.1 Rychlá rekapitulace z minula\n# Co už umíme ze seznamů:\ncisla = [1, 2, 3, 4, 5]\n\ncisla[0]           # 1 - první prvek (index 0!)\ncisla[-1]          # 5 - poslední prvek\nlen(cisla)         # 5 - délka seznamu\ncisla.append(6)    # Přidání prvku na konec"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#slicing-řezy---nová-technika",
+    "href": "lessons/lesson_05.html#slicing-řezy---nová-technika",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "2.2 Slicing (řezy) - nová technika",
+    "text": "2.2 Slicing (řezy) - nová technika\nSlicing umožňuje vybrat část seznamu:\n\n2.2.1 Základní syntaxe: seznam[start:stop]\ncisla = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n\ncisla[2:5]     # [2, 3, 4] - od indexu 2 do 5 (bez 5!)\ncisla[:3]      # [0, 1, 2] - od začátku do indexu 3\ncisla[7:]      # [7, 8, 9] - od indexu 7 do konce\ncisla[-3:]     # [7, 8, 9] - poslední 3 prvky\n\n\n\n\n\n\nTipZapamatujte si\n\n\n\n\nstart je včetně (from)\nstop je bez (to, but not including)\ncisla[2:5] znamená: “od indexu 2 až po (ale bez) index 5”\n\n\n\n\n\n2.2.2 Slicing s krokem: seznam[start:stop:step]\ncisla = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n\ncisla[::2]     # [0, 2, 4, 6, 8] - každý druhý\ncisla[1::2]    # [1, 3, 5, 7, 9] - každý druhý, ale od indexu 1\ncisla[::3]     # [0, 3, 6, 9] - každý třetí\ncisla[::-1]    # [9, 8, 7, ..., 0] - OTOČENÍ seznamu!\n\n\n2.2.3 Praktické příklady\ntext = \"Python\"\ntext[::-1]     # \"nohtyP\" - otočený string\n\n# První polovina seznamu\npolovina = len(cisla) // 2\nprvni_cast = cisla[:polovina]\n\n# Druhá polovina\ndruha_cast = cisla[polovina:]"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#užitečné-metody-seznamů",
+    "href": "lessons/lesson_05.html#užitečné-metody-seznamů",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "2.3 Užitečné metody seznamů",
+    "text": "2.3 Užitečné metody seznamů\n\n2.3.1 extend() - připojení více prvků\na = [1, 2, 3]\na.extend([4, 5, 6])    # [1, 2, 3, 4, 5, 6]\n\n# Alternativně:\na = a + [4, 5, 6]      # Totéž, ale vytvoří nový seznam\n\n\n2.3.2 insert() - vložení na konkrétní pozici\ncisla = [1, 2, 4, 5]\ncisla.insert(2, 3)     # [1, 2, 3, 4, 5] - vložit 3 na index 2\n\n\n2.3.3 remove() - odstranění první hodnoty\ncisla = [1, 2, 3, 2, 4]\ncisla.remove(2)        # [1, 3, 2, 4] - odstraní první výskyt 2\n\n\n2.3.4 pop() - odstranění a vrácení prvku\ncisla = [1, 2, 3, 4, 5]\nposledni = cisla.pop()     # posledni = 5, cisla = [1,2,3,4]\ndruhy = cisla.pop(1)       # druhy = 2, cisla = [1,3,4]\n\n\n2.3.5 reverse() - otočení seznamu\ncisla = [1, 2, 3, 4, 5]\ncisla.reverse()        # [5, 4, 3, 2, 1] - mění původní seznam!\n\n# Alternativně (vytvoří nový):\notoceny = cisla[::-1]\n\n\n2.3.6 sort() - seřazení\ncisla = [5, 2, 8, 1, 9]\ncisla.sort()           # [1, 2, 5, 8, 9] - vzestupně\n\ncisla.sort(reverse=True)  # [9, 8, 5, 2, 1] - sestupně\n\n# Alternativně (vytvoří nový):\nserazeny = sorted(cisla)"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#cvičení-1-práce-se-seznamem",
+    "href": "lessons/lesson_05.html#cvičení-1-práce-se-seznamem",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "2.4 Cvičení 1: Práce se seznamem",
+    "text": "2.4 Cvičení 1: Práce se seznamem\ncisla = [10, 25, 3, 47, 8, 19, 33, 5]\n\n# 1. Vypište první tři čísla\n# 2. Vypište poslední dvě čísla\n# 3. Vypište každé druhé číslo\n# 4. Otočte seznam a vypište ho\n# 5. Seřaďte seznam vzestupně"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#co-je-prvočíslo",
+    "href": "lessons/lesson_05.html#co-je-prvočíslo",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "3.1 Co je prvočíslo?",
+    "text": "3.1 Co je prvočíslo?\nPrvočíslo je přirozené číslo větší než 1, které je dělitelné pouze 1 a sebou samým.\nPrvočísla: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, …\nNejsou prvočísla: 1 (příliš malé podle definice), 4 (dělitelné 2), 6 (dělitelné 2 a 3), 8 (dělitelné 2 a 4), 9 (dělitelné 3)"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#algoritmus-je-číslo-prvočíslo",
+    "href": "lessons/lesson_05.html#algoritmus-je-číslo-prvočíslo",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "3.2 Algoritmus: Je číslo prvočíslo?",
+    "text": "3.2 Algoritmus: Je číslo prvočíslo?\n\n3.2.1 Logika\nČíslo n je prvočíslo, pokud není dělitelné žádným číslem od 2 do n-1.\nJe 7 prvočíslo?\n- 7 % 2 != 0 ✓\n- 7 % 3 != 0 ✓\n- 7 % 4 != 0 ✓\n- 7 % 5 != 0 ✓\n- 7 % 6 != 0 ✓\n→ Ano, 7 je prvočíslo!\n\nJe 8 prvočíslo?\n- 8 % 2 == 0 ✗\n→ Ne, 8 není prvočíslo (dělitelné 2)\n\n\n3.2.2 Implementace - společně\nn = int(input(\"Číslo: \"))\n\n# Speciální případy\nif n &lt; 2:\n    print(f\"{n} není prvočíslo\")\nelse:\n    je_prvocislo = True  # Předpokládáme, že je prvočíslo\n    \n    for i in range(2, n):\n        if n % i == 0:  # Našli jsme dělitele\n            je_prvocislo = False\n            break  # Můžeme skončit, není prvočíslo\n    \n    if je_prvocislo:\n        print(f\"{n} je prvočíslo\")\n    else:\n        print(f\"{n} není prvočíslo\")\n\n\n\n\n\n\nTipOptimalizace\n\n\n\nStačí zkoušet dělitele do sqrt(n), protože větší dělitel by musel mít menšího partnera:\nimport math\nfor i in range(2, int(math.sqrt(n)) + 1):\nAle pro učení stačí jednodušší verze!"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#samostatná-úloha-všechna-prvočísla-do-n",
+    "href": "lessons/lesson_05.html#samostatná-úloha-všechna-prvočísla-do-n",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "3.3 Samostatná úloha: Všechna prvočísla do N",
+    "text": "3.3 Samostatná úloha: Všechna prvočísla do N\nZadání: Napište program, který najde všechna prvočísla do 100 (nebo do čísla zadaného uživatelem).\nNápověda:\nn = int(input(\"Hledat prvočísla do: \"))\nprvocisla = []\n\nfor cislo in range(2, n + 1):\n    # Zkontrolovat, zda je cislo prvočíslo\n    # Pokud ano, přidat do seznamu prvocisla\n    \nprint(f\"Prvočísla do {n}: {prvocisla}\")\nVýstup by měl vypadat:\nHledat prvočísla do: 20\nPrvočísla do 20: [2, 3, 5, 7, 11, 13, 17, 19]"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#motivace",
+    "href": "lessons/lesson_05.html#motivace",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "5.1 Motivace",
+    "text": "5.1 Motivace\nÚkol: Seřaďte seznam [5, 2, 8, 1, 9] vzestupně.\nOtázka: Jak byste to udělali na papíře?\n\n\n\n\n\n\nNoteBrainstorming (5 minut)\n\n\n\nDiskutujte se spolužáky: - Jak byste řadili čísla ručně? - Jaké kroky byste opakovali? - Můžete to popsat slovně?\nVětšina lidí přijde na jeden z těchto přístupů: 1. “Najdu nejmenší, dám ho stranou, opakuji” → Selection Sort 2. “Porovnávám sousedy, když je špatné pořadí, prohodím, opakuji DOKUD prohazuji” → Bubble Sort"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#bubble-sort-bublinové-třídění",
+    "href": "lessons/lesson_05.html#bubble-sort-bublinové-třídění",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "5.2 Bubble Sort (bublinové třídění)",
+    "text": "5.2 Bubble Sort (bublinové třídění)\n\n5.2.1 Princip\nProcházíme seznam a porovnáváme dvojice sousedních prvků. Pokud jsou ve špatném pořadí, prohodíme je. Opakujeme DOKUD jsme něco prohazovali.\n\n\n5.2.2 Vizualizace na příkladu [5, 2, 8, 1, 9]\nPrvní průchod:\n[5, 2, 8, 1, 9]  → 5 &gt; 2? Ano, prohoď\n[2, 5, 8, 1, 9]  → 5 &gt; 8? Ne\n[2, 5, 8, 1, 9]  → 8 &gt; 1? Ano, prohoď  \n[2, 5, 1, 8, 9]  → 8 &gt; 9? Ne\n[2, 5, 1, 8, 9]  ← Prohodili jsme → pokračujeme!\nDruhý průchod:\n[2, 5, 1, 8, 9]  → 2 &gt; 5? Ne\n[2, 5, 1, 8, 9]  → 5 &gt; 1? Ano, prohoď\n[2, 1, 5, 8, 9]  → 5 &gt; 8? Ne\n[2, 1, 5, 8, 9]  → 8 &gt; 9? Ne\n[2, 1, 5, 8, 9]  ← Prohodili jsme → pokračujeme!\nTřetí průchod:\n[2, 1, 5, 8, 9]  → 2 &gt; 1? Ano, prohoď\n[1, 2, 5, 8, 9]  → 2 &gt; 5? Ne\n[1, 2, 5, 8, 9]  → 5 &gt; 8? Ne\n[1, 2, 5, 8, 9]  → 8 &gt; 9? Ne\n[1, 2, 5, 8, 9]  ← Prohodili jsme → pokračujeme!\nČtvrtý průchod:\n[1, 2, 5, 8, 9]  → 1 &gt; 2? Ne\n[1, 2, 5, 8, 9]  → 2 &gt; 5? Ne\n[1, 2, 5, 8, 9]  → 5 &gt; 8? Ne\n[1, 2, 5, 8, 9]  → 8 &gt; 9? Ne\n[1, 2, 5, 8, 9]  ← NIČÍM NEPROHODILI → HOTOVO!\n\n\n5.2.3 Implementace - společně\nseznam = [5, 2, 8, 1, 9]\nprint(f\"Původní seznam: {seznam}\")\n\n# Klíčová myšlenka: \"Opakuj DOKUD prohazuješ\"\nserazeno = False\n\nwhile not serazeno:\n    # Předpokládám, že seznam JE seřazený\n    serazeno = True\n    \n    # Projdu všechny sousední dvojice\n    for i in range(len(seznam) - 1):\n        # Porovnám sousedy\n        if seznam[i] &gt; seznam[i + 1]:\n            # Špatné pořadí → prohození\n            seznam[i], seznam[i + 1] = seznam[i + 1], seznam[i]\n            # Něco jsem prohodil → NENÍ seřazeno!\n            serazeno = False\n\nprint(f\"Seřazený seznam: {seznam}\")\n# [1, 2, 5, 8, 9]\n\n\n\n\n\n\nTipJak to funguje?\n\n\n\n\nserazeno = False: Na začátku předpokládáme, že seznam není seřazený\nwhile not serazeno:: Opakuj, DOKUD není seřazeno\nserazeno = True: Na začátku každého průchodu předpokládám “je seřazeno”\nProjdu všechny dvojice: for i in range(len(seznam) - 1)\nPokud najdu špatné pořadí: Prohodím a nastavím serazeno = False\nPokud projdu celý seznam a nic neprohodím → serazeno zůstane True → cyklus skončí!\n\n\n\n\n\n5.2.4 Alternativní implementace\nPředchozí implementace je intuitivní, protože odráží způsob, jak lidé přirozeně myslí. Ve skutečnosti není úplně efektivní, protože po prvním průchodu máme jistotu, že poslední prvek je již na správném místě. Alternativní implementace pomocí dvou vnořených ‘for’ cyklů toto zohledňuje:\nseznam = [5, 2, 8, 1, 9]\n\n# Vnější cyklus - kolik průchodů potřebujeme?\nfor i in range(len(seznam)):\n    \n    # Vnitřní cyklus - porovnání sousedů\n    for j in range(len(seznam) - 1 - i):\n        \n        # Porovnání a prohození\n        if seznam[j] &gt; seznam[j + 1]:\n            seznam[j], seznam[j + 1] = seznam[j + 1], seznam[j]\n\nprint(seznam)  # [1, 2, 5, 8, 9]\n\n\n\n\n\n\nImportantVnořené cykly!\n\n\n\nVšimněte si dvou cyklů jeden v druhém: - Vnější (for i) říká: “Kolikrát opakuji celý průchod?” - Vnitřní (for j) říká: “Jak procházím dvojice?”\nToto je vnořený cyklus - stejný princip jako vnořené modely v Model Builderu!\n\n\n\n\n5.2.5 Proč len(seznam) - 1 - i?\n# První průchod (i=0): porovnáváme všechny dvojice\nrange(len(seznam) - 1)  # 0,1,2,3\n\n# Druhý průchod (i=1): poslední je už správně, vynecháme\nrange(len(seznam) - 1 - 1)  # 0,1,2\n\n# A tak dále...\n\n\n\n\n\n\nNoteKterá verze je efektivnější?\n\n\n\nZávisí na situaci!\nWhile verze je mnohem rychlejší, když: - Seznam je už seřazený nebo skoro seřazený - Může skončit brzy (best case: jen 1 průchod)\nFor verze je rychlejší, když: - Seznam je úplně zamíchaný nebo opačně seřazený - V nejhorším případě dělá méně porovnání celkem"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#selection-sort-třídění-výběrem",
+    "href": "lessons/lesson_05.html#selection-sort-třídění-výběrem",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "5.3 Selection Sort (třídění výběrem)",
+    "text": "5.3 Selection Sort (třídění výběrem)\n\n5.3.1 Princip\n\nNajdi nejmenší prvek v seznamu\nProhoď ho s prvním prvkem\nOpakuj pro zbytek seznamu (od druhého prvku dál)\n\n\n\n5.3.2 Vizualizace na příkladu [5, 2, 8, 1]\nKrok 1: Najdi minimum v [5, 2, 8, 1] → 1, prohoď s první pozicí\n[1, 2, 8, 5]\n ^ vyřešeno\nKrok 2: Najdi minimum v [2, 8, 5] → 2, už je na správném místě\n[1, 2, 8, 5]\n    ^ vyřešeno\nKrok 3: Najdi minimum v [8, 5] → 5, prohoď\n[1, 2, 5, 8]\n       ^ vyřešeno\nHotovo! [1, 2, 5, 8]\n\n\n5.3.3 Implementace - společně\nseznam = [5, 2, 8, 1, 9]\n\n# Vnější cyklus - postupně řešíme pozice 0, 1, 2, ...\nfor i in range(len(seznam)):\n    \n    # Najdi index minima ve zbytku seznamu\n    min_index = i\n    \n    for j in range(i + 1, len(seznam)):\n        if seznam[j] &lt; seznam[min_index]:\n            min_index = j\n    \n    # Prohoď aktuální prvek s minimem\n    seznam[i], seznam[min_index] = seznam[min_index], seznam[i]\n\nprint(seznam)  # [1, 2, 5, 8, 9]\n\n\n\n\n\n\nTipPro praxi\n\n\n\nV reálných programech používáme vestavěnou funkci sort() nebo sorted(), která je mnohem rychlejší. Ale pochopení vlastních algoritmů je důležité pro: - Rozvoj logického myšlení - Pochopení, jak počítače fungují - Přípravu na složitější problémy"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#co-jsou-vnořené-cykly",
+    "href": "lessons/lesson_05.html#co-jsou-vnořené-cykly",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "6.1 Co jsou vnořené cykly?",
+    "text": "6.1 Co jsou vnořené cykly?\nVnořený cyklus = cyklus uvnitř jiného cyklu.\nfor i in range(3):\n    for j in range(2):\n        print(f\"i={i}, j={j}\")\nVýstup:\ni=0, j=0\ni=0, j=1\ni=1, j=0\ni=1, j=1\ni=2, j=0\ni=2, j=1\nJak to funguje: - Pro každou hodnotu i (vnější cyklus) - Projdeme všechny hodnoty j (vnitřní cyklus)"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#praktický-příklad-tabulka-násobení",
+    "href": "lessons/lesson_05.html#praktický-příklad-tabulka-násobení",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "6.2 Praktický příklad: Tabulka násobení",
+    "text": "6.2 Praktický příklad: Tabulka násobení\n# Tabulka násobení 1-5\nfor i in range(1, 6):\n    for j in range(1, 6):\n        print(f\"{i} × {j} = {i * j}\")\n    print(\"---\")  # Oddělovač"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#propojení-s-model-builderem",
+    "href": "lessons/lesson_05.html#propojení-s-model-builderem",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "6.3 Propojení s Model Builderem",
+    "text": "6.3 Propojení s Model Builderem\n\n\n\n\n\n\nNoteVzpomínáte na vnořené modely?\n\n\n\nV Model Builderu jste používali vnořené iterátory: - Vnější iterator: Pro každý okres - Vnitřní iterator: Pro každý rok - → Zpracovat data pro každý okres v každém roce\nV Pythonu je to stejné, jen místo Model Builderu píšete kód!\n\n\n\n6.3.1 Příklad: GIS úloha\nokresy = [\"Praha\", \"Brno\", \"Ostrava\"]\nroky = [2020, 2021, 2022]\n\nfor okres in okresy:\n    for rok in roky:\n        print(f\"Zpracovávám: {okres}, {rok}\")\n        # Zde by byl ArcPy kód pro zpracování dat\nVýstup:\nZpracovávám: Praha, 2020\nZpracovávám: Praha, 2021\nZpracovávám: Praha, 2022\nZpracovávám: Brno, 2020\nZpracovávám: Brno, 2021\nZpracovávám: Brno, 2022\nZpracovávám: Ostrava, 2020\nZpracovávám: Ostrava, 2021\nZpracovávám: Ostrava, 2022\nVypadá vám to povědomě? Přesně toto jste dělali v Model Builderu graficky. V Pythonu to napíšete přímo!"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#cvičení-2-filtrování-prvočísel-ze-seznamu",
+    "href": "lessons/lesson_05.html#cvičení-2-filtrování-prvočísel-ze-seznamu",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "7.1 Cvičení 2: Filtrování prvočísel ze seznamu",
+    "text": "7.1 Cvičení 2: Filtrování prvočísel ze seznamu\nMáte seznam čísel. Vytvořte nový seznam obsahující pouze prvočísla.\ncisla = [2, 4, 7, 8, 11, 12, 13, 15, 17, 20]\n\n# Zde napište kód...\n\n# Očekávaný výsledek:\n# prvocisla = [2, 7, 11, 13, 17]"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#cvičení-3-vlastní-třídící-algoritmus",
+    "href": "lessons/lesson_05.html#cvičení-3-vlastní-třídící-algoritmus",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "7.2 Cvičení 3: Vlastní třídící algoritmus",
+    "text": "7.2 Cvičení 3: Vlastní třídící algoritmus\nZkuste vymyslet svůj vlastní způsob třídění (nemusí být efektivní, ale musí fungovat!).\nNápověda: Můžete zkusit: - Najít maximum a přesunout na konec - Postupně budovat nový seřazený seznam - Cokoliv jiného, co vás napadne!"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#co-jsme-se-naučili",
+    "href": "lessons/lesson_05.html#co-jsme-se-naučili",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "8.1 Co jsme se naučili",
+    "text": "8.1 Co jsme se naučili\n✅ Slicing - řezy seznamů (seznam[start:stop:step])\n✅ Metody seznamů - extend(), insert(), remove(), pop(), reverse(), sort()\n✅ Prvočísla - algoritmus pro testování prvočíselnosti\n✅ Bubble Sort - třídění porovnáváním sousedů\n✅ Selection Sort - třídění výběrem minima\n✅ Vnořené cykly - cyklus v cyklu\n✅ Propojení s Model Builderem - vnořené cykly = vnořené iterátory"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#co-bude-příště",
+    "href": "lessons/lesson_05.html#co-bude-příště",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "8.2 Co bude příště?",
+    "text": "8.2 Co bude příště?\nV příští lekci:\n\nFunkce - jak psát znovupoužitelný kód\nModuly - jak organizovat program\nPřepíšeme Fibonacci, faktoriál a třídění jako funkce\nVytvoříme vlastní modul math_utils.py"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#varianta-a-základní",
+    "href": "lessons/lesson_05.html#varianta-a-základní",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "9.1 Varianta A (základní)",
+    "text": "9.1 Varianta A (základní)\n\nDokončete úlohy ze cvičení, pokud jste je nestihli\nN-té prvočíslo: Napište program, který najde N-té prvočíslo. Například:\nZadej N: 10\n10. prvočíslo je: 29"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#varianta-b-pokročilá",
+    "href": "lessons/lesson_05.html#varianta-b-pokročilá",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "9.2 Varianta B (pokročilá)",
+    "text": "9.2 Varianta B (pokročilá)\n\nPrvočísla v rozsahu: Najděte všechna prvočísla mezi čísly A a B (obojí zadává uživatel)\nImplementujte oba třídící algoritmy (Bubble Sort i Selection Sort) a porovnejte, který je čitelnější"
+  },
+  {
+    "objectID": "lessons/lesson_05.html#varianta-c-výzva",
+    "href": "lessons/lesson_05.html#varianta-c-výzva",
+    "title": "Lekce 5: Podmínky a cykly II – Prvočísla a třídění",
+    "section": "9.3 Varianta C (výzva)",
+    "text": "9.3 Varianta C (výzva)\nEratosthenovo síto - velmi rychlý algoritmus pro hledání prvočísel:\n\nVytvoř seznam čísel od 2 do N\nPrvní číslo (2) je prvočíslo - označ všechny jeho násobky jako ne-prvočísla\nDalší neoznačené číslo (3) je prvočíslo - označ všechny jeho násobky\nOpakuj, dokud nejsou všechna čísla označená\n\nNápověda:\nn = 100\nje_prvocislo = [True] * (n + 1)  # Seznam True hodnot\nje_prvocislo[0] = je_prvocislo[1] = False\n\n# Zde implementujte Eratosthenovo síto..."
+  },
+  {
+    "objectID": "lessons/lesson_07.html",
+    "href": "lessons/lesson_07.html",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "",
+    "text": "Po absolvování této lekce budete umět:\n\nOtevírat textové soubory pomocí open()\nČíst obsah souborů (read(), readlines())\nZapisovat do souborů\nPoužívat with statement pro bezpečnou práci se soubory\nZpracovávat řádky textu pomocí .strip() a .split()\nPracovat s encoding (UTF-8)\nAplikovat funkce z math_utils na data ze souborů\n\nČasová dotace: 90 minut"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#motivace",
+    "href": "lessons/lesson_07.html#motivace",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "2.1 Motivace",
+    "text": "2.1 Motivace\nDosud jsme pracovali s daty, která jsme psali přímo do kódu:\nmesta = [\"Praha\", \"Brno\", \"Ostrava\"]\nProblém: - Co když máme 100 měst? 1000? - Co když chceme data aktualizovat? - Co když data přicházejí odjinud (Excel, databáze, web)?\nŘešení: Načítat data ze souborů!"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#kde-použijeme-práci-se-soubory",
+    "href": "lessons/lesson_07.html#kde-použijeme-práci-se-soubory",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "2.2 Kde použijeme práci se soubory?",
+    "text": "2.2 Kde použijeme práci se soubory?\n\nNačítání dat - tabulky, seznamy, konfigurace\nExport výsledků - uložení analýz, reportů\nLogování - záznam průběhu programu\nGIS workflow - export atributových tabulek, import dat do ArcGIS\n\n\n\n\n\n\n\nNotePreview ArcPy\n\n\n\nV GIS často: - Exportujete atributovou tabulku do CSV - Zpracujete ji v Pythonu - Importujete zpět do ArcGIS\nToto je běžný workflow!"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#příprava---ukázkový-soubor",
+    "href": "lessons/lesson_07.html#příprava---ukázkový-soubor",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "3.1 Příprava - ukázkový soubor",
+    "text": "3.1 Příprava - ukázkový soubor\nVytvořte soubor mesta.txt s tímto obsahem:\nPraha 1300000\nBrno 380000\nOstrava 290000\nPlzeň 170000\nLiberec 103000\nKaždý řádek obsahuje: název města (mezera) populace"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#otevření-souboru---funkce-open",
+    "href": "lessons/lesson_07.html#otevření-souboru---funkce-open",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "3.2 Otevření souboru - funkce open()",
+    "text": "3.2 Otevření souboru - funkce open()\nsoubor = open(\"mesta.txt\", \"r\")\nParametry: - První parametr: cesta k souboru - Druhý parametr: režim - \"r\" = read (čtení) - \"w\" = write (zápis) - \"a\" = append (přidání na konec)\n\n\n\n\n\n\nWarningPozor na cestu k souboru!\n\n\n\nPokud neuvedete plnou cestu, Python hledá soubor v aktuálním adresáři (kde je váš .py soubor).\nPlná cesta:\nsoubor = open(\"C:/Projekty/data/mesta.txt\", \"r\")\nRelativní cesta (doporučeno):\nsoubor = open(\"mesta.txt\", \"r\")  # V aktuální složce\nsoubor = open(\"data/mesta.txt\", \"r\")  # V podsložce data/"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#čtení-celého-souboru---read",
+    "href": "lessons/lesson_07.html#čtení-celého-souboru---read",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "3.3 Čtení celého souboru - read()",
+    "text": "3.3 Čtení celého souboru - read()\nsoubor = open(\"mesta.txt\", \"r\")\nobsah = soubor.read()\nprint(obsah)\nsoubor.close()  # DŮLEŽITÉ - zavřít soubor!\nVýsledek:\nPraha 1300000\nBrno 380000\nOstrava 290000\nPlzeň 170000\nLiberec 103000"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#čtení-po-řádcích---readlines",
+    "href": "lessons/lesson_07.html#čtení-po-řádcích---readlines",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "3.4 Čtení po řádcích - readlines()",
+    "text": "3.4 Čtení po řádcích - readlines()\nsoubor = open(\"mesta.txt\", \"r\")\nradky = soubor.readlines()\nsoubor.close()\n\nprint(radky)\nVýsledek:\n['Praha 1300000\\n', 'Brno 380000\\n', 'Ostrava 290000\\n', 'Plzeň 170000\\n', 'Liberec 103000\\n']\n\n\n\n\n\n\nTipVšimněte si \\n\n\n\n\n\\n je znak pro nový řádek. Budeme ho muset odstranit pomocí .strip()!"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#with-statement---bezpečnější-způsob",
+    "href": "lessons/lesson_07.html#with-statement---bezpečnější-způsob",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "3.5 with statement - bezpečnější způsob",
+    "text": "3.5 with statement - bezpečnější způsob\nProblém: Můžete zapomenout zavřít soubor pomocí .close()\nŘešení: Použijte with statement:\nwith open(\"mesta.txt\", \"r\") as soubor:\n    radky = soubor.readlines()\n    \n# Tady je soubor už automaticky zavřený!\nprint(radky)\nVýhody: - Soubor se automaticky zavře na konci bloku - Bezpečnější - soubor se zavře i při chybě - Čitelnější kód\n\n\n\n\n\n\nImportantDoporučení\n\n\n\nVždy používejte with statement pro práci se soubory!"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#odstranění-bílých-znaků---strip",
+    "href": "lessons/lesson_07.html#odstranění-bílých-znaků---strip",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "4.1 Odstranění bílých znaků - strip()",
+    "text": "4.1 Odstranění bílých znaků - strip()\nradek = \"Praha 1300000\\n\"\ncisty_radek = radek.strip()\nprint(cisty_radek)  # \"Praha 1300000\"\nCo strip() odstraňuje: - \\n - nový řádek - \\t - tabulátor - Mezery na začátku a konci"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#rozdělení-řetězce---split",
+    "href": "lessons/lesson_07.html#rozdělení-řetězce---split",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "4.2 Rozdělení řetězce - split()",
+    "text": "4.2 Rozdělení řetězce - split()\nradek = \"Praha 1300000\"\ncasti = radek.split()  # Rozdělí podle mezer\nprint(casti)  # ['Praha', '1300000']\n\nmesto = casti[0]       # \"Praha\"\npopulace = casti[1]    # \"1300000\" (STRING!)\n\n\n\n\n\n\nWarningsplit() vrací STRINGY!\n\n\n\npopulace = casti[1]         # \"1300000\" (string)\npopulace_cislo = int(casti[1])  # 1300000 (int)\nPokud chcete číslo, musíte převést pomocí int() nebo float()!\n\n\n\n4.2.1 split() s konkrétním separátorem\n# CSV (hodnoty oddělené čárkou)\nradek = \"Praha,1300000,CZ\"\ncasti = radek.split(\",\")\nprint(casti)  # ['Praha', '1300000', 'CZ']\n\n# Oddělení středníkem\nradek = \"Praha;1300000;CZ\"\ncasti = radek.split(\";\")"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#zadání",
+    "href": "lessons/lesson_07.html#zadání",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "5.1 Zadání",
+    "text": "5.1 Zadání\nMáte soubor mesta.txt:\nPraha 1300000\nBrno 380000\nOstrava 290000\nPlzeň 170000\nLiberec 103000\nÚkoly: 1. Načíst soubor 2. Vypsat všechna města s populací &gt; 200 000 3. Spočítat celkovou populaci všech měst 4. Najít město s nejvyšší populací"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#řešení-krok-za-krokem",
+    "href": "lessons/lesson_07.html#řešení-krok-za-krokem",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "5.2 Řešení krok za krokem",
+    "text": "5.2 Řešení krok za krokem\n\n5.2.1 Krok 1: Načtení a výpis\nwith open(\"mesta.txt\", \"r\", encoding=\"utf-8\") as soubor:\n    radky = soubor.readlines()\n\nfor radek in radky:\n    print(radek.strip())\n\n\n\n\n\n\nNoteencoding=“utf-8”\n\n\n\nUTF-8 je standard pro kódování českých znaků (čšřžý…).\nVždy přidávejte encoding=\"utf-8\" při práci s českými texty:\nopen(\"soubor.txt\", \"r\", encoding=\"utf-8\")\n\n\n\n\n5.2.2 Krok 2: Zpracování každého řádku\nwith open(\"mesta.txt\", \"r\", encoding=\"utf-8\") as soubor:\n    for radek in soubor:\n        radek = radek.strip()  # Odstranit \\n\n        \n        if radek:  # Pokud není prázdný\n            casti = radek.split()  # Rozdělit\n            mesto = casti[0]\n            populace = int(casti[1])  # Převést na int!\n            \n            print(f\"{mesto}: {populace:,} obyvatel\")\nVýsledek:\nPraha: 1,300,000 obyvatel\nBrno: 380,000 obyvatel\nOstrava: 290,000 obyvatel\nPlzeň: 170,000 obyvatel\nLiberec: 103,000 obyvatel\n\n\n5.2.3 Krok 3: Filtrace měst nad 200 000\nwith open(\"mesta.txt\", \"r\", encoding=\"utf-8\") as soubor:\n    for radek in soubor:\n        radek = radek.strip()\n        \n        if radek:\n            casti = radek.split()\n            mesto = casti[0]\n            populace = int(casti[1])\n            \n            if populace &gt; 200000:\n                print(f\"{mesto}: {populace:,}\")\nVýsledek:\nPraha: 1,300,000\nBrno: 380,000\nOstrava: 290,000\n\n\n5.2.4 Krok 4: Celková populace\ncelkova_populace = 0\n\nwith open(\"mesta.txt\", \"r\", encoding=\"utf-8\") as soubor:\n    for radek in soubor:\n        radek = radek.strip()\n        \n        if radek:\n            casti = radek.split()\n            populace = int(casti[1])\n            celkova_populace += populace\n\nprint(f\"Celková populace: {celkova_populace:,}\")\n\n\n5.2.5 Krok 5: Město s nejvyšší populací\nmax_mesto = \"\"\nmax_populace = 0\n\nwith open(\"mesta.txt\", \"r\", encoding=\"utf-8\") as soubor:\n    for radek in soubor:\n        radek = radek.strip()\n        \n        if radek:\n            casti = radek.split()\n            mesto = casti[0]\n            populace = int(casti[1])\n            \n            if populace &gt; max_populace:\n                max_populace = populace\n                max_mesto = mesto\n\nprint(f\"Největší město: {max_mesto} ({max_populace:,})\")"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#vytvoření-nového-souboru",
+    "href": "lessons/lesson_07.html#vytvoření-nového-souboru",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "6.1 Vytvoření nového souboru",
+    "text": "6.1 Vytvoření nového souboru\nwith open(\"vysledky.txt\", \"w\", encoding=\"utf-8\") as soubor:\n    soubor.write(\"Výsledky analýzy měst\\n\")\n    soubor.write(\"=\" * 30 + \"\\n\")\n    soubor.write(\"Praha: 1300000\\n\")\n\n\n\n\n\n\nWarningRežim “w” PŘEPÍŠE soubor!\n\n\n\nPokud soubor existuje, \"w\" ho VYMAŽE a začne nový:\n# První spuštění:\nwith open(\"test.txt\", \"w\") as f:\n    f.write(\"První text\\n\")\n\n# Druhé spuštění - PŘEPÍŠE!\nwith open(\"test.txt\", \"w\") as f:\n    f.write(\"Druhý text\\n\")\n\n# Výsledek: \"Druhý text\" (první text je pryč!)"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#přidání-na-konec---režim-a",
+    "href": "lessons/lesson_07.html#přidání-na-konec---režim-a",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "6.2 Přidání na konec - režim “a”",
+    "text": "6.2 Přidání na konec - režim “a”\nwith open(\"vysledky.txt\", \"a\", encoding=\"utf-8\") as soubor:\n    soubor.write(\"Brno: 380000\\n\")"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#praktický-příklad---export-výsledků",
+    "href": "lessons/lesson_07.html#praktický-příklad---export-výsledků",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "6.3 Praktický příklad - export výsledků",
+    "text": "6.3 Praktický příklad - export výsledků\n# Analýza\nvelka_mesta = []\n\nwith open(\"mesta.txt\", \"r\", encoding=\"utf-8\") as soubor:\n    for radek in soubor:\n        radek = radek.strip()\n        if radek:\n            casti = radek.split()\n            mesto = casti[0]\n            populace = int(casti[1])\n            \n            if populace &gt; 200000:\n                velka_mesta.append((mesto, populace))\n\n# Export výsledků\nwith open(\"velka_mesta.txt\", \"w\", encoding=\"utf-8\") as soubor:\n    soubor.write(\"Města s populací nad 200 000\\n\")\n    soubor.write(\"=\" * 40 + \"\\n\\n\")\n    \n    for mesto, populace in velka_mesta:\n        soubor.write(f\"{mesto}: {populace:,} obyvatel\\n\")\n\nprint(\"Výsledky uloženy do velka_mesta.txt\")"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#příklad-prvočísla-ze-souboru",
+    "href": "lessons/lesson_07.html#příklad-prvočísla-ze-souboru",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "7.1 Příklad: Prvočísla ze souboru",
+    "text": "7.1 Příklad: Prvočísla ze souboru\nSoubor cisla.txt:\n2\n17\n20\n23\n100\nProgram:\nimport math_utils\n\n# Načíst čísla ze souboru\ncisla = []\nwith open(\"cisla.txt\", \"r\") as soubor:\n    for radek in soubor:\n        radek = radek.strip()\n        if radek:\n            cisla.append(int(radek))\n\n# Najít prvočísla\nprvocisla = []\nfor cislo in cisla:\n    if math_utils.je_prvocislo(cislo):\n        prvocisla.append(cislo)\n\n# Uložit výsledky\nwith open(\"prvocisla.txt\", \"w\") as soubor:\n    soubor.write(\"Prvočísla ze vstupu:\\n\")\n    for p in prvocisla:\n        soubor.write(f\"{p}\\n\")\n\nprint(f\"Nalezeno {len(prvocisla)} prvočísel\")"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#cvičení-1-statistiky-měst",
+    "href": "lessons/lesson_07.html#cvičení-1-statistiky-měst",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "8.1 Cvičení 1: Statistiky měst",
+    "text": "8.1 Cvičení 1: Statistiky měst\nPoužijte soubor mesta.txt a vytvořte program, který:\n\nSpočítá průměrnou populaci\nNajde medián (použijte math_utils.bubble_sort() pro seřazení!)\nUloží statistiky do souboru statistiky.txt ve formátu:\n\nStatistiky měst\n===============\nPočet měst: 5\nCelková populace: 2,243,000\nPrůměrná populace: 448,600\nMedián: 290,000\nNejvětší město: Praha (1,300,000)\nNejmenší město: Liberec (103,000)"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#cvičení-2-filtrace-a-export",
+    "href": "lessons/lesson_07.html#cvičení-2-filtrace-a-export",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "8.2 Cvičení 2: Filtrace a export",
+    "text": "8.2 Cvičení 2: Filtrace a export\nVytvořte program, který:\n\nNačte mesta.txt\nVytvoří DVA nové soubory:\n\nvelka_mesta.txt - města nad 200 000\nmala_mesta.txt - města pod 200 000\n\nKaždý soubor má formát:\n\nVelká města (populace &gt; 200 000)\n================================\nPraha: 1,300,000\nBrno: 380,000\n..."
+  },
+  {
+    "objectID": "lessons/lesson_07.html#co-jsme-se-naučili",
+    "href": "lessons/lesson_07.html#co-jsme-se-naučili",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "9.1 Co jsme se naučili",
+    "text": "9.1 Co jsme se naučili\n✅ open() - otevírání souborů s různými režimy\n✅ read(), readlines() - čtení obsahu\n✅ write() - zápis do souborů\n✅ with statement - bezpečná práce se soubory\n✅ strip() - odstranění bílých znaků\n✅ split() - rozdělení řetězce\n✅ encoding=“utf-8” - správné kódování češtiny\n✅ Propojení s funkcemi - použití math_utils na data ze souborů"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#co-bude-příště",
+    "href": "lessons/lesson_07.html#co-bude-příště",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "9.2 Co bude příště?",
+    "text": "9.2 Co bude příště?\nV příští lekci:\n\nCSV formát - Comma-Separated Values\nModul csv - profesionální práce s CSV\ncsv.reader() a csv.DictReader()\nSložitější tabulky - více sloupců, hlavičky\nPropojení s GIS - atributové tabulky jako CSV"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#varianta-a-základní",
+    "href": "lessons/lesson_07.html#varianta-a-základní",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "10.1 Varianta A (základní)",
+    "text": "10.1 Varianta A (základní)\nVytvořte soubor teploty.txt:\nPondělí 15\nÚterý 18\nStředa 22\nČtvrtek 19\nPátek 16\nNapište program, který: 1. Načte data 2. Spočítá průměrnou teplotu 3. Najde den s nejvyšší teplotou 4. Uloží výsledky do vysledky_teploty.txt"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#varianta-b-pokročilá",
+    "href": "lessons/lesson_07.html#varianta-b-pokročilá",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "10.2 Varianta B (pokročilá)",
+    "text": "10.2 Varianta B (pokročilá)\nVytvořte soubor okresy.txt:\nPraha 1300000 496\nBrno 380000 230\nOstrava 290000 214\nPlzeň 170000 261\nFormát: Název Populace Rozloha (všechny hodnoty oddělené mezerami)\nNapište program, který: 1. Pro každý okres vypočítá hustotu obyvatel (populace/rozloha) 2. Použije bubble_sort() z math_utils pro seřazení okresů podle hustoty 3. Uloží výsledky do hustota_okresu.txt:\nOkresy seřazené podle hustoty obyvatel\n========================================\nPraha: 2,621 obyvatel/km²\nBrno: 1,652 obyvatel/km²\n..."
+  },
+  {
+    "objectID": "lessons/lesson_07.html#varianta-c-výzva",
+    "href": "lessons/lesson_07.html#varianta-c-výzva",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "10.3 Varianta C (výzva)",
+    "text": "10.3 Varianta C (výzva)\n**Vytvoř\nte vlastní modul soubory_utils.py** s funkcemi:\ndef nacti_cisla(nazev_souboru):\n    \"\"\"Načte čísla ze souboru (jedno číslo na řádek).\"\"\"\n    # ...\n\ndef uloz_cisla(nazev_souboru, cisla):\n    \"\"\"Uloží seznam čísel do souboru (jedno na řádek).\"\"\"\n    # ...\n\ndef nacti_tabulku(nazev_souboru):\n    \"\"\"Načte tabulku hodnot oddělených mezerami.\n    Vrátí seznam seznamů.\n    \"\"\"\n    # ...\nPoužijte tyto funkce v hlavním programu pro zpracování dat!"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#běžné-chyby-studentů",
+    "href": "lessons/lesson_07.html#běžné-chyby-studentů",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "12.1 Běžné chyby studentů",
+    "text": "12.1 Běžné chyby studentů\n# 1. Zapomínají strip()\nradek = \"Praha 1300000\\n\"\ncasti = radek.split()  # ['Praha', '1300000\\n'] - \\n je tam!\n# Správně:\nradek = radek.strip()\ncasti = radek.split()  # ['Praha', '1300000']\n\n# 2. Zapomínají převést na int\npopulace = casti[1]         # \"1300000\" (string!)\nvysledek = populace + 1000  # CHYBA!\n# Správně:\npopulace = int(casti[1])\n\n# 3. Zapomínají encoding\nwith open(\"soubor.txt\", \"r\") as f:  # Chyba s českými znaky!\n# Správně:\nwith open(\"soubor.txt\", \"r\", encoding=\"utf-8\") as f:\n\n# 4. Používají \"w\" místo \"a\"\nwith open(\"log.txt\", \"w\") as f:  # Každé spuštění VYMAŽE soubor!\n# Správně pro přidání:\nwith open(\"log.txt\", \"a\") as f:\n\n# 5. Zapomínají uzavřít soubor (bez with)\nf = open(\"soubor.txt\", \"r\")\nobsah = f.read()\n# Zapomněli f.close()!\n\n# 6. Rozdělení prázdného řádku\nradek = \"\\n\"\ncasti = radek.split()  # [] - prázdný seznam!\nmesto = casti[0]       # CHYBA - IndexError!\n# Řešení: kontrolovat if radek.strip():"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#časový-plán-90-min",
+    "href": "lessons/lesson_07.html#časový-plán-90-min",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "12.2 Časový plán (90 min)",
+    "text": "12.2 Časový plán (90 min)\n\n\n\nČas\nObsah\n\n\n\n\n0-15 min\nMotivace, open(), read()\n\n\n15-30 min\nreadlines(), with statement\n\n\n30-50 min\nstrip(), split(), zpracování\n\n\n50-70 min\nPraktická úloha - města společně\n\n\n70-80 min\nZápis do souborů\n\n\n80-90 min\nPropojení s math_utils, zadání úkolu"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#klíčové-momenty",
+    "href": "lessons/lesson_07.html#klíčové-momenty",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "12.3 Klíčové momenty",
+    "text": "12.3 Klíčové momenty\n\n12.3.1 with statement (15-30 min):\n\nDŮLEŽITÉ: Zdůraznit, že je to bezpečnější způsob\nUkázat, co se stane při chybě (soubor se stejně zavře)\nŘíct, že v praxi se VŽDY používá with\n\n\n\n12.3.2 strip() a split() (30-50 min):\n\nPrakticky ukázat na projektoru\nNechat studenty experimentovat\nUkázat častou chybu: zapomenutí strip() před split()\n\n\n\n12.3.3 Encoding (v průběhu):\n\nZmínit při první práci se souborem\nVysvětlit: “UTF-8 = standard pro češtinu”\nŘíct: “Vždy to přidávejte, až to budete potřebovat, připomenu”\n\n\n\n12.3.4 Propojení s math_utils (80-90 min):\n\nUkázat, jak použít je_prvocislo() na data ze souboru\nZdůraznit: “Takhle budete kombinovat ArcPy s jinými funkcemi!”"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#rizika",
+    "href": "lessons/lesson_07.html#rizika",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "12.4 Rizika",
+    "text": "12.4 Rizika\n\nstrip() a split() mohou být matoucí (20 min → 25 min)\n\nŘešení: Praktické ukázky, nechat je experimentovat\nMít připravené příklady na projektoru\n\nEncoding problémy\n\nŘešení: Hned na začátku říct “vždy používejte utf-8”\nPokud narazí na chybu, ukázat jak opravit\n\nStudenti nestihnou cvičení\n\nŘešení: Cvičení 1 společně, Cvičení 2 jako domácí úkol\nMít připravené řešení"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#tipy",
+    "href": "lessons/lesson_07.html#tipy",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "12.5 Tipy",
+    "text": "12.5 Tipy\n\nVytvořte soubor mesta.txt předem a sdílejte ho se studenty\nNa projektoru ukazujte obsah souboru vedle kódu\nPoužívejte print() často - ať vidí, co se děje\nZdůrazněte: “CSV příští týden - tohle je příprava!”\nPropojení s GIS: “Atributové tabulky v ArcGIS exportujete jako CSV, zpracujete Pythonem, importujete zpět!”"
+  },
+  {
+    "objectID": "lessons/lesson_07.html#materiály-k-přípravě",
+    "href": "lessons/lesson_07.html#materiály-k-přípravě",
+    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
+    "section": "12.6 Materiály k přípravě",
+    "text": "12.6 Materiály k přípravě\n\nSoubor mesta.txt s ukázkovými daty\nSoubor teploty.txt pro domácí úkol\nŘešení všech cvičení\nDiagram: otevření → zpracování → zavření souboru"
   }
 ]
