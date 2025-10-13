@@ -270,7 +270,7 @@ print(f"Hodnota: {cisla[min_index]}")
 
 Při třídění budeme chtít **prohodit** pozice prvků. K tomu potřebujeme
 vědět, **kde** se minimum nachází!
-
+:::
 
 ------------------------------------------------------------------------
 
@@ -534,7 +534,6 @@ jsme dělali před chvílí!
 
 Selection Sort = **opakované použití** algoritmu pro hledání minima! 🎯
 :::
-
 
 ::: callout-tip
 ## Pro praxi

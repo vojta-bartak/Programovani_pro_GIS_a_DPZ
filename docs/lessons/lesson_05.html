@@ -212,6 +212,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#maximum---obdobně" id="toc-maximum---obdobně" class="nav-link" data-scroll-target="#maximum---obdobně"><span class="header-section-number">3.4</span> Maximum - obdobně</a></li>
   <li><a href="#hledání-indexu-minima" id="toc-hledání-indexu-minima" class="nav-link" data-scroll-target="#hledání-indexu-minima"><span class="header-section-number">3.5</span> Hledání indexu minima</a></li>
   </ul></li>
+  <li><a href="#třídění" id="toc-třídění" class="nav-link" data-scroll-target="#třídění"><span class="header-section-number">4</span> Třídění</a>
+  <ul class="collapse">
+  <li><a href="#motivace-1" id="toc-motivace-1" class="nav-link" data-scroll-target="#motivace-1"><span class="header-section-number">4.1</span> Motivace</a></li>
+  <li><a href="#bubble-sort-bublinové-třídění" id="toc-bubble-sort-bublinové-třídění" class="nav-link" data-scroll-target="#bubble-sort-bublinové-třídění"><span class="header-section-number">4.2</span> Bubble Sort (bublinové třídění)</a>
+  <ul class="collapse">
+  <li><a href="#princip" id="toc-princip" class="nav-link" data-scroll-target="#princip"><span class="header-section-number">4.2.1</span> Princip</a></li>
+  <li><a href="#vizualizace-na-příkladu-5-2-8-1-9" id="toc-vizualizace-na-příkladu-5-2-8-1-9" class="nav-link" data-scroll-target="#vizualizace-na-příkladu-5-2-8-1-9"><span class="header-section-number">4.2.2</span> Vizualizace na příkladu <code>[5, 2, 8, 1, 9]</code></a></li>
+  <li><a href="#implementace---společně-1" id="toc-implementace---společně-1" class="nav-link" data-scroll-target="#implementace---společně-1"><span class="header-section-number">4.2.3</span> Implementace - společně</a></li>
+  <li><a href="#alternativní-implementace-volitelně" id="toc-alternativní-implementace-volitelně" class="nav-link" data-scroll-target="#alternativní-implementace-volitelně"><span class="header-section-number">4.2.4</span> Alternativní implementace (volitelně)</a></li>
+  <li><a href="#proč-lenseznam---1---i" id="toc-proč-lenseznam---1---i" class="nav-link" data-scroll-target="#proč-lenseznam---1---i"><span class="header-section-number">4.2.5</span> Proč <code>len(seznam) - 1 - i</code>?</a></li>
+  </ul></li>
+  <li><a href="#selection-sort-třídění-výběrem" id="toc-selection-sort-třídění-výběrem" class="nav-link" data-scroll-target="#selection-sort-třídění-výběrem"><span class="header-section-number">4.3</span> Selection Sort (třídění výběrem)</a>
+  <ul class="collapse">
+  <li><a href="#princip-1" id="toc-princip-1" class="nav-link" data-scroll-target="#princip-1"><span class="header-section-number">4.3.1</span> Princip</a></li>
+  <li><a href="#vizualizace-krok-za-krokem" id="toc-vizualizace-krok-za-krokem" class="nav-link" data-scroll-target="#vizualizace-krok-za-krokem"><span class="header-section-number">4.3.2</span> Vizualizace krok za krokem</a></li>
+  <li><a href="#implementace---společně-2" id="toc-implementace---společně-2" class="nav-link" data-scroll-target="#implementace---společně-2"><span class="header-section-number">4.3.3</span> Implementace - společně</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#vnořené-cykly-a-propojení-s-model-builderem" id="toc-vnořené-cykly-a-propojení-s-model-builderem" class="nav-link" data-scroll-target="#vnořené-cykly-a-propojení-s-model-builderem"><span class="header-section-number">5</span> Vnořené cykly a propojení s Model Builderem</a>
+  <ul class="collapse">
+  <li><a href="#co-jsou-vnořené-cykly" id="toc-co-jsou-vnořené-cykly" class="nav-link" data-scroll-target="#co-jsou-vnořené-cykly"><span class="header-section-number">5.1</span> Co jsou vnořené cykly?</a></li>
+  <li><a href="#praktický-příklad-tabulka-násobení" id="toc-praktický-příklad-tabulka-násobení" class="nav-link" data-scroll-target="#praktický-příklad-tabulka-násobení"><span class="header-section-number">5.2</span> Praktický příklad: Tabulka násobení</a></li>
+  <li><a href="#propojení-s-model-builderem" id="toc-propojení-s-model-builderem" class="nav-link" data-scroll-target="#propojení-s-model-builderem"><span class="header-section-number">5.3</span> Propojení s Model Builderem</a>
+  <ul class="collapse">
+  <li><a href="#příklad-gis-úloha" id="toc-příklad-gis-úloha" class="nav-link" data-scroll-target="#příklad-gis-úloha"><span class="header-section-number">5.3.1</span> Příklad: GIS úloha</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">6</span> Shrnutí</a>
+  <ul class="collapse">
+  <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">6.1</span> Co jsme se naučili</a></li>
+  <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">6.2</span> Co bude příště?</a></li>
+  </ul></li>
+  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">7</span> Domácí úkol</a>
+  <ul class="collapse">
+  <li><a href="#varianta-a-základní" id="toc-varianta-a-základní" class="nav-link" data-scroll-target="#varianta-a-základní"><span class="header-section-number">7.1</span> Varianta A (základní)</a></li>
+  <li><a href="#varianta-b-pokročilá" id="toc-varianta-b-pokročilá" class="nav-link" data-scroll-target="#varianta-b-pokročilá"><span class="header-section-number">7.2</span> Varianta B (pokročilá)</a></li>
+  <li><a href="#varianta-c-výzva" id="toc-varianta-c-výzva" class="nav-link" data-scroll-target="#varianta-c-výzva"><span class="header-section-number">7.3</span> Varianta C (výzva)</a></li>
+  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">8</span> Cheatsheet</a></li>
   </ul>
 </nav>
     </div>
@@ -491,7 +530,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container callout-body">
 <p>Při třídění budeme chtít <strong>prohodit</strong> pozice prvků. K tomu potřebujeme vědět, <strong>kde</strong> se minimum nachází!</p>
+</div>
+</div>
 <hr>
+</section>
+</section>
 <section id="třídění" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Třídění</h1>
 <section id="motivace-1" class="level2" data-number="4.1">
@@ -1054,10 +1097,6 @@ minimum = cisla[0]  # ✓ Začít s prvním prvkem!
 -->
 
 
-</section>
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
