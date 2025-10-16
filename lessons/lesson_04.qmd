@@ -10,10 +10,16 @@ format:
     number-sections: true
     code-fold: false
     theme: cosmo
+  pdf:       
+    toc: true
+    toc-depth: 3
+    number-sections: true
 editor: 
   markdown: 
     wrap: 72
 ---
+
+\newpage
 
 # Cíle lekce
 
@@ -756,6 +762,8 @@ stringem.
 
 ------------------------------------------------------------------------
 
+\newpage
+
 # 9. Cheatsheet
 
 ``` python
@@ -817,9 +825,11 @@ a, b = b, a + b  # Fibonacci výměna
 
 ------------------------------------------------------------------------
 
-````{=html}
-<!--
-# 10. Poznámky pro vyučujícího
+::: {.content-visible when-format="pdf"}
+
+\newpage
+
+# Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
 
@@ -900,5 +910,4 @@ a, b = b, a + b  # SPRÁVNĚ - současné přiřazení
 -   Ukázat na tabuli: "Co bude v `a` a `b` po každém kroku?"
 -   Nechat studenty předpovídat další krok
 -   Faktoriál je jednodušší - můžou zvládnout sami
--->
-````
+:::

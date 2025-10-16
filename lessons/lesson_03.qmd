@@ -10,7 +10,13 @@ format:
     number-sections: true
     code-fold: false
     theme: cosmo
+  pdf:       
+    toc: true
+    toc-depth: 3
+    number-sections: true
 ---
+
+\newpage
 
 # Cíle lekce
 
@@ -276,6 +282,26 @@ V Pythonu záleží na velikosti písmen:
 
 -   `True` a `False` - správně (s velkým písmenem)
 -   `true` a `false` - CHYBA!
+:::
+
+::: callout-tip
+## Pozor na velká písmena!
+
+V Pythonu lze přiřadit více hodnot více proměnným jedním příkazem:
+
+``` python
+a, b = 3, 5
+```
+
+Toho lze využít např. při prohození hodnot mezi dvěma proměnnými:
+
+``` python
+# Klasický přístup přes pomocnou proměnnou
+c = a   # zachytí se původní hodnota proměnné a
+a = b   # nyní je možné hodnotu proměnné a změnit
+b = c   # původní hodnota proměnné a je uchována v c
+del c   # volitelně lze pomocnou proměnnou c smazat
+```
 :::
 
 ## Pojmenování proměnných
@@ -589,6 +615,8 @@ V další lekci se naučíme:
 
 ------------------------------------------------------------------------
 
+\newpage
+
 # Cheatsheet
 
 ``` python
@@ -626,8 +654,10 @@ sum(list_a)                 # součet prvků
 
 ------------------------------------------------------------------------
 
-````{=html}
-<!--
+::: {.content-visible when-format="pdf"}
+
+\newpage
+
 # Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
@@ -668,5 +698,4 @@ lista[0]           # to je PRVNÍ prvek! ✅
 -   **Input vrací string** - ukázat chybu a řešení
 -   **f-stringy** - naučit hned, je to nejlepší způsob
 -   **Seznamy** - základ pro cykly (příští lekce)
--->
-````
+:::

@@ -886,7 +886,7 @@
     "href": "lessons/lesson_03.html#základní-datové-typy",
     "title": "Lekce 3: Úvod do Pythonu I – První program",
     "section": "4.2 Základní datové typy",
-    "text": "4.2 Základní datové typy\n\n4.2.1 Celá čísla (int)\nvek = 25\npocet_bodu = 150\n\n\n4.2.2 Desetinná čísla (float)\nprumerna_teplota = 15.7\nnadmorska_vyska = 234.5\n\n\n4.2.3 Text (string nebo str)\njmeno = \"Jan Novák\"\nmesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky\n\n\n4.2.4 Logické hodnoty (bool)\nje_student = True\nje_zamestnanec = False\n\n\n\n\n\n\nWarningPozor na velká písmena!\n\n\n\nV Pythonu záleží na velikosti písmen:\n\nTrue a False - správně (s velkým písmenem)\ntrue a false - CHYBA!"
+    "text": "4.2 Základní datové typy\n\n4.2.1 Celá čísla (int)\nvek = 25\npocet_bodu = 150\n\n\n4.2.2 Desetinná čísla (float)\nprumerna_teplota = 15.7\nnadmorska_vyska = 234.5\n\n\n4.2.3 Text (string nebo str)\njmeno = \"Jan Novák\"\nmesto = 'Praha'  # Fungují jednoduché i dvojité uvozovky\n\n\n4.2.4 Logické hodnoty (bool)\nje_student = True\nje_zamestnanec = False\n\n\n\n\n\n\nWarningPozor na velká písmena!\n\n\n\nV Pythonu záleží na velikosti písmen:\n\nTrue a False - správně (s velkým písmenem)\ntrue a false - CHYBA!\n\n\n\n\n\n\n\n\n\nTipPozor na velká písmena!\n\n\n\nV Pythonu lze přiřadit více hodnot více proměnným jedním příkazem:\na, b = 3, 5\nToho lze využít např. při prohození hodnot mezi dvěma proměnnými:\n# Klasický přístup přes pomocnou proměnnou\nc = a   # zachytí se původní hodnota proměnné a\na = b   # nyní je možné hodnotu proměnné a změnit\nb = c   # původní hodnota proměnné a je uchována v c\ndel c   # volitelně lze pomocnou proměnnou c smazat"
   },
   {
     "objectID": "lessons/lesson_03.html#pojmenování-proměnných",

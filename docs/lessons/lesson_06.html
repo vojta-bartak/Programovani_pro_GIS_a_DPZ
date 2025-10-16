@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
-<meta name="dcterms.date" content="2025-10-13">
+<meta name="dcterms.date" content="2025-10-15">
 
 <title>Lekce 6: Funkce a moduly – Programování pro GIS a DPZ</title>
 <style>
@@ -266,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">13</span> Cheatsheet</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_06.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -291,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 13, 2025</p>
+      <p class="date">October 15, 2025</p>
     </div>
   </div>
   
@@ -1045,116 +1045,6 @@ fibonacci(n)
 <span id="cb38-62"><a href="#cb38-62" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> spatne(<span class="dv">5</span>)       <span class="co"># a = None</span></span>
 <span id="cb38-63"><a href="#cb38-63" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> spravne(<span class="dv">5</span>)      <span class="co"># b = 10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-<!--
-# 13. Poznámky pro vyučujícího
-
-## Běžné chyby studentů
-
-```python
-# 1. Zapomínají return
-def secti(a, b):
-    vysledek = a + b
-    # Zapomněli return!
-
-x = secti(5, 3)  # x = None
-
-# 2. Používají print místo return
-def secti(a, b):
-    print(a + b)  # Špatně!
-    
-vysledek = secti(5, 3) + 10  # Chyba!
-
-# 3. Volají funkci s def
-def fibonacci(n)  # Zapomněli dvojtečku!
-
-# 4. Zapomínají závorky při volání
-fibonacci  # Toto je funkce samotná, ne výsledek!
-fibonacci(10)  # Správně - volání
-
-# 5. Špatný import
-import math_utils
-fibonacci(10)  # Chyba - musí být math_utils.fibonacci(10)
-
-# Nebo:
-from math_utils import fibonacci
-math_utils.fibonacci(10)  # Chyba - už není potřeba math_utils.
-
-# 6. Soubory v jiných složkách
-# main.py je v C:\Users\Jan\projekt\
-# math_utils.py je v C:\Users\Jan\Desktop\
-# import math_utils  # NEFUNGUJE!
-```
-
-## Časový plán (90 min)
-
-| Čas | Obsah |
-|-----|-------|
-| 0-10 min | Motivace - proč funkce? DRY princip |
-| 10-30 min | Definice funkcí, parametry, return |
-| 30-40 min | print() vs. return - DŮLEŽITÉ! |
-| 40-50 min | Docstrings, přepis Fibonacci/faktoriál |
-| 50-60 min | Cvičení - přepis prvočísla a třídění |
-| 60-75 min | Moduly - vytvoření math_utils.py |
-| 75-85 min | Import, použití v main.py |
-| 85-90 min | Preview ArcPy, zadání úkolu |
-
-## Klíčové momenty
-
-### print() vs. return (30-40 min):
-- **NEJDŮLEŽITĚJŠÍ KONCEPT** v této lekci!
-- Studenti často nerozumí rozdílu
-- Ukázat konkrétní příklad, kde print() selhává:
-
-```python
-def spatne(x):
-    print(x * 2)
-
-vysledek = spatne(5) + 10  # TypeError!
-```
-
-- Vysvětlit: "print je pro LIDI, return je pro PROGRAM"
-
-### Moduly (60-85 min):
-- Prakticky vytvořit math_utils.py společně
-- Ukázat, že musí být ve stejné složce
-- Otestovat import v main.py
-- Zdůraznit: "ArcPy bude fungovat úplně stejně!"
-
-### Docstrings (40-50 min):
-- Nemusí být dokonalé, ale alespoň jednořádkové
-- Ukázat `help(funkce)`
-- Zdůraznit, že v praxi je dokumentace důležitá
-
-## Rizika
-
-1. **print() vs. return může být matoucí (může trvat 15 min)**
-   - Řešení: Věnovat tomu dostatek času, ukázat konkrétní příklady
-   - Nechat studenty experimentovat
-
-2. **Import nemusí fungovat (chyby s cestami)**
-   - Řešení: Zdůraznit, že soubory musí být ve stejné složce
-   - Mít připravené screenshoty struktury složek
-
-3. **Studenti budou různě rychlí s přepisem funkcí**
-   - Řešení: Rychlejší pomáhají pomalejším
-   - Můžete poskytnout kostru math_utils.py
-
-## Tipy
-
-- **print() vs. return je nejčastější problém** - věnujte tomu extra čas!
-- Na konci vždy zdůrazněte: "ArcPy je jen modul - budete psát `import arcpy` stejně jako `import math_utils`"
-- Ukažte `help()` funkci - je užitečná pro čtení dokumentace
-- Vytvořte math_utils.py společně na projektoru - ať vidí celý proces
-- Nechte je otestovat všechny funkce v main.py
-
-## Materiály k přípravě
-
-- [ ] Připravit kostru math_utils.py (pro pomalé studenty)
-- [ ] Ukázková main.py s použitím všech funkcí
-- [ ] Diagram struktury projektu (složky a soubory)
-- [ ] Cheatsheet pro různé způsoby importu
-
--->
 
 
 </section>

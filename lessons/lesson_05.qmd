@@ -10,10 +10,16 @@ format:
     number-sections: true
     code-fold: false
     theme: cosmo
+  pdf:       
+    toc: true
+    toc-depth: 3
+    number-sections: true
 editor: 
   markdown: 
     wrap: 72
 ---
+
+\newpage
 
 # Cíle lekce
 
@@ -722,6 +728,8 @@ V příští lekci:
 
 ------------------------------------------------------------------------
 
+\newpage
+
 # Cheatsheet
 
 ``` python
@@ -782,8 +790,10 @@ for i in range(n):
 
 ------------------------------------------------------------------------
 
-````{=html}
-<!--
+::: {.content-visible when-format="pdf"}
+
+\newpage
+
 # Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
@@ -866,6 +876,4 @@ minimum = cisla[0]  # ✓ Začít s prvním prvkem!
 -   **Minimum → Selection Sort** - zdůrazněte propojení
 -   Ukažte, jak elegantní je `sort()` po tom, co implementovali vlastní
     algoritmus
-
--->
-````
+:::

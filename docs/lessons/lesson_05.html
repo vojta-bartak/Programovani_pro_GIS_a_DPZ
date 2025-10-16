@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
-<meta name="dcterms.date" content="2025-10-13">
+<meta name="dcterms.date" content="2025-10-15">
 
 <title>Lekce 5: Tvorba jednoduchého algoritmu – Programování pro GIS a DPZ</title>
 <style>
@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">8</span> Cheatsheet</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_05.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -277,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 13, 2025</p>
+      <p class="date">October 15, 2025</p>
     </div>
   </div>
   
@@ -1010,91 +1010,6 @@ Zpracovávám: Ostrava, 2022</code></pre>
 <span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Pro každé i projdi všechna j</span></span>
 <span id="cb34-53"><a href="#cb34-53" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>j<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-<!--
-# Poznámky pro vyučujícího
-
-## Běžné chyby studentů
-
-``` python
-# 1. Slicing - zapomínají, že stop je bez
-seznam[2:5]  # [2, 3, 4] - NE [2, 3, 4, 5]!
-
-# 2. Bubble sort - zapomínají range(len - 1)
-for i in range(len(seznam)):  # CHYBA - index out of range!
-    if seznam[i] > seznam[i + 1]:  # i+1 přesáhne délku
-
-# Správně:
-for i in range(len(seznam) - 1):
-
-# 3. Selection sort - prohození před nalezením minima
-for i in range(len(seznam)):
-    min_index = i  # ✓
-    seznam[i], seznam[min_index] = ...  # ✗ CHYBA - min_index ještě není správný!
-    # Najít minimum NEJDŘÍV!
-
-# 4. Minimum - zapomínají inicializovat
-minimum = cisla[0]  # ✓ Začít s prvním prvkem!
-```
-
-## Časový plán (90 min)
-
-| Čas | Obsah |
-|----------------|--------------------------------------------------------|
-| 0-5 min | Rekapitulace minulé lekce |
-| 5-20 min | Seznamy - slicing a metody |
-| 20-45 min | **Minimum/Maximum** - hodnota + index |
-| 45-85 min | **Třídění** - Bubble Sort (20 min) + Selection Sort (20 min) + vnořené cykly (5 min) |
-| 85-90 min | Domácí úkol |
-
-## Klíčové momenty
-
-### Seznamy (5-20 min):
-
--   Slicing ukázat na konkrétních příkladech
--   `[::-1]` je nejužitečnější trik
--   Metody rychle proletět, nejsou kritické
-
-### Minimum/Maximum (20-45 min):
-
--   **Zdůrazněte:** "Tohle použijeme za chvíli v třídění!"
--   **Index minima** je klíčový - věnujte tomu čas
--   Nechte studenty implementovat minimum sami
--   Ukažte debugovací verzi
-
-### Třídění (45-85 min):
-
--   **KRITICKÉ:** Začít brainstormingem (5 min)
--   Studenti často sami přijdou na algoritmy!
--   **Bubble Sort s while** - zdůrazněte přirozenou logiku
--   **Selection Sort** - "Vidíte? To jsme dělali před chvílí!"
--   Vizualizovat na tabuli/projektoru
--   Zdůraznit vnořené cykly
-
-## Rizika a řešení
-
-1.  **Třídění může být těžké**
-    -   Řešení: Mít připravený promítaný kód
-    -   Selection Sort je volitelný (můžete přeskočit)
-    -   Důležitější je dobrý Bubble Sort
-2.  **Studenti budou různě rychlí**
-    -   Řešení: Rychlejší pomáhají pomalejším
-    -   Bonusové úkoly pro rychlé
-3.  **Vnořené cykly jsou abstraktní**
-    -   Řešení: Vizualizovat tabulku násobení
-    -   Propojit s Model Builderem iterátory!
-
-## Tipy
-
--   **Brainstorming třídění je klíčový!** Dejte studentům čas přemýšlet
--   Na tabuli vizualizujte krok za krokem
--   Připravte si seznam čísel na kartičkách - fyzické třídění!
--   **Propojení s Model Builderem** - tento moment je důležitý,
-    zdůrazněte ho!
--   **Minimum → Selection Sort** - zdůrazněte propojení
--   Ukažte, jak elegantní je `sort()` po tom, co implementovali vlastní
-    algoritmus
-
--->
 
 
 </section>

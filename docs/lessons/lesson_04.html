@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
-<meta name="dcterms.date" content="2025-10-13">
+<meta name="dcterms.date" content="2025-10-15">
 
 <title>Lekce 4: Podmínky a cykly – Programování pro GIS a DPZ</title>
 <style>
@@ -271,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">10</span> 9. Cheatsheet</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_04.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -296,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 13, 2025</p>
+      <p class="date">October 15, 2025</p>
     </div>
   </div>
   
@@ -1021,89 +1021,6 @@ print(f"{n}! = {vysledek}")
 <span id="cb49-53"><a href="#cb49-53" aria-hidden="true" tabindex="-1"></a><span class="co"># === SOUČASNÉ PŘIŘAZENÍ ===</span></span>
 <span id="cb49-54"><a href="#cb49-54" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> b, a <span class="op">+</span> b  <span class="co"># Fibonacci výměna</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-<!--
-# 10. Poznámky pro vyučujícího
-
-## Běžné chyby studentů
-
-``` python
-# 1. Záměna = a ==
-if vek = 18:     # CHYBA - přiřazení místo porovnání
-if vek == 18:    # SPRÁVNĚ
-
-# 2. Chybějící odsazení
-if vek >= 18:
-print("OK")      # CHYBA - není odsazené
-    print("OK")  # SPRÁVNĚ
-
-# 3. Zapomenuté inicializace
-for i in range(10):
-    soucet += i  # CHYBA - soucet neexistuje
-
-soucet = 0       # SPRÁVNĚ - nejprve inicializovat
-for i in range(10):
-    soucet += i
-
-# 4. Špatný range
-range(10)        # 0-9 (ne 1-10!)
-range(1, 11)     # 1-10 (správně pro součet 1-10)
-
-# 5. Nekonečný while
-while True:      # CHYBA - nikdy neskončí
-    print("...")
-
-# 6. Fibonacci výměna
-a = b
-b = a + b        # CHYBA - a už je změněné!
-
-a, b = b, a + b  # SPRÁVNĚ - současné přiřazení
-```
-
-## Časový plán (90 min)
-
-| Čas       | Obsah                                    |
-|-----------|------------------------------------------|
-| 0-15 min  | Logické hodnoty, porovnávání             |
-| 15-35 min | Podmínky (if/elif/else) + cvičení        |
-| 35-55 min | For cykly, range() + cvičení             |
-| 55-65 min | While cykly, break/continue              |
-| 65-80 min | Fibonacci - společně krok za krokem      |
-| 80-90 min | Faktoriál - samostatně (nebo začít doma) |
-
-## Klíčové momenty
-
-### Fibonacci (65-80 min):
-
--   **DŮLEŽITÉ:** Procházet KROK ZA KROKEM
--   Na tabuli/projektoru ukázat hodnoty `a` a `b` v každé iteraci
--   Vysvětlit `a, b = b, a + b` pečlivě
--   Nechat studenty říct, co se stane v dalším kroku
-
-### Faktoriál (80-90 min):
-
--   Pokud nestihnou, je to OK - je to domácí úkol
--   Důležitější je, aby rozuměli Fibonaccimu
--   Pokud stihnou, ukázat řešení a porovnat for vs. while
-
-## Rizika
-
-1.  **Fibonacci může trvat déle (15 min → 20 min)**
-    -   Řešení: Zkrátit while cykly (10 min → 5 min)
-    -   Mít připravený promítaný kód
-2.  **Studenti budou různě rychlí**
-    -   Řešení: Rychlejší pomáhají pomalejším
-    -   Bonusové úkoly pro rychlé
-3.  **Faktoriál nestihnou**
-    -   Řešení: To je v pořádku, dokončí doma
-    -   Hlavní cíl = pochopit Fibonacci
-
-## Tipy
-
--   **Fibonacci výměna je nejdůležitější koncept** - věnovat tomu čas!
--   Ukázat na tabuli: "Co bude v `a` a `b` po každém kroku?"
--   Nechat studenty předpovídat další krok
--   Faktoriál je jednodušší - můžou zvládnout sami
--->
 
 
 </section>

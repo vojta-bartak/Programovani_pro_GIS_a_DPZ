@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
-<meta name="dcterms.date" content="2025-10-13">
+<meta name="dcterms.date" content="2025-10-15">
 
 <title>Lekce 3: Úvod do Pythonu I – První program – Programování pro GIS a DPZ</title>
 <style>
@@ -278,7 +278,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">11</span> Cheatsheet</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_03.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -303,7 +303,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 13, 2025</p>
+      <p class="date">October 15, 2025</p>
     </div>
   </div>
   
@@ -588,6 +588,26 @@ Python, Java</code></pre>
 </ul>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pozor na velká písmena!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V Pythonu lze přiřadit více hodnot více proměnným jedním příkazem:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>a, b <span class="op">=</span> <span class="dv">3</span>, <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Toho lze využít např. při prohození hodnot mezi dvěma proměnnými:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Klasický přístup přes pomocnou proměnnou</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> a   <span class="co"># zachytí se původní hodnota proměnné a</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> b   <span class="co"># nyní je možné hodnotu proměnné a změnit</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> c   <span class="co"># původní hodnota proměnné a je uchována v c</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> c   <span class="co"># volitelně lze pomocnou proměnnou c smazat</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
 </section>
 </section>
 <section id="pojmenování-proměnných" class="level2" data-number="4.3">
@@ -612,37 +632,37 @@ Python, Java</code></pre>
 <h1 data-number="5"><span class="header-section-number">5</span> Práce s čísly</h1>
 <section id="základní-operace" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="základní-operace"><span class="header-section-number">5.1</span> Základní operace</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sčítání</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">+</span> <span class="dv">3</span>  <span class="co"># 8</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Odčítání</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">-</span> <span class="dv">4</span>  <span class="co"># 6</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Násobení</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span>  <span class="co"># 12</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Dělení (výsledek je vždy float!)</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">/</span> <span class="dv">3</span>  <span class="co"># 3.3333...</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Celočíselné dělení</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">//</span> <span class="dv">3</span>  <span class="co"># 3</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Zbytek po dělení (modulo)</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">%</span> <span class="dv">3</span>  <span class="co"># 1</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Mocnina</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span>  <span class="co"># 8 (2 na třetí)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sčítání</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="op">+</span> <span class="dv">3</span>  <span class="co"># 8</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Odčítání</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">-</span> <span class="dv">4</span>  <span class="co"># 6</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Násobení</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span>  <span class="co"># 12</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Dělení (výsledek je vždy float!)</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">/</span> <span class="dv">3</span>  <span class="co"># 3.3333...</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Celočíselné dělení</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">//</span> <span class="dv">3</span>  <span class="co"># 3</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Zbytek po dělení (modulo)</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="op">%</span> <span class="dv">3</span>  <span class="co"># 1</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Mocnina</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span>  <span class="co"># 8 (2 na třetí)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="příklady-s-proměnnými" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="příklady-s-proměnnými"><span class="header-section-number">5.2</span> Příklady s proměnnými</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>vyska <span class="op">=</span> <span class="dv">180</span>  <span class="co"># cm</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>hmotnost <span class="op">=</span> <span class="dv">75</span>  <span class="co"># kg</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># BMI = hmotnost / (vyska v metrech)^2</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>vyska_m <span class="op">=</span> vyska <span class="op">/</span> <span class="dv">100</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>bmi <span class="op">=</span> hmotnost <span class="op">/</span> (vyska_m <span class="op">**</span> <span class="dv">2</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bmi)  <span class="co"># 23.148...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>vyska <span class="op">=</span> <span class="dv">180</span>  <span class="co"># cm</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>hmotnost <span class="op">=</span> <span class="dv">75</span>  <span class="co"># kg</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># BMI = hmotnost / (vyska v metrech)^2</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>vyska_m <span class="op">=</span> vyska <span class="op">/</span> <span class="dv">100</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>bmi <span class="op">=</span> hmotnost <span class="op">/</span> (vyska_m <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bmi)  <span class="co"># 23.148...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
@@ -650,27 +670,27 @@ Python, Java</code></pre>
 <h1 data-number="6"><span class="header-section-number">6</span> Práce s textem (stringy)</h1>
 <section id="spojování-stringů" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="spojování-stringů"><span class="header-section-number">6.1</span> Spojování stringů</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="st">"Jan"</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>prijmeni <span class="op">=</span> <span class="st">"Novák"</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Spojení (concatenation)</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>cele_jmeno <span class="op">=</span> jmeno <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> prijmeni</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cele_jmeno)  <span class="co"># Jan Novák</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="st">"Jan"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>prijmeni <span class="op">=</span> <span class="st">"Novák"</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Spojení (concatenation)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>cele_jmeno <span class="op">=</span> jmeno <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> prijmeni</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cele_jmeno)  <span class="co"># Jan Novák</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="f-stringy-doporučený-způsob" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="f-stringy-doporučený-způsob"><span class="header-section-number">6.2</span> f-stringy (doporučený způsob!)</h2>
 <p><strong>f-stringy</strong> jsou nejmodernější a nejčitelnější způsob práce s textem:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="st">"Jan"</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Starý způsob (concatenation)</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>zprava <span class="op">=</span> <span class="st">"Jmenuji se "</span> <span class="op">+</span> jmeno <span class="op">+</span> <span class="st">" a je mi "</span> <span class="op">+</span> <span class="bu">str</span>(vek) <span class="op">+</span> <span class="st">" let."</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># f-string (moderní způsob)</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>zprava <span class="op">=</span> <span class="ss">f"Jmenuji se </span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss"> a je mi </span><span class="sc">{</span>vek<span class="sc">}</span><span class="ss"> let."</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(zprava)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Výsledek: Jmenuji se Jan a je mi 25 let.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="st">"Jan"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Starý způsob (concatenation)</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>zprava <span class="op">=</span> <span class="st">"Jmenuji se "</span> <span class="op">+</span> jmeno <span class="op">+</span> <span class="st">" a je mi "</span> <span class="op">+</span> <span class="bu">str</span>(vek) <span class="op">+</span> <span class="st">" let."</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># f-string (moderní způsob)</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>zprava <span class="op">=</span> <span class="ss">f"Jmenuji se </span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss"> a je mi </span><span class="sc">{</span>vek<span class="sc">}</span><span class="ss"> let."</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(zprava)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Výsledek: Jmenuji se Jan a je mi 25 let.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -691,14 +711,14 @@ Python, Java</code></pre>
 </section>
 <section id="převod-mezi-typy" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="převod-mezi-typy"><span class="header-section-number">6.3</span> Převod mezi typy</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>vek_text <span class="op">=</span> <span class="bu">str</span>(vek)  <span class="co"># "25"</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>cislo_text <span class="op">=</span> <span class="st">"100"</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>cislo <span class="op">=</span> <span class="bu">int</span>(cislo_text)  <span class="co"># 100</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>desetinne_cislo_text <span class="op">=</span> <span class="st">"3.14"</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>desetinne_cislo <span class="op">=</span> <span class="bu">float</span>(desetinne_cislo_text)  <span class="co"># 3.14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>vek_text <span class="op">=</span> <span class="bu">str</span>(vek)  <span class="co"># "25"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>cislo_text <span class="op">=</span> <span class="st">"100"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>cislo <span class="op">=</span> <span class="bu">int</span>(cislo_text)  <span class="co"># 100</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>desetinne_cislo_text <span class="op">=</span> <span class="st">"3.14"</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>desetinne_cislo <span class="op">=</span> <span class="bu">float</span>(desetinne_cislo_text)  <span class="co"># 3.14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
@@ -707,8 +727,8 @@ Python, Java</code></pre>
 <section id="funkce-input" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="funkce-input"><span class="header-section-number">7.1</span> Funkce <code>input()</code></h2>
 <p><code>input()</code> slouží k <strong>načtení vstupu od uživatele</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Jak se jmenujete? "</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Zdravím vás, </span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss">!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Jak se jmenujete? "</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Zdravím vás, </span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss">!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Průběh:</strong></p>
 <pre><code>Jak se jmenujete? Jan
 Zdravím vás, Jan!</code></pre>
@@ -723,23 +743,23 @@ Zdravím vás, Jan!</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>I když uživatel zadá číslo, <code>input()</code> vrací text:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Kolik je vám let? "</span>)  <span class="co"># vek je STRING!</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Musíme převést:</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Kolik je vám let? "</span>))  <span class="co"># Teď je to INT</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Kolik je vám let? "</span>)  <span class="co"># vek je STRING!</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Musíme převést:</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>vek <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Kolik je vám let? "</span>))  <span class="co"># Teď je to INT</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
 <section id="praktický-příklad" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="praktický-příklad"><span class="header-section-number">7.2</span> Praktický příklad</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kalkulačka BMI</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Vaše jméno: "</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>vyska <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Výška v cm: "</span>))</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>hmotnost <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Hmotnost v kg: "</span>))</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>vyska_m <span class="op">=</span> vyska <span class="op">/</span> <span class="dv">100</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>bmi <span class="op">=</span> hmotnost <span class="op">/</span> (vyska_m <span class="op">**</span> <span class="dv">2</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss">, vaše BMI je: </span><span class="sc">{</span>bmi<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kalkulačka BMI</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>jmeno <span class="op">=</span> <span class="bu">input</span>(<span class="st">"Vaše jméno: "</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>vyska <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Výška v cm: "</span>))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>hmotnost <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Hmotnost v kg: "</span>))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>vyska_m <span class="op">=</span> vyska <span class="op">/</span> <span class="dv">100</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>bmi <span class="op">=</span> hmotnost <span class="op">/</span> (vyska_m <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>jmeno<span class="sc">}</span><span class="ss">, vaše BMI je: </span><span class="sc">{</span>bmi<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Příklad běhu:</strong></p>
 <pre><code>Vaše jméno: Jan
 Výška v cm: 180
@@ -753,26 +773,26 @@ Jan, vaše BMI je: 23.15</code></pre>
 <section id="co-je-seznam" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="co-je-seznam"><span class="header-section-number">8.1</span> Co je seznam?</h2>
 <p>Seznam je <strong>uspořádaná kolekce prvků</strong>. Může obsahovat čísla, text, nebo cokoliv jiného:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>teploty <span class="op">=</span> [<span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">19</span>, <span class="dv">16</span>]</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>mesta <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>]</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>smiseny <span class="op">=</span> [<span class="dv">1</span>, <span class="st">"text"</span>, <span class="fl">3.14</span>, <span class="va">True</span>]  <span class="co"># Může být i mix!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>teploty <span class="op">=</span> [<span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">19</span>, <span class="dv">16</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>mesta <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>]</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>smiseny <span class="op">=</span> [<span class="dv">1</span>, <span class="st">"text"</span>, <span class="fl">3.14</span>, <span class="va">True</span>]  <span class="co"># Může být i mix!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="vytvoření-seznamu" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="vytvoření-seznamu"><span class="header-section-number">8.2</span> Vytvoření seznamu</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>prazdny_seznam <span class="op">=</span> []</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>jmena <span class="op">=</span> [<span class="st">"Anna"</span>, <span class="st">"Petr"</span>, <span class="st">"Jana"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>prazdny_seznam <span class="op">=</span> []</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>jmena <span class="op">=</span> [<span class="st">"Anna"</span>, <span class="st">"Petr"</span>, <span class="st">"Jana"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="indexování" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="indexování"><span class="header-section-number">8.3</span> Indexování</h2>
 <p><strong>DŮLEŽITÉ: Python indexuje od 0!</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mesta <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>, <span class="st">"Plzeň"</span>]</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="dv">0</span>])   <span class="co"># Praha (první prvek!)</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="dv">1</span>])   <span class="co"># Brno (druhý prvek)</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="dv">3</span>])   <span class="co"># Plzeň (čtvrtý prvek)</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="op">-</span><span class="dv">1</span>])  <span class="co"># Plzeň (poslední prvek)</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="op">-</span><span class="dv">2</span>])  <span class="co"># Ostrava (předposlední)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mesta <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>, <span class="st">"Plzeň"</span>]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="dv">0</span>])   <span class="co"># Praha (první prvek!)</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="dv">1</span>])   <span class="co"># Brno (druhý prvek)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="dv">3</span>])   <span class="co"># Plzeň (čtvrtý prvek)</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="op">-</span><span class="dv">1</span>])  <span class="co"># Plzeň (poslední prvek)</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mesta[<span class="op">-</span><span class="dv">2</span>])  <span class="co"># Ostrava (předposlední)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -784,38 +804,38 @@ Jan, vaše BMI je: 23.15</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Toto je častá chyba začátečníků:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>]</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla[<span class="dv">1</span>])  <span class="co"># 20, NE 10!</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla[<span class="dv">5</span>])  <span class="co"># CHYBA! Index mimo rozsah</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>]</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla[<span class="dv">1</span>])  <span class="co"># 20, NE 10!</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla[<span class="dv">5</span>])  <span class="co"># CHYBA! Index mimo rozsah</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
 <section id="délka-seznamu" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="délka-seznamu"><span class="header-section-number">8.4</span> Délka seznamu</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mesta <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>]</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>pocet <span class="op">=</span> <span class="bu">len</span>(mesta)  <span class="co"># 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mesta <span class="op">=</span> [<span class="st">"Praha"</span>, <span class="st">"Brno"</span>, <span class="st">"Ostrava"</span>]</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>pocet <span class="op">=</span> <span class="bu">len</span>(mesta)  <span class="co"># 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="přidávání-prvků" class="level2" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="přidávání-prvků"><span class="header-section-number">8.5</span> Přidávání prvků</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>cisla.append(<span class="dv">4</span>)  <span class="co"># Přidá 4 na konec</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla)  <span class="co"># [1, 2, 3, 4]</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>cisla.append(<span class="dv">5</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla)  <span class="co"># [1, 2, 3, 4, 5]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>cisla.append(<span class="dv">4</span>)  <span class="co"># Přidá 4 na konec</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla)  <span class="co"># [1, 2, 3, 4]</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>cisla.append(<span class="dv">5</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cisla)  <span class="co"># [1, 2, 3, 4, 5]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="praktický-příklad-1" class="level2" data-number="8.6">
 <h2 data-number="8.6" class="anchored" data-anchor-id="praktický-příklad-1"><span class="header-section-number">8.6</span> Praktický příklad</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Program pro sběr teplot</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>teploty <span class="op">=</span> []</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>teploty.append(<span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Teplota v pondělí: "</span>)))</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>teploty.append(<span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Teplota v úterý: "</span>)))</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>teploty.append(<span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Teplota ve středu: "</span>)))</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Naměřené teploty: </span><span class="sc">{</span>teploty<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"První den: </span><span class="sc">{</span>teploty[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">°C"</span>)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Poslední den: </span><span class="sc">{</span>teploty[<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">°C"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Program pro sběr teplot</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>teploty <span class="op">=</span> []</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>teploty.append(<span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Teplota v pondělí: "</span>)))</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>teploty.append(<span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Teplota v úterý: "</span>)))</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>teploty.append(<span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Teplota ve středu: "</span>)))</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Naměřené teploty: </span><span class="sc">{</span>teploty<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"První den: </span><span class="sc">{</span>teploty[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">°C"</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Poslední den: </span><span class="sc">{</span>teploty[<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">°C"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
@@ -830,8 +850,8 @@ Jan, vaše BMI je: 23.15</code></pre>
 <li>Vypíše výsledek</li>
 </ol>
 <p><strong>Nápověda:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Odmocninu získáte pomocí mocniny 0.5:</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>odmocnina <span class="op">=</span> cislo <span class="op">**</span> <span class="fl">0.5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Odmocninu získáte pomocí mocniny 0.5:</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>odmocnina <span class="op">=</span> cislo <span class="op">**</span> <span class="fl">0.5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="cvičení-2-průměrná-teplota" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="cvičení-2-průměrná-teplota"><span class="header-section-number">9.2</span> Cvičení 2: Průměrná teplota</h2>
@@ -883,79 +903,37 @@ Jan, vaše BMI je: 23.15</code></pre>
 </section>
 <section id="cheatsheet" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Cheatsheet</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === ZÁKLADY ===</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"text"</span>)              <span class="co"># Výpis</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span>(<span class="st">"otázka? "</span>)          <span class="co"># Načtení textu</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"číslo? "</span>))      <span class="co"># Načtení čísla</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># === DATOVÉ TYPY ===</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>      <span class="co"># celá čísla: 5, -10, 100</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="bu">float</span>    <span class="co"># desetinná: 3.14, -0.5</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>      <span class="co"># text: "ahoj", 'svět'</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="bu">bool</span>     <span class="co"># logická hodnota: True, False</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co"># === ARITMETIKA ===</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="op">+</span>, <span class="op">-</span>, <span class="op">*</span>, <span class="op">/</span>     <span class="co"># základní operace</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="op">//</span>             <span class="co"># celočíselné dělení</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>              <span class="co"># zbytek po dělení</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="op">**</span>             <span class="co"># mocnina</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="co"># === STRINGY ===</span></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="co">"ahoj"</span> <span class="op">+</span> <span class="st">"svět"</span>            <span class="co"># spojení</span></span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="ss">f"Věk: </span><span class="sc">{</span>vek<span class="sc">}</span><span class="ss">"</span>              <span class="co"># f-string</span></span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(<span class="dv">5</span>)                     <span class="co"># převod na string</span></span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="co"># === SEZNAMY ===</span></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>list_a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>]          <span class="co"># vytvoření</span></span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>list_a[<span class="dv">0</span>]                   <span class="co"># první prvek (index 0!)</span></span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>list_a[<span class="op">-</span><span class="dv">1</span>]                  <span class="co"># poslední prvek</span></span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>list_a[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">2</span>               <span class="co"># přepsání (druhého) prvku</span></span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(list_a)                 <span class="co"># délka</span></span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>list_a.append(<span class="dv">4</span>)            <span class="co"># přidání prvku</span></span>
-<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(list_a)                 <span class="co"># součet prvků</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === ZÁKLADY ===</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"text"</span>)              <span class="co"># Výpis</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span>(<span class="st">"otázka? "</span>)          <span class="co"># Načtení textu</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"číslo? "</span>))      <span class="co"># Načtení čísla</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># === DATOVÉ TYPY ===</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>      <span class="co"># celá čísla: 5, -10, 100</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="bu">float</span>    <span class="co"># desetinná: 3.14, -0.5</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>      <span class="co"># text: "ahoj", 'svět'</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="bu">bool</span>     <span class="co"># logická hodnota: True, False</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co"># === ARITMETIKA ===</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="op">+</span>, <span class="op">-</span>, <span class="op">*</span>, <span class="op">/</span>     <span class="co"># základní operace</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="op">//</span>             <span class="co"># celočíselné dělení</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>              <span class="co"># zbytek po dělení</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="op">**</span>             <span class="co"># mocnina</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="co"># === STRINGY ===</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co">"ahoj"</span> <span class="op">+</span> <span class="st">"svět"</span>            <span class="co"># spojení</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="ss">f"Věk: </span><span class="sc">{</span>vek<span class="sc">}</span><span class="ss">"</span>              <span class="co"># f-string</span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="bu">str</span>(<span class="dv">5</span>)                     <span class="co"># převod na string</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co"># === SEZNAMY ===</span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>list_a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>]          <span class="co"># vytvoření</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>list_a[<span class="dv">0</span>]                   <span class="co"># první prvek (index 0!)</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>list_a[<span class="op">-</span><span class="dv">1</span>]                  <span class="co"># poslední prvek</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>list_a[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">2</span>               <span class="co"># přepsání (druhého) prvku</span></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(list_a)                 <span class="co"># délka</span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>list_a.append(<span class="dv">4</span>)            <span class="co"># přidání prvku</span></span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a><span class="bu">sum</span>(list_a)                 <span class="co"># součet prvků</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-<!--
-# Poznámky pro vyučujícího
-
-## Běžné chyby studentů
-
-``` python
-# 1. Zapomínají uvozovky
-jmeno = Jan        # ❌ CHYBA
-jmeno = "Jan"      # ✅ SPRÁVNĚ
-
-# 2. Sčítání čísla + string
-"Věk: " + 25       # ❌ CHYBA
-f"Věk: {25}"       # ✅ SPRÁVNĚ
-
-# 3. Zapomínají int() u inputu
-vek = input()      # vrací string!
-vek = int(input()) # vrací int ✅
-
-# 4. Indexování od 1
-lista[1]           # to je DRUHÝ prvek!
-lista[0]           # to je PRVNÍ prvek! ✅
-```
-
-## Časový plán (90 min)
-
-| Čas       | Obsah                                 |
-|-----------|---------------------------------------|
-| 0-10 min  | Úvod, motivace, proč Python           |
-| 10-25 min | Hello World, první program, prostředí |
-| 25-40 min | Proměnné, datové typy, čísla          |
-| 40-55 min | Stringy, f-stringy, input/output      |
-| 55-70 min | Seznamy, indexování, append           |
-| 70-85 min | Praktická cvičení                     |
-| 85-90 min | Shrnutí, Q&A                          |
-
-## Klíčové momenty
-
--   **Indexování od 0** - zdůraznit vícekrát!
--   **Input vrací string** - ukázat chybu a řešení
--   **f-stringy** - naučit hned, je to nejlepší způsob
--   **Seznamy** - základ pro cykly (příští lekce)
--->
 
 
 </section>

@@ -10,10 +10,16 @@ format:
     number-sections: true
     code-fold: false
     theme: cosmo
+  pdf:       
+    toc: true
+    toc-depth: 3
+    number-sections: true
 editor: 
   markdown: 
     wrap: 72
 ---
+
+\newpage
 
 # Cíle lekce
 
@@ -746,6 +752,8 @@ def minimum(seznam):
 
 ------------------------------------------------------------------------
 
+\newpage
+
 # Cheatsheet
 
 ``` python
@@ -816,9 +824,11 @@ b = spravne(5)      # b = 10
 
 ------------------------------------------------------------------------
 
-````{=html}
-<!--
-# 13. Poznámky pro vyučujícího
+::: {.content-visible when-format="pdf"}
+
+\newpage
+
+# Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
 
@@ -925,6 +935,4 @@ vysledek = spatne(5) + 10  # TypeError!
 - [ ] Ukázková main.py s použitím všech funkcí
 - [ ] Diagram struktury projektu (složky a soubory)
 - [ ] Cheatsheet pro různé způsoby importu
-
--->
-````
+:::
