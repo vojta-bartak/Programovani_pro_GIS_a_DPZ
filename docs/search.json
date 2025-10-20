@@ -1327,48 +1327,6 @@
     "href": "lessons/lesson_07.html#varianta-c-výzva",
     "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
     "section": "10.3 Varianta C (výzva)",
-    "text": "10.3 Varianta C (výzva)\n**Vytvoř\nte vlastní modul soubory_utils.py** s funkcemi:\ndef nacti_cisla(nazev_souboru):\n    \"\"\"Načte čísla ze souboru (jedno číslo na řádek).\"\"\"\n    # ...\n\ndef uloz_cisla(nazev_souboru, cisla):\n    \"\"\"Uloží seznam čísel do souboru (jedno na řádek).\"\"\"\n    # ...\n\ndef nacti_tabulku(nazev_souboru):\n    \"\"\"Načte tabulku hodnot oddělených mezerami.\n    Vrátí seznam seznamů.\n    \"\"\"\n    # ...\nPoužijte tyto funkce v hlavním programu pro zpracování dat!"
-  },
-  {
-    "objectID": "lessons/lesson_07.html#běžné-chyby-studentů",
-    "href": "lessons/lesson_07.html#běžné-chyby-studentů",
-    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
-    "section": "12.1 Běžné chyby studentů",
-    "text": "12.1 Běžné chyby studentů\n# 1. Zapomínají strip()\nradek = \"Praha 1300000\\n\"\ncasti = radek.split()  # ['Praha', '1300000\\n'] - \\n je tam!\n# Správně:\nradek = radek.strip()\ncasti = radek.split()  # ['Praha', '1300000']\n\n# 2. Zapomínají převést na int\npopulace = casti[1]         # \"1300000\" (string!)\nvysledek = populace + 1000  # CHYBA!\n# Správně:\npopulace = int(casti[1])\n\n# 3. Zapomínají encoding\nwith open(\"soubor.txt\", \"r\") as f:  # Chyba s českými znaky!\n# Správně:\nwith open(\"soubor.txt\", \"r\", encoding=\"utf-8\") as f:\n\n# 4. Používají \"w\" místo \"a\"\nwith open(\"log.txt\", \"w\") as f:  # Každé spuštění VYMAŽE soubor!\n# Správně pro přidání:\nwith open(\"log.txt\", \"a\") as f:\n\n# 5. Zapomínají uzavřít soubor (bez with)\nf = open(\"soubor.txt\", \"r\")\nobsah = f.read()\n# Zapomněli f.close()!\n\n# 6. Rozdělení prázdného řádku\nradek = \"\\n\"\ncasti = radek.split()  # [] - prázdný seznam!\nmesto = casti[0]       # CHYBA - IndexError!\n# Řešení: kontrolovat if radek.strip():"
-  },
-  {
-    "objectID": "lessons/lesson_07.html#časový-plán-90-min",
-    "href": "lessons/lesson_07.html#časový-plán-90-min",
-    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
-    "section": "12.2 Časový plán (90 min)",
-    "text": "12.2 Časový plán (90 min)\n\n\n\nČas\nObsah\n\n\n\n\n0-15 min\nMotivace, open(), read()\n\n\n15-30 min\nreadlines(), with statement\n\n\n30-50 min\nstrip(), split(), zpracování\n\n\n50-70 min\nPraktická úloha - města společně\n\n\n70-80 min\nZápis do souborů\n\n\n80-90 min\nPropojení s math_utils, zadání úkolu"
-  },
-  {
-    "objectID": "lessons/lesson_07.html#klíčové-momenty",
-    "href": "lessons/lesson_07.html#klíčové-momenty",
-    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
-    "section": "12.3 Klíčové momenty",
-    "text": "12.3 Klíčové momenty\n\n12.3.1 with statement (15-30 min):\n\nDŮLEŽITÉ: Zdůraznit, že je to bezpečnější způsob\nUkázat, co se stane při chybě (soubor se stejně zavře)\nŘíct, že v praxi se VŽDY používá with\n\n\n\n12.3.2 strip() a split() (30-50 min):\n\nPrakticky ukázat na projektoru\nNechat studenty experimentovat\nUkázat častou chybu: zapomenutí strip() před split()\n\n\n\n12.3.3 Encoding (v průběhu):\n\nZmínit při první práci se souborem\nVysvětlit: “UTF-8 = standard pro češtinu”\nŘíct: “Vždy to přidávejte, až to budete potřebovat, připomenu”\n\n\n\n12.3.4 Propojení s math_utils (80-90 min):\n\nUkázat, jak použít je_prvocislo() na data ze souboru\nZdůraznit: “Takhle budete kombinovat ArcPy s jinými funkcemi!”"
-  },
-  {
-    "objectID": "lessons/lesson_07.html#rizika",
-    "href": "lessons/lesson_07.html#rizika",
-    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
-    "section": "12.4 Rizika",
-    "text": "12.4 Rizika\n\nstrip() a split() mohou být matoucí (20 min → 25 min)\n\nŘešení: Praktické ukázky, nechat je experimentovat\nMít připravené příklady na projektoru\n\nEncoding problémy\n\nŘešení: Hned na začátku říct “vždy používejte utf-8”\nPokud narazí na chybu, ukázat jak opravit\n\nStudenti nestihnou cvičení\n\nŘešení: Cvičení 1 společně, Cvičení 2 jako domácí úkol\nMít připravené řešení"
-  },
-  {
-    "objectID": "lessons/lesson_07.html#tipy",
-    "href": "lessons/lesson_07.html#tipy",
-    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
-    "section": "12.5 Tipy",
-    "text": "12.5 Tipy\n\nVytvořte soubor mesta.txt předem a sdílejte ho se studenty\nNa projektoru ukazujte obsah souboru vedle kódu\nPoužívejte print() často - ať vidí, co se děje\nZdůrazněte: “CSV příští týden - tohle je příprava!”\nPropojení s GIS: “Atributové tabulky v ArcGIS exportujete jako CSV, zpracujete Pythonem, importujete zpět!”"
-  },
-  {
-    "objectID": "lessons/lesson_07.html#materiály-k-přípravě",
-    "href": "lessons/lesson_07.html#materiály-k-přípravě",
-    "title": "Lekce 7: Textové soubory I – Jednoduchá tabulka",
-    "section": "12.6 Materiály k přípravě",
-    "text": "12.6 Materiály k přípravě\n\nSoubor mesta.txt s ukázkovými daty\nSoubor teploty.txt pro domácí úkol\nŘešení všech cvičení\nDiagram: otevření → zpracování → zavření souboru"
+    "text": "10.3 Varianta C (výzva)\n**Vytvořte vlastní modul soubory_utils.py** s funkcemi:\ndef nacti_cisla(nazev_souboru):\n    \"\"\"Načte čísla ze souboru (jedno číslo na řádek).\"\"\"\n    # ...\n\ndef uloz_cisla(nazev_souboru, cisla):\n    \"\"\"Uloží seznam čísel do souboru (jedno na řádek).\"\"\"\n    # ...\n\ndef nacti_tabulku(nazev_souboru):\n    \"\"\"Načte tabulku hodnot oddělených mezerami.\n    Vrátí seznam seznamů.\n    \"\"\"\n    # ...\nPoužijte tyto funkce v hlavním programu pro zpracování dat!"
   }
 ]

@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Váš kurz">
-<meta name="dcterms.date" content="2025-10-15">
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
+<meta name="dcterms.date" content="2025-10-20">
 
 <title>Lekce 7: Textové soubory I – Jednoduchá tabulka – Programování pro GIS a DPZ</title>
 <style>
@@ -164,6 +164,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../lessons/lesson_06.html">
  <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_07.html">
+ <span class="dropdown-text">Lekce 7: Textové soubory I</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -183,12 +187,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
-  <li><a href="#proč-pracovat-se-soubory" id="toc-proč-pracovat-se-soubory" class="nav-link" data-scroll-target="#proč-pracovat-se-soubory"><span class="header-section-number">2</span> 1. Proč pracovat se soubory?</a>
+  <li><a href="#proč-pracovat-se-soubory" id="toc-proč-pracovat-se-soubory" class="nav-link" data-scroll-target="#proč-pracovat-se-soubory"><span class="header-section-number">2</span> Proč pracovat se soubory?</a>
   <ul class="collapse">
   <li><a href="#motivace" id="toc-motivace" class="nav-link" data-scroll-target="#motivace"><span class="header-section-number">2.1</span> Motivace</a></li>
   <li><a href="#kde-použijeme-práci-se-soubory" id="toc-kde-použijeme-práci-se-soubory" class="nav-link" data-scroll-target="#kde-použijeme-práci-se-soubory"><span class="header-section-number">2.2</span> Kde použijeme práci se soubory?</a></li>
   </ul></li>
-  <li><a href="#čtení-textových-souborů" id="toc-čtení-textových-souborů" class="nav-link" data-scroll-target="#čtení-textových-souborů"><span class="header-section-number">3</span> 2. Čtení textových souborů</a>
+  <li><a href="#čtení-textových-souborů" id="toc-čtení-textových-souborů" class="nav-link" data-scroll-target="#čtení-textových-souborů"><span class="header-section-number">3</span> Čtení textových souborů</a>
   <ul class="collapse">
   <li><a href="#příprava---ukázkový-soubor" id="toc-příprava---ukázkový-soubor" class="nav-link" data-scroll-target="#příprava---ukázkový-soubor"><span class="header-section-number">3.1</span> Příprava - ukázkový soubor</a></li>
   <li><a href="#otevření-souboru---funkce-open" id="toc-otevření-souboru---funkce-open" class="nav-link" data-scroll-target="#otevření-souboru---funkce-open"><span class="header-section-number">3.2</span> Otevření souboru - funkce open()</a></li>
@@ -196,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#čtení-po-řádcích---readlines" id="toc-čtení-po-řádcích---readlines" class="nav-link" data-scroll-target="#čtení-po-řádcích---readlines"><span class="header-section-number">3.4</span> Čtení po řádcích - readlines()</a></li>
   <li><a href="#with-statement---bezpečnější-způsob" id="toc-with-statement---bezpečnější-způsob" class="nav-link" data-scroll-target="#with-statement---bezpečnější-způsob"><span class="header-section-number">3.5</span> with statement - bezpečnější způsob</a></li>
   </ul></li>
-  <li><a href="#zpracování-textu---strip-a-split" id="toc-zpracování-textu---strip-a-split" class="nav-link" data-scroll-target="#zpracování-textu---strip-a-split"><span class="header-section-number">4</span> 3. Zpracování textu - strip() a split()</a>
+  <li><a href="#zpracování-textu---strip-a-split" id="toc-zpracování-textu---strip-a-split" class="nav-link" data-scroll-target="#zpracování-textu---strip-a-split"><span class="header-section-number">4</span> Zpracování textu - strip() a split()</a>
   <ul class="collapse">
   <li><a href="#odstranění-bílých-znaků---strip" id="toc-odstranění-bílých-znaků---strip" class="nav-link" data-scroll-target="#odstranění-bílých-znaků---strip"><span class="header-section-number">4.1</span> Odstranění bílých znaků - strip()</a></li>
   <li><a href="#rozdělení-řetězce---split" id="toc-rozdělení-řetězce---split" class="nav-link" data-scroll-target="#rozdělení-řetězce---split"><span class="header-section-number">4.2</span> Rozdělení řetězce - split()</a>
@@ -204,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#split-s-konkrétním-separátorem" id="toc-split-s-konkrétním-separátorem" class="nav-link" data-scroll-target="#split-s-konkrétním-separátorem"><span class="header-section-number">4.2.1</span> split() s konkrétním separátorem</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#praktická-úloha---zpracování-tabulky-měst" id="toc-praktická-úloha---zpracování-tabulky-měst" class="nav-link" data-scroll-target="#praktická-úloha---zpracování-tabulky-měst"><span class="header-section-number">5</span> 4. Praktická úloha - zpracování tabulky měst</a>
+  <li><a href="#praktická-úloha---zpracování-tabulky-měst" id="toc-praktická-úloha---zpracování-tabulky-měst" class="nav-link" data-scroll-target="#praktická-úloha---zpracování-tabulky-měst"><span class="header-section-number">5</span> Praktická úloha - zpracování tabulky měst</a>
   <ul class="collapse">
   <li><a href="#zadání" id="toc-zadání" class="nav-link" data-scroll-target="#zadání"><span class="header-section-number">5.1</span> Zadání</a></li>
   <li><a href="#řešení-krok-za-krokem" id="toc-řešení-krok-za-krokem" class="nav-link" data-scroll-target="#řešení-krok-za-krokem"><span class="header-section-number">5.2</span> Řešení krok za krokem</a>
@@ -216,50 +220,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#krok-5-město-s-nejvyšší-populací" id="toc-krok-5-město-s-nejvyšší-populací" class="nav-link" data-scroll-target="#krok-5-město-s-nejvyšší-populací"><span class="header-section-number">5.2.5</span> Krok 5: Město s nejvyšší populací</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#zápis-do-souborů" id="toc-zápis-do-souborů" class="nav-link" data-scroll-target="#zápis-do-souborů"><span class="header-section-number">6</span> 5. Zápis do souborů</a>
+  <li><a href="#zápis-do-souborů" id="toc-zápis-do-souborů" class="nav-link" data-scroll-target="#zápis-do-souborů"><span class="header-section-number">6</span> Zápis do souborů</a>
   <ul class="collapse">
   <li><a href="#vytvoření-nového-souboru" id="toc-vytvoření-nového-souboru" class="nav-link" data-scroll-target="#vytvoření-nového-souboru"><span class="header-section-number">6.1</span> Vytvoření nového souboru</a></li>
   <li><a href="#přidání-na-konec---režim-a" id="toc-přidání-na-konec---režim-a" class="nav-link" data-scroll-target="#přidání-na-konec---režim-a"><span class="header-section-number">6.2</span> Přidání na konec - režim “a”</a></li>
   <li><a href="#praktický-příklad---export-výsledků" id="toc-praktický-příklad---export-výsledků" class="nav-link" data-scroll-target="#praktický-příklad---export-výsledků"><span class="header-section-number">6.3</span> Praktický příklad - export výsledků</a></li>
   </ul></li>
-  <li><a href="#propojení-s-funkcemi-z-math_utils" id="toc-propojení-s-funkcemi-z-math_utils" class="nav-link" data-scroll-target="#propojení-s-funkcemi-z-math_utils"><span class="header-section-number">7</span> 6. Propojení s funkcemi z math_utils</a>
+  <li><a href="#propojení-s-funkcemi-z-math_utils" id="toc-propojení-s-funkcemi-z-math_utils" class="nav-link" data-scroll-target="#propojení-s-funkcemi-z-math_utils"><span class="header-section-number">7</span> Propojení s funkcemi z math_utils</a>
   <ul class="collapse">
   <li><a href="#příklad-prvočísla-ze-souboru" id="toc-příklad-prvočísla-ze-souboru" class="nav-link" data-scroll-target="#příklad-prvočísla-ze-souboru"><span class="header-section-number">7.1</span> Příklad: Prvočísla ze souboru</a></li>
   </ul></li>
-  <li><a href="#praktické-cvičení" id="toc-praktické-cvičení" class="nav-link" data-scroll-target="#praktické-cvičení"><span class="header-section-number">8</span> 7. Praktické cvičení</a>
+  <li><a href="#praktické-cvičení" id="toc-praktické-cvičení" class="nav-link" data-scroll-target="#praktické-cvičení"><span class="header-section-number">8</span> Praktické cvičení</a>
   <ul class="collapse">
   <li><a href="#cvičení-1-statistiky-měst" id="toc-cvičení-1-statistiky-měst" class="nav-link" data-scroll-target="#cvičení-1-statistiky-měst"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky měst</a></li>
   <li><a href="#cvičení-2-filtrace-a-export" id="toc-cvičení-2-filtrace-a-export" class="nav-link" data-scroll-target="#cvičení-2-filtrace-a-export"><span class="header-section-number">8.2</span> Cvičení 2: Filtrace a export</a></li>
   </ul></li>
-  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">9</span> 8. Shrnutí</a>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">9</span> Shrnutí</a>
   <ul class="collapse">
   <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">9.1</span> Co jsme se naučili</a></li>
   <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">9.2</span> Co bude příště?</a></li>
   </ul></li>
-  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">10</span> 9. Domácí úkol</a>
+  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">10</span> Domácí úkol</a>
   <ul class="collapse">
   <li><a href="#varianta-a-základní" id="toc-varianta-a-základní" class="nav-link" data-scroll-target="#varianta-a-základní"><span class="header-section-number">10.1</span> Varianta A (základní)</a></li>
   <li><a href="#varianta-b-pokročilá" id="toc-varianta-b-pokročilá" class="nav-link" data-scroll-target="#varianta-b-pokročilá"><span class="header-section-number">10.2</span> Varianta B (pokročilá)</a></li>
   <li><a href="#varianta-c-výzva" id="toc-varianta-c-výzva" class="nav-link" data-scroll-target="#varianta-c-výzva"><span class="header-section-number">10.3</span> Varianta C (výzva)</a></li>
   </ul></li>
-  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">11</span> 10. Cheatsheet</a></li>
-  <li><a href="#poznámky-pro-vyučujícího" id="toc-poznámky-pro-vyučujícího" class="nav-link" data-scroll-target="#poznámky-pro-vyučujícího"><span class="header-section-number">12</span> 11. Poznámky pro vyučujícího</a>
-  <ul class="collapse">
-  <li><a href="#běžné-chyby-studentů" id="toc-běžné-chyby-studentů" class="nav-link" data-scroll-target="#běžné-chyby-studentů"><span class="header-section-number">12.1</span> Běžné chyby studentů</a></li>
-  <li><a href="#časový-plán-90-min" id="toc-časový-plán-90-min" class="nav-link" data-scroll-target="#časový-plán-90-min"><span class="header-section-number">12.2</span> Časový plán (90 min)</a></li>
-  <li><a href="#klíčové-momenty" id="toc-klíčové-momenty" class="nav-link" data-scroll-target="#klíčové-momenty"><span class="header-section-number">12.3</span> Klíčové momenty</a>
-  <ul class="collapse">
-  <li><a href="#with-statement-15-30-min" id="toc-with-statement-15-30-min" class="nav-link" data-scroll-target="#with-statement-15-30-min"><span class="header-section-number">12.3.1</span> with statement (15-30 min):</a></li>
-  <li><a href="#strip-a-split-30-50-min" id="toc-strip-a-split-30-50-min" class="nav-link" data-scroll-target="#strip-a-split-30-50-min"><span class="header-section-number">12.3.2</span> strip() a split() (30-50 min):</a></li>
-  <li><a href="#encoding-v-průběhu" id="toc-encoding-v-průběhu" class="nav-link" data-scroll-target="#encoding-v-průběhu"><span class="header-section-number">12.3.3</span> Encoding (v průběhu):</a></li>
-  <li><a href="#propojení-s-math_utils-80-90-min" id="toc-propojení-s-math_utils-80-90-min" class="nav-link" data-scroll-target="#propojení-s-math_utils-80-90-min"><span class="header-section-number">12.3.4</span> Propojení s math_utils (80-90 min):</a></li>
-  </ul></li>
-  <li><a href="#rizika" id="toc-rizika" class="nav-link" data-scroll-target="#rizika"><span class="header-section-number">12.4</span> Rizika</a></li>
-  <li><a href="#tipy" id="toc-tipy" class="nav-link" data-scroll-target="#tipy"><span class="header-section-number">12.5</span> Tipy</a></li>
-  <li><a href="#materiály-k-přípravě" id="toc-materiály-k-přípravě" class="nav-link" data-scroll-target="#materiály-k-přípravě"><span class="header-section-number">12.6</span> Materiály k přípravě</a></li>
-  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">11</span> Cheatsheet</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_07.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -277,14 +266,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Váš kurz </p>
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 15, 2025</p>
+      <p class="date">October 20, 2025</p>
     </div>
   </div>
   
@@ -312,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 <section id="proč-pracovat-se-soubory" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 1. Proč pracovat se soubory?</h1>
+<h1 data-number="2"><span class="header-section-number">2</span> Proč pracovat se soubory?</h1>
 <section id="motivace" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="motivace"><span class="header-section-number">2.1</span> Motivace</h2>
 <p>Dosud jsme pracovali s daty, která jsme <strong>psali přímo do kódu</strong>:</p>
@@ -346,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="čtení-textových-souborů" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 2. Čtení textových souborů</h1>
+<h1 data-number="3"><span class="header-section-number">3</span> Čtení textových souborů</h1>
 <section id="příprava---ukázkový-soubor" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="příprava---ukázkový-soubor"><span class="header-section-number">3.1</span> Příprava - ukázkový soubor</h2>
 <p>Vytvořte soubor <code>mesta.txt</code> s tímto obsahem:</p>
@@ -443,7 +432,7 @@ Liberec 103000</code></pre>
 </section>
 </section>
 <section id="zpracování-textu---strip-a-split" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 3. Zpracování textu - strip() a split()</h1>
+<h1 data-number="4"><span class="header-section-number">4</span> Zpracování textu - strip() a split()</h1>
 <section id="odstranění-bílých-znaků---strip" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="odstranění-bílých-znaků---strip"><span class="header-section-number">4.1</span> Odstranění bílých znaků - strip()</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>radek <span class="op">=</span> <span class="st">"Praha 1300000</span><span class="ch">\n</span><span class="st">"</span></span>
@@ -489,7 +478,7 @@ Liberec 103000</code></pre>
 </section>
 </section>
 <section id="praktická-úloha---zpracování-tabulky-měst" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 4. Praktická úloha - zpracování tabulky měst</h1>
+<h1 data-number="5"><span class="header-section-number">5</span> Praktická úloha - zpracování tabulky měst</h1>
 <section id="zadání" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="zadání"><span class="header-section-number">5.1</span> Zadání</h2>
 <p>Máte soubor <code>mesta.txt</code>:</p>
@@ -601,7 +590,7 @@ Ostrava: 290,000</code></pre>
 </section>
 </section>
 <section id="zápis-do-souborů" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 5. Zápis do souborů</h1>
+<h1 data-number="6"><span class="header-section-number">6</span> Zápis do souborů</h1>
 <section id="vytvoření-nového-souboru" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="vytvoření-nového-souboru"><span class="header-section-number">6.1</span> Vytvoření nového souboru</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
@@ -665,7 +654,7 @@ Ostrava: 290,000</code></pre>
 </section>
 </section>
 <section id="propojení-s-funkcemi-z-math_utils" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 6. Propojení s funkcemi z math_utils</h1>
+<h1 data-number="7"><span class="header-section-number">7</span> Propojení s funkcemi z math_utils</h1>
 <p>Nyní spojíme práci se soubory a funkce z minulé lekce!</p>
 <section id="příklad-prvočísla-ze-souboru" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="příklad-prvočísla-ze-souboru"><span class="header-section-number">7.1</span> Příklad: Prvočísla ze souboru</h2>
@@ -703,7 +692,7 @@ Ostrava: 290,000</code></pre>
 </section>
 </section>
 <section id="praktické-cvičení" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 7. Praktické cvičení</h1>
+<h1 data-number="8"><span class="header-section-number">8</span> Praktické cvičení</h1>
 <section id="cvičení-1-statistiky-měst" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="cvičení-1-statistiky-měst"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky měst</h2>
 <p>Použijte soubor <code>mesta.txt</code> a vytvořte program, který:</p>
@@ -742,7 +731,7 @@ Brno: 380,000
 </section>
 </section>
 <section id="shrnutí" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 8. Shrnutí</h1>
+<h1 data-number="9"><span class="header-section-number">9</span> Shrnutí</h1>
 <section id="co-jsme-se-naučili" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">9.1</span> Co jsme se naučili</h2>
 <p>✅ <strong>open()</strong> - otevírání souborů s různými režimy<br>
@@ -768,7 +757,7 @@ Brno: 380,000
 </section>
 </section>
 <section id="domácí-úkol" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 9. Domácí úkol</h1>
+<h1 data-number="10"><span class="header-section-number">10</span> Domácí úkol</h1>
 <section id="varianta-a-základní" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="varianta-a-základní"><span class="header-section-number">10.1</span> Varianta A (základní)</h2>
 <p>Vytvořte soubor <code>teploty.txt</code>:</p>
@@ -796,8 +785,7 @@ Brno: 1,652 obyvatel/km²
 </section>
 <section id="varianta-c-výzva" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="varianta-c-výzva"><span class="header-section-number">10.3</span> Varianta C (výzva)</h2>
-<p>**Vytvoř</p>
-<p>te vlastní modul <code>soubory_utils.py</code>** s funkcemi:</p>
+<p>**Vytvořte vlastní modul <code>soubory_utils.py</code>** s funkcemi:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nacti_cisla(nazev_souboru):</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Načte čísla ze souboru (jedno číslo na řádek)."""</span></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
@@ -816,7 +804,7 @@ Brno: 1,652 obyvatel/km²
 </section>
 </section>
 <section id="cheatsheet" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 10. Cheatsheet</h1>
+<h1 data-number="11"><span class="header-section-number">11</span> Cheatsheet</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === OTEVŘENÍ SOUBORU ===</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Čtení</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
@@ -865,157 +853,8 @@ Brno: 1,652 obyvatel/km²
 <span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="co"># VŽDY používejte pro české texty:</span></span>
 <span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-</section>
-<section id="poznámky-pro-vyučujícího" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 11. Poznámky pro vyučujícího</h1>
-<section id="běžné-chyby-studentů" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="běžné-chyby-studentů"><span class="header-section-number">12.1</span> Běžné chyby studentů</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Zapomínají strip()</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>radek <span class="op">=</span> <span class="st">"Praha 1300000</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>casti <span class="op">=</span> radek.split()  <span class="co"># ['Praha', '1300000\n'] - \n je tam!</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně:</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>radek <span class="op">=</span> radek.strip()</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>casti <span class="op">=</span> radek.split()  <span class="co"># ['Praha', '1300000']</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Zapomínají převést na int</span></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>populace <span class="op">=</span> casti[<span class="dv">1</span>]         <span class="co"># "1300000" (string!)</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>vysledek <span class="op">=</span> populace <span class="op">+</span> <span class="dv">1000</span>  <span class="co"># CHYBA!</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně:</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Zapomínají encoding</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>) <span class="im">as</span> f:  <span class="co"># Chyba s českými znaky!</span></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně:</span></span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Používají "w" místo "a"</span></span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"log.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:  <span class="co"># Každé spuštění VYMAŽE soubor!</span></span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně pro přidání:</span></span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"log.txt"</span>, <span class="st">"a"</span>) <span class="im">as</span> f:</span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Zapomínají uzavřít soubor (bez with)</span></span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>)</span>
-<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>obsah <span class="op">=</span> f.read()</span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Zapomněli f.close()!</span></span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Rozdělení prázdného řádku</span></span>
-<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>radek <span class="op">=</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>casti <span class="op">=</span> radek.split()  <span class="co"># [] - prázdný seznam!</span></span>
-<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>mesto <span class="op">=</span> casti[<span class="dv">0</span>]       <span class="co"># CHYBA - IndexError!</span></span>
-<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Řešení: kontrolovat if radek.strip():</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="časový-plán-90-min" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="časový-plán-90-min"><span class="header-section-number">12.2</span> Časový plán (90 min)</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Čas</th>
-<th>Obsah</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0-15 min</td>
-<td>Motivace, open(), read()</td>
-</tr>
-<tr class="even">
-<td>15-30 min</td>
-<td>readlines(), with statement</td>
-</tr>
-<tr class="odd">
-<td>30-50 min</td>
-<td>strip(), split(), zpracování</td>
-</tr>
-<tr class="even">
-<td>50-70 min</td>
-<td>Praktická úloha - města společně</td>
-</tr>
-<tr class="odd">
-<td>70-80 min</td>
-<td>Zápis do souborů</td>
-</tr>
-<tr class="even">
-<td>80-90 min</td>
-<td>Propojení s math_utils, zadání úkolu</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="klíčové-momenty" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="klíčové-momenty"><span class="header-section-number">12.3</span> Klíčové momenty</h2>
-<section id="with-statement-15-30-min" class="level3" data-number="12.3.1">
-<h3 data-number="12.3.1" class="anchored" data-anchor-id="with-statement-15-30-min"><span class="header-section-number">12.3.1</span> with statement (15-30 min):</h3>
-<ul>
-<li><strong>DŮLEŽITÉ:</strong> Zdůraznit, že je to bezpečnější způsob</li>
-<li>Ukázat, co se stane při chybě (soubor se stejně zavře)</li>
-<li>Říct, že v praxi se VŽDY používá with</li>
-</ul>
-</section>
-<section id="strip-a-split-30-50-min" class="level3" data-number="12.3.2">
-<h3 data-number="12.3.2" class="anchored" data-anchor-id="strip-a-split-30-50-min"><span class="header-section-number">12.3.2</span> strip() a split() (30-50 min):</h3>
-<ul>
-<li><strong>Prakticky ukázat</strong> na projektoru</li>
-<li>Nechat studenty experimentovat</li>
-<li>Ukázat častou chybu: zapomenutí <code>strip()</code> před <code>split()</code></li>
-</ul>
-</section>
-<section id="encoding-v-průběhu" class="level3" data-number="12.3.3">
-<h3 data-number="12.3.3" class="anchored" data-anchor-id="encoding-v-průběhu"><span class="header-section-number">12.3.3</span> Encoding (v průběhu):</h3>
-<ul>
-<li>Zmínit při první práci se souborem</li>
-<li>Vysvětlit: “UTF-8 = standard pro češtinu”</li>
-<li>Říct: “Vždy to přidávejte, až to budete potřebovat, připomenu”</li>
-</ul>
-</section>
-<section id="propojení-s-math_utils-80-90-min" class="level3" data-number="12.3.4">
-<h3 data-number="12.3.4" class="anchored" data-anchor-id="propojení-s-math_utils-80-90-min"><span class="header-section-number">12.3.4</span> Propojení s math_utils (80-90 min):</h3>
-<ul>
-<li>Ukázat, jak použít je_prvocislo() na data ze souboru</li>
-<li>Zdůraznit: “Takhle budete kombinovat ArcPy s jinými funkcemi!”</li>
-</ul>
-</section>
-</section>
-<section id="rizika" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="rizika"><span class="header-section-number">12.4</span> Rizika</h2>
-<ol type="1">
-<li><strong>strip() a split() mohou být matoucí (20 min → 25 min)</strong>
-<ul>
-<li>Řešení: Praktické ukázky, nechat je experimentovat</li>
-<li>Mít připravené příklady na projektoru</li>
-</ul></li>
-<li><strong>Encoding problémy</strong>
-<ul>
-<li>Řešení: Hned na začátku říct “vždy používejte utf-8”</li>
-<li>Pokud narazí na chybu, ukázat jak opravit</li>
-</ul></li>
-<li><strong>Studenti nestihnou cvičení</strong>
-<ul>
-<li>Řešení: Cvičení 1 společně, Cvičení 2 jako domácí úkol</li>
-<li>Mít připravené řešení</li>
-</ul></li>
-</ol>
-</section>
-<section id="tipy" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="tipy"><span class="header-section-number">12.5</span> Tipy</h2>
-<ul>
-<li><strong>Vytvořte soubor mesta.txt</strong> předem a sdílejte ho se studenty</li>
-<li>Na projektoru ukazujte <strong>obsah souboru</strong> vedle kódu</li>
-<li>Používejte <code>print()</code> často - ať vidí, co se děje</li>
-<li>Zdůrazněte: “CSV příští týden - tohle je příprava!”</li>
-<li><strong>Propojení s GIS:</strong> “Atributové tabulky v ArcGIS exportujete jako CSV, zpracujete Pythonem, importujete zpět!”</li>
-</ul>
-</section>
-<section id="materiály-k-přípravě" class="level2" data-number="12.6">
-<h2 data-number="12.6" class="anchored" data-anchor-id="materiály-k-přípravě"><span class="header-section-number">12.6</span> Materiály k přípravě</h2>
-<ul class="task-list">
-<li><label><input type="checkbox">Soubor <code>mesta.txt</code> s ukázkovými daty</label></li>
-<li><label><input type="checkbox">Soubor <code>teploty.txt</code> pro domácí úkol</label></li>
-<li><label><input type="checkbox">Řešení všech cvičení</label></li>
-<li><label><input type="checkbox">Diagram: otevření → zpracování → zavření souboru</label></li>
-</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

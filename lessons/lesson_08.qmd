@@ -1,7 +1,7 @@
 ---
 title: "Lekce 8: Textové soubory II – CSV tabulka"
 subtitle: "Python pro GIS - Profesionální práce s tabulkami"
-author: "Váš kurz"
+author: "Vojtěch Barták, FŽP ČZU Praha"
 date: today
 format:
   html:
@@ -10,7 +10,16 @@ format:
     number-sections: true
     code-fold: false
     theme: cosmo
+  pdf:       
+    toc: true
+    toc-depth: 3
+    number-sections: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
+
+\newpage
 
 # Cíle lekce
 
@@ -786,6 +795,9 @@ float(radek['Rozloha'])        # 496.0 (float)
 
 ---
 
+::: {.content-visible when-format="pdf"}
+\newpage
+
 # 11. Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
@@ -861,4 +873,46 @@ writer.writerows(data)
 
 2. **Třídění slovníků je složité (Krok 4)**
    - Řešení: Ukázat jednodušší verzi se `sort(key=...)`
-   - Říct: "
+   - Říct: "Na testu nebude třídění slovníků, jen seznamů čísel"
+   - Alternativně přeskočit a dát jako bonusový úkol
+
+3. **Studenti nestihnou celou úlohu**
+   - Řešení: Kroky 1-3 společně, 4-5 jako domácí úkol
+   - Mít připravené řešení na sdílení
+
+## Tipy
+
+- **Vytvořte okresy.csv** předem a sdílejte se studenty
+- Ukažte **Excel** vedle Pythonu - ať vidí, že jde o stejná data
+- Zdůrazněte **DictReader = vždy když máte hlavičku**
+- **GIS propojení:** "V ArcPy budete exportovat tabulky, zpracovávat, importovat zpět - přesně tohle!"
+- Před koncem připomeňte: **"Příští týden TEST!"**
+
+## Příprava na test (důležité!)
+
+**Co bude na testu:**
+- Čtení CSV pomocí DictReader
+- Zpracování dat (výpočty, filtrace)
+- Použití funkcí (vlastních nebo z modulu)
+- Zápis výsledků do nového CSV
+- Pochopení kódu (co dělá tento program?)
+
+**Co NEBUDE:**
+- Složité algoritmy (třídění slovníků)
+- OOP (to až po testu)
+- ArcPy (to až později)
+
+**Doporučení studentům:**
+- Projděte si všechny domácí úkoly
+- Zopakujte funkce (math_utils)
+- Procvičte DictReader a DictWriter
+- Zkuste si vytvořit vlastní CSV a zpracovat ho
+
+## Materiály k přípravě
+
+- [ ] Soubor `okresy.csv` s ukázkovými daty
+- [ ] Soubor `teploty_mesic.csv` pro domácí úkol
+- [ ] Řešení všech cvičení
+- [ ] **Ukázkový test** - připravit pro příští týden!
+- [ ] Diagram GIS workflow (export → Python → import)
+:::

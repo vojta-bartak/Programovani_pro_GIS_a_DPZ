@@ -26,6 +26,10 @@ website:
             href: lessons/lesson_05.qmd
           - text: "Lekce 6: Funkce a moduly"
             href: lessons/lesson_06.qmd
+          - text: "Lekce 7: Textové soubory I"
+            href: lessons/lesson_07.qmd
+          - text: "Lekce 8: Textové soubory II"
+            href: lessons/lesson_08.qmd
 
 
 format:
