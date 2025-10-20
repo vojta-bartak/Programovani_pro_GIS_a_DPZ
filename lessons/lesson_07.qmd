@@ -507,7 +507,7 @@ with open("velka_mesta.txt", "w", encoding="utf-8") as soubor:
     soubor.write("=" * 40 + "\n\n")
     
     for mesto, populace in velka_mesta:
-        soubor.write(f"{mesto}: {populace:,} obyvatel\n")
+        soubor.write(f"{mesto}: {populace} obyvatel\n")
 
 print("Výsledky uloženy do velka_mesta.txt")
 ```
@@ -759,7 +759,7 @@ desetinne = float("3.14")            # float
 
 # === FORMÁTOVÁNÍ VÝSTUPU ===
 f.write(f"Město: {mesto}\n")
-f.write(f"Populace: {populace:,}\n")  # S oddělovači tisíců
+f.write(f"Populace: {populace}\n")  # S oddělovači tisíců
 
 # === KONTROLA PRÁZDNÉHO ŘÁDKU ===
 if radek:              # Není prázdný
