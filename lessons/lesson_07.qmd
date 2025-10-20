@@ -247,9 +247,16 @@ Plzeň 170000
 Liberec 103000
 ```
 
-**Úkoly:** 1. Načíst soubor 2. Vypsat všechna města s populací \> 200
-000 3. Spočítat celkovou populaci všech měst 4. Najít město s nejvyšší
-populací
+a soubor `mesta_all.txt` (ke stažení v Moodlu).
+
+**Úkoly:**
+
+1.  Načíst soubor
+2.  Vypsat všechna města s populací \> 200 000
+3.  Spočítat celkovou populaci všech měst
+4.  Najít město s nejvyšší populací
+5.  Totéž provést se souborem `mesta_all.txt` (pozor: zde jsou sloupce
+    oddělené tabulátorem!)
 
 ## Řešení krok za krokem
 
@@ -279,49 +286,51 @@ open("soubor.txt", "r", encoding="utf-8")
 
 ``` python
 with open("mesta.txt", "r", encoding="utf-8") as soubor:
-    for radek in soubor:
-        radek = radek.strip()  # Odstranit \n
-        
-        if radek:  # Pokud není prázdný
-            casti = radek.split()  # Rozdělit
-            mesto = casti[0]
-            populace = int(casti[1])  # Převést na int!
-            
-            print(f"{mesto}: {populace:,} obyvatel")
+    radky = soubor.readlines()
+
+for radek in radky:
+  radek = radek.strip()  # Odstranit \n
+  
+  casti = radek.split()  # Rozdělit
+  mesto = casti[0]
+  populace = int(casti[1])  # Převést na int!
+    
+  print(f"{mesto}: {populace} obyvatel")
 ```
 
 **Výsledek:**
 
 ```         
-Praha: 1,300,000 obyvatel
-Brno: 380,000 obyvatel
-Ostrava: 290,000 obyvatel
-Plzeň: 170,000 obyvatel
-Liberec: 103,000 obyvatel
+Praha: 1300000 obyvatel
+Brno: 380000 obyvatel
+Ostrava: 290000 obyvatel
+Plzeň: 170000 obyvatel
+Liberec: 103000 obyvatel
 ```
 
 ### Krok 3: Filtrace měst nad 200 000
 
 ``` python
 with open("mesta.txt", "r", encoding="utf-8") as soubor:
-    for radek in soubor:
-        radek = radek.strip()
-        
-        if radek:
-            casti = radek.split()
-            mesto = casti[0]
-            populace = int(casti[1])
-            
-            if populace > 200000:
-                print(f"{mesto}: {populace:,}")
+    radky = soubor.readlines()
+
+for radek in radky:
+  radek = radek.strip()  # Odstranit \n
+  
+  casti = radek.split()  # Rozdělit
+  mesto = casti[0]
+  populace = int(casti[1])  # Převést na int!
+    
+  if populace > 200000:
+    print(f"{mesto}: {populace}")
 ```
 
 **Výsledek:**
 
 ```         
-Praha: 1,300,000
-Brno: 380,000
-Ostrava: 290,000
+Praha: 1300000
+Brno: 380000
+Ostrava: 290000
 ```
 
 ### Krok 4: Celková populace
@@ -330,15 +339,16 @@ Ostrava: 290,000
 celkova_populace = 0
 
 with open("mesta.txt", "r", encoding="utf-8") as soubor:
-    for radek in soubor:
-        radek = radek.strip()
-        
-        if radek:
-            casti = radek.split()
-            populace = int(casti[1])
-            celkova_populace += populace
+    radky = soubor.readlines()
 
-print(f"Celková populace: {celkova_populace:,}")
+for radek in radky:
+  radek = radek.strip() 
+  
+  casti = radek.split() 
+  populace = int(casti[1])  
+  celkova_populace += populace
+    
+print(f"Celková populace: {celkova_populace}")
 ```
 
 ### Krok 5: Město s nejvyšší populací
@@ -348,20 +358,93 @@ max_mesto = ""
 max_populace = 0
 
 with open("mesta.txt", "r", encoding="utf-8") as soubor:
-    for radek in soubor:
-        radek = radek.strip()
-        
-        if radek:
-            casti = radek.split()
-            mesto = casti[0]
-            populace = int(casti[1])
-            
-            if populace > max_populace:
-                max_populace = populace
-                max_mesto = mesto
+    radky = soubor.readlines()
 
-print(f"Největší město: {max_mesto} ({max_populace:,})")
+for radek in radky:
+  radek = radek.strip() 
+  
+  casti = radek.split() 
+  mesto = casti[0]
+  populace = int(casti[1])  
+  
+  if populace > max_populace:
+    max_populace = populace
+    max_mesto = mesto
+
+print(f"Největší město: {max_mesto} ({max_populace})")
 ```
+
+::: callout-tip
+## Procházení souboru přímo
+
+V ukázkách výše jsme vždy **nejprve načetli řádky pomocí `readlines()`**
+a následně **procházeli seznam**. Alternativně je možné **procházet
+přímo otevřený soubor**:
+
+``` python
+with open("cisla.txt", "r", encoding="utf-8") as soubor:
+    for radek in soubor:
+        print(radek.strip())
+```
+
+**Pozor na kurzor!** Po průchodu souborem kurzor zůstává na konci, takže
+další průchod už nefunguje:
+
+``` python
+with open("cisla.txt", "r", encoding="utf-8") as soubor:
+    # První průchod - funguje
+    for radek in soubor:
+        print(radek.strip())
+    
+    # Druhý průchod - NEFUNGUJE! (nic se nevypíše)
+    for radek in soubor:
+        print(radek.strip())
+```
+
+### Kdy použít jaký přístup?
+
+| Metoda | Kdy použít |
+|-----------------------------|-------------------------------------------|
+| **`readlines()`** | Potřebujete procházet data vícekrát nebo použít indexy |
+| **Přímé procházení** | Jednorázové zpracování, šetří paměť u velkých souborů |
+
+### Cvičení: Přepište na přímé procházení
+
+Přepište předchozí úlohu tak, aby používala přímé procházení místo
+`readlines()`. Příklad:
+
+**Původní verze:**
+
+``` python
+with open("mesta.txt", "r", encoding="utf-8") as soubor:
+    radky = soubor.readlines()
+
+for radek in radky:
+  radek = radek.strip()  # Odstranit \n
+  
+  casti = radek.split()  # Rozdělit
+  mesto = casti[0]
+  populace = int(casti[1])  # Převést na int!
+    
+  print(f"{mesto}: {populace} obyvatel")
+```
+
+**Verze s přímým procházením:**
+
+``` python
+with open("mesta.txt", "r", encoding="utf-8") as soubor:
+    for radek in soubor:
+      radek = radek.strip()  # Odstranit \n
+      
+      casti = radek.split()  # Rozdělit
+      mesto = casti[0]
+      populace = int(casti[1])  # Převést na int!
+      
+      print(f"{mesto}: {populace} obyvatel")
+```
+
+**Výhoda:** Jednodušší a paměťově efektivnější!
+:::
 
 ------------------------------------------------------------------------
 
@@ -477,11 +560,12 @@ print(f"Nalezeno {len(prvocisla)} prvočísel")
 
 ------------------------------------------------------------------------
 
-# Praktické cvičení
+# Praktická cvičení
 
 ## Cvičení 1: Statistiky měst
 
-Použijte soubor `mesta.txt` a vytvořte program, který:
+Použijte soubor `mesta.txt` (případně `mesta_all.txt`) a vytvořte
+program, který:
 
 1.  Spočítá průměrnou populaci
 2.  Najde medián (použijte `math_utils.bubble_sort()` pro seřazení!)
@@ -557,9 +641,12 @@ Středa 22
 Pátek 16
 ```
 
-**Napište program, který:** 1. Načte data 2. Spočítá průměrnou teplotu
-3. Najde den s nejvyšší teplotou 4. Uloží výsledky do
-`vysledky_teploty.txt`
+**Napište program, který:**
+
+1.  Načte data
+2.  Spočítá průměrnou teplotu
+3.  Najde den s nejvyšší teplotou
+4.  Uloží výsledky do `vysledky_teploty.txt`
 
 ## Varianta B (pokročilá)
 
@@ -574,9 +661,12 @@ Plzeň 170000 261
 
 Formát: **Název Populace Rozloha** (všechny hodnoty oddělené mezerami)
 
-**Napište program, který:** 1. Pro každý okres vypočítá hustotu obyvatel
-(populace/rozloha) 2. Použije `bubble_sort()` z `math_utils` pro
-seřazení okresů podle hustoty 3. Uloží výsledky do `hustota_okresu.txt`:
+**Napište program, který:**
+
+1.  Pro každý okres vypočítá hustotu obyvatel (populace/rozloha)
+2.  Použije `bubble_sort()` z `math_utils` pro seřazení okresů podle
+    hustoty
+3.  Uloží výsledky do `hustota_okresu.txt`:
 
 ```         
 Okresy seřazené podle hustoty obyvatel
@@ -588,7 +678,23 @@ Brno: 1,652 obyvatel/km²
 
 ## Varianta C (výzva)
 
-\*\*Vytvořte vlastní modul `soubory_utils.py`\*\* s funkcemi:
+Zpracujte úkoly z varianty A pro **Tabulku meteorologických údajů** (ke
+stažení v Moodlu jako soubor `7770_all_variables.txt`).
+
+::: callout-warning
+**Pozor!** V souboru je třeba vyřešit:
+
+-   Soubor má hlavičku (první řádek obsahuje názvy sloupců, ne hodnoty!)
+-   Sloupce jsou oddělené tabulátorem!
+-   Tabulka obsahuje i jiné proměnné než teplotu (údaj o proměnné je ve
+    sloupci `Variable`). Je třeba vyfiltrovat **jen teploty!**
+-   Tabulka obsahuje jak měsíční, tak roční hodnoty (ve sloupci `Month`
+    hodnota `Annual`). Pracujte pouze **s ročními hodnotami!**
+:::
+
+## Varianta D (výzva)
+
+Vytvořte vlastní modul `soubory_utils.py` s funkcemi:
 
 ``` python
 def nacti_cisla(nazev_souboru):

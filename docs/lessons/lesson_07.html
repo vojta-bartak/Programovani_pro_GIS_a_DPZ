@@ -234,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#příklad-prvočísla-ze-souboru" id="toc-příklad-prvočísla-ze-souboru" class="nav-link" data-scroll-target="#příklad-prvočísla-ze-souboru"><span class="header-section-number">7.1</span> Příklad: Prvočísla ze souboru</a></li>
   </ul></li>
-  <li><a href="#praktické-cvičení" id="toc-praktické-cvičení" class="nav-link" data-scroll-target="#praktické-cvičení"><span class="header-section-number">8</span> Praktické cvičení</a>
+  <li><a href="#praktická-cvičení" id="toc-praktická-cvičení" class="nav-link" data-scroll-target="#praktická-cvičení"><span class="header-section-number">8</span> Praktická cvičení</a>
   <ul class="collapse">
   <li><a href="#cvičení-1-statistiky-měst" id="toc-cvičení-1-statistiky-měst" class="nav-link" data-scroll-target="#cvičení-1-statistiky-měst"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky měst</a></li>
   <li><a href="#cvičení-2-filtrace-a-export" id="toc-cvičení-2-filtrace-a-export" class="nav-link" data-scroll-target="#cvičení-2-filtrace-a-export"><span class="header-section-number">8.2</span> Cvičení 2: Filtrace a export</a></li>
@@ -249,6 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#varianta-a-základní" id="toc-varianta-a-základní" class="nav-link" data-scroll-target="#varianta-a-základní"><span class="header-section-number">10.1</span> Varianta A (základní)</a></li>
   <li><a href="#varianta-b-pokročilá" id="toc-varianta-b-pokročilá" class="nav-link" data-scroll-target="#varianta-b-pokročilá"><span class="header-section-number">10.2</span> Varianta B (pokročilá)</a></li>
   <li><a href="#varianta-c-výzva" id="toc-varianta-c-výzva" class="nav-link" data-scroll-target="#varianta-c-výzva"><span class="header-section-number">10.3</span> Varianta C (výzva)</a></li>
+  <li><a href="#varianta-d-výzva" id="toc-varianta-d-výzva" class="nav-link" data-scroll-target="#varianta-d-výzva"><span class="header-section-number">10.4</span> Varianta D (výzva)</a></li>
   </ul></li>
   <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">11</span> Cheatsheet</a></li>
   </ul>
@@ -491,7 +492,15 @@ Brno 380000
 Ostrava 290000
 Plzeň 170000
 Liberec 103000</code></pre>
-<p><strong>Úkoly:</strong> 1. Načíst soubor 2. Vypsat všechna města s populací &gt; 200 000 3. Spočítat celkovou populaci všech měst 4. Najít město s nejvyšší populací</p>
+<p>a soubor <code>mesta_all.txt</code> (ke stažení v Moodlu).</p>
+<p><strong>Úkoly:</strong></p>
+<ol type="1">
+<li>Načíst soubor</li>
+<li>Vypsat všechna města s populací &gt; 200 000</li>
+<li>Spočítat celkovou populaci všech měst</li>
+<li>Najít město s nejvyšší populací</li>
+<li>Totéž provést se souborem <code>mesta_all.txt</code> (pozor: zde jsou sloupce oddělené tabulátorem!)</li>
+</ol>
 </section>
 <section id="řešení-krok-za-krokem" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="řešení-krok-za-krokem"><span class="header-section-number">5.2</span> Řešení krok za krokem</h2>
@@ -521,54 +530,57 @@ Liberec 103000</code></pre>
 <section id="krok-2-zpracování-každého-řádku" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="krok-2-zpracování-každého-řádku"><span class="header-section-number">5.2.2</span> Krok 2: Zpracování každého řádku</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()  <span class="co"># Odstranit \n</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:  <span class="co"># Pokud není prázdný</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            casti <span class="op">=</span> radek.split()  <span class="co"># Rozdělit</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>            mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>            populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])  <span class="co"># Převést na int!</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">:,}</span><span class="ss"> obyvatel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    radky <span class="op">=</span> soubor.readlines()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> radky:</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  radek <span class="op">=</span> radek.strip()  <span class="co"># Odstranit \n</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  casti <span class="op">=</span> radek.split()  <span class="co"># Rozdělit</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])  <span class="co"># Převést na int!</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">}</span><span class="ss"> obyvatel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Výsledek:</strong></p>
-<pre><code>Praha: 1,300,000 obyvatel
-Brno: 380,000 obyvatel
-Ostrava: 290,000 obyvatel
-Plzeň: 170,000 obyvatel
-Liberec: 103,000 obyvatel</code></pre>
+<pre><code>Praha: 1300000 obyvatel
+Brno: 380000 obyvatel
+Ostrava: 290000 obyvatel
+Plzeň: 170000 obyvatel
+Liberec: 103000 obyvatel</code></pre>
 </section>
 <section id="krok-3-filtrace-měst-nad-200-000" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="krok-3-filtrace-měst-nad-200-000"><span class="header-section-number">5.2.3</span> Krok 3: Filtrace měst nad 200 000</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>            casti <span class="op">=</span> radek.split()</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>            mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>            populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> populace <span class="op">&gt;</span> <span class="dv">200000</span>:</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">:,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    radky <span class="op">=</span> soubor.readlines()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> radky:</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  radek <span class="op">=</span> radek.strip()  <span class="co"># Odstranit \n</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  casti <span class="op">=</span> radek.split()  <span class="co"># Rozdělit</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])  <span class="co"># Převést na int!</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> populace <span class="op">&gt;</span> <span class="dv">200000</span>:</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Výsledek:</strong></p>
-<pre><code>Praha: 1,300,000
-Brno: 380,000
-Ostrava: 290,000</code></pre>
+<pre><code>Praha: 1300000
+Brno: 380000
+Ostrava: 290000</code></pre>
 </section>
 <section id="krok-4-celková-populace" class="level3" data-number="5.2.4">
 <h3 data-number="5.2.4" class="anchored" data-anchor-id="krok-4-celková-populace"><span class="header-section-number">5.2.4</span> Krok 4: Celková populace</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>celkova_populace <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            casti <span class="op">=</span> radek.split()</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>            populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>            celkova_populace <span class="op">+=</span> populace</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Celková populace: </span><span class="sc">{</span>celkova_populace<span class="sc">:,}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    radky <span class="op">=</span> soubor.readlines()</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> radky:</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  radek <span class="op">=</span> radek.strip() </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  casti <span class="op">=</span> radek.split() </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])  </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  celkova_populace <span class="op">+=</span> populace</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Celková populace: </span><span class="sc">{</span>celkova_populace<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="krok-5-město-s-nejvyšší-populací" class="level3" data-number="5.2.5">
 <h3 data-number="5.2.5" class="anchored" data-anchor-id="krok-5-město-s-nejvyšší-populací"><span class="header-section-number">5.2.5</span> Krok 5: Město s nejvyšší populací</h3>
@@ -576,19 +588,97 @@ Ostrava: 290,000</code></pre>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>max_populace <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>            casti <span class="op">=</span> radek.split()</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>            mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> populace <span class="op">&gt;</span> max_populace:</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>                max_populace <span class="op">=</span> populace</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>                max_mesto <span class="op">=</span> mesto</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Největší město: </span><span class="sc">{</span>max_mesto<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>max_populace<span class="sc">:,}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    radky <span class="op">=</span> soubor.readlines()</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> radky:</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  radek <span class="op">=</span> radek.strip() </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  casti <span class="op">=</span> radek.split() </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])  </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> populace <span class="op">&gt;</span> max_populace:</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    max_populace <span class="op">=</span> populace</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    max_mesto <span class="op">=</span> mesto</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Největší město: </span><span class="sc">{</span>max_mesto<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>max_populace<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Procházení souboru přímo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V ukázkách výše jsme vždy <strong>nejprve načetli řádky pomocí <code>readlines()</code></strong> a následně <strong>procházeli seznam</strong>. Alternativně je možné <strong>procházet přímo otevřený soubor</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"cisla.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(radek.strip())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Pozor na kurzor!</strong> Po průchodu souborem kurzor zůstává na konci, takže další průchod už nefunguje:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"cisla.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># První průchod - funguje</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(radek.strip())</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Druhý průchod - NEFUNGUJE! (nic se nevypíše)</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(radek.strip())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="kdy-použít-jaký-přístup" class="level3" data-number="5.2.6">
+<h3 data-number="5.2.6" class="anchored" data-anchor-id="kdy-použít-jaký-přístup"><span class="header-section-number">5.2.6</span> Kdy použít jaký přístup?</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metoda</th>
+<th>Kdy použít</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>readlines()</code></strong></td>
+<td>Potřebujete procházet data vícekrát nebo použít indexy</td>
+</tr>
+<tr class="even">
+<td><strong>Přímé procházení</strong></td>
+<td>Jednorázové zpracování, šetří paměť u velkých souborů</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cvičení-přepište-na-přímé-procházení" class="level3" data-number="5.2.7">
+<h3 data-number="5.2.7" class="anchored" data-anchor-id="cvičení-přepište-na-přímé-procházení"><span class="header-section-number">5.2.7</span> Cvičení: Přepište na přímé procházení</h3>
+<p>Přepište předchozí úlohu tak, aby používala přímé procházení místo <code>readlines()</code>. Příklad:</p>
+<p><strong>Původní verze:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    radky <span class="op">=</span> soubor.readlines()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> radky:</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  radek <span class="op">=</span> radek.strip()  <span class="co"># Odstranit \n</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  casti <span class="op">=</span> radek.split()  <span class="co"># Rozdělit</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])  <span class="co"># Převést na int!</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">}</span><span class="ss"> obyvatel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Verze s přímým procházením:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>      radek <span class="op">=</span> radek.strip()  <span class="co"># Odstranit \n</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>      casti <span class="op">=</span> radek.split()  <span class="co"># Rozdělit</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])  <span class="co"># Převést na int!</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">}</span><span class="ss"> obyvatel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výhoda:</strong> Jednodušší a paměťově efektivnější!</p>
+</section>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -597,10 +687,10 @@ Ostrava: 290,000</code></pre>
 <h1 data-number="6"><span class="header-section-number">6</span> Zápis do souborů</h1>
 <section id="vytvoření-nového-souboru" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="vytvoření-nového-souboru"><span class="header-section-number">6.1</span> Vytvoření nového souboru</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Výsledky analýzy měst</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"="</span> <span class="op">*</span> <span class="dv">30</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Praha: 1300000</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Výsledky analýzy měst</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"="</span> <span class="op">*</span> <span class="dv">30</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Praha: 1300000</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -612,48 +702,48 @@ Ostrava: 290,000</code></pre>
 </div>
 <div class="callout-body-container callout-body">
 <p>Pokud soubor existuje, <code>"w"</code> ho <strong>VYMAŽE</strong> a začne nový:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># První spuštění:</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"test.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"První text</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Druhé spuštění - PŘEPÍŠE!</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"test.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"Druhý text</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Výsledek: "Druhý text" (první text je pryč!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># První spuštění:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"test.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"První text</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Druhé spuštění - PŘEPÍŠE!</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"test.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> f:</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"Druhý text</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Výsledek: "Druhý text" (první text je pryč!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
 <section id="přidání-na-konec---režim-a" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="přidání-na-konec---režim-a"><span class="header-section-number">6.2</span> Přidání na konec - režim “a”</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.txt"</span>, <span class="st">"a"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Brno: 380000</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.txt"</span>, <span class="st">"a"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Brno: 380000</span><span class="ch">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="praktický-příklad---export-výsledků" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="praktický-příklad---export-výsledků"><span class="header-section-number">6.3</span> Praktický příklad - export výsledků</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Analýza</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>velka_mesta <span class="op">=</span> []</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>            casti <span class="op">=</span> radek.split()</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>            mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> populace <span class="op">&gt;</span> <span class="dv">200000</span>:</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>                velka_mesta.append((mesto, populace))</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Export výsledků</span></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"velka_mesta.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Města s populací nad 200 000</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"="</span> <span class="op">*</span> <span class="dv">40</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n\n</span><span class="st">"</span>)</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> mesto, populace <span class="kw">in</span> velka_mesta:</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>        soubor.write(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">:,}</span><span class="ss"> obyvatel</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Výsledky uloženy do velka_mesta.txt"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Analýza</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>velka_mesta <span class="op">=</span> []</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"mesta.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>            casti <span class="op">=</span> radek.split()</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>            mesto <span class="op">=</span> casti[<span class="dv">0</span>]</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>            populace <span class="op">=</span> <span class="bu">int</span>(casti[<span class="dv">1</span>])</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> populace <span class="op">&gt;</span> <span class="dv">200000</span>:</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>                velka_mesta.append((mesto, populace))</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Export výsledků</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"velka_mesta.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Města s populací nad 200 000</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"="</span> <span class="op">*</span> <span class="dv">40</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n\n</span><span class="st">"</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> mesto, populace <span class="kw">in</span> velka_mesta:</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>        soubor.write(<span class="ss">f"</span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>populace<span class="sc">:,}</span><span class="ss"> obyvatel</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Výsledky uloženy do velka_mesta.txt"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
@@ -669,37 +759,37 @@ Ostrava: 290,000</code></pre>
 23
 100</code></pre>
 <p><strong>Program:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Načíst čísla ze souboru</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> []</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"cisla.txt"</span>, <span class="st">"r"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>            cisla.append(<span class="bu">int</span>(radek))</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Najít prvočísla</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>prvocisla <span class="op">=</span> []</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cislo <span class="kw">in</span> cisla:</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> math_utils.je_prvocislo(cislo):</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>        prvocisla.append(cislo)</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Uložit výsledky</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"prvocisla.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> soubor:</span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Prvočísla ze vstupu:</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> prvocisla:</span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>        soubor.write(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nalezeno </span><span class="sc">{</span><span class="bu">len</span>(prvocisla)<span class="sc">}</span><span class="ss"> prvočísel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Načíst čísla ze souboru</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>cisla <span class="op">=</span> []</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"cisla.txt"</span>, <span class="st">"r"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> soubor:</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>        radek <span class="op">=</span> radek.strip()</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> radek:</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>            cisla.append(<span class="bu">int</span>(radek))</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Najít prvočísla</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>prvocisla <span class="op">=</span> []</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cislo <span class="kw">in</span> cisla:</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> math_utils.je_prvocislo(cislo):</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>        prvocisla.append(cislo)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Uložit výsledky</span></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"prvocisla.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    soubor.write(<span class="st">"Prvočísla ze vstupu:</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> prvocisla:</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>        soubor.write(<span class="ss">f"</span><span class="sc">{</span>p<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nalezeno </span><span class="sc">{</span><span class="bu">len</span>(prvocisla)<span class="sc">}</span><span class="ss"> prvočísel"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
-<section id="praktické-cvičení" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Praktické cvičení</h1>
+<section id="praktická-cvičení" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Praktická cvičení</h1>
 <section id="cvičení-1-statistiky-měst" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="cvičení-1-statistiky-měst"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky měst</h2>
-<p>Použijte soubor <code>mesta.txt</code> a vytvořte program, který:</p>
+<p>Použijte soubor <code>mesta.txt</code> (případně <code>mesta_all.txt</code>) a vytvořte program, který:</p>
 <ol type="1">
 <li>Spočítá průměrnou populaci</li>
 <li>Najde medián (použijte <code>math_utils.bubble_sort()</code> pro seřazení!)</li>
@@ -770,7 +860,13 @@ Brno: 380,000
 Středa 22
 Čtvrtek 19
 Pátek 16</code></pre>
-<p><strong>Napište program, který:</strong> 1. Načte data 2. Spočítá průměrnou teplotu 3. Najde den s nejvyšší teplotou 4. Uloží výsledky do <code>vysledky_teploty.txt</code></p>
+<p><strong>Napište program, který:</strong></p>
+<ol type="1">
+<li>Načte data</li>
+<li>Spočítá průměrnou teplotu</li>
+<li>Najde den s nejvyšší teplotou</li>
+<li>Uloží výsledky do <code>vysledky_teploty.txt</code></li>
+</ol>
 </section>
 <section id="varianta-b-pokročilá" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="varianta-b-pokročilá"><span class="header-section-number">10.2</span> Varianta B (pokročilá)</h2>
@@ -780,7 +876,12 @@ Brno 380000 230
 Ostrava 290000 214
 Plzeň 170000 261</code></pre>
 <p>Formát: <strong>Název Populace Rozloha</strong> (všechny hodnoty oddělené mezerami)</p>
-<p><strong>Napište program, který:</strong> 1. Pro každý okres vypočítá hustotu obyvatel (populace/rozloha) 2. Použije <code>bubble_sort()</code> z <code>math_utils</code> pro seřazení okresů podle hustoty 3. Uloží výsledky do <code>hustota_okresu.txt</code>:</p>
+<p><strong>Napište program, který:</strong></p>
+<ol type="1">
+<li>Pro každý okres vypočítá hustotu obyvatel (populace/rozloha)</li>
+<li>Použije <code>bubble_sort()</code> z <code>math_utils</code> pro seřazení okresů podle hustoty</li>
+<li>Uloží výsledky do <code>hustota_okresu.txt</code>:</li>
+</ol>
 <pre><code>Okresy seřazené podle hustoty obyvatel
 ========================================
 Praha: 2,621 obyvatel/km²
@@ -789,73 +890,96 @@ Brno: 1,652 obyvatel/km²
 </section>
 <section id="varianta-c-výzva" class="level2" data-number="10.3">
 <h2 data-number="10.3" class="anchored" data-anchor-id="varianta-c-výzva"><span class="header-section-number">10.3</span> Varianta C (výzva)</h2>
-<p>**Vytvořte vlastní modul <code>soubory_utils.py</code>** s funkcemi:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nacti_cisla(nazev_souboru):</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Načte čísla ze souboru (jedno číslo na řádek)."""</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uloz_cisla(nazev_souboru, cisla):</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Uloží seznam čísel do souboru (jedno na řádek)."""</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nacti_tabulku(nazev_souboru):</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Načte tabulku hodnot oddělených mezerami.</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Vrátí seznam seznamů.</span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Zpracujte úkoly z varianty A pro <strong>Tabulku meteorologických údajů</strong> (ke stažení v Moodlu jako soubor <code>7770_all_variables.txt</code>).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Pozor!</strong> V souboru je třeba vyřešit:</p>
+<ul>
+<li>Soubor má hlavičku (první řádek obsahuje názvy sloupců, ne hodnoty!)</li>
+<li>Sloupce jsou oddělené tabulátorem!</li>
+<li>Tabulka obsahuje i jiné proměnné než teplotu (údaj o proměnné je ve sloupci <code>Variable</code>). Je třeba vyfiltrovat <strong>jen teploty!</strong></li>
+<li>Tabulka obsahuje jak měsíční, tak roční hodnoty (ve sloupci <code>Month</code> hodnota <code>Annual</code>). Pracujte pouze <strong>s ročními hodnotami!</strong></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="varianta-d-výzva" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="varianta-d-výzva"><span class="header-section-number">10.4</span> Varianta D (výzva)</h2>
+<p>Vytvořte vlastní modul <code>soubory_utils.py</code> s funkcemi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nacti_cisla(nazev_souboru):</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Načte čísla ze souboru (jedno číslo na řádek)."""</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uloz_cisla(nazev_souboru, cisla):</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Uloží seznam čísel do souboru (jedno na řádek)."""</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nacti_tabulku(nazev_souboru):</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Načte tabulku hodnot oddělených mezerami.</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Vrátí seznam seznamů.</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Použijte tyto funkce</strong> v hlavním programu pro zpracování dat!</p>
 <hr>
 </section>
 </section>
 <section id="cheatsheet" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Cheatsheet</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === OTEVŘENÍ SOUBORU ===</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Čtení</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    obsah <span class="op">=</span> f.read()</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Zápis (přepíše soubor)</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"text</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání na konec</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"a"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"další text</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="co"># === ČTENÍ ===</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Celý soubor jako string</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>obsah <span class="op">=</span> f.read()</span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Seznam řádků</span></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>radky <span class="op">=</span> f.readlines()</span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Procházení řádek po řádku</span></span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> f:</span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># zpracování řádku</span></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a><span class="co"># === ZPRACOVÁNÍ TEXTU ===</span></span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>radek <span class="op">=</span> <span class="st">"  Praha 1300000</span><span class="ch">\n</span><span class="st">  "</span></span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>radek.strip()           <span class="co"># "Praha 1300000" (bez \n a mezer)</span></span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>radek.split()           <span class="co"># ['Praha', '1300000']</span></span>
-<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>radek.split(<span class="st">","</span>)        <span class="co"># Rozdělení čárkou</span></span>
-<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a><span class="co"># === PŘEVODY ===</span></span>
-<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a>cislo_text <span class="op">=</span> <span class="st">"1300000"</span></span>
-<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>cislo <span class="op">=</span> <span class="bu">int</span>(cislo_text)              <span class="co"># int</span></span>
-<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>desetinne <span class="op">=</span> <span class="bu">float</span>(<span class="st">"3.14"</span>)            <span class="co"># float</span></span>
-<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a><span class="co"># === FORMÁTOVÁNÍ VÝSTUPU ===</span></span>
-<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>f.write(<span class="ss">f"Město: </span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>f.write(<span class="ss">f"Populace: </span><span class="sc">{</span>populace<span class="sc">:,}</span><span class="ch">\n</span><span class="ss">"</span>)  <span class="co"># S oddělovači tisíců</span></span>
-<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a><span class="co"># === KONTROLA PRÁZDNÉHO ŘÁDKU ===</span></span>
-<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> radek:              <span class="co"># Není prázdný</span></span>
-<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> radek.strip():      <span class="co"># Není prázdný ani po strip()</span></span>
-<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a><span class="co"># === ENCODING ===</span></span>
-<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="co"># VŽDY používejte pro české texty:</span></span>
-<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === OTEVŘENÍ SOUBORU ===</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Čtení</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    obsah <span class="op">=</span> f.read()</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Zápis (přepíše soubor)</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"text</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání na konec</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"a"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    f.write(<span class="st">"další text</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="co"># === ČTENÍ ===</span></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Celý soubor jako string</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>obsah <span class="op">=</span> f.read()</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Seznam řádků</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>radky <span class="op">=</span> f.readlines()</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Procházení řádek po řádku</span></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> f:</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># zpracování řádku</span></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a><span class="co"># === ZPRACOVÁNÍ TEXTU ===</span></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>radek <span class="op">=</span> <span class="st">"  Praha 1300000</span><span class="ch">\n</span><span class="st">  "</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>radek.strip()           <span class="co"># "Praha 1300000" (bez \n a mezer)</span></span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>radek.split()           <span class="co"># ['Praha', '1300000']</span></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>radek.split(<span class="st">","</span>)        <span class="co"># Rozdělení čárkou</span></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a><span class="co"># === PŘEVODY ===</span></span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>cislo_text <span class="op">=</span> <span class="st">"1300000"</span></span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>cislo <span class="op">=</span> <span class="bu">int</span>(cislo_text)              <span class="co"># int</span></span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>desetinne <span class="op">=</span> <span class="bu">float</span>(<span class="st">"3.14"</span>)            <span class="co"># float</span></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a><span class="co"># === FORMÁTOVÁNÍ VÝSTUPU ===</span></span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>f.write(<span class="ss">f"Město: </span><span class="sc">{</span>mesto<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>f.write(<span class="ss">f"Populace: </span><span class="sc">{</span>populace<span class="sc">:,}</span><span class="ch">\n</span><span class="ss">"</span>)  <span class="co"># S oddělovači tisíců</span></span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a><span class="co"># === KONTROLA PRÁZDNÉHO ŘÁDKU ===</span></span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> radek:              <span class="co"># Není prázdný</span></span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> radek.strip():      <span class="co"># Není prázdný ani po strip()</span></span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="co"># === ENCODING ===</span></span>
+<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a><span class="co"># VŽDY používejte pro české texty:</span></span>
+<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="bu">open</span>(<span class="st">"soubor.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 
 
