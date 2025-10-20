@@ -12,6 +12,8 @@ format:
 
 Zde naleznete materiály k předmětu **Programování pro GIS a DPZ**, vyučovaným na Fakultě životního prostředí ČZU v Praze. Obsahem předmětu jsou pokročilé metody ovládání funkcionality programu ArcGIS: Model Builder, ale především psaní skriptů v programovacím jazyce Python. Nepředpokládá se žádná předchozí znalost programování (i když je jistě výhodou), naopak součástí kurzu je úvod do programování v Pythonu.
 
+
+::: {.callout-note appearance="simple"}
 ## Použití generativní umělé inteligence
 
 Tyto studijní materiály byly vytvořeny s pomocí generativní umělé inteligence (dále jen AI), konkrétně nástroje Claude.AI (model Sonnet 4.5). Nástroj byl použit následujícím způsobem:
@@ -21,6 +23,6 @@ Tyto studijní materiály byly vytvořeny s pomocí generativní umělé intelig
 2. Návrh konkrétní podoby jednotlivých lekcí, opět na základě starších verzí materiálů vytvořených autorem.
 
 Veškerý obsah materiálů byl pečlivě zrevidován a upraven autorem a autor za ně přebírá plnou odpovědnost (včetně případných chyb). Podoba materiálů je také průběžně autorem upravována na základě praktických zkušeností z výuky.
-
+:::
 
 
