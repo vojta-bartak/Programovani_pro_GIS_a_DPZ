@@ -25,61 +25,59 @@ editor:
 
 Po absolvování této lekce budete umět:
 
-- Rozumět formátu CSV a jeho problémům
-- Používat modul `csv` pro čtení a zápis
-- Pracovat s `csv.reader()` a `csv.DictReader()`
-- Zapisovat pomocí `csv.writer()` a `csv.DictWriter()`
-- Zpracovávat reálná data s hlavičkami
-- Propojit CSV data s GIS workflow
-- Kombinovat funkce z `math_utils` s CSV daty
+-   Rozumět formátu CSV a jeho problémům
+-   Používat modul `csv` pro čtení a zápis
+-   Pracovat s `csv.reader()` a `csv.DictReader()`
+-   Zapisovat pomocí `csv.writer()` a `csv.DictWriter()`
+-   Zpracovávat reálná data s hlavičkami
+-   Propojit CSV data s GIS workflow
+-   Kombinovat funkce z `math_utils` s CSV daty
 
 **Časová dotace:** 90 minut
 
----
+------------------------------------------------------------------------
 
-# 1. Co je CSV formát?
+# Co je CSV formát?
 
 ## Comma-Separated Values
 
 **CSV** = Comma-Separated Values (hodnoty oddělené čárkou)
 
 **Příklad CSV souboru:**
-```
+
+```         
 Okres,Populace,Rozloha
 Praha,1300000,496
 Brno,380000,230
 Ostrava,290000,214
 ```
 
-**Struktura:**
-- První řádek = **hlavička** (názvy sloupců)
-- Další řádky = **data**
-- Hodnoty oddělené **čárkou** (nebo středníkem, tabulátorem...)
+**Struktura:** - První řádek = **hlavička** (názvy sloupců) - Další
+řádky = **data** - Hodnoty oddělené **čárkou** (nebo středníkem,
+tabulátorem...)
 
 ## Proč CSV?
 
-**Výhody:**
-- ✅ Jednoduchý textový formát
-- ✅ Otevřete v Excelu, LibreOffice, Google Sheets
-- ✅ Malá velikost souboru
-- ✅ Univerzální - funguje všude
-- ✅ **ArcGIS umí exportovat atributové tabulky jako CSV!**
+**Výhody:** - ✅ Jednoduchý textový formát - ✅ Otevřete v Excelu,
+LibreOffice, Google Sheets - ✅ Malá velikost souboru - ✅ Univerzální -
+funguje všude - ✅ **ArcGIS umí exportovat atributové tabulky jako
+CSV!**
 
-**Nevýhody:**
-- ❌ Žádné formátování (barvy, tučné písmo...)
-- ❌ Jeden list (na rozdíl od Excelu)
+**Nevýhody:** - ❌ Žádné formátování (barvy, tučné písmo...) - ❌ Jeden
+list (na rozdíl od Excelu)
 
 ## Problém s ručním parsováním
 
 **Co když máte čárku v datech?**
 
-```
+```         
 Jméno,Věk,Adresa
 Jan Novák,25,Hlavní 1, Praha
 ```
 
 **Pokus o split(","):**
-```python
+
+``` python
 casti = radek.split(",")
 # ['Jan Novák', '25', 'Hlavní 1', ' Praha']
 # 4 části místo 3! CHYBA!
@@ -87,20 +85,21 @@ casti = radek.split(",")
 
 **Řešení:** Použít **modul `csv`**, který řeší tyto komplikace!
 
----
+------------------------------------------------------------------------
 
-# 2. Modul csv - základy
+# Modul csv - základy
 
 ## Import modulu
 
-```python
+``` python
 import csv
 ```
 
 ## Čtení CSV - csv.reader()
 
 **Soubor `okresy.csv`:**
-```
+
+```         
 Okres,Populace,Rozloha
 Praha,1300000,496
 Brno,380000,230
@@ -109,7 +108,7 @@ Ostrava,290000,214
 
 **Čtení:**
 
-```python
+``` python
 import csv
 
 with open("okresy.csv", "r", encoding="utf-8") as soubor:
@@ -120,22 +119,24 @@ with open("okresy.csv", "r", encoding="utf-8") as soubor:
 ```
 
 **Výsledek:**
-```python
+
+``` python
 ['Okres', 'Populace', 'Rozloha']
 ['Praha', '1300000', '496']
 ['Brno', '380000', '230']
 ['Ostrava', '290000', '214']
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## csv.reader() vrací SEZNAMY
 
-Každý řádek je **seznam stringů**. Čísla musíte převádět pomocí `int()` nebo `float()`.
+Každý řádek je **seznam stringů**. Čísla musíte převádět pomocí `int()`
+nebo `float()`.
 :::
 
 ## Zpracování s hlavičkou
 
-```python
+``` python
 import csv
 
 with open("okresy.csv", "r", encoding="utf-8") as soubor:
@@ -154,20 +155,21 @@ with open("okresy.csv", "r", encoding="utf-8") as soubor:
 ```
 
 **Výsledek:**
-```
+
+```         
 Sloupce: ['Okres', 'Populace', 'Rozloha']
 Praha: 2621.0 obyvatel/km²
 Brno: 1652.2 obyvatel/km²
 Ostrava: 1355.1 obyvatel/km²
 ```
 
----
+------------------------------------------------------------------------
 
-# 3. DictReader - práce se slovníky
+# DictReader - práce se slovníky
 
 ## Problém s indexy
 
-```python
+``` python
 okres = radek[0]      # Co je na indexu 0? Není jasné!
 populace = radek[1]   # Co je na indexu 1?
 ```
@@ -176,7 +178,7 @@ populace = radek[1]   # Co je na indexu 1?
 
 ## csv.DictReader()
 
-```python
+``` python
 import csv
 
 with open("okresy.csv", "r", encoding="utf-8") as soubor:
@@ -187,18 +189,19 @@ with open("okresy.csv", "r", encoding="utf-8") as soubor:
 ```
 
 **Výsledek:**
-```python
+
+``` python
 {'Okres': 'Praha', 'Populace': '1300000', 'Rozloha': '496'}
 {'Okres': 'Brno', 'Populace': '380000', 'Rozloha': '230'}
 {'Okres': 'Ostrava', 'Populace': '290000', 'Rozloha': '214'}
 ```
 
-::: {.callout-important}
+::: callout-important
 ## DictReader vrací SLOVNÍKY
 
 Každý řádek je **slovník** s klíči podle hlavičky!
 
-```python
+``` python
 radek['Okres']      # "Praha"
 radek['Populace']   # "1300000" (string!)
 ```
@@ -206,7 +209,7 @@ radek['Populace']   # "1300000" (string!)
 
 ## Praktické použití
 
-```python
+``` python
 import csv
 
 okresy = []
@@ -228,24 +231,21 @@ for o in okresy:
     print(f"{o['nazev']}: {hustota:.1f} obyvatel/km²")
 ```
 
-::: {.callout-tip}
+::: callout-tip
 ## Kdy použít DictReader?
 
 **VŽDY**, pokud má CSV hlavičku!
 
-**Výhody:**
-- Čitelnější kód
-- Nezáleží na pořadí sloupců
-- Méně chyb
+**Výhody:** - Čitelnější kód - Nezáleží na pořadí sloupců - Méně chyb
 :::
 
----
+------------------------------------------------------------------------
 
-# 4. Zápis CSV
+# Zápis CSV
 
 ## csv.writer()
 
-```python
+``` python
 import csv
 
 data = [
@@ -262,12 +262,13 @@ with open("vysledky.csv", "w", encoding="utf-8", newline='') as soubor:
         writer.writerow(radek)
 ```
 
-::: {.callout-warning}
+::: callout-warning
 ## newline='' je DŮLEŽITÉ!
 
-Bez `newline=''` se v některých systémech (Windows) přidávají prázdné řádky:
+Bez `newline=''` se v některých systémech (Windows) přidávají prázdné
+řádky:
 
-```python
+``` python
 with open("soubor.csv", "w", encoding="utf-8", newline='') as f:
 ```
 
@@ -276,7 +277,7 @@ with open("soubor.csv", "w", encoding="utf-8", newline='') as f:
 
 ## csv.DictWriter() - doporučeno!
 
-```python
+``` python
 import csv
 
 okresy = [
@@ -294,21 +295,23 @@ with open("vysledky.csv", "w", encoding="utf-8", newline='') as soubor:
 ```
 
 **Výsledný soubor:**
-```
+
+```         
 nazev,populace,hustota
 Praha,1300000,2621
 Brno,380000,1652
 Ostrava,290000,1355
 ```
 
----
+------------------------------------------------------------------------
 
-# 5. Praktická úloha - kompletní workflow
+# Praktická úloha - kompletní workflow
 
 ## Zadání
 
 Máte soubor `okresy.csv`:
-```
+
+```         
 Okres,Populace,Rozloha,Kraj
 Praha,1300000,496,Praha
 Brno,380000,230,Jihomoravský
@@ -317,18 +320,16 @@ Plzeň,170000,261,Plzeňský
 Liberec,103000,106,Liberecký
 ```
 
-**Úkoly:**
-1. Načíst data pomocí DictReader
-2. Pro každý okres vypočítat hustotu obyvatel
-3. Najít okresy s hustotou > 1000 obyvatel/km²
-4. Seřadit okresy podle hustoty (použijte `bubble_sort` z `math_utils`!)
-5. Uložit výsledky do nového CSV
+**Úkoly:** 1. Načíst data pomocí DictReader 2. Pro každý okres vypočítat
+hustotu obyvatel 3. Najít okresy s hustotou \> 1000 obyvatel/km² 4.
+Seřadit okresy podle hustoty (použijte `bubble_sort` z `math_utils`!) 5.
+Uložit výsledky do nového CSV
 
 ## Řešení krok za krokem
 
 ### Krok 1: Načtení dat
 
-```python
+``` python
 import csv
 
 okresy = []
@@ -350,7 +351,7 @@ print(f"Načteno {len(okresy)} okresů")
 
 ### Krok 2: Výpočet hustoty
 
-```python
+``` python
 # Přidání hustoty k datům
 for okres in okresy:
     okres['hustota'] = okres['populace'] / okres['rozloha']
@@ -362,7 +363,7 @@ for o in okresy:
 
 ### Krok 3: Filtrace
 
-```python
+``` python
 huste_okresy = []
 
 for okres in okresy:
@@ -376,7 +377,7 @@ for o in huste_okresy:
 
 ### Krok 4: Třídění pomocí math_utils
 
-```python
+``` python
 import math_utils
 
 # Problém: bubble_sort třídí seznamy čísel, ne slovníky!
@@ -404,12 +405,12 @@ serazene = bubble_sort_okresy(data_k_trideni)
 serazene_okresy = [okres for hustota, okres in serazene]
 ```
 
-::: {.callout-note}
+::: callout-note
 ## Jednodušší řešení v praxi
 
 V reálných programech byste použili:
 
-```python
+``` python
 okresy.sort(key=lambda x: x['hustota'], reverse=True)
 ```
 
@@ -418,7 +419,7 @@ Ale pro výukové účely je dobré ukázat, jak přizpůsobit bubble_sort!
 
 ### Krok 5: Export do CSV
 
-```python
+``` python
 with open("okresy_s_hustotou.csv", "w", encoding="utf-8", newline='') as soubor:
     fieldnames = ['nazev', 'populace', 'rozloha', 'kraj', 'hustota']
     writer = csv.DictWriter(soubor, fieldnames=fieldnames)
@@ -431,7 +432,7 @@ print("\nVýsledky uloženy do okresy_s_hustotou.csv")
 
 ## Kompletní program
 
-```python
+``` python
 import csv
 
 # 1. Načtení dat
@@ -478,23 +479,23 @@ for i, okres in enumerate(serazene_okresy[:3], 1):
     print(f"{i}. {okres['nazev']}: {okres['hustota']:.1f} obyvatel/km²")
 ```
 
----
+------------------------------------------------------------------------
 
-# 6. Propojení s GIS workflow
+# Propojení s GIS workflow
 
 ## Export atributové tabulky z ArcGIS
 
 V ArcGIS Pro můžete exportovat atributovou tabulku:
 
-1. Pravý klik na vrstvu → **Open Attribute Table**
-2. Menu → **Export** → **Export Table**
-3. Vybrat formát: **CSV** nebo **dBASE**
+1.  Pravý klik na vrstvu → **Open Attribute Table**
+2.  Menu → **Export** → **Export Table**
+3.  Vybrat formát: **CSV** nebo **dBASE**
 
 **Výsledek:** CSV soubor s atributy vrstvy!
 
 ## Typický GIS workflow
 
-```
+```         
 ┌─────────────────┐
 │   ArcGIS Pro    │
 │  (Feature class)│
@@ -527,7 +528,8 @@ V ArcGIS Pro můžete exportovat atributovou tabulku:
 ## Příklad: Zpracování bodů zájmu
 
 **Soubor z ArcGIS: `pois.csv`**
-```
+
+```         
 OBJECTID,Name,Type,X,Y
 1,Restaurace A,restaurant,14.4208,50.0875
 2,Restaurace B,restaurant,14.4212,50.0880
@@ -536,7 +538,7 @@ OBJECTID,Name,Type,X,Y
 
 **Python zpracování:**
 
-```python
+``` python
 import csv
 
 # Načtení
@@ -565,39 +567,38 @@ with open("restaurace.csv", "w", encoding="utf-8", newline='') as f:
 print(f"Exportováno {len(restaurace)} restaurací")
 ```
 
-**Zpět do ArcGIS:**
-1. **Add Data** → vybrat `restaurace.csv`
-2. **Display XY Data** → nastavit X, Y sloupce
-3. **Export Features** → uložit jako shapefile/geodatabase
+**Zpět do ArcGIS:** 1. **Add Data** → vybrat `restaurace.csv` 2.
+**Display XY Data** → nastavit X, Y sloupce 3. **Export Features** →
+uložit jako shapefile/geodatabase
 
-::: {.callout-tip}
+::: callout-tip
 ## Výhoda tohoto přístupu
 
-- ✅ Rychlé zpracování velkých dat
-- ✅ Opakovatelné (skript můžete spustit znovu)
-- ✅ Kombinuje sílu Pythonu s vizualizací ArcGIS
-- ✅ Můžete použít vlastní funkce (math_utils!)
+-   ✅ Rychlé zpracování velkých dat
+-   ✅ Opakovatelné (skript můžete spustit znovu)
+-   ✅ Kombinuje sílu Pythonu s vizualizací ArcGIS
+-   ✅ Můžete použít vlastní funkce (math_utils!)
 :::
 
----
+------------------------------------------------------------------------
 
-# 7. Praktické cvičení
+# Praktické cvičení
 
 ## Cvičení 1: Statistiky okresů
 
 Použijte soubor `okresy.csv` a vytvořte program, který:
 
-1. Načte data pomocí DictReader
-2. Vypočítá pro každý okres:
-   - Hustotu obyvatel
-   - Zda je "velký" (populace > 200 000)
-3. Spočítá statistiky:
-   - Průměrnou hustotu
-   - Počet velkých okresů
-   - Celkovou populaci
-4. Uloží výsledky do `statistiky_okresu.csv`:
+1.  Načte data pomocí DictReader
+2.  Vypočítá pro každý okres:
+    -   Hustotu obyvatel
+    -   Zda je "velký" (populace \> 200 000)
+3.  Spočítá statistiky:
+    -   Průměrnou hustotu
+    -   Počet velkých okresů
+    -   Celkovou populaci
+4.  Uloží výsledky do `statistiky_okresu.csv`:
 
-```
+```         
 nazev,populace,rozloha,hustota,velky
 Praha,1300000,496,2621.0,True
 Brno,380000,230,1652.2,True
@@ -608,15 +609,15 @@ Brno,380000,230,1652.2,True
 
 Vytvořte program, který:
 
-1. Načte `okresy.csv`
-2. Seskupí okresy podle kraje
-3. Pro každý kraj vypočítá:
-   - Celkovou populaci
-   - Celkovou rozlohu
-   - Průměrnou hustotu
-4. Uloží do `kraje_agregace.csv`:
+1.  Načte `okresy.csv`
+2.  Seskupí okresy podle kraje
+3.  Pro každý kraj vypočítá:
+    -   Celkovou populaci
+    -   Celkovou rozlohu
+    -   Průměrnou hustotu
+4.  Uloží do `kraje_agregace.csv`:
 
-```
+```         
 Kraj,Celkova_populace,Celkova_rozloha,Prumerna_hustota
 Praha,1300000,496,2621.0
 Jihomoravský,380000,230,1652.2
@@ -624,7 +625,8 @@ Jihomoravský,380000,230,1652.2
 ```
 
 **Nápověda pro agregaci:**
-```python
+
+``` python
 kraje = {}
 for okres in okresy:
     kraj = okres['kraj']
@@ -633,42 +635,40 @@ for okres in okresy:
     kraje[kraj].append(okres)
 ```
 
----
+------------------------------------------------------------------------
 
-# 8. Shrnutí
+# Shrnutí
 
 ## Co jsme se naučili
 
-✅ **CSV formát** - struktura, výhody, problémy  
-✅ **csv.reader()** - čtení CSV jako seznamy  
-✅ **csv.DictReader()** - čtení CSV jako slovníky (doporučeno!)  
-✅ **csv.writer()** - zápis CSV  
-✅ **csv.DictWriter()** - zápis CSV ze slovníků (doporučeno!)  
-✅ **newline=''** - důležité pro správný zápis  
-✅ **GIS workflow** - export z ArcGIS → Python → import zpět  
-✅ **Propojení s funkcemi** - kombinace CSV s math_utils  
+✅ **CSV formát** - struktura, výhody, problémy\
+✅ **csv.reader()** - čtení CSV jako seznamy\
+✅ **csv.DictReader()** - čtení CSV jako slovníky (doporučeno!)\
+✅ **csv.writer()** - zápis CSV\
+✅ **csv.DictWriter()** - zápis CSV ze slovníků (doporučeno!)\
+✅ **newline=''** - důležité pro správný zápis\
+✅ **GIS workflow** - export z ArcGIS → Python → import zpět\
+✅ **Propojení s funkcemi** - kombinace CSV s math_utils
 
 ## Co bude příště?
 
 **Příští týden: TEST!**
 
-Test bude obsahovat:
-- **Písemná část** - pochopení kódu, doplňování
-- **Praktická část** - zpracování CSV souboru s použitím funkcí
+Test bude obsahovat: - **Písemná část** - pochopení kódu, doplňování -
+**Praktická část** - zpracování CSV souboru s použitím funkcí
 
-**Za 2 týdny: OOP (Objektově orientované programování)**
-- Třída Pes
-- Propojení s ArcPy objekty
-- Příprava na práci s geometriemi
+**Za 2 týdny: OOP (Objektově orientované programování)** - Třída Pes -
+Propojení s ArcPy objekty - Příprava na práci s geometriemi
 
----
+------------------------------------------------------------------------
 
-# 9. Domácí úkol - příprava na test
+# Domácí úkol - příprava na test
 
 ## Varianta A (povinná - základní)
 
 Vytvořte soubor `teploty_mesic.csv`:
-```
+
+```         
 Den,Teplota,Srazky
 1,15,0
 2,18,5
@@ -677,14 +677,11 @@ Den,Teplota,Srazky
 5,16,8
 ```
 
-**Napište program, který:**
-1. Načte data pomocí DictReader
-2. Vypočítá:
-   - Průměrnou teplotu
-   - Celkové srážky
-   - Den s nejvyšší teplotou
+**Napište program, který:** 1. Načte data pomocí DictReader 2.
+Vypočítá: - Průměrnou teplotu - Celkové srážky - Den s nejvyšší teplotou
 3. Uloží statistiky do `vysledky_pocasi.txt`:
-```
+
+```         
 Statistiky počasí
 ==================
 Průměrná teplota: 18.0°C
@@ -696,7 +693,7 @@ Nejteplejší den: 3 (22°C)
 
 Vytvořte modul `csv_utils.py` s funkcemi:
 
-```python
+``` python
 def nacti_csv_dict(nazev_souboru):
     """Načte CSV jako seznam slovníků."""
     # ...
@@ -719,7 +716,8 @@ def vypocitaj_statistiky(data, sloupec):
 ## Varianta C (výzva - jako na testu)
 
 Máte `zakaznici.csv`:
-```
+
+```         
 ID,Jmeno,Vek,Utrata
 1,Jan Novák,25,1500
 2,Marie Svobodová,32,2300
@@ -727,25 +725,22 @@ ID,Jmeno,Vek,Utrata
 4,Jana Nováková,45,3200
 ```
 
-**Napište program, který:**
-1. Načte data
-2. Vypočítá průměrnou útratu
-3. Najde zákazníky s útratou nad průměr
-4. Seřadí je podle útraty (použijte vlastní třídící funkci!)
-5. Uloží do `vip_zakaznici.csv` s přidaným sloupcem `Kategorie`:
-   - "VIP" pokud útrata > 2× průměr
-   - "Premium" pokud útrata > průměr
-   - "Standard" jinak
+**Napište program, který:** 1. Načte data 2. Vypočítá průměrnou útratu
+3. Najde zákazníky s útratou nad průměr 4. Seřadí je podle útraty
+(použijte vlastní třídící funkci!) 5. Uloží do `vip_zakaznici.csv` s
+přidaným sloupcem `Kategorie`: - "VIP" pokud útrata \> 2× průměr -
+"Premium" pokud útrata \> průměr - "Standard" jinak
 
-**Struktura programu:**
-- `zakaznici_utils.py` - funkce pro zpracování
-- `main.py` - hlavní program
+**Struktura programu:** - `zakaznici_utils.py` - funkce pro zpracování -
+`main.py` - hlavní program
 
----
+------------------------------------------------------------------------
 
-# 10. Cheatsheet
+\newpage
 
-```python
+# Cheatsheet
+
+``` python
 import csv
 
 # === ČTENÍ CSV ===
@@ -793,16 +788,16 @@ float(radek['Rozloha'])        # 496.0 (float)
 # DictReader/DictWriter > reader/writer
 ```
 
----
+------------------------------------------------------------------------
 
 ::: {.content-visible when-format="pdf"}
 \newpage
 
-# 11. Poznámky pro vyučujícího
+# Poznámky pro vyučujícího
 
 ## Běžné chyby studentů
 
-```python
+``` python
 # 1. Zapomínají newline=''
 with open("data.csv", "w", encoding="utf-8") as f:  # Chyba - prázdné řádky!
 # Správně:
@@ -838,81 +833,76 @@ writer.writerows(data)
 
 ## Časový plán (90 min)
 
-| Čas | Obsah |
-|-----|-------|
-| 0-15 min | CSV formát, problémy, modul csv |
-| 15-30 min | csv.reader(), zpracování |
-| 30-45 min | DictReader - lepší způsob |
-| 45-60 min | Zápis - writer, DictWriter |
+| Čas       | Obsah                                |
+|-----------|--------------------------------------|
+| 0-15 min  | CSV formát, problémy, modul csv      |
+| 15-30 min | csv.reader(), zpracování             |
+| 30-45 min | DictReader - lepší způsob            |
+| 45-60 min | Zápis - writer, DictWriter           |
 | 60-80 min | Praktická úloha - kompletní workflow |
-| 80-90 min | GIS propojení, příprava na test |
+| 80-90 min | GIS propojení, příprava na test      |
 
 ## Klíčové momenty
 
 ### DictReader vs reader (30-45 min):
-- **DŮLEŽITÉ:** Zdůraznit, že DictReader je lepší
-- Ukázat rozdíl na projektoru vedle sebe
-- Říct: "V praxi používejte vždy DictReader pokud máte hlavičku"
+
+-   **DŮLEŽITÉ:** Zdůraznit, že DictReader je lepší
+-   Ukázat rozdíl na projektoru vedle sebe
+-   Říct: "V praxi používejte vždy DictReader pokud máte hlavičku"
 
 ### newline='' (45-60 min):
-- Vysvětlit proč je potřeba
-- Ukázat příklad ŠPATNÉHO výstupu bez newline
-- Říct: "Zapamatujte si: při zápisu CSV = vždy newline=''"
+
+-   Vysvětlit proč je potřeba
+-   Ukázat příklad ŠPATNÉHO výstupu bez newline
+-   Říct: "Zapamatujte si: při zápisu CSV = vždy newline=''"
 
 ### GIS workflow (80-90 min):
-- **Motivace pro test příští týden**
-- Ukázat diagram: Export → Python → Import
-- Zdůraznit: "Tohle budete dělat v ArcPy!"
-- Říct: "Test bude podobný - CSV + funkce + výpočty"
+
+-   **Motivace pro test příští týden**
+-   Ukázat diagram: Export → Python → Import
+-   Zdůraznit: "Tohle budete dělat v ArcPy!"
+-   Říct: "Test bude podobný - CSV + funkce + výpočty"
 
 ## Rizika
 
-1. **DictReader může být matoucí (20 min místo 15)**
-   - Řešení: Praktické ukázky, porovnání s reader()
-   - Nechat studenty experimentovat
-
-2. **Třídění slovníků je složité (Krok 4)**
-   - Řešení: Ukázat jednodušší verzi se `sort(key=...)`
-   - Říct: "Na testu nebude třídění slovníků, jen seznamů čísel"
-   - Alternativně přeskočit a dát jako bonusový úkol
-
-3. **Studenti nestihnou celou úlohu**
-   - Řešení: Kroky 1-3 společně, 4-5 jako domácí úkol
-   - Mít připravené řešení na sdílení
+1.  **DictReader může být matoucí (20 min místo 15)**
+    -   Řešení: Praktické ukázky, porovnání s reader()
+    -   Nechat studenty experimentovat
+2.  **Třídění slovníků je složité (Krok 4)**
+    -   Řešení: Ukázat jednodušší verzi se `sort(key=...)`
+    -   Říct: "Na testu nebude třídění slovníků, jen seznamů čísel"
+    -   Alternativně přeskočit a dát jako bonusový úkol
+3.  **Studenti nestihnou celou úlohu**
+    -   Řešení: Kroky 1-3 společně, 4-5 jako domácí úkol
+    -   Mít připravené řešení na sdílení
 
 ## Tipy
 
-- **Vytvořte okresy.csv** předem a sdílejte se studenty
-- Ukažte **Excel** vedle Pythonu - ať vidí, že jde o stejná data
-- Zdůrazněte **DictReader = vždy když máte hlavičku**
-- **GIS propojení:** "V ArcPy budete exportovat tabulky, zpracovávat, importovat zpět - přesně tohle!"
-- Před koncem připomeňte: **"Příští týden TEST!"**
+-   **Vytvořte okresy.csv** předem a sdílejte se studenty
+-   Ukažte **Excel** vedle Pythonu - ať vidí, že jde o stejná data
+-   Zdůrazněte **DictReader = vždy když máte hlavičku**
+-   **GIS propojení:** "V ArcPy budete exportovat tabulky, zpracovávat,
+    importovat zpět - přesně tohle!"
+-   Před koncem připomeňte: **"Příští týden TEST!"**
 
 ## Příprava na test (důležité!)
 
-**Co bude na testu:**
-- Čtení CSV pomocí DictReader
-- Zpracování dat (výpočty, filtrace)
-- Použití funkcí (vlastních nebo z modulu)
-- Zápis výsledků do nového CSV
-- Pochopení kódu (co dělá tento program?)
+**Co bude na testu:** - Čtení CSV pomocí DictReader - Zpracování dat
+(výpočty, filtrace) - Použití funkcí (vlastních nebo z modulu) - Zápis
+výsledků do nového CSV - Pochopení kódu (co dělá tento program?)
 
-**Co NEBUDE:**
-- Složité algoritmy (třídění slovníků)
-- OOP (to až po testu)
-- ArcPy (to až později)
+**Co NEBUDE:** - Složité algoritmy (třídění slovníků) - OOP (to až po
+testu) - ArcPy (to až později)
 
-**Doporučení studentům:**
-- Projděte si všechny domácí úkoly
-- Zopakujte funkce (math_utils)
-- Procvičte DictReader a DictWriter
-- Zkuste si vytvořit vlastní CSV a zpracovat ho
+**Doporučení studentům:** - Projděte si všechny domácí úkoly - Zopakujte
+funkce (math_utils) - Procvičte DictReader a DictWriter - Zkuste si
+vytvořit vlastní CSV a zpracovat ho
 
 ## Materiály k přípravě
 
-- [ ] Soubor `okresy.csv` s ukázkovými daty
-- [ ] Soubor `teploty_mesic.csv` pro domácí úkol
-- [ ] Řešení všech cvičení
-- [ ] **Ukázkový test** - připravit pro příští týden!
-- [ ] Diagram GIS workflow (export → Python → import)
+-   [ ] Soubor `okresy.csv` s ukázkovými daty
+-   [ ] Soubor `teploty_mesic.csv` pro domácí úkol
+-   [ ] Řešení všech cvičení
+-   [ ] **Ukázkový test** - připravit pro příští týden!
+-   [ ] Diagram GIS workflow (export → Python → import)
 :::

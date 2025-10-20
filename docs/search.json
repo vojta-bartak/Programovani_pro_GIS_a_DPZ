@@ -175,34 +175,6 @@
     "text": "10.3 Varianta C (výzva - jako na testu)\nMáte zakaznici.csv:\nID,Jmeno,Vek,Utrata\n1,Jan Novák,25,1500\n2,Marie Svobodová,32,2300\n3,Petr Dvořák,28,1800\n4,Jana Nováková,45,3200\nNapište program, který: 1. Načte data 2. Vypočítá průměrnou útratu 3. Najde zákazníky s útratou nad průměr 4. Seřadí je podle útraty (použijte vlastní třídící funkci!) 5. Uloží do vip_zakaznici.csv s přidaným sloupcem Kategorie: - “VIP” pokud útrata &gt; 2× průměr - “Premium” pokud útrata &gt; průměr - “Standard” jinak\nStruktura programu: - zakaznici_utils.py - funkce pro zpracování - main.py - hlavní program"
   },
   {
-    "objectID": "lessons/lesson_08.html#běžné-chyby-studentů",
-    "href": "lessons/lesson_08.html#běžné-chyby-studentů",
-    "title": "Lekce 8: Textové soubory II – CSV tabulka",
-    "section": "12.1 Běžné chyby studentů",
-    "text": "12.1 Běžné chyby studentů\n# 1. Zapomínají newline=''\nwith open(\"data.csv\", \"w\", encoding=\"utf-8\") as f:  # Chyba - prázdné řádky!\n# Správně:\nwith open(\"data.csv\", \"w\", encoding=\"utf-8\", newline='') as f:\n\n# 2. Nepoužívají DictReader\nreader = csv.reader(f)\nfor radek in reader:\n    okres = radek[0]  # Co je na indexu 0? Není jasné!\n# Správně:\nreader = csv.DictReader(f)\nfor radek in reader:\n    okres = radek['Okres']  # Jasné!\n\n# 3. Zapomínají převést na číslo\npopulace = radek['Populace']  # \"1300000\" (string!)\nhustota = populace / rozloha  # CHYBA!\n# Správně:\npopulace = int(radek['Populace'])\n\n# 4. Chybný fieldnames\nfieldnames = ['nazev', 'populace']\nwriter = csv.DictWriter(f, fieldnames=fieldnames)\nwriter.writerow({'jmeno': 'Praha', 'pocet': 1000})  # CHYBA - neexistující klíče!\n\n# 5. Zapomínají writeheader()\nwriter = csv.DictWriter(f, fieldnames=fieldnames)\nwriter.writerows(data)  # Chybí hlavička!\n# Správně:\nwriter.writeheader()\nwriter.writerows(data)"
-  },
-  {
-    "objectID": "lessons/lesson_08.html#časový-plán-90-min",
-    "href": "lessons/lesson_08.html#časový-plán-90-min",
-    "title": "Lekce 8: Textové soubory II – CSV tabulka",
-    "section": "12.2 Časový plán (90 min)",
-    "text": "12.2 Časový plán (90 min)\n\n\n\nČas\nObsah\n\n\n\n\n0-15 min\nCSV formát, problémy, modul csv\n\n\n15-30 min\ncsv.reader(), zpracování\n\n\n30-45 min\nDictReader - lepší způsob\n\n\n45-60 min\nZápis - writer, DictWriter\n\n\n60-80 min\nPraktická úloha - kompletní workflow\n\n\n80-90 min\nGIS propojení, příprava na test"
-  },
-  {
-    "objectID": "lessons/lesson_08.html#klíčové-momenty",
-    "href": "lessons/lesson_08.html#klíčové-momenty",
-    "title": "Lekce 8: Textové soubory II – CSV tabulka",
-    "section": "12.3 Klíčové momenty",
-    "text": "12.3 Klíčové momenty\n\n12.3.1 DictReader vs reader (30-45 min):\n\nDŮLEŽITÉ: Zdůraznit, že DictReader je lepší\nUkázat rozdíl na projektoru vedle sebe\nŘíct: “V praxi používejte vždy DictReader pokud máte hlavičku”\n\n\n\n12.3.2 newline=’’ (45-60 min):\n\nVysvětlit proč je potřeba\nUkázat příklad ŠPATNÉHO výstupu bez newline\nŘíct: “Zapamatujte si: při zápisu CSV = vždy newline=’’”\n\n\n\n12.3.3 GIS workflow (80-90 min):\n\nMotivace pro test příští týden\nUkázat diagram: Export → Python → Import\nZdůraznit: “Tohle budete dělat v ArcPy!”\nŘíct: “Test bude podobný - CSV + funkce + výpočty”"
-  },
-  {
-    "objectID": "lessons/lesson_08.html#rizika",
-    "href": "lessons/lesson_08.html#rizika",
-    "title": "Lekce 8: Textové soubory II – CSV tabulka",
-    "section": "12.4 Rizika",
-    "text": "12.4 Rizika\n\nDictReader může být matoucí (20 min místo 15)\n\nŘešení: Praktické ukázky, porovnání s reader()\nNechat studenty experimentovat\n\nTřídění slovníků je složité (Krok 4)\n\nŘešení: Ukázat jednodušší verzi se sort(key=...)\nŘíct: ”"
-  },
-  {
     "objectID": "lessons/lesson_06.html",
     "href": "lessons/lesson_06.html",
     "title": "Lekce 6: Funkce a moduly",

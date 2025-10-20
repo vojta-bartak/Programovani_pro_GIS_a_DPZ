@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Váš kurz">
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
 <meta name="dcterms.date" content="2025-10-20">
 
 <title>Lekce 8: Textové soubory II – CSV tabulka – Programování pro GIS a DPZ</title>
@@ -168,6 +168,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../lessons/lesson_07.html">
  <span class="dropdown-text">Lekce 7: Textové soubory I</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_08.html">
+ <span class="dropdown-text">Lekce 8: Textové soubory II</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -187,30 +191,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
-  <li><a href="#co-je-csv-formát" id="toc-co-je-csv-formát" class="nav-link" data-scroll-target="#co-je-csv-formát"><span class="header-section-number">2</span> 1. Co je CSV formát?</a>
+  <li><a href="#co-je-csv-formát" id="toc-co-je-csv-formát" class="nav-link" data-scroll-target="#co-je-csv-formát"><span class="header-section-number">2</span> Co je CSV formát?</a>
   <ul class="collapse">
   <li><a href="#comma-separated-values" id="toc-comma-separated-values" class="nav-link" data-scroll-target="#comma-separated-values"><span class="header-section-number">2.1</span> Comma-Separated Values</a></li>
   <li><a href="#proč-csv" id="toc-proč-csv" class="nav-link" data-scroll-target="#proč-csv"><span class="header-section-number">2.2</span> Proč CSV?</a></li>
   <li><a href="#problém-s-ručním-parsováním" id="toc-problém-s-ručním-parsováním" class="nav-link" data-scroll-target="#problém-s-ručním-parsováním"><span class="header-section-number">2.3</span> Problém s ručním parsováním</a></li>
   </ul></li>
-  <li><a href="#modul-csv---základy" id="toc-modul-csv---základy" class="nav-link" data-scroll-target="#modul-csv---základy"><span class="header-section-number">3</span> 2. Modul csv - základy</a>
+  <li><a href="#modul-csv---základy" id="toc-modul-csv---základy" class="nav-link" data-scroll-target="#modul-csv---základy"><span class="header-section-number">3</span> Modul csv - základy</a>
   <ul class="collapse">
   <li><a href="#import-modulu" id="toc-import-modulu" class="nav-link" data-scroll-target="#import-modulu"><span class="header-section-number">3.1</span> Import modulu</a></li>
   <li><a href="#čtení-csv---csv.reader" id="toc-čtení-csv---csv.reader" class="nav-link" data-scroll-target="#čtení-csv---csv.reader"><span class="header-section-number">3.2</span> Čtení CSV - csv.reader()</a></li>
   <li><a href="#zpracování-s-hlavičkou" id="toc-zpracování-s-hlavičkou" class="nav-link" data-scroll-target="#zpracování-s-hlavičkou"><span class="header-section-number">3.3</span> Zpracování s hlavičkou</a></li>
   </ul></li>
-  <li><a href="#dictreader---práce-se-slovníky" id="toc-dictreader---práce-se-slovníky" class="nav-link" data-scroll-target="#dictreader---práce-se-slovníky"><span class="header-section-number">4</span> 3. DictReader - práce se slovníky</a>
+  <li><a href="#dictreader---práce-se-slovníky" id="toc-dictreader---práce-se-slovníky" class="nav-link" data-scroll-target="#dictreader---práce-se-slovníky"><span class="header-section-number">4</span> DictReader - práce se slovníky</a>
   <ul class="collapse">
   <li><a href="#problém-s-indexy" id="toc-problém-s-indexy" class="nav-link" data-scroll-target="#problém-s-indexy"><span class="header-section-number">4.1</span> Problém s indexy</a></li>
   <li><a href="#csv.dictreader" id="toc-csv.dictreader" class="nav-link" data-scroll-target="#csv.dictreader"><span class="header-section-number">4.2</span> csv.DictReader()</a></li>
   <li><a href="#praktické-použití" id="toc-praktické-použití" class="nav-link" data-scroll-target="#praktické-použití"><span class="header-section-number">4.3</span> Praktické použití</a></li>
   </ul></li>
-  <li><a href="#zápis-csv" id="toc-zápis-csv" class="nav-link" data-scroll-target="#zápis-csv"><span class="header-section-number">5</span> 4. Zápis CSV</a>
+  <li><a href="#zápis-csv" id="toc-zápis-csv" class="nav-link" data-scroll-target="#zápis-csv"><span class="header-section-number">5</span> Zápis CSV</a>
   <ul class="collapse">
   <li><a href="#csv.writer" id="toc-csv.writer" class="nav-link" data-scroll-target="#csv.writer"><span class="header-section-number">5.1</span> csv.writer()</a></li>
   <li><a href="#csv.dictwriter---doporučeno" id="toc-csv.dictwriter---doporučeno" class="nav-link" data-scroll-target="#csv.dictwriter---doporučeno"><span class="header-section-number">5.2</span> csv.DictWriter() - doporučeno!</a></li>
   </ul></li>
-  <li><a href="#praktická-úloha---kompletní-workflow" id="toc-praktická-úloha---kompletní-workflow" class="nav-link" data-scroll-target="#praktická-úloha---kompletní-workflow"><span class="header-section-number">6</span> 5. Praktická úloha - kompletní workflow</a>
+  <li><a href="#praktická-úloha---kompletní-workflow" id="toc-praktická-úloha---kompletní-workflow" class="nav-link" data-scroll-target="#praktická-úloha---kompletní-workflow"><span class="header-section-number">6</span> Praktická úloha - kompletní workflow</a>
   <ul class="collapse">
   <li><a href="#zadání" id="toc-zadání" class="nav-link" data-scroll-target="#zadání"><span class="header-section-number">6.1</span> Zadání</a></li>
   <li><a href="#řešení-krok-za-krokem" id="toc-řešení-krok-za-krokem" class="nav-link" data-scroll-target="#řešení-krok-za-krokem"><span class="header-section-number">6.2</span> Řešení krok za krokem</a>
@@ -223,43 +227,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#kompletní-program" id="toc-kompletní-program" class="nav-link" data-scroll-target="#kompletní-program"><span class="header-section-number">6.3</span> Kompletní program</a></li>
   </ul></li>
-  <li><a href="#propojení-s-gis-workflow" id="toc-propojení-s-gis-workflow" class="nav-link" data-scroll-target="#propojení-s-gis-workflow"><span class="header-section-number">7</span> 6. Propojení s GIS workflow</a>
+  <li><a href="#propojení-s-gis-workflow" id="toc-propojení-s-gis-workflow" class="nav-link" data-scroll-target="#propojení-s-gis-workflow"><span class="header-section-number">7</span> Propojení s GIS workflow</a>
   <ul class="collapse">
   <li><a href="#export-atributové-tabulky-z-arcgis" id="toc-export-atributové-tabulky-z-arcgis" class="nav-link" data-scroll-target="#export-atributové-tabulky-z-arcgis"><span class="header-section-number">7.1</span> Export atributové tabulky z ArcGIS</a></li>
   <li><a href="#typický-gis-workflow" id="toc-typický-gis-workflow" class="nav-link" data-scroll-target="#typický-gis-workflow"><span class="header-section-number">7.2</span> Typický GIS workflow</a></li>
   <li><a href="#příklad-zpracování-bodů-zájmu" id="toc-příklad-zpracování-bodů-zájmu" class="nav-link" data-scroll-target="#příklad-zpracování-bodů-zájmu"><span class="header-section-number">7.3</span> Příklad: Zpracování bodů zájmu</a></li>
   </ul></li>
-  <li><a href="#praktické-cvičení" id="toc-praktické-cvičení" class="nav-link" data-scroll-target="#praktické-cvičení"><span class="header-section-number">8</span> 7. Praktické cvičení</a>
+  <li><a href="#praktické-cvičení" id="toc-praktické-cvičení" class="nav-link" data-scroll-target="#praktické-cvičení"><span class="header-section-number">8</span> Praktické cvičení</a>
   <ul class="collapse">
   <li><a href="#cvičení-1-statistiky-okresů" id="toc-cvičení-1-statistiky-okresů" class="nav-link" data-scroll-target="#cvičení-1-statistiky-okresů"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky okresů</a></li>
   <li><a href="#cvičení-2-agregace-podle-kraje" id="toc-cvičení-2-agregace-podle-kraje" class="nav-link" data-scroll-target="#cvičení-2-agregace-podle-kraje"><span class="header-section-number">8.2</span> Cvičení 2: Agregace podle kraje</a></li>
   </ul></li>
-  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">9</span> 8. Shrnutí</a>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">9</span> Shrnutí</a>
   <ul class="collapse">
   <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">9.1</span> Co jsme se naučili</a></li>
   <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">9.2</span> Co bude příště?</a></li>
   </ul></li>
-  <li><a href="#domácí-úkol---příprava-na-test" id="toc-domácí-úkol---příprava-na-test" class="nav-link" data-scroll-target="#domácí-úkol---příprava-na-test"><span class="header-section-number">10</span> 9. Domácí úkol - příprava na test</a>
+  <li><a href="#domácí-úkol---příprava-na-test" id="toc-domácí-úkol---příprava-na-test" class="nav-link" data-scroll-target="#domácí-úkol---příprava-na-test"><span class="header-section-number">10</span> Domácí úkol - příprava na test</a>
   <ul class="collapse">
   <li><a href="#varianta-a-povinná---základní" id="toc-varianta-a-povinná---základní" class="nav-link" data-scroll-target="#varianta-a-povinná---základní"><span class="header-section-number">10.1</span> Varianta A (povinná - základní)</a></li>
   <li><a href="#varianta-b-příprava-na-test---pokročilá" id="toc-varianta-b-příprava-na-test---pokročilá" class="nav-link" data-scroll-target="#varianta-b-příprava-na-test---pokročilá"><span class="header-section-number">10.2</span> Varianta B (příprava na test - pokročilá)</a></li>
   <li><a href="#varianta-c-výzva---jako-na-testu" id="toc-varianta-c-výzva---jako-na-testu" class="nav-link" data-scroll-target="#varianta-c-výzva---jako-na-testu"><span class="header-section-number">10.3</span> Varianta C (výzva - jako na testu)</a></li>
   </ul></li>
-  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">11</span> 10. Cheatsheet</a></li>
-  <li><a href="#poznámky-pro-vyučujícího" id="toc-poznámky-pro-vyučujícího" class="nav-link" data-scroll-target="#poznámky-pro-vyučujícího"><span class="header-section-number">12</span> 11. Poznámky pro vyučujícího</a>
-  <ul class="collapse">
-  <li><a href="#běžné-chyby-studentů" id="toc-běžné-chyby-studentů" class="nav-link" data-scroll-target="#běžné-chyby-studentů"><span class="header-section-number">12.1</span> Běžné chyby studentů</a></li>
-  <li><a href="#časový-plán-90-min" id="toc-časový-plán-90-min" class="nav-link" data-scroll-target="#časový-plán-90-min"><span class="header-section-number">12.2</span> Časový plán (90 min)</a></li>
-  <li><a href="#klíčové-momenty" id="toc-klíčové-momenty" class="nav-link" data-scroll-target="#klíčové-momenty"><span class="header-section-number">12.3</span> Klíčové momenty</a>
-  <ul class="collapse">
-  <li><a href="#dictreader-vs-reader-30-45-min" id="toc-dictreader-vs-reader-30-45-min" class="nav-link" data-scroll-target="#dictreader-vs-reader-30-45-min"><span class="header-section-number">12.3.1</span> DictReader vs reader (30-45 min):</a></li>
-  <li><a href="#newline-45-60-min" id="toc-newline-45-60-min" class="nav-link" data-scroll-target="#newline-45-60-min"><span class="header-section-number">12.3.2</span> newline=’’ (45-60 min):</a></li>
-  <li><a href="#gis-workflow-80-90-min" id="toc-gis-workflow-80-90-min" class="nav-link" data-scroll-target="#gis-workflow-80-90-min"><span class="header-section-number">12.3.3</span> GIS workflow (80-90 min):</a></li>
-  </ul></li>
-  <li><a href="#rizika" id="toc-rizika" class="nav-link" data-scroll-target="#rizika"><span class="header-section-number">12.4</span> Rizika</a></li>
-  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">11</span> Cheatsheet</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_08.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -277,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Váš kurz </p>
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
           </div>
   </div>
     
@@ -312,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 <section id="co-je-csv-formát" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> 1. Co je CSV formát?</h1>
+<h1 data-number="2"><span class="header-section-number">2</span> Co je CSV formát?</h1>
 <section id="comma-separated-values" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="comma-separated-values"><span class="header-section-number">2.1</span> Comma-Separated Values</h2>
 <p><strong>CSV</strong> = Comma-Separated Values (hodnoty oddělené čárkou)</p>
@@ -342,7 +334,7 @@ Jan Novák,25,Hlavní 1, Praha</code></pre>
 </section>
 </section>
 <section id="modul-csv---základy" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 2. Modul csv - základy</h1>
+<h1 data-number="3"><span class="header-section-number">3</span> Modul csv - základy</h1>
 <section id="import-modulu" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="import-modulu"><span class="header-section-number">3.1</span> Import modulu</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -407,7 +399,7 @@ Ostrava: 1355.1 obyvatel/km²</code></pre>
 </section>
 </section>
 <section id="dictreader---práce-se-slovníky" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 3. DictReader - práce se slovníky</h1>
+<h1 data-number="4"><span class="header-section-number">4</span> DictReader - práce se slovníky</h1>
 <section id="problém-s-indexy" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="problém-s-indexy"><span class="header-section-number">4.1</span> Problém s indexy</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>okres <span class="op">=</span> radek[<span class="dv">0</span>]      <span class="co"># Co je na indexu 0? Není jasné!</span></span>
@@ -482,7 +474,7 @@ Ostrava: 1355.1 obyvatel/km²</code></pre>
 </section>
 </section>
 <section id="zápis-csv" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 4. Zápis CSV</h1>
+<h1 data-number="5"><span class="header-section-number">5</span> Zápis CSV</h1>
 <section id="csv.writer" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="csv.writer"><span class="header-section-number">5.1</span> csv.writer()</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
@@ -540,7 +532,7 @@ Ostrava,290000,1355</code></pre>
 </section>
 </section>
 <section id="praktická-úloha---kompletní-workflow" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 5. Praktická úloha - kompletní workflow</h1>
+<h1 data-number="6"><span class="header-section-number">6</span> Praktická úloha - kompletní workflow</h1>
 <section id="zadání" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="zadání"><span class="header-section-number">6.1</span> Zadání</h2>
 <p>Máte soubor <code>okresy.csv</code>:</p>
@@ -701,7 +693,7 @@ Liberec,103000,106,Liberecký</code></pre>
 </section>
 </section>
 <section id="propojení-s-gis-workflow" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 6. Propojení s GIS workflow</h1>
+<h1 data-number="7"><span class="header-section-number">7</span> Propojení s GIS workflow</h1>
 <section id="export-atributové-tabulky-z-arcgis" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="export-atributové-tabulky-z-arcgis"><span class="header-section-number">7.1</span> Export atributové tabulky z ArcGIS</h2>
 <p>V ArcGIS Pro můžete exportovat atributovou tabulku:</p>
@@ -799,7 +791,7 @@ Liberec,103000,106,Liberecký</code></pre>
 </section>
 </section>
 <section id="praktické-cvičení" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 7. Praktické cvičení</h1>
+<h1 data-number="8"><span class="header-section-number">8</span> Praktické cvičení</h1>
 <section id="cvičení-1-statistiky-okresů" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="cvičení-1-statistiky-okresů"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky okresů</h2>
 <p>Použijte soubor <code>okresy.csv</code> a vytvořte program, který:</p>
@@ -852,7 +844,7 @@ Jihomoravský,380000,230,1652.2
 </section>
 </section>
 <section id="shrnutí" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 8. Shrnutí</h1>
+<h1 data-number="9"><span class="header-section-number">9</span> Shrnutí</h1>
 <section id="co-jsme-se-naučili" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">9.1</span> Co jsme se naučili</h2>
 <p>✅ <strong>CSV formát</strong> - struktura, výhody, problémy<br>
@@ -873,7 +865,7 @@ Jihomoravský,380000,230,1652.2
 </section>
 </section>
 <section id="domácí-úkol---příprava-na-test" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 9. Domácí úkol - příprava na test</h1>
+<h1 data-number="10"><span class="header-section-number">10</span> Domácí úkol - příprava na test</h1>
 <section id="varianta-a-povinná---základní" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="varianta-a-povinná---základní"><span class="header-section-number">10.1</span> Varianta A (povinná - základní)</h2>
 <p>Vytvořte soubor <code>teploty_mesic.csv</code>:</p>
@@ -924,7 +916,7 @@ Nejteplejší den: 3 (22°C)</code></pre>
 </section>
 </section>
 <section id="cheatsheet" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 10. Cheatsheet</h1>
+<h1 data-number="11"><span class="header-section-number">11</span> Cheatsheet</h1>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># === ČTENÍ CSV ===</span></span>
@@ -971,125 +963,8 @@ Nejteplejší den: 3 (22°C)</code></pre>
 <span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a><span class="co"># VŽDY při zápisu: newline=''</span></span>
 <span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a><span class="co"># DictReader/DictWriter &gt; reader/writer</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-</section>
-<section id="poznámky-pro-vyučujícího" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 11. Poznámky pro vyučujícího</h1>
-<section id="běžné-chyby-studentů" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="běžné-chyby-studentů"><span class="header-section-number">12.1</span> Běžné chyby studentů</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Zapomínají newline=''</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:  <span class="co"># Chyba - prázdné řádky!</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně:</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> f:</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Nepoužívají DictReader</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>reader <span class="op">=</span> csv.reader(f)</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    okres <span class="op">=</span> radek[<span class="dv">0</span>]  <span class="co"># Co je na indexu 0? Není jasné!</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně:</span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>reader <span class="op">=</span> csv.DictReader(f)</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    okres <span class="op">=</span> radek[<span class="st">'Okres'</span>]  <span class="co"># Jasné!</span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Zapomínají převést na číslo</span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>populace <span class="op">=</span> radek[<span class="st">'Populace'</span>]  <span class="co"># "1300000" (string!)</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>hustota <span class="op">=</span> populace <span class="op">/</span> rozloha  <span class="co"># CHYBA!</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně:</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>populace <span class="op">=</span> <span class="bu">int</span>(radek[<span class="st">'Populace'</span>])</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Chybný fieldnames</span></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>fieldnames <span class="op">=</span> [<span class="st">'nazev'</span>, <span class="st">'populace'</span>]</span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>writer <span class="op">=</span> csv.DictWriter(f, fieldnames<span class="op">=</span>fieldnames)</span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>writer.writerow({<span class="st">'jmeno'</span>: <span class="st">'Praha'</span>, <span class="st">'pocet'</span>: <span class="dv">1000</span>})  <span class="co"># CHYBA - neexistující klíče!</span></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Zapomínají writeheader()</span></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>writer <span class="op">=</span> csv.DictWriter(f, fieldnames<span class="op">=</span>fieldnames)</span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>writer.writerows(data)  <span class="co"># Chybí hlavička!</span></span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Správně:</span></span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>writer.writeheader()</span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>writer.writerows(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="časový-plán-90-min" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="časový-plán-90-min"><span class="header-section-number">12.2</span> Časový plán (90 min)</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Čas</th>
-<th>Obsah</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0-15 min</td>
-<td>CSV formát, problémy, modul csv</td>
-</tr>
-<tr class="even">
-<td>15-30 min</td>
-<td>csv.reader(), zpracování</td>
-</tr>
-<tr class="odd">
-<td>30-45 min</td>
-<td>DictReader - lepší způsob</td>
-</tr>
-<tr class="even">
-<td>45-60 min</td>
-<td>Zápis - writer, DictWriter</td>
-</tr>
-<tr class="odd">
-<td>60-80 min</td>
-<td>Praktická úloha - kompletní workflow</td>
-</tr>
-<tr class="even">
-<td>80-90 min</td>
-<td>GIS propojení, příprava na test</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="klíčové-momenty" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="klíčové-momenty"><span class="header-section-number">12.3</span> Klíčové momenty</h2>
-<section id="dictreader-vs-reader-30-45-min" class="level3" data-number="12.3.1">
-<h3 data-number="12.3.1" class="anchored" data-anchor-id="dictreader-vs-reader-30-45-min"><span class="header-section-number">12.3.1</span> DictReader vs reader (30-45 min):</h3>
-<ul>
-<li><strong>DŮLEŽITÉ:</strong> Zdůraznit, že DictReader je lepší</li>
-<li>Ukázat rozdíl na projektoru vedle sebe</li>
-<li>Říct: “V praxi používejte vždy DictReader pokud máte hlavičku”</li>
-</ul>
-</section>
-<section id="newline-45-60-min" class="level3" data-number="12.3.2">
-<h3 data-number="12.3.2" class="anchored" data-anchor-id="newline-45-60-min"><span class="header-section-number">12.3.2</span> newline=’’ (45-60 min):</h3>
-<ul>
-<li>Vysvětlit proč je potřeba</li>
-<li>Ukázat příklad ŠPATNÉHO výstupu bez newline</li>
-<li>Říct: “Zapamatujte si: při zápisu CSV = vždy newline=’’”</li>
-</ul>
-</section>
-<section id="gis-workflow-80-90-min" class="level3" data-number="12.3.3">
-<h3 data-number="12.3.3" class="anchored" data-anchor-id="gis-workflow-80-90-min"><span class="header-section-number">12.3.3</span> GIS workflow (80-90 min):</h3>
-<ul>
-<li><strong>Motivace pro test příští týden</strong></li>
-<li>Ukázat diagram: Export → Python → Import</li>
-<li>Zdůraznit: “Tohle budete dělat v ArcPy!”</li>
-<li>Říct: “Test bude podobný - CSV + funkce + výpočty”</li>
-</ul>
-</section>
-</section>
-<section id="rizika" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="rizika"><span class="header-section-number">12.4</span> Rizika</h2>
-<ol type="1">
-<li><strong>DictReader může být matoucí (20 min místo 15)</strong>
-<ul>
-<li>Řešení: Praktické ukázky, porovnání s reader()</li>
-<li>Nechat studenty experimentovat</li>
-</ul></li>
-<li><strong>Třídění slovníků je složité (Krok 4)</strong>
-<ul>
-<li>Řešení: Ukázat jednodušší verzi se <code>sort(key=...)</code></li>
-<li>Říct: ”</li>
-</ul></li>
-</ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
