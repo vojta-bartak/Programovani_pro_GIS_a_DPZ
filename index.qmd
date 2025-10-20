@@ -1,6 +1,26 @@
-# Programování pro GIS a DPZ
+---
+title: "Programování pro GIS a DPZ"
+subtitle: "Python pro GIS - Výukové materiály"
+author: "Vojtěch Barták, FŽP ČZU Praha"
+date: today
+format:
+  html:
+    theme: cosmo
+---
+
+## Co zde naleznete
 
 Zde naleznete materiály k předmětu **Programování pro GIS a DPZ**, vyučovaným na Fakultě životního prostředí ČZU v Praze. Obsahem předmětu jsou pokročilé metody ovládání funkcionality programu ArcGIS: Model Builder, ale především psaní skriptů v programovacím jazyce Python. Nepředpokládá se žádná předchozí znalost programování (i když je jistě výhodou), naopak součástí kurzu je úvod do programování v Pythonu.
+
+## Použití generativní umělé inteligence
+
+Tyto studijní materiály byly vytvořeny s pomocí generativní umělé inteligence (dále jen AI), konkrétně nástroje Claude.AI (model Sonnet 4.5). Nástroj byl použit následujícím způsobem:
+
+1. Návrh struktury a obsahu lekcí: struktura a obsah celého kurzu i jednotlivých lekcí vychází z přechozích verzí učebních materiálů, vytvořených autorem na základě mnohaletých zkušeností s výukou tohoto kurzu. AI byla použita k přehodnocení struktury a obsahu z hlediska optimalizace časové dotace pro jednotlivé lekce a aktualizace materiálů pro nové verze používaných programů.
+
+2. Návrh konkrétní podoby jednotlivých lekcí, opět na základě starších verzí materiálů vytvořených autorem.
+
+Veškerý obsah materiálů byl pečlivě zrevidován a upraven autorem a autor za ně přebírá plnou odpovědnost (včetně případných chyb). Podoba materiálů je také průběžně autorem upravována na základě praktických zkušeností z výuky.
 
 
 

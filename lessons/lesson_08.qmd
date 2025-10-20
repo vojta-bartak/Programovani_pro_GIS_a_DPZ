@@ -582,7 +582,7 @@ uložit jako shapefile/geodatabase
 
 ------------------------------------------------------------------------
 
-# Praktické cvičení
+# Praktická cvičení
 
 ## Cvičení 1: Statistiky okresů
 
