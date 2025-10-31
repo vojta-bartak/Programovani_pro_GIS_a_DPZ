@@ -33,6 +33,10 @@ website:
             href: lessons/lesson_07.qmd
           - text: "Lekce 8: Textové soubory II"
             href: lessons/lesson_08.qmd
+      - text: "Část 3: Základy ArcPy"
+        menu:
+          - text: "Lekce 10: Úvod do modulu ArcPy"
+            href: lessons/lesson_10.qmd
 
 format:
   html:
