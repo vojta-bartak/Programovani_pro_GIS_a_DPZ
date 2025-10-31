@@ -6,6 +6,9 @@ project:
     - "lessons/*.qmd"
     - "!material/"
 
+execute:
+  freeze: auto
+
 website:
   title: "Programování pro GIS a DPZ"
   navbar:
@@ -30,7 +33,6 @@ website:
             href: lessons/lesson_07.qmd
           - text: "Lekce 8: Textové soubory II"
             href: lessons/lesson_08.qmd
-
 
 format:
   html:

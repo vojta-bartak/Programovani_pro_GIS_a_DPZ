@@ -3,17 +3,6 @@ title: "Lekce 7: Textové soubory I – Jednoduchá tabulka"
 subtitle: "Python pro GIS - Čtení a zápis souborů"
 author: "Vojtěch Barták, FŽP ČZU Praha"
 date: today
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    code-fold: false
-    theme: cosmo
-  pdf:       
-    toc: true
-    toc-depth: 3
-    number-sections: true
 editor: 
   markdown: 
     wrap: 72
@@ -102,19 +91,144 @@ append (přidání na konec)
 Pokud neuvedete plnou cestu, Python hledá soubor v **aktuálním
 adresáři** (kde je váš .py soubor).
 
-**Plná cesta:**
+------------------------------------------------------------------------
+
+### Windows cesty - tři správné způsoby
+
+**1. Raw string (DOPORUČENO):**
+
+``` python
+soubor = open(r"C:\Projekty\data\mesta.txt", "r")
+```
+
+Písmeno `r` před uvozovkami = **raw string**
+
+**Co je raw string?**
+
+-   Python **ignoruje** escape sekvence (`\n`, `\t`, ...)
+-   Zpětné lomítko `\` se bere doslovně
+-   Ideální pro Windows cesty!
+
+**2. Lomítka místo zpětných lomítek:**
 
 ``` python
 soubor = open("C:/Projekty/data/mesta.txt", "r")
 ```
 
-**Relativní cesta** (doporučeno):
+Lomítka `/` fungují i ve Windows! Python je automaticky převede.
+
+**3. Dvojité zpětné lomítko:**
 
 ``` python
-soubor = open("mesta.txt", "r")  # V aktuální složce
-soubor = open("data/mesta.txt", "r")  # V podsložce data/
+soubor = open("C:\\Projekty\\data\\mesta.txt", "r")
 ```
+
+Každé `\` musíte zdvojit: `\\`
+
+------------------------------------------------------------------------
+
+### Proč je raw string důležitý?
+
+**Problém bez raw stringu:**
+
+``` python
+# CHYBA - \t se interpretuje jako TABULÁTOR!
+cesta = "C:\temp\data.txt"
+print(cesta)
+```
+
+**Výstup:**
+
+```         
+C:    emp\data.txt
+  ↑ zde je tabulátor místo \t
+```
+
+**Správně s raw stringem:**
+
+``` python
+# SPRÁVNĚ - r"..." vypne interpretaci escape sekvencí
+cesta = r"C:\temp\data.txt"
+print(cesta)
+```
+
+**Výstup:**
+
+```         
+C:\temp\data.txt
+```
+
+------------------------------------------------------------------------
+
+### Časté chyby
+
+``` python
+# ❌ CHYBA - \n na konci = nový řádek!
+cesta = "C:\projekty\nové\data.txt"
+print(cesta)  # C:\projekty
+              # ové\data.txt  (na dvou řádcích!)
+
+# ✅ SPRÁVNĚ
+cesta = r"C:\projekty\nové\data.txt"
+```
+
+------------------------------------------------------------------------
+
+### Relativní cesty (doporučeno pro projekty)
+
+**Výhoda:** Projekt funguje i po přesunu na jiné PC.
+
+``` python
+# V aktuální složce
+soubor = open("mesta.txt", "r")
+
+# V podsložce
+soubor = open("data/mesta.txt", "r")
+
+# O složku výš, pak data/
+soubor = open("../data/mesta.txt", "r")
+
+# Dvě složky výš
+soubor = open("../../data/mesta.txt", "r")
+```
+
+**Struktura projektu:**
+
+```         
+MujProjekt/
+├── main.py              # Váš skript
+├── mesta.txt            # open("mesta.txt")
+└── data/
+    ├── mesta.txt        # open("data/mesta.txt")
+    └── teploty.txt
+```
+
+------------------------------------------------------------------------
+
+::: callout-tip
+## Doporučené postupy
+
+**Pro Windows cesty:**
+
+``` python
+with open(r"C:\Data\mesta.txt", "r", encoding="utf-8") as f:
+    # Vždy používejte r"..."
+```
+
+**Pro relativní cesty:**
+
+``` python
+with open("data/mesta.txt", "r", encoding="utf-8") as f:
+    # Lomítka / fungují všude (Windows, Linux, Mac)
+```
+
+**Zlaté pravidlo:**
+
+-   Absolutní cesta Windows → `r"C:\..."`
+-   Relativní cesta → `"data/soubor.txt"` (lomítka)
 :::
+:::
+
 
 ## Čtení celého souboru - read()
 

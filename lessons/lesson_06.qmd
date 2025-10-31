@@ -3,17 +3,6 @@ title: "Lekce 6: Funkce a moduly"
 subtitle: "Python pro GIS - Znovupoužitelný kód"
 author: "Vojtěch Barták, FŽP ČZU Praha"
 date: today
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    number-sections: true
-    code-fold: false
-    theme: cosmo
-  pdf:       
-    toc: true
-    toc-depth: 3
-    number-sections: true
 editor: 
   markdown: 
     wrap: 72
