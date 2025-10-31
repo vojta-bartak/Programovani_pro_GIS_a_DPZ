@@ -211,10 +211,9 @@ Jakýkoli textový editor:
 -   **Notepad++** (doporučeno pro začátečníky)
 -   **VS Code** (doporučeno pro pokročilejší)
 -   **PyCharm** (profesionální IDE)
+-   **Spyder** (pro analýzu dat, podobné jako RStudio)
 
 ### Jak spustit
-
-**POZOR:** Skript .py **není viditelný** v Catalog Pane ani Geoprocessing Pane! Tyto nástroje zobrazují pouze **Python Toolboxy** (.pyt, .tbx).
 
 Pro spuštění běžného .py skriptu máte tyto možnosti:
 
@@ -657,7 +656,7 @@ arcpy.analysis.Buffer(
 
 ## Příprava dat
 
-Stáhněte si [zde](https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/EqdbPlLjOEVAiN3bNYtQyBQBuB6bOPsC4rYbAb5v4RTR-g?e=pE0Zlg):
+Stáhněte si [data](https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/EqdbPlLjOEVAiN3bNYtQyBQBuB6bOPsC4rYbAb5v4RTR-g?e=pE0Zlg):
 
 -   `ArcCR500_v33.gdb` - geodatabáze s vrstvami
 -   `VodniPlochy` - bodová vrstva rybníků, jezer a nádrží
