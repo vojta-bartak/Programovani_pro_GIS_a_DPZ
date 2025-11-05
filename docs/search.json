@@ -1,5 +1,40 @@
 [
   {
+    "objectID": "lessons/prehled_kurzu.html",
+    "href": "lessons/prehled_kurzu.html",
+    "title": "Přehled kurzu Python pro GIS",
+    "section": "",
+    "text": "Celkový počet: 21 lekcí + 3 testy = 24 výukových jednotek (12 týdnů)\n\n\n\nTýdny 1-2 | 2 lekce\n\n\n\n#\nLekce\nObsah\n\n\n\n\n1\nÚvod do automatizace GIS\nModel Builder základy, iterátory\n\n\n2\nModel Tool a vnořené modely\nVytváření nástrojů s parametry\n\n\n\n\n\n\n\nTýdny 3-5 | 7 lekcí + Test 1\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n3\nPrvní program v Pythonu\nProměnné, základní datové typy, print, input\n\n\n4\nCykly a podmínky\nfor, while, if-elif-else\n\n\n5\nTvorba jednoduchého algoritmu\nAlgoritmické myšlení, třídění\n\n\n6\nFunkce a moduly\nDefinice funkcí, import, vlastní moduly\n\n\n7\nTextové soubory I\nopen(), read(), write(), with statement\n\n\n8\nTextové soubory II\nCSV soubory, csv modul, zpracování dat\n\n\n\n🧪 TEST 1\nPo lekci 8 (30 min)\n\n\n9\nTřídy a objekty\nOOP základy, třídy, metody, atributy\n\n\n\n\n\n\n\nTýdny 6-8 | 7 lekcí + Test 2\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n10\nÚvod do ArcPy\nPython Window, Notebook, Script; import arcpy; prostředí\n\n\n11\nSpráva dat a workspace\nListFeatureClasses, Describe, Exists, try-except\n\n\n12\nGeoprocessingové nástroje I\nVektorové analýzy: Buffer, Clip, Intersect, Union\n\n\n13\nGeoprocessingové nástroje II\nRastrové analýzy: Spatial Analyst, Map Algebra\n\n\n14\nPráce s tabulkami\nSearchCursor (základy), Select by Attributes, statistiky\n\n\n15\nKombinace ArcPy + Python\nCSV → GIS, batch processing, error handling\n\n\n16\nPython Script Tool\nVytvoření .pyt, parametry, GetParameterAsText, zprávy\n\n\n\n🧪 TEST 2\nPo lekci 16 (30 min)\n\n\n\n\n\n\n\nTýdny 9-12 | 5 lekcí + Test 3\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n17\nKurzory I - Čtení dat\narcpy.da.SearchCursor, where clause, SQL dotazy\n\n\n18\nKurzory II - Editace dat\nUpdateCursor, InsertCursor, DeleteCursor\n\n\n19\nGeometrie I - Základy\narcpy.Geometry, Point, Polyline, Polygon, SHAPE@\n\n\n20\nGeometrie II - Analýzy\nGeometrické vlastnosti, prostorové vztahy, operace\n\n\n21\nKomplexní projekt\nKombinace všech technik, best practices, optimalizace\n\n\n\n🧪 TEST 3\nPo lekci 21 (30 min, finální)"
+  },
+  {
+    "objectID": "lessons/prehled_kurzu.html#blok-1-model-builder",
+    "href": "lessons/prehled_kurzu.html#blok-1-model-builder",
+    "title": "Přehled kurzu Python pro GIS",
+    "section": "",
+    "text": "Týdny 1-2 | 2 lekce\n\n\n\n#\nLekce\nObsah\n\n\n\n\n1\nÚvod do automatizace GIS\nModel Builder základy, iterátory\n\n\n2\nModel Tool a vnořené modely\nVytváření nástrojů s parametry"
+  },
+  {
+    "objectID": "lessons/prehled_kurzu.html#blok-2-základy-pythonu",
+    "href": "lessons/prehled_kurzu.html#blok-2-základy-pythonu",
+    "title": "Přehled kurzu Python pro GIS",
+    "section": "",
+    "text": "Týdny 3-5 | 7 lekcí + Test 1\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n3\nPrvní program v Pythonu\nProměnné, základní datové typy, print, input\n\n\n4\nCykly a podmínky\nfor, while, if-elif-else\n\n\n5\nTvorba jednoduchého algoritmu\nAlgoritmické myšlení, třídění\n\n\n6\nFunkce a moduly\nDefinice funkcí, import, vlastní moduly\n\n\n7\nTextové soubory I\nopen(), read(), write(), with statement\n\n\n8\nTextové soubory II\nCSV soubory, csv modul, zpracování dat\n\n\n\n🧪 TEST 1\nPo lekci 8 (30 min)\n\n\n9\nTřídy a objekty\nOOP základy, třídy, metody, atributy"
+  },
+  {
+    "objectID": "lessons/prehled_kurzu.html#blok-3-základy-arcpy",
+    "href": "lessons/prehled_kurzu.html#blok-3-základy-arcpy",
+    "title": "Přehled kurzu Python pro GIS",
+    "section": "",
+    "text": "Týdny 6-8 | 7 lekcí + Test 2\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n10\nÚvod do ArcPy\nPython Window, Notebook, Script; import arcpy; prostředí\n\n\n11\nSpráva dat a workspace\nListFeatureClasses, Describe, Exists, try-except\n\n\n12\nGeoprocessingové nástroje I\nVektorové analýzy: Buffer, Clip, Intersect, Union\n\n\n13\nGeoprocessingové nástroje II\nRastrové analýzy: Spatial Analyst, Map Algebra\n\n\n14\nPráce s tabulkami\nSearchCursor (základy), Select by Attributes, statistiky\n\n\n15\nKombinace ArcPy + Python\nCSV → GIS, batch processing, error handling\n\n\n16\nPython Script Tool\nVytvoření .pyt, parametry, GetParameterAsText, zprávy\n\n\n\n🧪 TEST 2\nPo lekci 16 (30 min)"
+  },
+  {
+    "objectID": "lessons/prehled_kurzu.html#blok-4-pokročilé-arcpy",
+    "href": "lessons/prehled_kurzu.html#blok-4-pokročilé-arcpy",
+    "title": "Přehled kurzu Python pro GIS",
+    "section": "",
+    "text": "Týdny 9-12 | 5 lekcí + Test 3\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n17\nKurzory I - Čtení dat\narcpy.da.SearchCursor, where clause, SQL dotazy\n\n\n18\nKurzory II - Editace dat\nUpdateCursor, InsertCursor, DeleteCursor\n\n\n19\nGeometrie I - Základy\narcpy.Geometry, Point, Polyline, Polygon, SHAPE@\n\n\n20\nGeometrie II - Analýzy\nGeometrické vlastnosti, prostorové vztahy, operace\n\n\n21\nKomplexní projekt\nKombinace všech technik, best practices, optimalizace\n\n\n\n🧪 TEST 3\nPo lekci 21 (30 min, finální)"
+  },
+  {
     "objectID": "lessons/lesson_10.html",
     "href": "lessons/lesson_10.html",
     "title": "Lekce 10: Úvod do ArcPy",
@@ -704,7 +739,21 @@
     "href": "index.html#struktura-kurzu",
     "title": "Programování pro GIS a DPZ",
     "section": "Struktura kurzu",
-    "text": "Struktura kurzu"
+    "text": "Struktura kurzu\nCelkový počet: 21 lekcí + 3 testy = 24 výukových jednotek (12 týdnů)\n\n\nBlok 1: Model Builder\nTýdny 1-2 | 2 lekce\n\n\n\n#\nLekce\nObsah\n\n\n\n\n1\nÚvod do automatizace GIS\nModel Builder základy, iterátory\n\n\n2\nModel Tool a vnořené modely\nVytváření nástrojů s parametry\n\n\n\n\n\n\nBlok 2: Základy Pythonu\nTýdny 3-5 | 7 lekcí + Test 1\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n3\nPrvní program v Pythonu\nProměnné, základní datové typy, print, input\n\n\n4\nCykly a podmínky\nfor, while, if-elif-else\n\n\n5\nTvorba jednoduchého algoritmu\nAlgoritmické myšlení, třídění\n\n\n6\nFunkce a moduly\nDefinice funkcí, import, vlastní moduly\n\n\n7\nTextové soubory I\nopen(), read(), write(), with statement\n\n\n8\nTextové soubory II\nCSV soubory, csv modul, zpracování dat\n\n\n\n🧪 TEST 1\nPo lekci 8 (30 min)\n\n\n9\nTřídy a objekty\nOOP základy, třídy, metody, atributy\n\n\n\n\n\n\nBlok 3: Základy ArcPy\nTýdny 6-8 | 7 lekcí + Test 2\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n10\nÚvod do ArcPy\nPython Window, Notebook, Script; import arcpy; prostředí\n\n\n11\nSpráva dat a workspace\nListFeatureClasses, Describe, Exists, try-except\n\n\n12\nGeoprocessingové nástroje I\nVektorové analýzy: Buffer, Clip, Intersect, Union\n\n\n13\nGeoprocessingové nástroje II\nRastrové analýzy: Spatial Analyst, Map Algebra\n\n\n14\nPráce s tabulkami\nSearchCursor (základy), Select by Attributes, statistiky\n\n\n15\nKombinace ArcPy + Python\nCSV → GIS, batch processing, error handling\n\n\n16\nPython Script Tool\nVytvoření .pyt, parametry, GetParameterAsText, zprávy\n\n\n\n🧪 TEST 2\nPo lekci 16 (30 min)\n\n\n\n\n\n\nBlok 4: Pokročilé ArcPy\nTýdny 9-12 | 5 lekcí + Test 3\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n17\nKurzory I - Čtení dat\narcpy.da.SearchCursor, where clause, SQL dotazy\n\n\n18\nKurzory II - Editace dat\nUpdateCursor, InsertCursor, DeleteCursor\n\n\n19\nGeometrie I - Základy\narcpy.Geometry, Point, Polyline, Polygon, SHAPE@\n\n\n20\nGeometrie II - Analýzy\nGeometrické vlastnosti, prostorové vztahy, operace\n\n\n21\nKomplexní projekt\nKombinace všech technik, best practices, optimalizace\n\n\n\n🧪 TEST 3\nPo lekci 21 (30 min, finální)"
+  },
+  {
+    "objectID": "index.html#harmonogram-testů",
+    "href": "index.html#harmonogram-testů",
+    "title": "Programování pro GIS a DPZ",
+    "section": "Harmonogram testů",
+    "text": "Harmonogram testů\n\n\n\nTest\nPo lekci\nTýden\nObsah testovaný\n\n\n\n\nTest 1\nLekce 8\n5. týden\nPython základy (lekce 3-8)\n\n\nTest 2\nLekce 16\n9. týden\nArcPy základy (lekce 10-16)\n\n\nTest 3\nLekce 21\n12. týden\nPokročilé ArcPy (lekce 17-21)\n\n\n\nMinimální bodová hranice pro zápočet: více než 50% z každého testu"
+  },
+  {
+    "objectID": "index.html#klíčové-milníky",
+    "href": "index.html#klíčové-milníky",
+    "title": "Programování pro GIS a DPZ",
+    "section": "Klíčové milníky",
+    "text": "Klíčové milníky\n\n\nPo Bloku 1\n✅ Automatizace pomocí Model Builder\n✅ Vytváření nástrojů s parametry\n✅ Vizuální programování\n\n\nPo Bloku 2\n✅ Programování v Pythonu od základů\n✅ Algoritmy a funkce\n✅ Práce se soubory a CSV\n\n\nPo Bloku 3\n✅ Automatizace ArcGIS pomocí Pythonu\n✅ Vektorové a rastrové analýzy\n✅ Vytváření Python nástrojů s GUI\n\n\nPo Bloku 4\n✅ Pokročilá práce s daty (kurzory)\n✅ Manipulace s geometriemi\n✅ Komplexní GIS projekty"
   },
   {
     "objectID": "index.html#data",
@@ -1510,5 +1559,236 @@
     "title": "Lekce 8: Textové soubory II – CSV tabulka",
     "section": "10.3 Varianta C (výzva - jako na testu)",
     "text": "10.3 Varianta C (výzva - jako na testu)\nMáte zakaznici.csv:\nID,Jmeno,Vek,Utrata\n1,Jan Novák,25,1500\n2,Marie Svobodová,32,2300\n3,Petr Dvořák,28,1800\n4,Jana Nováková,45,3200\nNapište program, který: 1. Načte data 2. Vypočítá průměrnou útratu 3. Najde zákazníky s útratou nad průměr 4. Seřadí je podle útraty (použijte vlastní třídící funkci!) 5. Uloží do vip_zakaznici.csv s přidaným sloupcem Kategorie: - “VIP” pokud útrata &gt; 2× průměr - “Premium” pokud útrata &gt; průměr - “Standard” jinak\nStruktura programu: - zakaznici_utils.py - funkce pro zpracování - main.py - hlavní program"
+  },
+  {
+    "objectID": "lessons/lesson_11.html",
+    "href": "lessons/lesson_11.html",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "",
+    "text": "Po absolvování této lekce budete umět:\n\nZjišťovat obsah geodatabáze (ListFeatureClasses, ListRasters, ListFields)\nPoužívat Describe object pro získání informací o datech\nKontrolovat existenci dat pomocí Exists()\nProcházet data pomocí cyklů (batch processing)\nOšetřovat chyby pomocí try-except\nVytvářet robustní skripty pro automatizaci\n\nČasová dotace: 90 minut"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#motivace",
+    "href": "lessons/lesson_11.html#motivace",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "2.1 Motivace",
+    "text": "2.1 Motivace\nV předchozí lekci jste psali skripty s pevně danými názvy vrstev:\narcpy.analysis.Buffer(\"silnice\", \"silnice_buffer\", \"100 Meters\")\nProblémy:\n\nCo když nevíte přesně, jak se vrstva jmenuje?\nCo když chcete zpracovat všechny vrstvy v geodatabázi?\nCo když potřebujete vědět, jaký typ geometrie vrstva má?\n\nŘešení: Použít listing a describe funkce ArcPy!"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#praktické-situace",
+    "href": "lessons/lesson_11.html#praktické-situace",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "2.2 Praktické situace",
+    "text": "2.2 Praktické situace\nSituace 1: Batch processing\n“Vytvořte buffer 100 m pro všechny polylinové vrstvy v geodatabázi.”\n→ Nemůžete psát názvy ručně! Musíte zjistit seznam vrstev automaticky.\nSituace 2: Kontrola dat\n“Zkontrolujte, zda vrstva silnice existuje. Pokud ne, stáhněte ji z webu.”\n→ Potřebujete arcpy.Exists()\nSituace 3: Analýza metadat\n“Vypište pro všechny vrstvy jejich typ geometrie a souřadnicový systém.”\n→ Potřebujete Describe object"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#nastavení-workspace",
+    "href": "lessons/lesson_11.html#nastavení-workspace",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "3.1 Nastavení workspace",
+    "text": "3.1 Nastavení workspace\nPřipomenutí z Lekce 10:\nimport arcpy\n\n# Nastavení geodatabáze jako workspace\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n\n# Všechny listing funkce budou hledat v této geodatabázi"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#listfeatureclasses---seznam-vektorových-vrstev",
+    "href": "lessons/lesson_11.html#listfeatureclasses---seznam-vektorových-vrstev",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "3.2 ListFeatureClasses - seznam vektorových vrstev",
+    "text": "3.2 ListFeatureClasses - seznam vektorových vrstev\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n\n# Vypsat všechny feature classes\nfc_list = arcpy.ListFeatureClasses()\n\nprint(\"Feature classes v geodatabázi:\")\nfor fc in fc_list:\n    print(f\"  - {fc}\")\nVýstup:\nFeature classes v geodatabázi:\n  - silnice\n  - rybníky\n  - lesy\n  - obce\n  - reky\n\n3.2.1 Filtrování podle wildcard\n# Jen vrstvy začínající na \"r\"\nfc_list = arcpy.ListFeatureClasses(\"r*\")\nprint(fc_list)  # ['rybníky', 'reky']\n\n# Jen vrstvy obsahující \"s\"\nfc_list = arcpy.ListFeatureClasses(\"*s*\")\nprint(fc_list)  # ['silnice', 'lesy', 'obce']\n\n\n3.2.2 Filtrování podle typu geometrie\n# Jen bodové vrstvy\npoints = arcpy.ListFeatureClasses(feature_type=\"Point\")\nprint(points)  # ['rybníky', 'obce']\n\n# Jen liniové vrstvy\nlines = arcpy.ListFeatureClasses(feature_type=\"Polyline\")\nprint(lines)  # ['silnice', 'reky']\n\n# Jen polygonové vrstvy\npolygons = arcpy.ListFeatureClasses(feature_type=\"Polygon\")\nprint(polygons)  # ['lesy']\nTypy geometrie:\n\n\"Point\" - body\n\"Multipoint\" - multipoint\n\"Polyline\" - linie\n\"Polygon\" - polygony\n\"Annotation\" - anotace\n\n\n\n\n\n\n\nTipKombinace filtrů\n\n\n\n# Polygony začínající na \"l\"\npolygons = arcpy.ListFeatureClasses(\"l*\", feature_type=\"Polygon\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#listrasters---seznam-rastrů",
+    "href": "lessons/lesson_11.html#listrasters---seznam-rastrů",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "3.3 ListRasters - seznam rastrů",
+    "text": "3.3 ListRasters - seznam rastrů\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n\n# Vypsat všechny rastry\nraster_list = arcpy.ListRasters()\n\nprint(\"Rastry v geodatabázi:\")\nfor raster in raster_list:\n    print(f\"  - {raster}\")\n\n3.3.1 Filtrování podle typu\n# Jen TIFF rastry\ntiff_list = arcpy.ListRasters(\"*\", \"TIF\")\n\n# Jen IMG rastry\nimg_list = arcpy.ListRasters(\"*\", \"IMG\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#listdatasets---seznam-feature-datasetů",
+    "href": "lessons/lesson_11.html#listdatasets---seznam-feature-datasetů",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "3.4 ListDatasets - seznam feature datasetů",
+    "text": "3.4 ListDatasets - seznam feature datasetů\n# Vypsat všechny feature datasety\ndataset_list = arcpy.ListDatasets()\n\nfor dataset in dataset_list:\n    print(f\"Feature dataset: {dataset}\")\n    \n    # Feature classes uvnitř datasetu\n    arcpy.env.workspace = f\"{arcpy.env.workspace}/{dataset}\"\n    fc_list = arcpy.ListFeatureClasses()\n    for fc in fc_list:\n        print(f\"  - {fc}\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#listfields---seznam-atributů-vrstvy",
+    "href": "lessons/lesson_11.html#listfields---seznam-atributů-vrstvy",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "3.5 ListFields - seznam atributů vrstvy",
+    "text": "3.5 ListFields - seznam atributů vrstvy\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n\n# Vypsat všechny atributy vrstvy \"silnice\"\nfields = arcpy.ListFields(\"silnice\")\n\nprint(\"Atributy vrstvy 'silnice':\")\nfor field in fields:\n    print(f\"  - {field.name} ({field.type})\")\nVýstup:\nAtributy vrstvy 'silnice':\n  - OBJECTID (OID)\n  - Shape (Geometry)\n  - nazev (String)\n  - delka (Double)\n  - trida (Integer)\n  - Shape_Length (Double)\n\n3.5.1 Vlastnosti Field objektu\nfields = arcpy.ListFields(\"silnice\")\n\nfor field in fields:\n    print(f\"Název: {field.name}\")\n    print(f\"  Typ: {field.type}\")\n    print(f\"  Délka: {field.length}\")\n    print(f\"  Nullable: {field.isNullable}\")\n    print()"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#co-je-describe",
+    "href": "lessons/lesson_11.html#co-je-describe",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "4.1 Co je Describe?",
+    "text": "4.1 Co je Describe?\nDescribe vrací objekt s detailními informacemi o datech.\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n\n# Získání Describe objektu\ndesc = arcpy.Describe(\"silnice\")\n\n# Přístup k vlastnostem\nprint(f\"Název: {desc.name}\")\nprint(f\"Typ: {desc.dataType}\")\nprint(f\"Cesta: {desc.catalogPath}\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#vlastnosti-pro-feature-class",
+    "href": "lessons/lesson_11.html#vlastnosti-pro-feature-class",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "4.2 Vlastnosti pro Feature Class",
+    "text": "4.2 Vlastnosti pro Feature Class\ndesc = arcpy.Describe(\"silnice\")\n\n# Základní info\nprint(f\"Název: {desc.name}\")\nprint(f\"Typ dat: {desc.dataType}\")  # FeatureClass\n\n# Geometrie\nprint(f\"Typ geometrie: {desc.shapeType}\")  # Polyline\nprint(f\"Has M: {desc.hasM}\")\nprint(f\"Has Z: {desc.hasZ}\")\n\n# Souřadnicový systém\nsr = desc.spatialReference\nprint(f\"Souřadnicový systém: {sr.name}\")\nprint(f\"EPSG kód: {sr.factoryCode}\")\n\n# Rozsah (extent)\nextent = desc.extent\nprint(f\"XMin: {extent.XMin}\")\nprint(f\"XMax: {extent.XMax}\")\nprint(f\"YMin: {extent.YMin}\")\nprint(f\"YMax: {extent.YMax}\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#vlastnosti-pro-raster",
+    "href": "lessons/lesson_11.html#vlastnosti-pro-raster",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "4.3 Vlastnosti pro Raster",
+    "text": "4.3 Vlastnosti pro Raster\ndesc = arcpy.Describe(\"dem\")\n\n# Základní info\nprint(f\"Typ: {desc.dataType}\")  # RasterDataset\n\n# Rastrové vlastnosti\nprint(f\"Formát: {desc.format}\")\nprint(f\"Komprese: {desc.compressionType}\")\nprint(f\"Počet pásem: {desc.bandCount}\")\n\n# Rozlišení\nprint(f\"Velikost pixelu X: {desc.meanCellWidth}\")\nprint(f\"Velikost pixelu Y: {desc.meanCellHeight}\")\n\n# Rozsah\nprint(f\"Počet sloupců: {desc.width}\")\nprint(f\"Počet řádků: {desc.height}\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#praktický-příklad---kontrola-typu-geometrie",
+    "href": "lessons/lesson_11.html#praktický-příklad---kontrola-typu-geometrie",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "4.4 Praktický příklad - kontrola typu geometrie",
+    "text": "4.4 Praktický příklad - kontrola typu geometrie\ndef je_polygon(fc_name):\n    \"\"\"Kontrola, zda je feature class polygon.\"\"\"\n    desc = arcpy.Describe(fc_name)\n    return desc.shapeType == \"Polygon\"\n\n# Použití\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n\nfc_list = arcpy.ListFeatureClasses()\n\nfor fc in fc_list:\n    if je_polygon(fc):\n        print(f\"{fc} je polygon\")\n    else:\n        print(f\"{fc} NENÍ polygon\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#proč-kontrolovat-existenci",
+    "href": "lessons/lesson_11.html#proč-kontrolovat-existenci",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "5.1 Proč kontrolovat existenci?",
+    "text": "5.1 Proč kontrolovat existenci?\nProblém:\narcpy.analysis.Buffer(\"neexistující_vrstva\", \"vystup\", \"100 Meters\")\n# ERROR: neexistující_vrstva does not exist\nŘešení: Zkontrolovat před použitím!"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#základní-použití",
+    "href": "lessons/lesson_11.html#základní-použití",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "5.2 Základní použití",
+    "text": "5.2 Základní použití\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n\n# Kontrola existence feature class\nif arcpy.Exists(\"silnice\"):\n    print(\"Vrstva 'silnice' existuje\")\nelse:\n    print(\"Vrstva 'silnice' NEexistuje\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#praktický-příklad---kontrola-před-vytvořením",
+    "href": "lessons/lesson_11.html#praktický-příklad---kontrola-před-vytvořením",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "5.3 Praktický příklad - kontrola před vytvořením",
+    "text": "5.3 Praktický příklad - kontrola před vytvořením\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\narcpy.env.overwriteOutput = False  # Nepřepisovat!\n\nvstup = \"silnice\"\nvystup = \"silnice_buffer\"\n\n# Kontrola vstupu\nif not arcpy.Exists(vstup):\n    print(f\"CHYBA: Vstupní vrstva '{vstup}' neexistuje!\")\nelse:\n    # Kontrola výstupu\n    if arcpy.Exists(vystup):\n        print(f\"Varování: '{vystup}' už existuje, přeskakuji.\")\n    else:\n        # Vytvoření bufferu\n        arcpy.analysis.Buffer(vstup, vystup, \"100 Meters\")\n        print(f\"Buffer vytvořen: {vystup}\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#exists-pro-různé-typy-dat",
+    "href": "lessons/lesson_11.html#exists-pro-různé-typy-dat",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "5.4 Exists() pro různé typy dat",
+    "text": "5.4 Exists() pro různé typy dat\n# Feature class\narcpy.Exists(\"silnice\")\n\n# Raster\narcpy.Exists(\"dem\")\n\n# Geodatabáze\narcpy.Exists(r\"C:\\Data\\Projekt.gdb\")\n\n# Shapefile\narcpy.Exists(r\"C:\\Data\\silnice.shp\")\n\n# Složka\narcpy.Exists(r\"C:\\Data\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#základní-batch-processing",
+    "href": "lessons/lesson_11.html#základní-batch-processing",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "6.1 Základní batch processing",
+    "text": "6.1 Základní batch processing\nÚloha: Vytvořte buffer 50 m pro všechny feature classes.\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\narcpy.env.overwriteOutput = True\n\n# Získat seznam všech feature classes\nfc_list = arcpy.ListFeatureClasses()\n\nprint(f\"Zpracovávám {len(fc_list)} vrstev...\")\n\nfor fc in fc_list:\n    # Název výstupu\n    vystup = f\"{fc}_buffer50\"\n    \n    # Vytvoření bufferu\n    print(f\"  Vytvářím buffer pro: {fc}\")\n    arcpy.analysis.Buffer(fc, vystup, \"50 Meters\")\n    print(f\"    ✓ Vytvořeno: {vystup}\")\n\nprint(\"Hotovo!\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#batch-processing-s-filtrem",
+    "href": "lessons/lesson_11.html#batch-processing-s-filtrem",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "6.2 Batch processing s filtrem",
+    "text": "6.2 Batch processing s filtrem\nÚloha: Buffer jen pro bodové vrstvy.\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\narcpy.env.overwriteOutput = True\n\n# Získat jen bodové vrstvy\npoints = arcpy.ListFeatureClasses(feature_type=\"Point\")\n\nprint(f\"Nalezeno {len(points)} bodových vrstev\")\n\nfor fc in points:\n    vystup = f\"{fc}_buffer\"\n    \n    print(f\"Buffer pro {fc}...\")\n    arcpy.analysis.Buffer(fc, vystup, \"100 Meters\")\n    print(f\"  ✓ Hotovo: {vystup}\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#batch-processing-s-describe",
+    "href": "lessons/lesson_11.html#batch-processing-s-describe",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "6.3 Batch processing s Describe",
+    "text": "6.3 Batch processing s Describe\nÚloha: Buffer 50 m pro polygony, 100 m pro linie.\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\narcpy.env.overwriteOutput = True\n\nfc_list = arcpy.ListFeatureClasses()\n\nfor fc in fc_list:\n    # Zjistit typ geometrie\n    desc = arcpy.Describe(fc)\n    shape_type = desc.shapeType\n    \n    # Nastavit vzdálenost podle typu\n    if shape_type == \"Polygon\":\n        vzdalenost = \"50 Meters\"\n    elif shape_type == \"Polyline\":\n        vzdalenost = \"100 Meters\"\n    elif shape_type == \"Point\":\n        vzdalenost = \"25 Meters\"\n    else:\n        print(f\"Přeskakuji {fc} - neznámý typ: {shape_type}\")\n        continue\n    \n    # Vytvoření bufferu\n    vystup = f\"{fc}_buffer\"\n    print(f\"Buffer {fc} ({shape_type}): {vzdalenost}\")\n    arcpy.analysis.Buffer(fc, vystup, vzdalenost)\n    print(f\"  ✓ {vystup}\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#proč-ošetřovat-chyby",
+    "href": "lessons/lesson_11.html#proč-ošetřovat-chyby",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "7.1 Proč ošetřovat chyby?",
+    "text": "7.1 Proč ošetřovat chyby?\nProblém:\n# Co když jeden soubor je poškozený?\nfor fc in fc_list:\n    arcpy.analysis.Buffer(fc, f\"{fc}_buffer\", \"100 Meters\")\n    # CHYBA na 3. vrstvě → celý skript spadne!\nŘešení: Použít try-except pro zachycení chyb!"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#základní-struktura",
+    "href": "lessons/lesson_11.html#základní-struktura",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "7.2 Základní struktura",
+    "text": "7.2 Základní struktura\ntry:\n    # Kód, který může vyvolat chybu\n    vysledek = 10 / 0\nexcept:\n    # Co udělat při chybě\n    print(\"Nastala chyba!\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#try-except-v-arcpy",
+    "href": "lessons/lesson_11.html#try-except-v-arcpy",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "7.3 Try-except v ArcPy",
+    "text": "7.3 Try-except v ArcPy\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\narcpy.env.overwriteOutput = True\n\nfc_list = arcpy.ListFeatureClasses()\n\nuspesnych = 0\nchybnych = 0\n\nfor fc in fc_list:\n    try:\n        vystup = f\"{fc}_buffer\"\n        print(f\"Zpracovávám: {fc}\")\n        \n        arcpy.analysis.Buffer(fc, vystup, \"100 Meters\")\n        \n        print(f\"  ✓ Úspěch: {vystup}\")\n        uspesnych += 1\n        \n    except arcpy.ExecuteError:\n        # Chyba v geoprocessingu\n        print(f\"  ✗ CHYBA při zpracování: {fc}\")\n        print(f\"    {arcpy.GetMessages()}\")\n        chybnych += 1\n        \n    except Exception as e:\n        # Jiná chyba (Python)\n        print(f\"  ✗ NEOČEKÁVANÁ CHYBA: {fc}\")\n        print(f\"    {str(e)}\")\n        chybnych += 1\n\nprint(f\"\\nHotovo! Úspěšných: {uspesnych}, Chybných: {chybnych}\")\n\n\n\n\n\n\nImportantarcpy.ExecuteError vs. Exception\n\n\n\n\narcpy.ExecuteError - chyby v ArcGIS nástrojích (neexistující vrstva, špatné parametry, …)\nException - obecné Python chyby (dělení nulou, chybějící soubor, …)\n\nDoporučení: Zachytávejte obě!"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#praktický-příklad---robustní-batch-processing",
+    "href": "lessons/lesson_11.html#praktický-příklad---robustní-batch-processing",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "7.4 Praktický příklad - robustní batch processing",
+    "text": "7.4 Praktický příklad - robustní batch processing\nimport arcpy\n\ndef batch_buffer(workspace, vzdalenost, feature_type=None):\n    \"\"\"\n    Vytvoří buffer pro všechny feature classes ve workspace.\n    \n    Args:\n        workspace: Cesta ke geodatabázi\n        vzdalenost: Vzdálenost bufferu (str, např. \"100 Meters\")\n        feature_type: Typ geometrie (volitelné)\n    \n    Returns:\n        Tuple: (počet úspěšných, počet chybných)\n    \"\"\"\n    arcpy.env.workspace = workspace\n    arcpy.env.overwriteOutput = True\n    \n    # Seznam feature classes\n    fc_list = arcpy.ListFeatureClasses(feature_type=feature_type)\n    \n    if not fc_list:\n        print(\"Žádné feature classes k zpracování!\")\n        return (0, 0)\n    \n    print(f\"Nalezeno {len(fc_list)} vrstev\")\n    print(f\"Vzdálenost bufferu: {vzdalenost}\\n\")\n    \n    uspesnych = 0\n    chybnych = 0\n    \n    for fc in fc_list:\n        try:\n            # Kontrola existence\n            if not arcpy.Exists(fc):\n                print(f\"  ⚠ Přeskakuji {fc} - neexistuje\")\n                chybnych += 1\n                continue\n            \n            # Název výstupu\n            vystup = f\"{fc}_buffer\"\n            \n            print(f\"  Zpracovávám: {fc}\")\n            \n            # Buffer\n            arcpy.analysis.Buffer(fc, vystup, vzdalenost)\n            \n            print(f\"    ✓ Hotovo: {vystup}\")\n            uspesnych += 1\n            \n        except arcpy.ExecuteError:\n            print(f\"    ✗ Chyba ArcGIS: {fc}\")\n            print(f\"       {arcpy.GetMessages(2)}\")  # Jen error zprávy\n            chybnych += 1\n            \n        except Exception as e:\n            print(f\"    ✗ Python chyba: {fc}\")\n            print(f\"       {str(e)}\")\n            chybnych += 1\n    \n    print(f\"\\n{'='*50}\")\n    print(f\"Úspěšných: {uspesnych}\")\n    print(f\"Chybných: {chybnych}\")\n    print(f\"Celkem: {uspesnych + chybnych}\")\n    \n    return (uspesnych, chybnych)\n\n\n# Použití\nif __name__ == \"__main__\":\n    workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\n    \n    # Buffer pro všechny vrstvy\n    batch_buffer(workspace, \"100 Meters\")\n    \n    # Nebo jen pro polygony\n    # batch_buffer(workspace, \"50 Meters\", feature_type=\"Polygon\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#cvičení-1-inventura-geodatabáze",
+    "href": "lessons/lesson_11.html#cvičení-1-inventura-geodatabáze",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "8.1 Cvičení 1: Inventura geodatabáze",
+    "text": "8.1 Cvičení 1: Inventura geodatabáze\nVytvořte skript, který:\n\nVypíše všechny feature classes v geodatabázi\nPro každou vrstvu vypíše:\n\nNázev\nTyp geometrie\nPočet atributů\nSouřadnicový systém\n\nUloží výsledky do textového souboru inventura.txt\n\nVýstup:\nInventura geodatabáze: cviceni_11.gdb\n======================================\n\n1. silnice\n   - Typ geometrie: Polyline\n   - Počet atributů: 6\n   - Souř. systém: S-JTSK_Krovak_East_North (EPSG: 5514)\n\n2. rybníky\n   - Typ geometrie: Point\n   - Počet atributů: 4\n   - Souř. systém: S-JTSK_Krovak_East_North (EPSG: 5514)\n\n..."
+  },
+  {
+    "objectID": "lessons/lesson_11.html#cvičení-2-kontrola-souřadnicových-systémů",
+    "href": "lessons/lesson_11.html#cvičení-2-kontrola-souřadnicových-systémů",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "8.2 Cvičení 2: Kontrola souřadnicových systémů",
+    "text": "8.2 Cvičení 2: Kontrola souřadnicových systémů\nVytvořte skript, který:\n\nZkontroluje všechny feature classes\nZjistí, zda mají stejný souřadnicový systém\nVypíše seznam vrstev s jiným souřadnicovým systémem\n\nHint:\n# Referenční souř. systém (první vrstva)\nfc_list = arcpy.ListFeatureClasses()\nref_sr = arcpy.Describe(fc_list[0]).spatialReference\n\n# Kontrola ostatních\nfor fc in fc_list[1:]:\n    desc = arcpy.Describe(fc)\n    if desc.spatialReference.name != ref_sr.name:\n        print(f\"POZOR: {fc} má jiný souř. systém!\")"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#cvičení-3-batch-clip",
+    "href": "lessons/lesson_11.html#cvičení-3-batch-clip",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "8.3 Cvičení 3: Batch Clip",
+    "text": "8.3 Cvičení 3: Batch Clip\nVytvořte skript, který:\n\nOřízne všechny feature classes pomocí vrstvy hranice\nVýstupy pojmenuje: &lt;nazev&gt;_clip\nPoužije try-except pro ošetření chyb\nVypíše statistiku (kolik úspěšných/chybných)\n\nPoužití nástroje Clip:\narcpy.analysis.Clip(\n    in_features=\"vstup\",\n    clip_features=\"hranice\",\n    out_feature_class=\"vystup\"\n)"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#co-jsme-se-naučili",
+    "href": "lessons/lesson_11.html#co-jsme-se-naučili",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "9.1 Co jsme se naučili",
+    "text": "9.1 Co jsme se naučili\n✅ Listing funkce:\n\nListFeatureClasses() - seznam vektorových vrstev\nListRasters() - seznam rastrů\nListDatasets() - seznam feature datasetů\nListFields() - seznam atributů\n\n✅ Describe object:\n\nDetailní informace o datech\nTyp geometrie, souřadnicový systém, extent, …\n\n✅ Kontrola existence:\n\narcpy.Exists() - před použitím zkontrolovat\n\n✅ Batch processing:\n\nCykly přes seznam feature classes\nAutomatizace pro mnoho souborů\n\n✅ Ošetření chyb:\n\ntry-except pro robustní skripty\narcpy.ExecuteError vs. Exception"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#kdy-použít-co",
+    "href": "lessons/lesson_11.html#kdy-použít-co",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "9.2 Kdy použít co?",
+    "text": "9.2 Kdy použít co?\n\n\n\nÚloha\nFunkce\n\n\n\n\n“Co je v geodatabázi?”\nListFeatureClasses()\n\n\n“Jaký typ geometrie má vrstva?”\nDescribe().shapeType\n\n\n“Existuje vrstva?”\nExists()\n\n\n“Zpracovat všechny vrstvy”\nfor fc in ListFeatureClasses()\n\n\n“Zachytit chyby”\ntry-except"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#co-bude-příště",
+    "href": "lessons/lesson_11.html#co-bude-příště",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "9.3 Co bude příště?",
+    "text": "9.3 Co bude příště?\nV příští lekci (Lekce 12):\n\nVektorové analýzy - Buffer, Clip, Intersect, Union\nGeoprocessingové nástroje - jak je efektivně používat\nParametry nástrojů - pokročilé nastavení\nProstorové dotazy - Select by Location"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#varianta-a-základní",
+    "href": "lessons/lesson_11.html#varianta-a-základní",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "10.1 Varianta A (základní)",
+    "text": "10.1 Varianta A (základní)\nVytvořte skript, který:\n\nVypíše názvy všech feature classes v geodatabázi cviceni_11.gdb\nPro každou vrstvu vypíše typ geometrie\nSpočítá, kolik je bodových, liniových a polygonových vrstev\n\nOdevzdejte: Soubor inventura.py + screenshot výstupu"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#varianta-b-střední",
+    "href": "lessons/lesson_11.html#varianta-b-střední",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "10.2 Varianta B (střední)",
+    "text": "10.2 Varianta B (střední)\nVytvořte skript, který:\n\nVytvoří buffer 100 m pro všechny liniové vrstvy\nVýstupy pojmenuje: &lt;nazev&gt;_buffer100\nVypíše, kolik bufferů bylo vytvořeno\n\nPoužijte:\n\nListFeatureClasses(feature_type=\"Polyline\")\nCyklus for\n\nOdevzdejte: Soubor batch_buffer_lines.py + screenshot výsledků v ArcGIS Pro"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#varianta-c-pokročilá",
+    "href": "lessons/lesson_11.html#varianta-c-pokročilá",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "10.3 Varianta C (pokročilá)",
+    "text": "10.3 Varianta C (pokročilá)\nVytvořte skript batch_clip_robust.py, který:\n\nOřízne všechny feature classes vrstvou hranice\nPřed oříznutím zkontroluje, zda vrstva existuje\nPoužije try-except pro ošetření chyb\nNa konci vypíše:\n\nPočet úspěšně oříznutých vrstev\nPočet chybných vrstev\nSeznam chybných vrstev\n\n\nStruktura:\nimport arcpy\n\narcpy.env.workspace = r\"C:\\TEMP\\Python_GIS\\Lekce_11\\cviceni_11.gdb\"\narcpy.env.overwriteOutput = True\n\nclip_layer = \"hranice\"\n\n# Kontrola existence hranice\nif not arcpy.Exists(clip_layer):\n    print(f\"CHYBA: '{clip_layer}' neexistuje!\")\nelse:\n    fc_list = arcpy.ListFeatureClasses()\n    \n    uspesnych = 0\n    chybnych = 0\n    chybne_vrstvy = []\n    \n    for fc in fc_list:\n        # Přeskočit samotnou vrstvu hranice\n        if fc == clip_layer:\n            continue\n        \n        try:\n            # ... váš kód ...\n            \n        except:\n            # ... váš kód ...\n    \n    # Výpis statistik\n    print(f\"\\nStatistika:\")\n    # ...\nOdevzdejte: Soubor batch_clip_robust.py + textový soubor s výstupem skriptu"
+  },
+  {
+    "objectID": "lessons/lesson_11.html#varianta-d-výzva",
+    "href": "lessons/lesson_11.html#varianta-d-výzva",
+    "title": "Lekce 11: Správa dat a workspace",
+    "section": "10.4 Varianta D (výzva)",
+    "text": "10.4 Varianta D (výzva)\nVytvořte funkci analyzuj_geodatabazi(), která:\n\nAnalyzuje geodatabázi a vrátí slovník se statistikami:\n\n{\n    \"pocet_fc\": 15,\n    \"pocet_rastru\": 3,\n    \"typy_geometrie\": {\n        \"Point\": 5,\n        \"Polyline\": 7,\n        \"Polygon\": 3\n    },\n    \"souradnicove_systemy\": {\n        \"S-JTSK\": 12,\n        \"WGS84\": 3\n    }\n}\n\nVytvoří HTML report s přehledem (bonus: s grafy!)\nUloží report jako report_geodatabaze.html\n\nOdevzdejte: Soubor analyze_gdb.py + vygenerovaný HTML report"
   }
 ]

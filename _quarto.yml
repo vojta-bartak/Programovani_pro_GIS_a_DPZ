@@ -37,6 +37,8 @@ website:
         menu:
           - text: "Lekce 10: Úvod do modulu ArcPy"
             href: lessons/lesson_10.qmd
+          - text: "Lekce 11: Správa dat a workspace"
+            href: lessons/lesson_11.qmd
 
 format:
   html:

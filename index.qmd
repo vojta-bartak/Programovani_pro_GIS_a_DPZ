@@ -14,6 +14,119 @@ Zde naleznete materiály k předmětu **Programování pro GIS a DPZ**, vyučova
 
 ## Struktura kurzu
 
+**Celkový počet:** 21 lekcí + 3 testy = 24 výukových jednotek (12 týdnů)
+
+---
+
+### Blok 1: Model Builder {.unnumbered}
+
+**Týdny 1-2 | 2 lekce**
+
+| # | Lekce | Obsah |
+|---|-------|-------|
+| 1 | Úvod do automatizace GIS | Model Builder základy, iterátory |
+| 2 | Model Tool a vnořené modely | Vytváření nástrojů s parametry |
+
+---
+
+### Blok 2: Základy Pythonu {.unnumbered}
+
+**Týdny 3-5 | 7 lekcí + Test 1**
+
+| # | Lekce | Obsah |
+|---|-------|-------|
+| 3 | První program v Pythonu | Proměnné, základní datové typy, print, input |
+| 4 | Cykly a podmínky | for, while, if-elif-else |
+| 5 | Tvorba jednoduchého algoritmu | Algoritmické myšlení, třídění |
+| 6 | Funkce a moduly | Definice funkcí, import, vlastní moduly |
+| 7 | Textové soubory I | open(), read(), write(), with statement |
+| 8 | Textové soubory II | CSV soubory, csv modul, zpracování dat |
+| | **🧪 TEST 1** | **Po lekci 8 (30 min)** |
+| 9 | Třídy a objekty | OOP základy, třídy, metody, atributy |
+
+---
+
+### Blok 3: Základy ArcPy {.unnumbered}
+
+**Týdny 6-8 | 7 lekcí + Test 2**
+
+| # | Lekce | Obsah |
+|---|-------|-------|
+| 10 | Úvod do ArcPy | Python Window, Notebook, Script; import arcpy; prostředí |
+| 11 | Správa dat a workspace | ListFeatureClasses, Describe, Exists, try-except |
+| 12 | Geoprocessingové nástroje I | Vektorové analýzy: Buffer, Clip, Intersect, Union |
+| 13 | Geoprocessingové nástroje II | Rastrové analýzy: Spatial Analyst, Map Algebra |
+| 14 | Práce s tabulkami | SearchCursor (základy), Select by Attributes, statistiky |
+| 15 | Kombinace ArcPy + Python | CSV → GIS, batch processing, error handling |
+| 16 | Python Script Tool | Vytvoření .pyt, parametry, GetParameterAsText, zprávy |
+| | **🧪 TEST 2** | **Po lekci 16 (30 min)** |
+
+---
+
+### Blok 4: Pokročilé ArcPy {.unnumbered}
+
+**Týdny 9-12 | 5 lekcí + Test 3**
+
+| # | Lekce | Obsah |
+|---|-------|-------|
+| 17 | Kurzory I - Čtení dat | arcpy.da.SearchCursor, where clause, SQL dotazy |
+| 18 | Kurzory II - Editace dat | UpdateCursor, InsertCursor, DeleteCursor |
+| 19 | Geometrie I - Základy | arcpy.Geometry, Point, Polyline, Polygon, SHAPE@ |
+| 20 | Geometrie II - Analýzy | Geometrické vlastnosti, prostorové vztahy, operace |
+| 21 | Komplexní projekt | Kombinace všech technik, best practices, optimalizace |
+| | **🧪 TEST 3** | **Po lekci 21 (30 min, finální)** |
+
+---
+
+## Harmonogram testů
+
+| Test | Po lekci | Týden | Obsah testovaný | Délka |
+|------|----------|-----------------|-------|
+| **Test 1** | Lekce 8 | 5. týden | Python základy (lekce 3-8) | 30 min |
+| **Test 2** | Lekce 16 | 9. týden | ArcPy základy (lekce 10-16) | 30 min |
+| **Test 3** | Lekce 21 | 12. týden | Pokročilé ArcPy (lekce 17-21) | 30 min |
+
+**Minimální bodová hranice pro zápočet:** více než 50% z každého testu
+
+---
+
+## Klíčové milníky
+
+::: {.grid}
+
+::: {.g-col-6}
+### Po Bloku 1
+✅ Automatizace pomocí Model Builder  
+✅ Vytváření nástrojů s parametry  
+✅ Vizuální programování
+:::
+
+::: {.g-col-6}
+### Po Bloku 2
+✅ Programování v Pythonu od základů  
+✅ Algoritmy a funkce  
+✅ Práce se soubory a CSV
+:::
+
+::: {.g-col-6}
+### Po Bloku 3
+✅ Automatizace ArcGIS pomocí Pythonu  
+✅ Vektorové a rastrové analýzy  
+✅ Vytváření Python nástrojů s GUI
+:::
+
+::: {.g-col-6}
+### Po Bloku 4
+✅ Pokročilá práce s daty (kurzory)  
+✅ Manipulace s geometriemi  
+✅ Komplexní GIS projekty
+:::
+
+:::
+
+---
+
+
 ## Data
 
 Data k lekcím jsou ke stažení [zde](https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/EqdbPlLjOEVAiN3bNYtQyBQBuB6bOPsC4rYbAb5v4RTR-g?e=pE0Zlg).
