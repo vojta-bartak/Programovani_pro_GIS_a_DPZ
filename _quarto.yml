@@ -39,6 +39,8 @@ website:
             href: lessons/lesson_10.qmd
           - text: "Lekce 11: Správa dat a workspace"
             href: lessons/lesson_11.qmd
+          - text: "Lekce 12: Geoprocessingové nástroje I"
+            href: lessons/lesson_12.qmd
 
 format:
   html:

@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
+<meta name="dcterms.date" content="2025-11-08">
+
+<title>Lekce 12: Geoprocessingové nástroje I – Programování pro GIS a DPZ</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed576ce243f35bf3f83c58f608c88421.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Programování pro GIS a DPZ</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-1-model-builder" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ćást 1: Model Builder</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-1-model-builder">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_01.html">
+ <span class="dropdown-text">Lekce 1: Jednoduchý model</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-2-úvod-do-pythonu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 2: Úvod do Pythonu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-2-úvod-do-pythonu">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_03.html">
+ <span class="dropdown-text">Lekce 3: První program v Pythonu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_04.html">
+ <span class="dropdown-text">Lekce 4: Cykly a podmínky</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_05.html">
+ <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_06.html">
+ <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_07.html">
+ <span class="dropdown-text">Lekce 7: Textové soubory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_08.html">
+ <span class="dropdown-text">Lekce 8: Textové soubory II</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-3-základy-arcpy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 3: Základy ArcPy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-3-základy-arcpy">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_10.html">
+ <span class="dropdown-text">Lekce 10: Úvod do modulu ArcPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_11.html">
+ <span class="dropdown-text">Lekce 11: Správa dat a workspace</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_12.html">
+ <span class="dropdown-text">Lekce 12: Geoprocessingové nástroje I</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
+  <li><a href="#proč-python-pro-vektorové-analýzy" id="toc-proč-python-pro-vektorové-analýzy" class="nav-link" data-scroll-target="#proč-python-pro-vektorové-analýzy"><span class="header-section-number">2</span> Proč Python pro vektorové analýzy?</a>
+  <ul class="collapse">
+  <li><a href="#co-už-umíte" id="toc-co-už-umíte" class="nav-link" data-scroll-target="#co-už-umíte"><span class="header-section-number">2.1</span> Co už umíte</a></li>
+  <li><a href="#výhody-automatizace-pomocí-pythonu" id="toc-výhody-automatizace-pomocí-pythonu" class="nav-link" data-scroll-target="#výhody-automatizace-pomocí-pythonu"><span class="header-section-number">2.2</span> Výhody automatizace pomocí Pythonu</a></li>
+  <li><a href="#praktické-situace" id="toc-praktické-situace" class="nav-link" data-scroll-target="#praktické-situace"><span class="header-section-number">2.3</span> Praktické situace</a></li>
+  <li><a href="#propojení-s-lekcí-11" id="toc-propojení-s-lekcí-11" class="nav-link" data-scroll-target="#propojení-s-lekcí-11"><span class="header-section-number">2.4</span> Propojení s Lekcí 11</a></li>
+  </ul></li>
+  <li><a href="#od-gui-k-pythonu" id="toc-od-gui-k-pythonu" class="nav-link" data-scroll-target="#od-gui-k-pythonu"><span class="header-section-number">3</span> Od GUI k Pythonu</a>
+  <ul class="collapse">
+  <li><a href="#copy-python-command" id="toc-copy-python-command" class="nav-link" data-scroll-target="#copy-python-command"><span class="header-section-number">3.1</span> Copy Python Command</a></li>
+  <li><a href="#struktura-příkazu" id="toc-struktura-příkazu" class="nav-link" data-scroll-target="#struktura-příkazu"><span class="header-section-number">3.2</span> Struktura příkazu</a></li>
+  <li><a href="#starý-způsob-volání-nástrojů" id="toc-starý-způsob-volání-nástrojů" class="nav-link" data-scroll-target="#starý-způsob-volání-nástrojů"><span class="header-section-number">3.3</span> Starý způsob volání nástrojů</a></li>
+  </ul></li>
+  <li><a href="#základní-vektorové-nástroje-v-pythonu" id="toc-základní-vektorové-nástroje-v-pythonu" class="nav-link" data-scroll-target="#základní-vektorové-nástroje-v-pythonu"><span class="header-section-number">4</span> Základní vektorové nástroje v Pythonu</a>
+  <ul class="collapse">
+  <li><a href="#rychlý-přehled-syntaxe" id="toc-rychlý-přehled-syntaxe" class="nav-link" data-scroll-target="#rychlý-přehled-syntaxe"><span class="header-section-number">4.1</span> Rychlý přehled syntaxe</a></li>
+  </ul></li>
+  <li><a href="#batch-processing---propojení-s-lekcí-11" id="toc-batch-processing---propojení-s-lekcí-11" class="nav-link" data-scroll-target="#batch-processing---propojení-s-lekcí-11"><span class="header-section-number">5</span> Batch processing - Propojení s Lekcí 11</a>
+  <ul class="collapse">
+  <li><a href="#problém-50-vrstev-50-klikat" id="toc-problém-50-vrstev-50-klikat" class="nav-link" data-scroll-target="#problém-50-vrstev-50-klikat"><span class="header-section-number">5.1</span> Problém: 50 vrstev, 50× klikat?</a></li>
+  <li><a href="#batch-processing-s-podmínkou" id="toc-batch-processing-s-podmínkou" class="nav-link" data-scroll-target="#batch-processing-s-podmínkou"><span class="header-section-number">5.2</span> Batch processing s podmínkou</a></li>
+  <li><a href="#batch-processing-s-try-except" id="toc-batch-processing-s-try-except" class="nav-link" data-scroll-target="#batch-processing-s-try-except"><span class="header-section-number">5.3</span> Batch processing s try-except</a></li>
+  </ul></li>
+  <li><a href="#adaptivní-batch-processing" id="toc-adaptivní-batch-processing" class="nav-link" data-scroll-target="#adaptivní-batch-processing"><span class="header-section-number">6</span> Adaptivní batch processing</a>
+  <ul class="collapse">
+  <li><a href="#buffer-podle-typu-geometrie" id="toc-buffer-podle-typu-geometrie" class="nav-link" data-scroll-target="#buffer-podle-typu-geometrie"><span class="header-section-number">6.1</span> Buffer podle typu geometrie</a></li>
+  </ul></li>
+  <li><a href="#clip---ořezání" id="toc-clip---ořezání" class="nav-link" data-scroll-target="#clip---ořezání"><span class="header-section-number">7</span> Clip - Ořezání</a>
+  <ul class="collapse">
+  <li><a href="#co-dělá-clip" id="toc-co-dělá-clip" class="nav-link" data-scroll-target="#co-dělá-clip"><span class="header-section-number">7.1</span> Co dělá Clip?</a></li>
+  <li><a href="#základní-použití" id="toc-základní-použití" class="nav-link" data-scroll-target="#základní-použití"><span class="header-section-number">7.2</span> Základní použití</a></li>
+  <li><a href="#parametry-clip" id="toc-parametry-clip" class="nav-link" data-scroll-target="#parametry-clip"><span class="header-section-number">7.3</span> Parametry Clip</a></li>
+  <li><a href="#praktický-příklad" id="toc-praktický-příklad" class="nav-link" data-scroll-target="#praktický-příklad"><span class="header-section-number">7.4</span> Praktický příklad</a></li>
+  </ul></li>
+  <li><a href="#intersect---průnik" id="toc-intersect---průnik" class="nav-link" data-scroll-target="#intersect---průnik"><span class="header-section-number">8</span> Intersect - Průnik</a>
+  <ul class="collapse">
+  <li><a href="#co-dělá-intersect" id="toc-co-dělá-intersect" class="nav-link" data-scroll-target="#co-dělá-intersect"><span class="header-section-number">8.1</span> Co dělá Intersect?</a></li>
+  <li><a href="#základní-použití-1" id="toc-základní-použití-1" class="nav-link" data-scroll-target="#základní-použití-1"><span class="header-section-number">8.2</span> Základní použití</a></li>
+  <li><a href="#parametry-intersect" id="toc-parametry-intersect" class="nav-link" data-scroll-target="#parametry-intersect"><span class="header-section-number">8.3</span> Parametry Intersect</a>
+  <ul class="collapse">
+  <li><a href="#klíčové-parametry" id="toc-klíčové-parametry" class="nav-link" data-scroll-target="#klíčové-parametry"><span class="header-section-number">8.3.1</span> Klíčové parametry</a></li>
+  </ul></li>
+  <li><a href="#příklad-které-obce-jsou-v-dosahu-řek" id="toc-příklad-které-obce-jsou-v-dosahu-řek" class="nav-link" data-scroll-target="#příklad-které-obce-jsou-v-dosahu-řek"><span class="header-section-number">8.4</span> Příklad: Které obce jsou v dosahu řek?</a></li>
+  </ul></li>
+  <li><a href="#union---sjednocení" id="toc-union---sjednocení" class="nav-link" data-scroll-target="#union---sjednocení"><span class="header-section-number">9</span> Union - Sjednocení</a>
+  <ul class="collapse">
+  <li><a href="#co-dělá-union" id="toc-co-dělá-union" class="nav-link" data-scroll-target="#co-dělá-union"><span class="header-section-number">9.1</span> Co dělá Union?</a></li>
+  <li><a href="#základní-použití-2" id="toc-základní-použití-2" class="nav-link" data-scroll-target="#základní-použití-2"><span class="header-section-number">9.2</span> Základní použití</a></li>
+  <li><a href="#parametry-union" id="toc-parametry-union" class="nav-link" data-scroll-target="#parametry-union"><span class="header-section-number">9.3</span> Parametry Union</a></li>
+  <li><a href="#praktický-příklad-1" id="toc-praktický-příklad-1" class="nav-link" data-scroll-target="#praktický-příklad-1"><span class="header-section-number">9.4</span> Praktický příklad</a></li>
+  </ul></li>
+  <li><a href="#select---výběr-podle-atributů" id="toc-select---výběr-podle-atributů" class="nav-link" data-scroll-target="#select---výběr-podle-atributů"><span class="header-section-number">10</span> Select - Výběr podle atributů</a>
+  <ul class="collapse">
+  <li><a href="#co-dělá-select" id="toc-co-dělá-select" class="nav-link" data-scroll-target="#co-dělá-select"><span class="header-section-number">10.1</span> Co dělá Select?</a></li>
+  <li><a href="#základní-použití-3" id="toc-základní-použití-3" class="nav-link" data-scroll-target="#základní-použití-3"><span class="header-section-number">10.2</span> Základní použití</a></li>
+  <li><a href="#parametry-select" id="toc-parametry-select" class="nav-link" data-scroll-target="#parametry-select"><span class="header-section-number">10.3</span> Parametry Select</a>
+  <ul class="collapse">
+  <li><a href="#syntaxe-where_clause" id="toc-syntaxe-where_clause" class="nav-link" data-scroll-target="#syntaxe-where_clause"><span class="header-section-number">10.3.1</span> Syntaxe where_clause</a></li>
+  </ul></li>
+  <li><a href="#praktický-příklad-2" id="toc-praktický-příklad-2" class="nav-link" data-scroll-target="#praktický-příklad-2"><span class="header-section-number">10.4</span> Praktický příklad</a></li>
+  </ul></li>
+  <li><a href="#dissolve---rozpuštění-hranic" id="toc-dissolve---rozpuštění-hranic" class="nav-link" data-scroll-target="#dissolve---rozpuštění-hranic"><span class="header-section-number">11</span> Dissolve - Rozpuštění hranic</a>
+  <ul class="collapse">
+  <li><a href="#co-dělá-dissolve" id="toc-co-dělá-dissolve" class="nav-link" data-scroll-target="#co-dělá-dissolve"><span class="header-section-number">11.1</span> Co dělá Dissolve?</a></li>
+  <li><a href="#základní-použití-4" id="toc-základní-použití-4" class="nav-link" data-scroll-target="#základní-použití-4"><span class="header-section-number">11.2</span> Základní použití</a></li>
+  <li><a href="#parametry-dissolve" id="toc-parametry-dissolve" class="nav-link" data-scroll-target="#parametry-dissolve"><span class="header-section-number">11.3</span> Parametry Dissolve</a>
+  <ul class="collapse">
+  <li><a href="#klíčové-parametry-1" id="toc-klíčové-parametry-1" class="nav-link" data-scroll-target="#klíčové-parametry-1"><span class="header-section-number">11.3.1</span> Klíčové parametry</a></li>
+  </ul></li>
+  <li><a href="#praktický-příklad-3" id="toc-praktický-příklad-3" class="nav-link" data-scroll-target="#praktický-příklad-3"><span class="header-section-number">11.4</span> Praktický příklad</a></li>
+  </ul></li>
+  <li><a href="#práce-s-výstupy-nástrojů" id="toc-práce-s-výstupy-nástrojů" class="nav-link" data-scroll-target="#práce-s-výstupy-nástrojů"><span class="header-section-number">12</span> Práce s výstupy nástrojů</a>
+  <ul class="collapse">
+  <li><a href="#getcount---počet-prvků" id="toc-getcount---počet-prvků" class="nav-link" data-scroll-target="#getcount---počet-prvků"><span class="header-section-number">12.1</span> GetCount - Počet prvků</a></li>
+  <li><a href="#getoutput---získání-výstupu" id="toc-getoutput---získání-výstupu" class="nav-link" data-scroll-target="#getoutput---získání-výstupu"><span class="header-section-number">12.2</span> GetOutput - Získání výstupu</a></li>
+  <li><a href="#řetězení-nástrojů" id="toc-řetězení-nástrojů" class="nav-link" data-scroll-target="#řetězení-nástrojů"><span class="header-section-number">12.3</span> Řetězení nástrojů</a></li>
+  </ul></li>
+  <li><a href="#řetězení-nástrojů-1" id="toc-řetězení-nástrojů-1" class="nav-link" data-scroll-target="#řetězení-nástrojů-1"><span class="header-section-number">13</span> Řetězení nástrojů</a>
+  <ul class="collapse">
+  <li><a href="#použití-výstupu-jako-vstupu" id="toc-použití-výstupu-jako-vstupu" class="nav-link" data-scroll-target="#použití-výstupu-jako-vstupu"><span class="header-section-number">13.1</span> Použití výstupu jako vstupu</a></li>
+  <li><a href="#getcount-a-getoutput" id="toc-getcount-a-getoutput" class="nav-link" data-scroll-target="#getcount-a-getoutput"><span class="header-section-number">13.2</span> GetCount a GetOutput</a></li>
+  </ul></li>
+  <li><a href="#komplexní-příklad-batch-analýza-s-reporting" id="toc-komplexní-příklad-batch-analýza-s-reporting" class="nav-link" data-scroll-target="#komplexní-příklad-batch-analýza-s-reporting"><span class="header-section-number">14</span> Komplexní příklad: Batch analýza s reporting</a>
+  <ul class="collapse">
+  <li><a href="#zadání" id="toc-zadání" class="nav-link" data-scroll-target="#zadání"><span class="header-section-number">14.1</span> Zadání</a></li>
+  <li><a href="#řešení" id="toc-řešení" class="nav-link" data-scroll-target="#řešení"><span class="header-section-number">14.2</span> Řešení</a></li>
+  </ul></li>
+  <li><a href="#funkce-pro-opakované-použití" id="toc-funkce-pro-opakované-použití" class="nav-link" data-scroll-target="#funkce-pro-opakované-použití"><span class="header-section-number">15</span> Funkce pro opakované použití</a>
+  <ul class="collapse">
+  <li><a href="#problém-stejný-kód-vícekrát" id="toc-problém-stejný-kód-vícekrát" class="nav-link" data-scroll-target="#problém-stejný-kód-vícekrát"><span class="header-section-number">15.1</span> Problém: Stejný kód vícekrát?</a></li>
+  </ul></li>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">16</span> Shrnutí</a>
+  <ul class="collapse">
+  <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">16.1</span> Co jsme se naučili</a></li>
+  <li><a href="#proč-je-python-lepší-než-gui" id="toc-proč-je-python-lepší-než-gui" class="nav-link" data-scroll-target="#proč-je-python-lepší-než-gui"><span class="header-section-number">16.2</span> Proč je Python lepší než GUI?</a></li>
+  <li><a href="#klíčové-myšlenky" id="toc-klíčové-myšlenky" class="nav-link" data-scroll-target="#klíčové-myšlenky"><span class="header-section-number">16.3</span> Klíčové myšlenky</a></li>
+  <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">16.4</span> Co bude příště?</a></li>
+  </ul></li>
+  <li><a href="#praktická-cvičení" id="toc-praktická-cvičení" class="nav-link" data-scroll-target="#praktická-cvičení"><span class="header-section-number">17</span> Praktická cvičení</a>
+  <ul class="collapse">
+  <li><a href="#cvičení-1-batch-buffer-s-reportingem" id="toc-cvičení-1-batch-buffer-s-reportingem" class="nav-link" data-scroll-target="#cvičení-1-batch-buffer-s-reportingem"><span class="header-section-number">17.1</span> Cvičení 1: Batch buffer s reportingem</a></li>
+  <li><a href="#cvičení-2-adaptivní-batch-processing" id="toc-cvičení-2-adaptivní-batch-processing" class="nav-link" data-scroll-target="#cvičení-2-adaptivní-batch-processing"><span class="header-section-number">17.2</span> Cvičení 2: Adaptivní batch processing</a></li>
+  <li><a href="#cvičení-3-analýza-s-try-except" id="toc-cvičení-3-analýza-s-try-except" class="nav-link" data-scroll-target="#cvičení-3-analýza-s-try-except"><span class="header-section-number">17.3</span> Cvičení 3: Analýza s try-except</a></li>
+  </ul></li>
+  <li><a href="#domácí-úkol" id="toc-domácí-úkol" class="nav-link" data-scroll-target="#domácí-úkol"><span class="header-section-number">18</span> Domácí úkol</a>
+  <ul class="collapse">
+  <li><a href="#varianta-a-základní" id="toc-varianta-a-základní" class="nav-link" data-scroll-target="#varianta-a-základní"><span class="header-section-number">18.1</span> Varianta A (základní)</a></li>
+  <li><a href="#varianta-b-střední" id="toc-varianta-b-střední" class="nav-link" data-scroll-target="#varianta-b-střední"><span class="header-section-number">18.2</span> Varianta B (střední)</a></li>
+  <li><a href="#varianta-c-pokročilá" id="toc-varianta-c-pokročilá" class="nav-link" data-scroll-target="#varianta-c-pokročilá"><span class="header-section-number">18.3</span> Varianta C (pokročilá)</a></li>
+  <li><a href="#varianta-d-výzva" id="toc-varianta-d-výzva" class="nav-link" data-scroll-target="#varianta-d-výzva"><span class="header-section-number">18.4</span> Varianta D (výzva)</a></li>
+  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">19</span> Cheatsheet</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_12.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lekce 12: Geoprocessingové nástroje I</h1>
+<p class="subtitle lead">Python pro GIS - Vektorové analýzy</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 8, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cíle-lekce" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Cíle lekce</h1>
+<p>Po absolvování této lekce budete umět:</p>
+<ul>
+<li>Spouštět vektorové nástroje z Pythonu</li>
+<li>Automatizovat analýzy pomocí batch processingu</li>
+<li>Kombinovat nástroje s listing a describe z Lekce 11</li>
+<li>Řetězit více nástrojů za sebou</li>
+<li>Vytvářet robustní analytické skripty s ošetřením chyb</li>
+<li>Využívat výhody Pythonu: cykly, podmínky, funkce</li>
+</ul>
+<p><strong>Časová dotace:</strong> 90 minut</p>
+<hr>
+</section>
+<section id="proč-python-pro-vektorové-analýzy" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Proč Python pro vektorové analýzy?</h1>
+<section id="co-už-umíte" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="co-už-umíte"><span class="header-section-number">2.1</span> Co už umíte</h2>
+<p>V GIS 1 jste se naučili provádět vektorové analýzy v ArcGIS Pro:</p>
+<ul>
+<li>Buffer, Clip, Intersect, Union</li>
+<li>Select by Attributes, Select by Location<br>
+</li>
+<li>Dissolve, Merge</li>
+<li>Spatial Join</li>
+</ul>
+<p><strong>Všechno to umíte klikáním v GUI. Tak proč Python?</strong></p>
+</section>
+<section id="výhody-automatizace-pomocí-pythonu" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="výhody-automatizace-pomocí-pythonu"><span class="header-section-number">2.2</span> Výhody automatizace pomocí Pythonu</h2>
+<div class="grid">
+<section id="manuálně-v-gui" class="level3 g-col-6" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="manuálně-v-gui"><span class="header-section-number">2.2.1</span> ❌ Manuálně v GUI</h3>
+<ul>
+<li>100 vrstev → 100× klikat</li>
+<li>Opakování = nuda + chyby</li>
+<li>Nelze uložit postup</li>
+<li>Těžko reprodukovatelné</li>
+<li>Složité podmínky</li>
+</ul>
+</section>
+<section id="automaticky-v-pythonu" class="level3 g-col-6" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="automaticky-v-pythonu"><span class="header-section-number">2.2.2</span> ✅ Automaticky v Pythonu</h3>
+<ul>
+<li>100 vrstev → 1 cyklus</li>
+<li>Jednou napsat, spustit kdykoliv</li>
+<li>Skript = dokumentace</li>
+<li>Snadno reprodukovatelné</li>
+<li>Libovolně složitá logika</li>
+</ul>
+</section>
+</div>
+</section>
+<section id="praktické-situace" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="praktické-situace"><span class="header-section-number">2.3</span> Praktické situace</h2>
+<p><strong>Situace 1:</strong> “Vytvořte buffer 100 m pro <strong>všech 50 vektorových vrstev</strong> v geodatabázi.”</p>
+<p>→ GUI: 50× klikat<br>
+→ Python: 5 řádků kódu</p>
+<p><strong>Situace 2:</strong> “Buffer 200 m pro polygony, 100 m pro linie, 50 m pro body.”</p>
+<p>→ GUI: Třídit ručně, pak buffer po skupinách<br>
+→ Python: Describe + if-else</p>
+<p><strong>Situace 3:</strong> “Ořízněte všechny vrstvy hranicí okresu, ale jen ty ve WGS84.”</p>
+<p>→ GUI: Kontrolovat každou vrstvu ručně<br>
+→ Python: Describe + podmínka</p>
+</section>
+<section id="propojení-s-lekcí-11" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="propojení-s-lekcí-11"><span class="header-section-number">2.4</span> Propojení s Lekcí 11</h2>
+<p>V minulé lekci jste se naučili:</p>
+<ul>
+<li><code>ListFeatureClasses()</code> - seznam vrstev</li>
+<li><code>Describe()</code> - informace o vrstvě</li>
+<li><code>Exists()</code> - kontrola existence</li>
+<li><code>try-except</code> - ošetření chyb</li>
+</ul>
+<p><strong>Dnes:</strong> Zkombinujete toto s vektorovými analýzami!</p>
+<hr>
+</section>
+</section>
+<section id="od-gui-k-pythonu" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Od GUI k Pythonu</h1>
+<section id="copy-python-command" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="copy-python-command"><span class="header-section-number">3.1</span> Copy Python Command</h2>
+<p><strong>Nejjednodušší způsob, jak zjistit syntaxi:</strong></p>
+<ol type="1">
+<li>V ArcGIS Pro spusťte nástroj <strong>manuálně</strong> v Geoprocessing Pane</li>
+<li>Po dokončení: <strong>Copy Python Command</strong> (pravý dolní roh)</li>
+<li>Vložte do skriptu</li>
+</ol>
+<p><strong>Příklad:</strong></p>
+<p>Vytvoříte buffer v GUI → Copy Python Command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"C:</span><span class="ch">\\</span><span class="st">Data</span><span class="ch">\\</span><span class="st">Projekt.gdb</span><span class="ch">\\</span><span class="st">silnice"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"C:</span><span class="ch">\\</span><span class="st">Data</span><span class="ch">\\</span><span class="st">Projekt.gdb</span><span class="ch">\\</span><span class="st">silnice_Buffer"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    buffer_distance_or_field<span class="op">=</span><span class="st">"100 Meters"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    line_side<span class="op">=</span><span class="st">"FULL"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    line_end_type<span class="op">=</span><span class="st">"ROUND"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    dissolve_option<span class="op">=</span><span class="st">"NONE"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="struktura-příkazu" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="struktura-příkazu"><span class="header-section-number">3.2</span> Struktura příkazu</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>arcpy.<span class="op">&lt;</span>toolbox<span class="op">&gt;</span>.<span class="op">&lt;</span>Tool<span class="op">&gt;</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    povinný_parametr1,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    povinný_parametr2,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    volitelný_parametr<span class="op">=</span>hodnota</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="starý-způsob-volání-nástrojů" class="level2 callout-info" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="starý-způsob-volání-nástrojů"><span class="header-section-number">3.3</span> Starý způsob volání nástrojů</h2>
+<p>Ve starších verzích se geoprocessingové nástroje volaly takto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>arcpy.<span class="op">&lt;</span>Tool<span class="op">&gt;</span>_<span class="op">&lt;</span>toolbox<span class="op">&gt;</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    povinný_parametr1,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    povinný_parametr2,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    volitelný_parametr<span class="op">=</span>hodnota</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tedy například:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>arcpy.Buffer_analysis(<span class="st">"silnice"</span>, <span class="st">"buf"</span>, <span class="st">"100 Meters"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tento způsob stále funguje a můžete se s ním setkat ve starších skriptech.</p>
+</section>
+<p><strong>Běžné toolboxy:</strong></p>
+<ul>
+<li><code>arcpy.analysis</code> - vektorové analýzy (Buffer, Clip, Intersect)</li>
+<li><code>arcpy.management</code> - správa dat (Delete, CopyFeatures, Dissolve)</li>
+<li><code>arcpy.conversion</code> - konverze formátů</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Nemusíte zadávat všechny parametry!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mnoho parametrů má výchozí hodnoty:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plná verze z Copy Python Command</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"silnice"</span>, <span class="st">"buf"</span>, <span class="st">"100 Meters"</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                      line_side<span class="op">=</span><span class="st">"FULL"</span>, line_end_type<span class="op">=</span><span class="st">"ROUND"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Stačí:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"silnice"</span>, <span class="st">"buf"</span>, <span class="st">"100 Meters"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<hr>
+</section>
+<section id="základní-vektorové-nástroje-v-pythonu" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Základní vektorové nástroje v Pythonu</h1>
+<section id="rychlý-přehled-syntaxe" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="rychlý-přehled-syntaxe"><span class="header-section-number">4.1</span> Rychlý přehled syntaxe</h2>
+<p>Tyto nástroje už znáte z GIS 1. Zde je jen Python syntaxe:</p>
+<p><strong>Buffer:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"100 Meters"</span>, dissolve_option<span class="op">=</span><span class="st">"ALL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Clip:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Clip(<span class="st">"vrstva"</span>, <span class="st">"maska"</span>, <span class="st">"vystup"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Intersect:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Intersect([<span class="st">"vrstva1"</span>, <span class="st">"vrstva2"</span>], <span class="st">"vystup"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Select:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Select(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">'"populace" &gt; 5000'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Dissolve:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"pole"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"pole"</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                          [[<span class="st">"Shape_Area"</span>, <span class="st">"SUM"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Neznáte syntaxi?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Spusťte nástroj v GUI</li>
+<li><strong>Copy Python Command</strong></li>
+<li>Vložte do skriptu</li>
+</ol>
+<p>Nebo: najděte stránku s nápovědou k nástroji. Používejte ArcGIS nápovědu!</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="batch-processing---propojení-s-lekcí-11" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Batch processing - Propojení s Lekcí 11</h1>
+<section id="problém-50-vrstev-50-klikat" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="problém-50-vrstev-50-klikat"><span class="header-section-number">5.1</span> Problém: 50 vrstev, 50× klikat?</h2>
+<p><strong>Scénář:</strong> Máte geodatabázi s 50 vrstvami. Potřebujete vytvořit buffer 100 m pro <strong>všechny</strong> polygonové vrstvy.</p>
+<p><strong>Řešení z Lekce 11:</strong> <code>ListFeatureClasses()</code> + cyklus!</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Získat všechny polygonové vrstvy (z Lekce 11!)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>polygons <span class="op">=</span> arcpy.ListFeatureClasses(feature_type<span class="op">=</span><span class="st">"Polygon"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nalezeno </span><span class="sc">{</span><span class="bu">len</span>(polygons)<span class="sc">}</span><span class="ss"> polygonových vrstev</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Batch buffer</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> polygons:</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    vystup <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">_buffer100"</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Buffer pro </span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">..."</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    arcpy.analysis.Buffer(fc, vystup, <span class="st">"100 Meters"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  ✓ Hotovo: </span><span class="sc">{</span>vystup<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Všechny buffery vytvořeny!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výsledek:</strong> 50 bufferů vytvořeno za pár sekund!</p>
+</section>
+<section id="batch-processing-s-podmínkou" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="batch-processing-s-podmínkou"><span class="header-section-number">5.2</span> Batch processing s podmínkou</h2>
+<p><strong>Scénář:</strong> Buffer, ale jen pro vrstvy ve správném souřadnicovém systému.</p>
+<p><strong>Řešení:</strong> Describe (z Lekce 11!) + podmínka</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>fc_list <span class="op">=</span> arcpy.ListFeatureClasses()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Požadovaný souřadnicový systém (EPSG: 5514 = S-JTSK)</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>pozadovany_epsg <span class="op">=</span> <span class="dv">5514</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>uspesnych <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>preskocenych <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> fc_list:</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Describe z Lekce 11!</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    desc <span class="op">=</span> arcpy.Describe(fc)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    sr <span class="op">=</span> desc.spatialReference</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Kontrola souřadnicového systému</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sr.factoryCode <span class="op">==</span> pozadovany_epsg:</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Správný souř. systém → buffer</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        vystup <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">_buffer"</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        arcpy.analysis.Buffer(fc, vystup, <span class="st">"100 Meters"</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Buffer pro </span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss"> vytvořen."</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        uspesnych <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Jiný souř. systém → přeskočit</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss"> přeskočen (EPSG: </span><span class="sc">{</span>sr<span class="sc">.</span>factoryCode<span class="sc">}</span><span class="ss">)."</span>)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        preskocenych <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Úspěšných: </span><span class="sc">{</span>uspesnych<span class="sc">}</span><span class="ss">, Přeskočených: </span><span class="sc">{</span>preskocenych<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="batch-processing-s-try-except" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="batch-processing-s-try-except"><span class="header-section-number">5.3</span> Batch processing s try-except</h2>
+<p><strong>Scénář:</strong> Jedna vrstva je poškozená → celý skript spadne?</p>
+<p><strong>Řešení:</strong> try-except (z Lekce 11!)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>fc_list <span class="op">=</span> arcpy.ListFeatureClasses()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>uspesnych <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>chybnych <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> fc_list:</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Pokus o buffer</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        vystup <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">_buffer"</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        arcpy.analysis.Buffer(fc, vystup, <span class="st">"100 Meters"</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss"> hotovo."</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        uspesnych <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> arcpy.ExecuteError:</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Chyba v ArcGIS nástroji</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss"> - Chyba: </span><span class="sc">{</span>arcpy<span class="sc">.</span>GetMessages(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>        chybnych <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Jiná Python chyba</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss"> - Python chyba: </span><span class="sc">{</span><span class="bu">str</span>(e)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>        chybnych <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="sc">{</span><span class="st">'='</span><span class="op">*</span><span class="dv">50</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Úspěšných: </span><span class="sc">{</span>uspesnych<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Chybných: </span><span class="sc">{</span>chybnych<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výhoda:</strong> Skript pokračuje i při chybě jedné vrstvy!</p>
+<hr>
+</section>
+</section>
+<section id="adaptivní-batch-processing" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Adaptivní batch processing</h1>
+<section id="buffer-podle-typu-geometrie" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="buffer-podle-typu-geometrie"><span class="header-section-number">6.1</span> Buffer podle typu geometrie</h2>
+<p><strong>Scénář:</strong> Různé vzdálenosti pro body, linie, polygony.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>fc_list <span class="op">=</span> arcpy.ListFeatureClasses()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> fc_list:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Zjistit typ geometrie (Describe z Lekce 11!)</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    desc <span class="op">=</span> arcpy.Describe(fc)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    shape_type <span class="op">=</span> desc.shapeType</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Nastavit vzdálenost podle typu</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> shape_type <span class="op">==</span> <span class="st">"Point"</span>:</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        vzdalenost <span class="op">=</span> <span class="st">"50 Meters"</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> shape_type <span class="op">==</span> <span class="st">"Polyline"</span>:</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        vzdalenost <span class="op">=</span> <span class="st">"100 Meters"</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> shape_type <span class="op">==</span> <span class="st">"Polygon"</span>:</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        vzdalenost <span class="op">=</span> <span class="st">"200 Meters"</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Přeskakuji </span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss"> - neznámý typ"</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Buffer</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    vystup <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">_buffer"</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>shape_type<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>vzdalenost<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    arcpy.analysis.Buffer(fc, vystup, vzdalenost)</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>vystup<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="clip---ořezání" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Clip - Ořezání</h1>
+<section id="co-dělá-clip" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="co-dělá-clip"><span class="header-section-number">7.1</span> Co dělá Clip?</h2>
+<p><strong>Ořízne</strong> vstupní vrstvu podle hranic jiné vrstvy (clip features).</p>
+<p><strong>Použití:</strong></p>
+<ul>
+<li>Extrakce dat pro území</li>
+<li>Oříznutí podle administrativní hranice</li>
+</ul>
+</section>
+<section id="základní-použití" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="základní-použití"><span class="header-section-number">7.2</span> Základní použití</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ořízni řeky hranicemi lesa</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Clip(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"reky"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    clip_features<span class="op">=</span><span class="st">"lesy"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"reky_v_lese"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Oříznutí dokončeno!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="parametry-clip" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="parametry-clip"><span class="header-section-number">7.3</span> Parametry Clip</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Clip(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    in_features,        <span class="co"># Vrstva k oříznutí</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    clip_features,      <span class="co"># Ořezávací maska</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    out_feature_class,  <span class="co"># Výstup</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    cluster_tolerance<span class="op">=</span><span class="va">None</span>  <span class="co"># Tolerance pro topologii</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Poznámka:</strong> Clip zachovává <strong>pouze ty části</strong> vstupní vrstvy, které jsou <strong>uvnitř</strong> clip_features.</p>
+</section>
+<section id="praktický-příklad" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="praktický-příklad"><span class="header-section-number">7.4</span> Praktický příklad</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Úloha: Najdi silnice v lese</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Ořízni silnice hranicí lesa</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Clip(</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"silnice"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    clip_features<span class="op">=</span><span class="st">"lesy"</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"silnice_v_lese"</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Zjisti počet úseků</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.management.GetCount(<span class="st">"silnice_v_lese"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="bu">int</span>(result[<span class="dv">0</span>])</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet úseků silnic v lese: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="intersect---průnik" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Intersect - Průnik</h1>
+<section id="co-dělá-intersect" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="co-dělá-intersect"><span class="header-section-number">8.1</span> Co dělá Intersect?</h2>
+<p>Vytvoří <strong>průnik</strong> dvou nebo více vrstev. Výsledek obsahuje pouze plochy, které jsou <strong>ve všech</strong> vstupních vrstvách.</p>
+<p><strong>Použití:</strong></p>
+<ul>
+<li>Najdi oblasti, kde se překrývají dva jevy</li>
+<li>Které parcely jsou v záplavové oblasti?</li>
+</ul>
+</section>
+<section id="základní-použití-1" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="základní-použití-1"><span class="header-section-number">8.2</span> Základní použití</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Průnik silnic a lesů</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Intersect(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span>[<span class="st">"silnice"</span>, <span class="st">"lesy"</span>],</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"silnice_lesy_intersect"</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="parametry-intersect" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="parametry-intersect"><span class="header-section-number">8.3</span> Parametry Intersect</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Intersect(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    in_features,            <span class="co"># Seznam vrstev</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    out_feature_class,      <span class="co"># Výstup</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    join_attributes<span class="op">=</span><span class="st">"ALL"</span>,  <span class="co"># ALL | NO_FID | ONLY_FID</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    cluster_tolerance<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    output_type<span class="op">=</span><span class="st">"INPUT"</span>     <span class="co"># INPUT | LINE | POINT</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="klíčové-parametry" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="klíčové-parametry"><span class="header-section-number">8.3.1</span> Klíčové parametry</h3>
+<p><strong>in_features:</strong> Seznam vrstev</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Průnik tří vrstev</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Intersect(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span>[<span class="st">"parcely"</span>, <span class="st">"zaplavove_uzemi"</span>, <span class="st">"chranena_uzemi"</span>],</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"vysledek"</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>join_attributes:</strong></p>
+<ul>
+<li><code>"ALL"</code> - všechny atributy ze všech vrstev</li>
+<li><code>"NO_FID"</code> - bez FID polí</li>
+<li><code>"ONLY_FID"</code> - jen FID</li>
+</ul>
+<p><strong>output_type:</strong></p>
+<ul>
+<li><code>"INPUT"</code> - geometrie jako vstup (polygon → polygon)</li>
+<li><code>"LINE"</code> - vždy linie</li>
+<li><code>"POINT"</code> - vždy body</li>
+</ul>
+</section>
+</section>
+<section id="příklad-které-obce-jsou-v-dosahu-řek" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="příklad-které-obce-jsou-v-dosahu-řek"><span class="header-section-number">8.4</span> Příklad: Které obce jsou v dosahu řek?</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Buffer 500 m kolem řek</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"reky"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"reky_buffer500"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    buffer_distance_or_field<span class="op">=</span><span class="st">"500 Meters"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    dissolve_option<span class="op">=</span><span class="st">"ALL"</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Průnik bufferů s obcemi</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Intersect(</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span>[<span class="st">"obce"</span>, <span class="st">"reky_buffer500"</span>],</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"obce_u_rek"</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Počet obcí</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.management.GetCount(<span class="st">"obce_u_rek"</span>)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet obcí do 500 m od řeky: </span><span class="sc">{</span>result[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="union---sjednocení" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Union - Sjednocení</h1>
+<section id="co-dělá-union" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="co-dělá-union"><span class="header-section-number">9.1</span> Co dělá Union?</h2>
+<p>Vytvoří <strong>sjednocení</strong> polygonových vrstev. Výsledek obsahuje <strong>všechny</strong> plochy ze všech vrstev.</p>
+<p><strong>Rozdíl od Intersect:</strong></p>
+<ul>
+<li><strong>Intersect</strong> = jen překryv</li>
+<li><strong>Union</strong> = vše + informace o překryvu</li>
+</ul>
+</section>
+<section id="základní-použití-2" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="základní-použití-2"><span class="header-section-number">9.2</span> Základní použití</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Union lesů a luk</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Union(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span>[<span class="st">"lesy"</span>, <span class="st">"louky"</span>],</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"lesy_louky_union"</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="parametry-union" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="parametry-union"><span class="header-section-number">9.3</span> Parametry Union</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Union(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    in_features,            <span class="co"># Seznam polygonových vrstev</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    out_feature_class,      <span class="co"># Výstup</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    join_attributes<span class="op">=</span><span class="st">"ALL"</span>,  <span class="co"># ALL | NO_FID | ONLY_FID</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    cluster_tolerance<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    gaps<span class="op">=</span><span class="st">"GAPS"</span>             <span class="co"># GAPS | NO_GAPS</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Union funguje JEN pro polygony!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pro linie a body použijte <strong>Intersect</strong>.</p>
+</div>
+</div>
+</section>
+<section id="praktický-příklad-1" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="praktický-příklad-1"><span class="header-section-number">9.4</span> Praktický příklad</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Úloha: Zjisti, kde se překrývají okresy a lesy</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Union okresů a lesů</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Union(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span>[<span class="st">"okresy"</span>, <span class="st">"lesy"</span>],</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"okresy_lesy_union"</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Výsledek: každý polygon má atributy jak z okresů, tak z lesů</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Můžeme spočítat rozlohu lesa v každém okrese</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Sumarizace podle okresu</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Statistics(</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    in_table<span class="op">=</span><span class="st">"okresy_lesy_union"</span>,</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    out_table<span class="op">=</span><span class="st">"les_podle_okresu"</span>,</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    statistics_fields<span class="op">=</span>[[<span class="st">"Shape_Area"</span>, <span class="st">"SUM"</span>]],</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    case_field<span class="op">=</span><span class="st">"nazev_okresu"</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="select---výběr-podle-atributů" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Select - Výběr podle atributů</h1>
+<section id="co-dělá-select" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="co-dělá-select"><span class="header-section-number">10.1</span> Co dělá Select?</h2>
+<p>Vytvoří <strong>novou vrstvu</strong> obsahující pouze prvky splňující <strong>SQL dotaz</strong>.</p>
+<p><strong>Použití:</strong></p>
+<ul>
+<li>Filtrace podle hodnot</li>
+<li>Extrakce podmnožiny dat</li>
+</ul>
+</section>
+<section id="základní-použití-3" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="základní-použití-3"><span class="header-section-number">10.2</span> Základní použití</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vyber vodní plochy větší než 1000 m²</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Select(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"rybníky"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"velke_rybniky"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    where_clause<span class="op">=</span><span class="st">'"rozloha" &gt; 1000'</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="parametry-select" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="parametry-select"><span class="header-section-number">10.3</span> Parametry Select</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Select(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    in_features,        <span class="co"># Vstupní vrstva</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    out_feature_class,  <span class="co"># Výstup</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    where_clause<span class="op">=</span><span class="va">None</span>   <span class="co"># SQL dotaz</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="syntaxe-where_clause" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="syntaxe-where_clause"><span class="header-section-number">10.3.1</span> Syntaxe where_clause</h3>
+<p><strong>Porovnání čísel:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>where_clause <span class="op">=</span> <span class="st">'"populace" &gt; 10000'</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>where_clause <span class="op">=</span> <span class="st">'"vyska" &gt;= 500 AND "vyska" &lt; 1000'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Porovnání textu:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>where_clause <span class="op">=</span> <span class="st">'"nazev" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>        <span class="co"># Rovná se</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>where_clause <span class="op">=</span> <span class="st">'"nazev" LIKE </span><span class="ch">\'</span><span class="st">%Praha%</span><span class="ch">\'</span><span class="st">"    # Obsahuje</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="er">where_clause = '"typ" IN (\'A\', \'B\')"   # Je v seznamu</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Pozor na uvozovky!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Správně:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>where_clause <span class="op">=</span> <span class="st">'"nazev" = </span><span class="ch">\'</span><span class="st">Praha</span><span class="ch">\'</span><span class="st">'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Proč?</strong></p>
+<ul>
+<li>Vnější uvozovky <code>"..."</code> jsou Python string</li>
+<li>Uvnitř: <code>"nazev"</code> = název sloupce (geodatabáze používá <code>"</code>)</li>
+<li>Text v SQL: <code>'Praha'</code> = hodnota (SQL používá <code>'</code>)</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="praktický-příklad-2" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="praktický-příklad-2"><span class="header-section-number">10.4</span> Praktický příklad</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Úloha: Zjisti počet obcí s populací nad 5000</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Select</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Select(</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"obce"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"velke_obce"</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    where_clause<span class="op">=</span><span class="st">'"populace" &gt; 5000'</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. GetCount</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.management.GetCount(<span class="st">"velke_obce"</span>)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="bu">int</span>(result[<span class="dv">0</span>])</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet obcí s populací &gt; 5000: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="dissolve---rozpuštění-hranic" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Dissolve - Rozpuštění hranic</h1>
+<section id="co-dělá-dissolve" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="co-dělá-dissolve"><span class="header-section-number">11.1</span> Co dělá Dissolve?</h2>
+<p><strong>Spojí</strong> sousední prvky se stejnou hodnotou atributu do jednoho prvku.</p>
+<p><strong>Použití:</strong></p>
+<ul>
+<li>Seskupení podle kategorie</li>
+<li>Vytvoření hranic územních celků</li>
+</ul>
+</section>
+<section id="základní-použití-4" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="základní-použití-4"><span class="header-section-number">11.2</span> Základní použití</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rozpusť okresy podle krajů</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"okresy"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"kraje"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    dissolve_field<span class="op">=</span><span class="st">"nazev_kraje"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="parametry-dissolve" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="parametry-dissolve"><span class="header-section-number">11.3</span> Parametry Dissolve</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    in_features,        <span class="co"># Vstup</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    out_feature_class,  <span class="co"># Výstup</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    dissolve_field<span class="op">=</span><span class="va">None</span>,     <span class="co"># Pole pro seskupení (seznam)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    statistics_fields<span class="op">=</span><span class="va">None</span>,  <span class="co"># Statistiky [[pole, typ]]</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    multi_part<span class="op">=</span><span class="st">"MULTI_PART"</span>  <span class="co"># MULTI_PART | SINGLE_PART</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="klíčové-parametry-1" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="klíčové-parametry-1"><span class="header-section-number">11.3.1</span> Klíčové parametry</h3>
+<p><strong>dissolve_field:</strong> Pole pro seskupení</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jeden kraj = jeden polygon</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dissolve_field<span class="op">=</span><span class="st">"nazev_kraje"</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Kombinace polí</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>dissolve_field<span class="op">=</span>[<span class="st">"nazev_kraje"</span>, <span class="st">"typ_uzemi"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>statistics_fields:</strong> Sumarizace atributů</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sečti populaci, spočítej průměrnou rozlohu</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>statistics_fields<span class="op">=</span>[</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"populace"</span>, <span class="st">"SUM"</span>],</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"rozloha"</span>, <span class="st">"MEAN"</span>]</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Typy statistik:</strong></p>
+<ul>
+<li><code>"SUM"</code> - součet</li>
+<li><code>"MEAN"</code> - průměr</li>
+<li><code>"MIN"</code> - minimum</li>
+<li><code>"MAX"</code> - maximum</li>
+<li><code>"COUNT"</code> - počet</li>
+</ul>
+</section>
+</section>
+<section id="praktický-příklad-3" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="praktický-příklad-3"><span class="header-section-number">11.4</span> Praktický příklad</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Úloha: Zjisti celkovou délku vodních toků podle názvu</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Dissolve podle názvu vodního toku</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    in_features<span class="op">=</span><span class="st">"reky"</span>,</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    out_feature_class<span class="op">=</span><span class="st">"reky_dissolve"</span>,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    dissolve_field<span class="op">=</span><span class="st">"nazev"</span>,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    statistics_fields<span class="op">=</span>[[<span class="st">"Shape_Length"</span>, <span class="st">"SUM"</span>]]</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Vypsat výsledky</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"reky_dissolve"</span>, [<span class="st">"nazev"</span>, <span class="st">"SUM_Shape_Length"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">:.1f}</span><span class="ss"> m"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="práce-s-výstupy-nástrojů" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Práce s výstupy nástrojů</h1>
+<section id="getcount---počet-prvků" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="getcount---počet-prvků"><span class="header-section-number">12.1</span> GetCount - Počet prvků</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Získat počet prvků</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.management.GetCount(<span class="st">"obce"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="bu">int</span>(result[<span class="dv">0</span>])</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet obcí: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="getoutput---získání-výstupu" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="getoutput---získání-výstupu"><span class="header-section-number">12.2</span> GetOutput - Získání výstupu</h2>
+<p>Některé nástroje <strong>vrací</strong> výsledek:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buffer vrací cestu k výstupní vrstvě</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.analysis.Buffer(<span class="st">"silnice"</span>, <span class="st">"silnice_buffer"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Získat cestu</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> result.getOutput(<span class="dv">0</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Buffer uložen v: </span><span class="sc">{</span>output_path<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Použít výstup v dalším nástroji</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Clip(output_path, <span class="st">"lesy"</span>, <span class="st">"vysledek"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="řetězení-nástrojů" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="řetězení-nástrojů"><span class="header-section-number">12.3</span> Řetězení nástrojů</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoř buffer a rovnou ho ořízni</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>buffer_result <span class="op">=</span> arcpy.analysis.Buffer(<span class="st">"silnice"</span>, <span class="st">"buffer_temp"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>clip_result <span class="op">=</span> arcpy.analysis.Clip(buffer_result, <span class="st">"lesy"</span>, <span class="st">"vysledek"</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Hotovo: </span><span class="sc">{</span>clip_result<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="řetězení-nástrojů-1" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Řetězení nástrojů</h1>
+<section id="použití-výstupu-jako-vstupu" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="použití-výstupu-jako-vstupu"><span class="header-section-number">13.1</span> Použití výstupu jako vstupu</h2>
+<p>Nástroje vracejí <strong>Result object</strong>, který můžete použít jako vstup:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Buffer -&gt; Clip v jednom řetězci</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>buffer_result <span class="op">=</span> arcpy.analysis.Buffer(<span class="st">"reky"</span>, <span class="st">"reky_buf"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>clip_result <span class="op">=</span> arcpy.analysis.Clip(buffer_result, <span class="st">"lesy"</span>, <span class="st">"vysledek"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Výsledek: </span><span class="sc">{</span>clip_result<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="getcount-a-getoutput" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="getcount-a-getoutput"><span class="header-section-number">13.2</span> GetCount a GetOutput</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Počet prvků</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.management.GetCount(<span class="st">"obce"</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="bu">int</span>(result[<span class="dv">0</span>])</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Cesta k výstupu</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.analysis.Buffer(<span class="st">"silnice"</span>, <span class="st">"buf"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> result.getOutput(<span class="dv">0</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Uloženo v: </span><span class="sc">{</span>output_path<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="komplexní-příklad-batch-analýza-s-reporting" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Komplexní příklad: Batch analýza s reporting</h1>
+<section id="zadání" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="zadání"><span class="header-section-number">14.1</span> Zadání</h2>
+<p>Pro <strong>všechny</strong> liniové vrstvy v geodatabázi:</p>
+<ol type="1">
+<li>Vytvoř buffer 50 m</li>
+<li>Zjisti, kolik polygonů lesa protíná tento buffer</li>
+<li>Zapiš výsledky do textového souboru</li>
+</ol>
+</section>
+<section id="řešení" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="řešení"><span class="header-section-number">14.2</span> Řešení</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Soubor pro report</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>report_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">"analyza_linie_lesy.txt"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>report_file.write(<span class="st">"Analýza průniku linií a lesů</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>report_file.write(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n\n</span><span class="st">"</span>)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Získat všechny liniové vrstvy (Lekce 11!)</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> arcpy.ListFeatureClasses(feature_type<span class="op">=</span><span class="st">"Polyline"</span>)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> lines:</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Žádné liniové vrstvy nenalezeny!"</span>)</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    report_file.close()</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Nalezeno </span><span class="sc">{</span><span class="bu">len</span>(lines)<span class="sc">}</span><span class="ss"> liniových vrstev</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> lines:</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Zpracovávám: </span><span class="sc">{</span>line<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 1. Buffer 50 m</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>            buffer_name <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>line<span class="sc">}</span><span class="ss">_buffer50_temp"</span></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>            arcpy.analysis.Buffer(line, buffer_name, <span class="st">"50 Meters"</span>, </span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>                                  dissolve_option<span class="op">=</span><span class="st">"ALL"</span>)</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 2. Intersect s lesy</span></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>            intersect_name <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>line<span class="sc">}</span><span class="ss">_lesy_temp"</span></span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>            arcpy.analysis.Intersect([buffer_name, <span class="st">"lesy"</span>], intersect_name)</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 3. Počet polygonů</span></span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>            count <span class="op">=</span> <span class="bu">int</span>(arcpy.management.GetCount(intersect_name)[<span class="dv">0</span>])</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 4. Zapiš do reportu</span></span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>            report_file.write(<span class="ss">f"</span><span class="sc">{</span>line<span class="sc">}</span><span class="ss">:</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>            report_file.write(<span class="ss">f"  Polygonů lesa v bufferu: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span>)</span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  ✓ Polygonů lesa: </span><span class="sc">{</span>count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 5. Smazat dočasné vrstvy</span></span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>            arcpy.management.Delete(buffer_name)</span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>            arcpy.management.Delete(intersect_name)</span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> arcpy.ExecuteError:</span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>            error_msg <span class="op">=</span> arcpy.GetMessages(<span class="dv">2</span>)</span>
+<span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a>            report_file.write(<span class="ss">f"</span><span class="sc">{</span>line<span class="sc">}</span><span class="ss">: CHYBA</span><span class="ch">\n</span><span class="ss">  </span><span class="sc">{</span>error_msg<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span>)</span>
+<span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  ✗ Chyba: </span><span class="sc">{</span>error_msg<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb41-53"><a href="#cb41-53" aria-hidden="true" tabindex="-1"></a>            report_file.write(<span class="ss">f"</span><span class="sc">{</span>line<span class="sc">}</span><span class="ss">: CHYBA</span><span class="ch">\n</span><span class="ss">  </span><span class="sc">{</span><span class="bu">str</span>(e)<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">"</span>)</span>
+<span id="cb41-54"><a href="#cb41-54" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  ✗ Python chyba: </span><span class="sc">{</span><span class="bu">str</span>(e)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb41-55"><a href="#cb41-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb41-56"><a href="#cb41-56" aria-hidden="true" tabindex="-1"></a>    report_file.write(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a>    report_file.write(<span class="st">"Analýza dokončena</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb41-58"><a href="#cb41-58" aria-hidden="true" tabindex="-1"></a>    report_file.close()</span>
+<span id="cb41-59"><a href="#cb41-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Hotovo! Report uložen v: analyza_linie_lesy.txt"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Co tento skript dělá:</strong></p>
+<ol type="1">
+<li>✅ <strong>ListFeatureClasses</strong> - najde všechny linie (Lekce 11)</li>
+<li>✅ <strong>Cyklus</strong> - zpracuje všechny automaticky</li>
+<li>✅ <strong>Buffer</strong> → <strong>Intersect</strong> - řetězení nástrojů</li>
+<li>✅ <strong>GetCount</strong> - zjištění počtu</li>
+<li>✅ <strong>try-except</strong> - ošetření chyb (Lekce 11)</li>
+<li>✅ <strong>Zápis do souboru</strong> - reporting</li>
+<li>✅ <strong>Delete</strong> - úklid dočasných vrstev</li>
+</ol>
+<p><strong>V GUI:</strong> Museli byste toto udělat <strong>ručně pro každou vrstvu</strong>!</p>
+<hr>
+</section>
+</section>
+<section id="funkce-pro-opakované-použití" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Funkce pro opakované použití</h1>
+<section id="problém-stejný-kód-vícekrát" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="problém-stejný-kód-vícekrát"><span class="header-section-number">15.1</span> Problém: Stejný kód vícekrát?</h2>
+<p>Pokud často děláte stejnou analýzu, vytvořte <strong>funkci</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> buffer_intersect_count(linie_vrstva, polygon_vrstva, vzdalenost):</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Vytvoří buffer kolem linie a spočítá průnik s polygony.</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co">        linie_vrstva: Název liniové vrstvy</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co">        polygon_vrstva: Název polygonové vrstvy</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co">        vzdalenost: Vzdálenost bufferu (str, např. "50 Meters")</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="co">        int: Počet polygonů v bufferu</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Buffer</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    buffer_temp <span class="op">=</span> <span class="st">"buffer_temp"</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    arcpy.analysis.Buffer(linie_vrstva, buffer_temp, vzdalenost, </span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>                          dissolve_option<span class="op">=</span><span class="st">"ALL"</span>)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Intersect</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>    intersect_temp <span class="op">=</span> <span class="st">"intersect_temp"</span></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    arcpy.analysis.Intersect([buffer_temp, polygon_vrstva], intersect_temp)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Počet</span></span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="bu">int</span>(arcpy.management.GetCount(intersect_temp)[<span class="dv">0</span>])</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Úklid</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>    arcpy.management.Delete(buffer_temp)</span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>    arcpy.management.Delete(intersect_temp)</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> count</span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Použití</span></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="er">\</span><span class="vs">TEMP</span><span class="er">\</span><span class="vs">Python_GIS</span><span class="er">\</span><span class="vs">Lekce_12</span><span class="er">\</span><span class="vs">cviceni_12</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Kolik lesů je do 50 m od silnic?</span></span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>pocet <span class="op">=</span> buffer_intersect_count(<span class="st">"silnice"</span>, <span class="st">"lesy"</span>, <span class="st">"50 Meters"</span>)</span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lesních polygonů do 50 m od silnic: </span><span class="sc">{</span>pocet<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Kolik lesů je do 100 m od řek?</span></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>pocet <span class="op">=</span> buffer_intersect_count(<span class="st">"reky"</span>, <span class="st">"lesy"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lesních polygonů do 100 m od řek: </span><span class="sc">{</span>pocet<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výhoda:</strong> Jednou napsat, používat opakovaně!</p>
+<hr>
+</section>
+</section>
+<section id="shrnutí" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Shrnutí</h1>
+<section id="co-jsme-se-naučili" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">16.1</span> Co jsme se naučili</h2>
+<p>✅ <strong>Spouštění nástrojů z Pythonu</strong> - Copy Python Command<br>
+✅ <strong>Batch processing</strong> - jeden skript, mnoho vrstev<br>
+✅ <strong>Propojení s Lekcí 11:</strong> - ListFeatureClasses → cyklus přes vrstvy - Describe → adaptivní zpracování podle typu - try-except → robustní skripty<br>
+✅ <strong>Řetězení nástrojů</strong> - výstup jednoho = vstup druhého<br>
+✅ <strong>Funkce</strong> - opakované použití kódu<br>
+✅ <strong>Reporting</strong> - zápis výsledků do souboru</p>
+</section>
+<section id="proč-je-python-lepší-než-gui" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="proč-je-python-lepší-než-gui"><span class="header-section-number">16.2</span> Proč je Python lepší než GUI?</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 25%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Úloha</th>
+<th>GUI</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Buffer 50 vrstev</td>
+<td>50× klikat</td>
+<td>1 cyklus</td>
+</tr>
+<tr class="even">
+<td>Různé vzdálenosti podle typu</td>
+<td>Třídit ručně</td>
+<td>if-else + Describe</td>
+</tr>
+<tr class="odd">
+<td>Zpracovat jen vrstvy v S-JTSK</td>
+<td>Kontrolovat ručně</td>
+<td>Describe + podmínka</td>
+</tr>
+<tr class="even">
+<td>Analýza + report</td>
+<td>Notepad</td>
+<td>Automatický zápis</td>
+</tr>
+<tr class="odd">
+<td>Opakovat příští týden</td>
+<td>Znovu od začátku</td>
+<td>Spustit skript</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="klíčové-myšlenky" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="klíčové-myšlenky"><span class="header-section-number">16.3</span> Klíčové myšlenky</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Nástroje znáte, Python je automatizuje!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Nástroje</strong> jste se naučili v GIS 1 a 2 (Buffer, Clip, …)</li>
+<li><strong>Python</strong> umožňuje je spouštět automaticky pro mnoho dat</li>
+<li><strong>Kombinace</strong> Pythonu + GIS nástrojů = super síla!</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="co-bude-příště" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="co-bude-příště"><span class="header-section-number">16.4</span> Co bude příště?</h2>
+<p>V příští lekci (Lekce 13):</p>
+<ul>
+<li><strong>Rastrové analýzy</strong> - Slope, Aspect, Hillshade</li>
+<li><strong>Map Algebra</strong> - rastrová kalkulačka</li>
+<li><strong>Batch processing rastrů</strong> - stejný princip jako dnes!</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="praktická-cvičení" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Praktická cvičení</h1>
+<section id="cvičení-1-batch-buffer-s-reportingem" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="cvičení-1-batch-buffer-s-reportingem"><span class="header-section-number">17.1</span> Cvičení 1: Batch buffer s reportingem</h2>
+<p>Vytvořte skript, který:</p>
+<ol type="1">
+<li>Najde <strong>všechny</strong> bodové vrstvy v geodatabázi</li>
+<li>Pro každou vytvoří buffer 200 m</li>
+<li>Zapiš do souboru <code>report_buffery.txt</code>:
+<ul>
+<li>Název vrstvy</li>
+<li>Počet bodů v původní vrstvě</li>
+<li>Počet bufferů (mělo by být stejné)</li>
+</ul></li>
+</ol>
+<p><strong>Použijte:</strong> - <code>ListFeatureClasses(feature_type="Point")</code> - Cyklus - <code>GetCount()</code> - Zápis do souboru</p>
+</section>
+<section id="cvičení-2-adaptivní-batch-processing" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="cvičení-2-adaptivní-batch-processing"><span class="header-section-number">17.2</span> Cvičení 2: Adaptivní batch processing</h2>
+<p>Vytvořte skript, který:</p>
+<ol type="1">
+<li>Zpracuje <strong>všechny</strong> vrstvy v geodatabázi</li>
+<li><strong>Pouze</strong> pro vrstvy v S-JTSK (EPSG: 5514):
+<ul>
+<li>Vytvoří buffer (vzdálenost podle typu geometrie)</li>
+<li>Point: 50 m, Polyline: 100 m, Polygon: 200 m</li>
+</ul></li>
+<li>Vrstvy v jiném souř. systému přeskočí s varováním</li>
+</ol>
+<p><strong>Použijte:</strong> - <code>ListFeatureClasses()</code> - <code>Describe()</code> - souř. systém + typ geometrie - if-elif-else</p>
+</section>
+<section id="cvičení-3-analýza-s-try-except" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="cvičení-3-analýza-s-try-except"><span class="header-section-number">17.3</span> Cvičení 3: Analýza s try-except</h2>
+<p>Vytvořte robustní skript:</p>
+<ol type="1">
+<li>Pro <strong>všechny</strong> liniové vrstvy:
+<ul>
+<li>Vytvoř buffer 50 m</li>
+<li>Proveď intersect s vrstvou “lesy”</li>
+<li>Zjisti celkovou délku průniku (<code>Shape_Length</code>)</li>
+</ul></li>
+<li>Použij try-except pro ošetření chyb</li>
+<li>Na konci vypiš statistiku (úspěšných / chybných)</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="domácí-úkol" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Domácí úkol</h1>
+<section id="varianta-a-základní" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="varianta-a-základní"><span class="header-section-number">18.1</span> Varianta A (základní)</h2>
+<p>Vytvořte skript pro batch clip:</p>
+<ol type="1">
+<li>Najděte všechny feature classes v geodatabázi</li>
+<li>Ořízněte je vrstvou “okres_praha”</li>
+<li>Výstupy pojmenujte: <code>&lt;nazev&gt;_praha</code></li>
+<li>Vypište, kolik vrstev bylo oříznutých</li>
+</ol>
+<p><strong>Odevzdejte:</strong> <code>du_batch_clip.py</code> + screenshot výstupu</p>
+</section>
+<section id="varianta-b-střední" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="varianta-b-střední"><span class="header-section-number">18.2</span> Varianta B (střední)</h2>
+<p>Vytvořte skript, který analyzuje dostupnost:</p>
+<p><strong>Zadání:</strong> Kolik budov je do 500 m od zastávek MHD?</p>
+<ol type="1">
+<li>Buffer 500 m kolem zastávek (dissolve!)</li>
+<li>Intersect s budovami</li>
+<li>GetCount</li>
+<li>Výsledek zapiš do <code>dostupnost_mhd.txt</code></li>
+</ol>
+<p><strong>Odevzdejte:</strong> <code>du_dostupnost.py</code> + <code>dostupnost_mhd.txt</code></p>
+</section>
+<section id="varianta-c-pokročilá" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="varianta-c-pokročilá"><span class="header-section-number">18.3</span> Varianta C (pokročilá)</h2>
+<p>Vytvořte univerzální funkci:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> batch_buffer_by_type(workspace, output_folder):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Vytvoří buffery pro všechny vrstvy v workspace.</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Vzdálenost podle typu geometrie:</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - Point: 50 m</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - Polyline: 100 m  </span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - Polygon: 200 m</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Pouze vrstvy v S-JTSK (EPSG: 5514).</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Zapiš report do souboru.</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="co">        tuple: (úspěšných, přeskočených, chybných)</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Váš kód</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Použití:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>uspech, preskok, chyby <span class="op">=</span> batch_buffer_by_type(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\D</span><span class="vs">ata</span><span class="er">\</span><span class="vs">Projekt</span><span class="dv">.</span><span class="vs">gdb"</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\D</span><span class="vs">ata</span><span class="dv">\B</span><span class="vs">uffery</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Výsledek: </span><span class="sc">{</span>uspech<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>preskok<span class="sc">}</span><span class="ss"> / </span><span class="sc">{</span>chyby<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Odevzdejte:</strong> <code>du_funkce_batch.py</code> + report soubor</p>
+</section>
+<section id="varianta-d-výzva" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="varianta-d-výzva"><span class="header-section-number">18.4</span> Varianta D (výzva)</h2>
+<p>Vytvořte komplexní analytický skript:</p>
+<p><strong>Zadání:</strong> Najdi “environmentálně citlivé silnice”</p>
+<p>Silnice je citlivá, pokud: - Prochází lesem (intersect s lesy) - Je do 200 m od vodního toku (buffer řek) - Je v nadmořské výšce nad 500 m (DEM)</p>
+<p><strong>Kroky:</strong></p>
+<ol type="1">
+<li>Batch processing pro všechny silniční vrstvy</li>
+<li>Pro každou vrstvu proveď všechny tři analýzy</li>
+<li>Kombinuj výsledky (které úseky splňují všechny 3 podmínky?)</li>
+<li>Vytvoř HTML report s tabulkou výsledků</li>
+</ol>
+<p><strong>Bonus:</strong> Mapa s barevným označením citlivých úseků</p>
+<p><strong>Odevzdejte:</strong> Skript + HTML report + (volitelně) mapa</p>
+<hr>
+</section>
+</section>
+<section id="cheatsheet" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Cheatsheet</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === BUFFER ===</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Základní buffer</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Buffer s rozpuštěním</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"100 Meters"</span>, dissolve_option<span class="op">=</span><span class="st">"ALL"</span>)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Buffer podle atributu</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"pole_vzdalenost"</span>)</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="co"># === CLIP ===</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Oříznutí</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Clip(<span class="st">"vrstva"</span>, <span class="st">"maska"</span>, <span class="st">"vystup"</span>)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="co"># === INTERSECT ===</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Průnik dvou vrstev</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Intersect([<span class="st">"vrstva1"</span>, <span class="st">"vrstva2"</span>], <span class="st">"vystup"</span>)</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Průnik více vrstev</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Intersect([<span class="st">"v1"</span>, <span class="st">"v2"</span>, <span class="st">"v3"</span>], <span class="st">"vystup"</span>)</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a><span class="co"># === UNION ===</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Sjednocení polygonů</span></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Union([<span class="st">"polygon1"</span>, <span class="st">"polygon2"</span>], <span class="st">"vystup"</span>)</span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a><span class="co"># === SELECT ===</span></span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Výběr podle atributu</span></span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Select(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">'"pole" &gt; 1000'</span>)</span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Výběr textu</span></span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Select(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">'"nazev" = </span><span class="ch">\'</span><span class="st">Praha</span><span class="ch">\'</span><span class="st">'</span>)</span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Složitější podmínka</span></span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Select(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, </span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a>                      <span class="st">'"populace" &gt; 5000 AND "rozloha" &lt; 10'</span>)</span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a><span class="co"># === DISSOLVE ===</span></span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Rozpuštění podle pole</span></span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"pole"</span>)</span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Se statistikami</span></span>
+<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>, <span class="st">"pole"</span>,</span>
+<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a>                          [[<span class="st">"Shape_Area"</span>, <span class="st">"SUM"</span>], [<span class="st">"populace"</span>, <span class="st">"MEAN"</span>]])</span>
+<span id="cb45-44"><a href="#cb45-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-45"><a href="#cb45-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Všechny prvky do jednoho</span></span>
+<span id="cb45-46"><a href="#cb45-46" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(<span class="st">"vstup"</span>, <span class="st">"vystup"</span>)</span>
+<span id="cb45-47"><a href="#cb45-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-48"><a href="#cb45-48" aria-hidden="true" tabindex="-1"></a><span class="co"># === GETCOUNT ===</span></span>
+<span id="cb45-49"><a href="#cb45-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Počet prvků</span></span>
+<span id="cb45-50"><a href="#cb45-50" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.management.GetCount(<span class="st">"vrstva"</span>)</span>
+<span id="cb45-51"><a href="#cb45-51" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="bu">int</span>(result[<span class="dv">0</span>])</span>
+<span id="cb45-52"><a href="#cb45-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-53"><a href="#cb45-53" aria-hidden="true" tabindex="-1"></a><span class="co"># === ŘETĚZENÍ ===</span></span>
+<span id="cb45-54"><a href="#cb45-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Použití výstupu jako vstupu</span></span>
+<span id="cb45-55"><a href="#cb45-55" aria-hidden="true" tabindex="-1"></a><span class="bu">buffer</span> <span class="op">=</span> arcpy.analysis.Buffer(<span class="st">"silnice"</span>, <span class="st">"buf"</span>, <span class="st">"100 Meters"</span>)</span>
+<span id="cb45-56"><a href="#cb45-56" aria-hidden="true" tabindex="-1"></a>clip <span class="op">=</span> arcpy.analysis.Clip(<span class="bu">buffer</span>, <span class="st">"lesy"</span>, <span class="st">"vysledek"</span>)</span>
+<span id="cb45-57"><a href="#cb45-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-58"><a href="#cb45-58" aria-hidden="true" tabindex="-1"></a><span class="co"># === KOMPLEXNÍ PŘÍKLAD ===</span></span>
+<span id="cb45-59"><a href="#cb45-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Buffer → Clip → GetCount</span></span>
+<span id="cb45-60"><a href="#cb45-60" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\D</span><span class="vs">ata</span><span class="er">\</span><span class="vs">Projekt</span><span class="dv">.</span><span class="vs">gdb"</span></span>
+<span id="cb45-61"><a href="#cb45-61" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb45-62"><a href="#cb45-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-63"><a href="#cb45-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Buffer</span></span>
+<span id="cb45-64"><a href="#cb45-64" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Buffer(<span class="st">"reky"</span>, <span class="st">"reky_buf"</span>, <span class="st">"100 Meters"</span>, dissolve_option<span class="op">=</span><span class="st">"ALL"</span>)</span>
+<span id="cb45-65"><a href="#cb45-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-66"><a href="#cb45-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Clip</span></span>
+<span id="cb45-67"><a href="#cb45-67" aria-hidden="true" tabindex="-1"></a>arcpy.analysis.Clip(<span class="st">"obce"</span>, <span class="st">"reky_buf"</span>, <span class="st">"obce_u_rek"</span>)</span>
+<span id="cb45-68"><a href="#cb45-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-69"><a href="#cb45-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Počet</span></span>
+<span id="cb45-70"><a href="#cb45-70" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.management.GetCount(<span class="st">"obce_u_rek"</span>)</span>
+<span id="cb45-71"><a href="#cb45-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet obcí: </span><span class="sc">{</span>result[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
