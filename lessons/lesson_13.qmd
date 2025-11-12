@@ -1,0 +1,58 @@
+---
+title: "Lekce 13: Geoprocessingové nástroje II"
+subtitle: "Python pro GIS - Rastrové analýzy"
+author: "Vojtěch Barták, FŽP ČZU Praha"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    code-fold: false
+    theme: cosmo
+  pdf:       
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+\newpage
+
+**data**: Liberec, Corine_CR_2018 (rastr),  data_vinice
+
+# Analýza terénu
+
+1. Spočítejte svažitost.  
+2. Spočítejte aspekt.
+
+# Lokální mapová algebra
+
+3. Najděte místa, kde je svažitost větší než 5 %.  
+4. Najděte místa, kde je aspekt zhruba jižní.  
+5. Najděte místa, kde jsou splněny obě výše uvedené podmínky. (Multikriteriální analýza)
+
+# Fokální mapová algebra
+
+6. Zhlaďte model terénu klouzavým průměrem 3x3 buňky.  
+7. Vytvořte vrstevnice z původního a zhlazeného modelu terénu (viz předchozí úlohu).
+
+# Zonální mapová algebra
+
+8. Zjistěte převýšení v jednotlivých okresech  
+9. Zjistěte zastoupení jednotlivých tříd krajinného pokryvu v jednotlivých okresech  
+10. Zjistěte relativní zastoupení lesů v jednotlivých okresech
+
+# Reklasifikace
+
+11. Reklasifikujte model terénu na výškové pásy po 100 metrech.  
+12. Reklasifikujte CORINE Land Cover do pěti základních kategorií.
+
+# Dávkové zpracování
+
+13. Řešte úlohu 5 pro jednotlivé katastry Libereckého kraje.  
+14. Jako vášnivý milovník vína toužíte po vlastní vinici. Nejprve je pro ni však třeba vybrat vhodné území, splňující následující kritéria: bude na svazích se sklonem menším než 20%, s jihovýchodní až jihozápadní orientací a zároveň skryta před zraky nenechavých turistů, kteří by ji mohli z okolních vyhlídek vidět a přijít na ochutnávku hroznů. Jakou rozlohu má vhodné území pro založení vinice? Řešte nejprve pro jeden katastr a následně pro všechny okresy (každý zvlášť).

@@ -41,6 +41,8 @@ website:
             href: lessons/lesson_11.qmd
           - text: "Lekce 12: Geoprocessingové nástroje I"
             href: lessons/lesson_12.qmd
+          - text: "Lekce 13: Geoprocessingové nástroje II"
+            href: lessons/lesson_13.qmd
 
 format:
   html:
