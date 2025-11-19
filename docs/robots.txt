@@ -1,0 +1,1 @@
+Sitemap: https://vojta-bartak.github.io/quarto_example/sitemap.xml

@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
+<meta name="dcterms.date" content="2025-11-19">
+
+<title>Lekce 8: Textové soubory II – CSV tabulka – Programování pro GIS a DPZ</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-5c0334f9598869e85f618d5d37196c81.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Programování pro GIS a DPZ</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-1-model-builder" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ćást 1: Model Builder</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-1-model-builder">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_01.html">
+ <span class="dropdown-text">Lekce 1: Jednoduchý model</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-2-úvod-do-pythonu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 2: Úvod do Pythonu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-2-úvod-do-pythonu">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_03.html">
+ <span class="dropdown-text">Lekce 3: První program v Pythonu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_04.html">
+ <span class="dropdown-text">Lekce 4: Cykly a podmínky</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_05.html">
+ <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_06.html">
+ <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_07.html">
+ <span class="dropdown-text">Lekce 7: Textové soubory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_08.html">
+ <span class="dropdown-text">Lekce 8: Textové soubory II</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-3-základy-arcpy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 3: Základy ArcPy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-3-základy-arcpy">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_10.html">
+ <span class="dropdown-text">Lekce 10: Úvod do modulu ArcPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_11.html">
+ <span class="dropdown-text">Lekce 11: Správa dat a workspace</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_12.html">
+ <span class="dropdown-text">Lekce 12: Geoprocessingové nástroje I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_13.html">
+ <span class="dropdown-text">Lekce 13: Geoprocessingové nástroje II</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#cíle-lekce" id="toc-cíle-lekce" class="nav-link active" data-scroll-target="#cíle-lekce"><span class="header-section-number">1</span> Cíle lekce</a></li>
+  <li><a href="#co-je-csv-formát" id="toc-co-je-csv-formát" class="nav-link" data-scroll-target="#co-je-csv-formát"><span class="header-section-number">2</span> Co je CSV formát?</a>
+  <ul class="collapse">
+  <li><a href="#comma-separated-values" id="toc-comma-separated-values" class="nav-link" data-scroll-target="#comma-separated-values"><span class="header-section-number">2.1</span> Comma-Separated Values</a></li>
+  <li><a href="#proč-csv" id="toc-proč-csv" class="nav-link" data-scroll-target="#proč-csv"><span class="header-section-number">2.2</span> Proč CSV?</a></li>
+  <li><a href="#problém-s-ručním-parsováním" id="toc-problém-s-ručním-parsováním" class="nav-link" data-scroll-target="#problém-s-ručním-parsováním"><span class="header-section-number">2.3</span> Problém s ručním parsováním</a></li>
+  </ul></li>
+  <li><a href="#modul-csv---základy" id="toc-modul-csv---základy" class="nav-link" data-scroll-target="#modul-csv---základy"><span class="header-section-number">3</span> Modul csv - základy</a>
+  <ul class="collapse">
+  <li><a href="#import-modulu" id="toc-import-modulu" class="nav-link" data-scroll-target="#import-modulu"><span class="header-section-number">3.1</span> Import modulu</a></li>
+  <li><a href="#čtení-csv---csv.reader" id="toc-čtení-csv---csv.reader" class="nav-link" data-scroll-target="#čtení-csv---csv.reader"><span class="header-section-number">3.2</span> Čtení CSV - csv.reader()</a></li>
+  <li><a href="#zpracování-s-hlavičkou" id="toc-zpracování-s-hlavičkou" class="nav-link" data-scroll-target="#zpracování-s-hlavičkou"><span class="header-section-number">3.3</span> Zpracování s hlavičkou</a></li>
+  </ul></li>
+  <li><a href="#dictreader---práce-se-slovníky" id="toc-dictreader---práce-se-slovníky" class="nav-link" data-scroll-target="#dictreader---práce-se-slovníky"><span class="header-section-number">4</span> DictReader - práce se slovníky</a>
+  <ul class="collapse">
+  <li><a href="#problém-s-indexy" id="toc-problém-s-indexy" class="nav-link" data-scroll-target="#problém-s-indexy"><span class="header-section-number">4.1</span> Problém s indexy</a></li>
+  <li><a href="#csv.dictreader" id="toc-csv.dictreader" class="nav-link" data-scroll-target="#csv.dictreader"><span class="header-section-number">4.2</span> csv.DictReader()</a></li>
+  <li><a href="#praktické-použití" id="toc-praktické-použití" class="nav-link" data-scroll-target="#praktické-použití"><span class="header-section-number">4.3</span> Praktické použití</a></li>
+  </ul></li>
+  <li><a href="#zápis-csv" id="toc-zápis-csv" class="nav-link" data-scroll-target="#zápis-csv"><span class="header-section-number">5</span> Zápis CSV</a>
+  <ul class="collapse">
+  <li><a href="#csv.writer" id="toc-csv.writer" class="nav-link" data-scroll-target="#csv.writer"><span class="header-section-number">5.1</span> csv.writer()</a></li>
+  <li><a href="#csv.dictwriter---doporučeno" id="toc-csv.dictwriter---doporučeno" class="nav-link" data-scroll-target="#csv.dictwriter---doporučeno"><span class="header-section-number">5.2</span> csv.DictWriter() - doporučeno!</a></li>
+  </ul></li>
+  <li><a href="#praktická-úloha---kompletní-workflow" id="toc-praktická-úloha---kompletní-workflow" class="nav-link" data-scroll-target="#praktická-úloha---kompletní-workflow"><span class="header-section-number">6</span> Praktická úloha - kompletní workflow</a>
+  <ul class="collapse">
+  <li><a href="#zadání" id="toc-zadání" class="nav-link" data-scroll-target="#zadání"><span class="header-section-number">6.1</span> Zadání</a></li>
+  <li><a href="#řešení-krok-za-krokem" id="toc-řešení-krok-za-krokem" class="nav-link" data-scroll-target="#řešení-krok-za-krokem"><span class="header-section-number">6.2</span> Řešení krok za krokem</a>
+  <ul class="collapse">
+  <li><a href="#krok-1-načtení-dat" id="toc-krok-1-načtení-dat" class="nav-link" data-scroll-target="#krok-1-načtení-dat"><span class="header-section-number">6.2.1</span> Krok 1: Načtení dat</a></li>
+  <li><a href="#krok-2-výpočet-hustoty" id="toc-krok-2-výpočet-hustoty" class="nav-link" data-scroll-target="#krok-2-výpočet-hustoty"><span class="header-section-number">6.2.2</span> Krok 2: Výpočet hustoty</a></li>
+  <li><a href="#krok-3-filtrace" id="toc-krok-3-filtrace" class="nav-link" data-scroll-target="#krok-3-filtrace"><span class="header-section-number">6.2.3</span> Krok 3: Filtrace</a></li>
+  <li><a href="#krok-4-třídění-pomocí-math_utils" id="toc-krok-4-třídění-pomocí-math_utils" class="nav-link" data-scroll-target="#krok-4-třídění-pomocí-math_utils"><span class="header-section-number">6.2.4</span> Krok 4: Třídění pomocí math_utils</a></li>
+  <li><a href="#krok-5-export-do-csv" id="toc-krok-5-export-do-csv" class="nav-link" data-scroll-target="#krok-5-export-do-csv"><span class="header-section-number">6.2.5</span> Krok 5: Export do CSV</a></li>
+  </ul></li>
+  <li><a href="#kompletní-program" id="toc-kompletní-program" class="nav-link" data-scroll-target="#kompletní-program"><span class="header-section-number">6.3</span> Kompletní program</a></li>
+  </ul></li>
+  <li><a href="#propojení-s-gis-workflow" id="toc-propojení-s-gis-workflow" class="nav-link" data-scroll-target="#propojení-s-gis-workflow"><span class="header-section-number">7</span> Propojení s GIS workflow</a>
+  <ul class="collapse">
+  <li><a href="#export-atributové-tabulky-z-arcgis" id="toc-export-atributové-tabulky-z-arcgis" class="nav-link" data-scroll-target="#export-atributové-tabulky-z-arcgis"><span class="header-section-number">7.1</span> Export atributové tabulky z ArcGIS</a></li>
+  <li><a href="#typický-gis-workflow" id="toc-typický-gis-workflow" class="nav-link" data-scroll-target="#typický-gis-workflow"><span class="header-section-number">7.2</span> Typický GIS workflow</a></li>
+  <li><a href="#příklad-zpracování-bodů-zájmu" id="toc-příklad-zpracování-bodů-zájmu" class="nav-link" data-scroll-target="#příklad-zpracování-bodů-zájmu"><span class="header-section-number">7.3</span> Příklad: Zpracování bodů zájmu</a></li>
+  </ul></li>
+  <li><a href="#praktická-cvičení" id="toc-praktická-cvičení" class="nav-link" data-scroll-target="#praktická-cvičení"><span class="header-section-number">8</span> Praktická cvičení</a>
+  <ul class="collapse">
+  <li><a href="#cvičení-1-statistiky-okresů" id="toc-cvičení-1-statistiky-okresů" class="nav-link" data-scroll-target="#cvičení-1-statistiky-okresů"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky okresů</a></li>
+  <li><a href="#cvičení-2-agregace-podle-kraje" id="toc-cvičení-2-agregace-podle-kraje" class="nav-link" data-scroll-target="#cvičení-2-agregace-podle-kraje"><span class="header-section-number">8.2</span> Cvičení 2: Agregace podle kraje</a></li>
+  </ul></li>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">9</span> Shrnutí</a>
+  <ul class="collapse">
+  <li><a href="#co-jsme-se-naučili" id="toc-co-jsme-se-naučili" class="nav-link" data-scroll-target="#co-jsme-se-naučili"><span class="header-section-number">9.1</span> Co jsme se naučili</a></li>
+  <li><a href="#co-bude-příště" id="toc-co-bude-příště" class="nav-link" data-scroll-target="#co-bude-příště"><span class="header-section-number">9.2</span> Co bude příště?</a></li>
+  </ul></li>
+  <li><a href="#domácí-úkol---příprava-na-test" id="toc-domácí-úkol---příprava-na-test" class="nav-link" data-scroll-target="#domácí-úkol---příprava-na-test"><span class="header-section-number">10</span> Domácí úkol - příprava na test</a>
+  <ul class="collapse">
+  <li><a href="#varianta-a-povinná---základní" id="toc-varianta-a-povinná---základní" class="nav-link" data-scroll-target="#varianta-a-povinná---základní"><span class="header-section-number">10.1</span> Varianta A (povinná - základní)</a></li>
+  <li><a href="#varianta-b-příprava-na-test---pokročilá" id="toc-varianta-b-příprava-na-test---pokročilá" class="nav-link" data-scroll-target="#varianta-b-příprava-na-test---pokročilá"><span class="header-section-number">10.2</span> Varianta B (příprava na test - pokročilá)</a></li>
+  <li><a href="#varianta-c-výzva---jako-na-testu" id="toc-varianta-c-výzva---jako-na-testu" class="nav-link" data-scroll-target="#varianta-c-výzva---jako-na-testu"><span class="header-section-number">10.3</span> Varianta C (výzva - jako na testu)</a></li>
+  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">11</span> Cheatsheet</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_08.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lekce 8: Textové soubory II – CSV tabulka</h1>
+<p class="subtitle lead">Python pro GIS - Profesionální práce s tabulkami</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 19, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cíle-lekce" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Cíle lekce</h1>
+<p>Po absolvování této lekce budete umět:</p>
+<ul>
+<li>Rozumět formátu CSV a jeho problémům</li>
+<li>Používat modul <code>csv</code> pro čtení a zápis</li>
+<li>Pracovat s <code>csv.reader()</code> a <code>csv.DictReader()</code></li>
+<li>Zapisovat pomocí <code>csv.writer()</code> a <code>csv.DictWriter()</code></li>
+<li>Zpracovávat reálná data s hlavičkami</li>
+<li>Propojit CSV data s GIS workflow</li>
+<li>Kombinovat funkce z <code>math_utils</code> s CSV daty</li>
+</ul>
+<p><strong>Časová dotace:</strong> 90 minut</p>
+<hr>
+</section>
+<section id="co-je-csv-formát" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Co je CSV formát?</h1>
+<section id="comma-separated-values" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="comma-separated-values"><span class="header-section-number">2.1</span> Comma-Separated Values</h2>
+<p><strong>CSV</strong> = Comma-Separated Values (hodnoty oddělené čárkou)</p>
+<p><strong>Příklad CSV souboru:</strong></p>
+<pre><code>Okres,Populace,Rozloha
+Praha,1300000,496
+Brno,380000,230
+Ostrava,290000,214</code></pre>
+<p><strong>Struktura:</strong> - První řádek = <strong>hlavička</strong> (názvy sloupců) - Další řádky = <strong>data</strong> - Hodnoty oddělené <strong>čárkou</strong> (nebo středníkem, tabulátorem…)</p>
+</section>
+<section id="proč-csv" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="proč-csv"><span class="header-section-number">2.2</span> Proč CSV?</h2>
+<p><strong>Výhody:</strong> - ✅ Jednoduchý textový formát - ✅ Otevřete v Excelu, LibreOffice, Google Sheets - ✅ Malá velikost souboru - ✅ Univerzální - funguje všude - ✅ <strong>ArcGIS umí exportovat atributové tabulky jako CSV!</strong></p>
+<p><strong>Nevýhody:</strong> - ❌ Žádné formátování (barvy, tučné písmo…) - ❌ Jeden list (na rozdíl od Excelu)</p>
+</section>
+<section id="problém-s-ručním-parsováním" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="problém-s-ručním-parsováním"><span class="header-section-number">2.3</span> Problém s ručním parsováním</h2>
+<p><strong>Co když máte čárku v datech?</strong></p>
+<pre><code>Jméno,Věk,Adresa
+Jan Novák,25,Hlavní 1, Praha</code></pre>
+<p><strong>Pokus o split(“,”):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>casti <span class="op">=</span> radek.split(<span class="st">","</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ['Jan Novák', '25', 'Hlavní 1', ' Praha']</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 4 části místo 3! CHYBA!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Řešení:</strong> Použít <strong>modul <code>csv</code></strong>, který řeší tyto komplikace!</p>
+<hr>
+</section>
+</section>
+<section id="modul-csv---základy" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Modul csv - základy</h1>
+<section id="import-modulu" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="import-modulu"><span class="header-section-number">3.1</span> Import modulu</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="čtení-csv---csv.reader" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="čtení-csv---csv.reader"><span class="header-section-number">3.2</span> Čtení CSV - csv.reader()</h2>
+<p><strong>Soubor <code>okresy.csv</code>:</strong></p>
+<pre><code>Okres,Populace,Rozloha
+Praha,1300000,496
+Brno,380000,230
+Ostrava,290000,214</code></pre>
+<p><strong>Čtení:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.reader(soubor)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(radek)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výsledek:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">'Okres'</span>, <span class="st">'Populace'</span>, <span class="st">'Rozloha'</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">'Praha'</span>, <span class="st">'1300000'</span>, <span class="st">'496'</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>[<span class="st">'Brno'</span>, <span class="st">'380000'</span>, <span class="st">'230'</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>[<span class="st">'Ostrava'</span>, <span class="st">'290000'</span>, <span class="st">'214'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>csv.reader() vrací SEZNAMY
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Každý řádek je <strong>seznam stringů</strong>. Čísla musíte převádět pomocí <code>int()</code> nebo <code>float()</code>.</p>
+</div>
+</div>
+</section>
+<section id="zpracování-s-hlavičkou" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="zpracování-s-hlavičkou"><span class="header-section-number">3.3</span> Zpracování s hlavičkou</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.reader(soubor)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    hlavicka <span class="op">=</span> <span class="bu">next</span>(reader)  <span class="co"># Přeskočit první řádek</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Sloupce: </span><span class="sc">{</span>hlavicka<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        okres <span class="op">=</span> radek[<span class="dv">0</span>]</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        populace <span class="op">=</span> <span class="bu">int</span>(radek[<span class="dv">1</span>])</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        rozloha <span class="op">=</span> <span class="bu">float</span>(radek[<span class="dv">2</span>])</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        hustota <span class="op">=</span> populace <span class="op">/</span> rozloha</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>okres<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>hustota<span class="sc">:.1f}</span><span class="ss"> obyvatel/km²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výsledek:</strong></p>
+<pre><code>Sloupce: ['Okres', 'Populace', 'Rozloha']
+Praha: 2621.0 obyvatel/km²
+Brno: 1652.2 obyvatel/km²
+Ostrava: 1355.1 obyvatel/km²</code></pre>
+<hr>
+</section>
+</section>
+<section id="dictreader---práce-se-slovníky" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> DictReader - práce se slovníky</h1>
+<section id="problém-s-indexy" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="problém-s-indexy"><span class="header-section-number">4.1</span> Problém s indexy</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>okres <span class="op">=</span> radek[<span class="dv">0</span>]      <span class="co"># Co je na indexu 0? Není jasné!</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>populace <span class="op">=</span> radek[<span class="dv">1</span>]   <span class="co"># Co je na indexu 1?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Lepší:</strong> Používat <strong>názvy sloupců</strong> místo indexů!</p>
+</section>
+<section id="csv.dictreader" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="csv.dictreader"><span class="header-section-number">4.2</span> csv.DictReader()</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(soubor)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(radek)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výsledek:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">'Okres'</span>: <span class="st">'Praha'</span>, <span class="st">'Populace'</span>: <span class="st">'1300000'</span>, <span class="st">'Rozloha'</span>: <span class="st">'496'</span>}</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>{<span class="st">'Okres'</span>: <span class="st">'Brno'</span>, <span class="st">'Populace'</span>: <span class="st">'380000'</span>, <span class="st">'Rozloha'</span>: <span class="st">'230'</span>}</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">'Okres'</span>: <span class="st">'Ostrava'</span>, <span class="st">'Populace'</span>: <span class="st">'290000'</span>, <span class="st">'Rozloha'</span>: <span class="st">'214'</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>DictReader vrací SLOVNÍKY
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Každý řádek je <strong>slovník</strong> s klíči podle hlavičky!</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>radek[<span class="st">'Okres'</span>]      <span class="co"># "Praha"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>radek[<span class="st">'Populace'</span>]   <span class="co"># "1300000" (string!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="praktické-použití" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="praktické-použití"><span class="header-section-number">4.3</span> Praktické použití</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>okresy <span class="op">=</span> []</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(soubor)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        okres <span class="op">=</span> {</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">'nazev'</span>: radek[<span class="st">'Okres'</span>],</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'populace'</span>: <span class="bu">int</span>(radek[<span class="st">'Populace'</span>]),</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">'rozloha'</span>: <span class="bu">float</span>(radek[<span class="st">'Rozloha'</span>])</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        okresy.append(okres)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Teď můžeme data zpracovávat</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> okresy:</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    hustota <span class="op">=</span> o[<span class="st">'populace'</span>] <span class="op">/</span> o[<span class="st">'rozloha'</span>]</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>o[<span class="st">'nazev'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>hustota<span class="sc">:.1f}</span><span class="ss"> obyvatel/km²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Kdy použít DictReader?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>VŽDY</strong>, pokud má CSV hlavičku!</p>
+<p><strong>Výhody:</strong> - Čitelnější kód - Nezáleží na pořadí sloupců - Méně chyb</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="zápis-csv" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Zápis CSV</h1>
+<section id="csv.writer" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="csv.writer"><span class="header-section-number">5.1</span> csv.writer()</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'Okres'</span>, <span class="st">'Populace'</span>, <span class="st">'Hustota'</span>],</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'Praha'</span>, <span class="dv">1300000</span>, <span class="dv">2621</span>],</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'Brno'</span>, <span class="dv">380000</span>, <span class="dv">1652</span>],</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'Ostrava'</span>, <span class="dv">290000</span>, <span class="dv">1355</span>]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> soubor:</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> csv.writer(soubor)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> data:</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        writer.writerow(radek)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>newline=’’ je DŮLEŽITÉ!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bez <code>newline=''</code> se v některých systémech (Windows) přidávají prázdné řádky:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"soubor.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> f:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>VŽDY přidávejte <code>newline=''</code> při zápisu CSV!</strong></p>
+</div>
+</div>
+</section>
+<section id="csv.dictwriter---doporučeno" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="csv.dictwriter---doporučeno"><span class="header-section-number">5.2</span> csv.DictWriter() - doporučeno!</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>okresy <span class="op">=</span> [</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'nazev'</span>: <span class="st">'Praha'</span>, <span class="st">'populace'</span>: <span class="dv">1300000</span>, <span class="st">'hustota'</span>: <span class="dv">2621</span>},</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'nazev'</span>: <span class="st">'Brno'</span>, <span class="st">'populace'</span>: <span class="dv">380000</span>, <span class="st">'hustota'</span>: <span class="dv">1652</span>},</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'nazev'</span>: <span class="st">'Ostrava'</span>, <span class="st">'populace'</span>: <span class="dv">290000</span>, <span class="st">'hustota'</span>: <span class="dv">1355</span>}</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> soubor:</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    fieldnames <span class="op">=</span> [<span class="st">'nazev'</span>, <span class="st">'populace'</span>, <span class="st">'hustota'</span>]</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> csv.DictWriter(soubor, fieldnames<span class="op">=</span>fieldnames)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    writer.writeheader()  <span class="co"># Zapíše hlavičku</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    writer.writerows(okresy)  <span class="co"># Zapíše všechny řádky</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Výsledný soubor:</strong></p>
+<pre><code>nazev,populace,hustota
+Praha,1300000,2621
+Brno,380000,1652
+Ostrava,290000,1355</code></pre>
+<hr>
+</section>
+</section>
+<section id="praktická-úloha---kompletní-workflow" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Praktická úloha - kompletní workflow</h1>
+<section id="zadání" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="zadání"><span class="header-section-number">6.1</span> Zadání</h2>
+<p>Máte soubor <code>okresy.csv</code>:</p>
+<pre><code>Okres,Populace,Rozloha,Kraj
+Praha,1300000,496,Praha
+Brno,380000,230,Jihomoravský
+Ostrava,290000,214,Moravskoslezský
+Plzeň,170000,261,Plzeňský
+Liberec,103000,106,Liberecký</code></pre>
+<p><strong>Úkoly:</strong> 1. Načíst data pomocí DictReader 2. Pro každý okres vypočítat hustotu obyvatel 3. Najít okresy s hustotou &gt; 1000 obyvatel/km² 4. Seřadit okresy podle hustoty (použijte <code>bubble_sort</code> z <code>math_utils</code>!) 5. Uložit výsledky do nového CSV</p>
+</section>
+<section id="řešení-krok-za-krokem" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="řešení-krok-za-krokem"><span class="header-section-number">6.2</span> Řešení krok za krokem</h2>
+<section id="krok-1-načtení-dat" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="krok-1-načtení-dat"><span class="header-section-number">6.2.1</span> Krok 1: Načtení dat</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>okresy <span class="op">=</span> []</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(soubor)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        okres <span class="op">=</span> {</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">'nazev'</span>: radek[<span class="st">'Okres'</span>],</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'populace'</span>: <span class="bu">int</span>(radek[<span class="st">'Populace'</span>]),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">'rozloha'</span>: <span class="bu">float</span>(radek[<span class="st">'Rozloha'</span>]),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">'kraj'</span>: radek[<span class="st">'Kraj'</span>]</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>        okresy.append(okres)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Načteno </span><span class="sc">{</span><span class="bu">len</span>(okresy)<span class="sc">}</span><span class="ss"> okresů"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="krok-2-výpočet-hustoty" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="krok-2-výpočet-hustoty"><span class="header-section-number">6.2.2</span> Krok 2: Výpočet hustoty</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání hustoty k datům</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> okres <span class="kw">in</span> okresy:</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    okres[<span class="st">'hustota'</span>] <span class="op">=</span> okres[<span class="st">'populace'</span>] <span class="op">/</span> okres[<span class="st">'rozloha'</span>]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Výpis</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> okresy:</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>o[<span class="st">'nazev'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>o[<span class="st">'hustota'</span>]<span class="sc">:.1f}</span><span class="ss"> obyvatel/km²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="krok-3-filtrace" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="krok-3-filtrace"><span class="header-section-number">6.2.3</span> Krok 3: Filtrace</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>huste_okresy <span class="op">=</span> []</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> okres <span class="kw">in</span> okresy:</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> okres[<span class="st">'hustota'</span>] <span class="op">&gt;</span> <span class="dv">1000</span>:</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        huste_okresy.append(okres)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Okresy s hustotou &gt; 1000:"</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> huste_okresy:</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>o[<span class="st">'nazev'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>o[<span class="st">'hustota'</span>]<span class="sc">:.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="krok-4-třídění-pomocí-math_utils" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="krok-4-třídění-pomocí-math_utils"><span class="header-section-number">6.2.4</span> Krok 4: Třídění pomocí math_utils</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math_utils</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Problém: bubble_sort třídí seznamy čísel, ne slovníky!</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Řešení: Vytvoříme seznam (hustota, okres) a seřadíme</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>data_k_trideni <span class="op">=</span> []</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> okres <span class="kw">in</span> okresy:</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    data_k_trideni.append((okres[<span class="st">'hustota'</span>], okres))</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Vlastní bubble sort pro tuto úlohu</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bubble_sort_okresy(data):</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Seřadí okresy podle hustoty (sestupně)."""</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    serazene <span class="op">=</span> data.copy()</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(serazene)):</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(serazene) <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> i):</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> serazene[j][<span class="dv">0</span>] <span class="op">&lt;</span> serazene[j <span class="op">+</span> <span class="dv">1</span>][<span class="dv">0</span>]:  <span class="co"># Porovnání hustot</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>                serazene[j], serazene[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> serazene[j <span class="op">+</span> <span class="dv">1</span>], serazene[j]</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> serazene</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>serazene <span class="op">=</span> bubble_sort_okresy(data_k_trideni)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrahovat okresy</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>serazene_okresy <span class="op">=</span> [okres <span class="cf">for</span> hustota, okres <span class="kw">in</span> serazene]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Jednodušší řešení v praxi
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V reálných programech byste použili:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>okresy.sort(key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'hustota'</span>], reverse<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ale pro výukové účely je dobré ukázat, jak přizpůsobit bubble_sort!</p>
+</div>
+</div>
+</section>
+<section id="krok-5-export-do-csv" class="level3" data-number="6.2.5">
+<h3 data-number="6.2.5" class="anchored" data-anchor-id="krok-5-export-do-csv"><span class="header-section-number">6.2.5</span> Krok 5: Export do CSV</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy_s_hustotou.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> soubor:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    fieldnames <span class="op">=</span> [<span class="st">'nazev'</span>, <span class="st">'populace'</span>, <span class="st">'rozloha'</span>, <span class="st">'kraj'</span>, <span class="st">'hustota'</span>]</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> csv.DictWriter(soubor, fieldnames<span class="op">=</span>fieldnames)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    writer.writeheader()</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    writer.writerows(serazene_okresy)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Výsledky uloženy do okresy_s_hustotou.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="kompletní-program" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="kompletní-program"><span class="header-section-number">6.3</span> Kompletní program</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Načtení dat</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>okresy <span class="op">=</span> []</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> soubor:</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(soubor)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>        okres <span class="op">=</span> {</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">'nazev'</span>: radek[<span class="st">'Okres'</span>],</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">'populace'</span>: <span class="bu">int</span>(radek[<span class="st">'Populace'</span>]),</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'rozloha'</span>: <span class="bu">float</span>(radek[<span class="st">'Rozloha'</span>]),</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">'kraj'</span>: radek[<span class="st">'Kraj'</span>]</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>        okresy.append(okres)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Výpočet hustoty</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> okres <span class="kw">in</span> okresy:</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    okres[<span class="st">'hustota'</span>] <span class="op">=</span> okres[<span class="st">'populace'</span>] <span class="op">/</span> okres[<span class="st">'rozloha'</span>]</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Filtrace</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>huste_okresy <span class="op">=</span> [o <span class="cf">for</span> o <span class="kw">in</span> okresy <span class="cf">if</span> o[<span class="st">'hustota'</span>] <span class="op">&gt;</span> <span class="dv">1000</span>]</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Třídění (sestupně podle hustoty)</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bubble_sort_okresy(data):</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>    serazene <span class="op">=</span> data.copy()</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(serazene)):</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(serazene) <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> i):</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> serazene[j][<span class="st">'hustota'</span>] <span class="op">&lt;</span> serazene[j <span class="op">+</span> <span class="dv">1</span>][<span class="st">'hustota'</span>]:</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>                serazene[j], serazene[j <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> serazene[j <span class="op">+</span> <span class="dv">1</span>], serazene[j]</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> serazene</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>serazene_okresy <span class="op">=</span> bubble_sort_okresy(okresy)</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Export</span></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"okresy_s_hustotou.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> soubor:</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    fieldnames <span class="op">=</span> [<span class="st">'nazev'</span>, <span class="st">'populace'</span>, <span class="st">'rozloha'</span>, <span class="st">'kraj'</span>, <span class="st">'hustota'</span>]</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> csv.DictWriter(soubor, fieldnames<span class="op">=</span>fieldnames)</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>    writer.writeheader()</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>    writer.writerows(serazene_okresy)</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Výpis výsledků</span></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"TOP 3 okresy podle hustoty:"</span>)</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, okres <span class="kw">in</span> <span class="bu">enumerate</span>(serazene_okresy[:<span class="dv">3</span>], <span class="dv">1</span>):</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">. </span><span class="sc">{</span>okres[<span class="st">'nazev'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>okres[<span class="st">'hustota'</span>]<span class="sc">:.1f}</span><span class="ss"> obyvatel/km²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="propojení-s-gis-workflow" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Propojení s GIS workflow</h1>
+<section id="export-atributové-tabulky-z-arcgis" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="export-atributové-tabulky-z-arcgis"><span class="header-section-number">7.1</span> Export atributové tabulky z ArcGIS</h2>
+<p>V ArcGIS Pro můžete exportovat atributovou tabulku:</p>
+<ol type="1">
+<li>Pravý klik na vrstvu → <strong>Open Attribute Table</strong></li>
+<li>Menu → <strong>Export</strong> → <strong>Export Table</strong></li>
+<li>Vybrat formát: <strong>CSV</strong> nebo <strong>dBASE</strong></li>
+</ol>
+<p><strong>Výsledek:</strong> CSV soubor s atributy vrstvy!</p>
+</section>
+<section id="typický-gis-workflow" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="typický-gis-workflow"><span class="header-section-number">7.2</span> Typický GIS workflow</h2>
+<pre><code>┌─────────────────┐
+│   ArcGIS Pro    │
+│  (Feature class)│
+└────────┬────────┘
+         │ Export
+         ▼
+┌─────────────────┐
+│   CSV soubor    │
+└────────┬────────┘
+         │ Python
+         ▼
+┌─────────────────┐
+│  Zpracování     │
+│  (výpočty,      │
+│   statistiky)   │
+└────────┬────────┘
+         │ Python
+         ▼
+┌─────────────────┐
+│  Nový CSV       │
+└────────┬────────┘
+         │ Import
+         ▼
+┌─────────────────┐
+│   ArcGIS Pro    │
+│  (nová vrstva)  │
+└─────────────────┘</code></pre>
+</section>
+<section id="příklad-zpracování-bodů-zájmu" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="příklad-zpracování-bodů-zájmu"><span class="header-section-number">7.3</span> Příklad: Zpracování bodů zájmu</h2>
+<p><strong>Soubor z ArcGIS: <code>pois.csv</code></strong></p>
+<pre><code>OBJECTID,Name,Type,X,Y
+1,Restaurace A,restaurant,14.4208,50.0875
+2,Restaurace B,restaurant,14.4212,50.0880
+3,Kavárna C,cafe,14.4198,50.0868</code></pre>
+<p><strong>Python zpracování:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Načtení</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>pois <span class="op">=</span> []</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"pois.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(f)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> reader:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        pois.append({</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">'id'</span>: <span class="bu">int</span>(row[<span class="st">'OBJECTID'</span>]),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">'name'</span>: row[<span class="st">'Name'</span>],</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'type'</span>: row[<span class="st">'Type'</span>],</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">'x'</span>: <span class="bu">float</span>(row[<span class="st">'X'</span>]),</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">'y'</span>: <span class="bu">float</span>(row[<span class="st">'Y'</span>])</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtrace - pouze restaurace</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>restaurace <span class="op">=</span> [p <span class="cf">for</span> p <span class="kw">in</span> pois <span class="cf">if</span> p[<span class="st">'type'</span>] <span class="op">==</span> <span class="st">'restaurant'</span>]</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Export</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"restaurace.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> f:</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    fieldnames <span class="op">=</span> [<span class="st">'id'</span>, <span class="st">'name'</span>, <span class="st">'type'</span>, <span class="st">'x'</span>, <span class="st">'y'</span>]</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> csv.DictWriter(f, fieldnames<span class="op">=</span>fieldnames)</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    writer.writeheader()</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>    writer.writerows(restaurace)</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exportováno </span><span class="sc">{</span><span class="bu">len</span>(restaurace)<span class="sc">}</span><span class="ss"> restaurací"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Zpět do ArcGIS:</strong> 1. <strong>Add Data</strong> → vybrat <code>restaurace.csv</code> 2. <strong>Display XY Data</strong> → nastavit X, Y sloupce 3. <strong>Export Features</strong> → uložit jako shapefile/geodatabase</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Výhoda tohoto přístupu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>✅ Rychlé zpracování velkých dat</li>
+<li>✅ Opakovatelné (skript můžete spustit znovu)</li>
+<li>✅ Kombinuje sílu Pythonu s vizualizací ArcGIS</li>
+<li>✅ Můžete použít vlastní funkce (math_utils!)</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="praktická-cvičení" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Praktická cvičení</h1>
+<section id="cvičení-1-statistiky-okresů" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="cvičení-1-statistiky-okresů"><span class="header-section-number">8.1</span> Cvičení 1: Statistiky okresů</h2>
+<p>Použijte soubor <code>okresy.csv</code> a vytvořte program, který:</p>
+<ol type="1">
+<li>Načte data pomocí DictReader</li>
+<li>Vypočítá pro každý okres:
+<ul>
+<li>Hustotu obyvatel</li>
+<li>Zda je “velký” (populace &gt; 200 000)</li>
+</ul></li>
+<li>Spočítá statistiky:
+<ul>
+<li>Průměrnou hustotu</li>
+<li>Počet velkých okresů</li>
+<li>Celkovou populaci</li>
+</ul></li>
+<li>Uloží výsledky do <code>statistiky_okresu.csv</code>:</li>
+</ol>
+<pre><code>nazev,populace,rozloha,hustota,velky
+Praha,1300000,496,2621.0,True
+Brno,380000,230,1652.2,True
+...</code></pre>
+</section>
+<section id="cvičení-2-agregace-podle-kraje" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="cvičení-2-agregace-podle-kraje"><span class="header-section-number">8.2</span> Cvičení 2: Agregace podle kraje</h2>
+<p>Vytvořte program, který:</p>
+<ol type="1">
+<li>Načte <code>okresy.csv</code></li>
+<li>Seskupí okresy podle kraje</li>
+<li>Pro každý kraj vypočítá:
+<ul>
+<li>Celkovou populaci</li>
+<li>Celkovou rozlohu</li>
+<li>Průměrnou hustotu</li>
+</ul></li>
+<li>Uloží do <code>kraje_agregace.csv</code>:</li>
+</ol>
+<pre><code>Kraj,Celkova_populace,Celkova_rozloha,Prumerna_hustota
+Praha,1300000,496,2621.0
+Jihomoravský,380000,230,1652.2
+...</code></pre>
+<p><strong>Nápověda pro agregaci:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>kraje <span class="op">=</span> {}</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> okres <span class="kw">in</span> okresy:</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    kraj <span class="op">=</span> okres[<span class="st">'kraj'</span>]</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> kraj <span class="kw">not</span> <span class="kw">in</span> kraje:</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        kraje[kraj] <span class="op">=</span> []</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    kraje[kraj].append(okres)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="shrnutí" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Shrnutí</h1>
+<section id="co-jsme-se-naučili" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="co-jsme-se-naučili"><span class="header-section-number">9.1</span> Co jsme se naučili</h2>
+<p>✅ <strong>CSV formát</strong> - struktura, výhody, problémy<br>
+✅ <strong>csv.reader()</strong> - čtení CSV jako seznamy<br>
+✅ <strong>csv.DictReader()</strong> - čtení CSV jako slovníky (doporučeno!)<br>
+✅ <strong>csv.writer()</strong> - zápis CSV<br>
+✅ <strong>csv.DictWriter()</strong> - zápis CSV ze slovníků (doporučeno!)<br>
+✅ <strong>newline=’’</strong> - důležité pro správný zápis<br>
+✅ <strong>GIS workflow</strong> - export z ArcGIS → Python → import zpět<br>
+✅ <strong>Propojení s funkcemi</strong> - kombinace CSV s math_utils</p>
+</section>
+<section id="co-bude-příště" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="co-bude-příště"><span class="header-section-number">9.2</span> Co bude příště?</h2>
+<p><strong>Příští týden: TEST!</strong></p>
+<p>Test bude obsahovat: - <strong>Písemná část</strong> - pochopení kódu, doplňování - <strong>Praktická část</strong> - zpracování CSV souboru s použitím funkcí</p>
+<p><strong>Za 2 týdny: OOP (Objektově orientované programování)</strong> - Třída Pes - Propojení s ArcPy objekty - Příprava na práci s geometriemi</p>
+<hr>
+</section>
+</section>
+<section id="domácí-úkol---příprava-na-test" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Domácí úkol - příprava na test</h1>
+<section id="varianta-a-povinná---základní" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="varianta-a-povinná---základní"><span class="header-section-number">10.1</span> Varianta A (povinná - základní)</h2>
+<p>Vytvořte soubor <code>teploty_mesic.csv</code>:</p>
+<pre><code>Den,Teplota,Srazky
+1,15,0
+2,18,5
+3,22,0
+4,19,12
+5,16,8</code></pre>
+<p><strong>Napište program, který:</strong> 1. Načte data pomocí DictReader 2. Vypočítá: - Průměrnou teplotu - Celkové srážky - Den s nejvyšší teplotou 3. Uloží statistiky do <code>vysledky_pocasi.txt</code>:</p>
+<pre><code>Statistiky počasí
+==================
+Průměrná teplota: 18.0°C
+Celkové srážky: 25 mm
+Nejteplejší den: 3 (22°C)</code></pre>
+</section>
+<section id="varianta-b-příprava-na-test---pokročilá" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="varianta-b-příprava-na-test---pokročilá"><span class="header-section-number">10.2</span> Varianta B (příprava na test - pokročilá)</h2>
+<p>Vytvořte modul <code>csv_utils.py</code> s funkcemi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nacti_csv_dict(nazev_souboru):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Načte CSV jako seznam slovníků."""</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uloz_csv_dict(nazev_souboru, data, fieldnames):</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Uloží seznam slovníků jako CSV."""</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vypocitaj_statistiky(data, sloupec):</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vypočítá průměr, min, max pro daný sloupec.</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co">        dict: {'prumer': ..., 'minimum': ..., 'maximum': ...}</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Použijte tyto funkce</strong> v hlavním programu!</p>
+</section>
+<section id="varianta-c-výzva---jako-na-testu" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="varianta-c-výzva---jako-na-testu"><span class="header-section-number">10.3</span> Varianta C (výzva - jako na testu)</h2>
+<p>Máte <code>zakaznici.csv</code>:</p>
+<pre><code>ID,Jmeno,Vek,Utrata
+1,Jan Novák,25,1500
+2,Marie Svobodová,32,2300
+3,Petr Dvořák,28,1800
+4,Jana Nováková,45,3200</code></pre>
+<p><strong>Napište program, který:</strong> 1. Načte data 2. Vypočítá průměrnou útratu 3. Najde zákazníky s útratou nad průměr 4. Seřadí je podle útraty (použijte vlastní třídící funkci!) 5. Uloží do <code>vip_zakaznici.csv</code> s přidaným sloupcem <code>Kategorie</code>: - “VIP” pokud útrata &gt; 2× průměr - “Premium” pokud útrata &gt; průměr - “Standard” jinak</p>
+<p><strong>Struktura programu:</strong> - <code>zakaznici_utils.py</code> - funkce pro zpracování - <code>main.py</code> - hlavní program</p>
+<hr>
+</section>
+</section>
+<section id="cheatsheet" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Cheatsheet</h1>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># === ČTENÍ CSV ===</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># S csv.reader() - seznam</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.reader(f)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    hlavicka <span class="op">=</span> <span class="bu">next</span>(reader)  <span class="co"># Přeskočit hlavičku</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># radek je seznam ['Praha', '1300000', ...]</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># S DictReader - slovník (DOPORUČENO!)</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(f)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> radek <span class="kw">in</span> reader:</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># radek je slovník {'Okres': 'Praha', ...}</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>        nazev <span class="op">=</span> radek[<span class="st">'Okres'</span>]</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>        populace <span class="op">=</span> <span class="bu">int</span>(radek[<span class="st">'Populace'</span>])</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co"># === ZÁPIS CSV ===</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co"># S csv.writer()</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> f:</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> csv.writer(f)</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>    writer.writerow([<span class="st">'Sloupec1'</span>, <span class="st">'Sloupec2'</span>])  <span class="co"># Hlavička</span></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>    writer.writerow([<span class="st">'hodnota1'</span>, <span class="st">'hodnota2'</span>])   <span class="co"># Data</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a><span class="co"># S DictWriter() - DOPORUČENO!</span></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [</span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'nazev'</span>: <span class="st">'Praha'</span>, <span class="st">'hodnota'</span>: <span class="dv">100</span>},</span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>    {<span class="st">'nazev'</span>: <span class="st">'Brno'</span>, <span class="st">'hodnota'</span>: <span class="dv">200</span>}</span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"vysledky.csv"</span>, <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>, newline<span class="op">=</span><span class="st">''</span>) <span class="im">as</span> f:</span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>    fieldnames <span class="op">=</span> [<span class="st">'nazev'</span>, <span class="st">'hodnota'</span>]</span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>    writer <span class="op">=</span> csv.DictWriter(f, fieldnames<span class="op">=</span>fieldnames)</span>
+<span id="cb37-34"><a href="#cb37-34" aria-hidden="true" tabindex="-1"></a>    writer.writeheader()        <span class="co"># Zapíše hlavičku</span></span>
+<span id="cb37-35"><a href="#cb37-35" aria-hidden="true" tabindex="-1"></a>    writer.writerows(data)      <span class="co"># Zapíše všechny řádky</span></span>
+<span id="cb37-36"><a href="#cb37-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-37"><a href="#cb37-37" aria-hidden="true" tabindex="-1"></a><span class="co"># === PŘEVODY ===</span></span>
+<span id="cb37-38"><a href="#cb37-38" aria-hidden="true" tabindex="-1"></a>radek[<span class="st">'Populace'</span>]              <span class="co"># "1300000" (string!)</span></span>
+<span id="cb37-39"><a href="#cb37-39" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(radek[<span class="st">'Populace'</span>])         <span class="co"># 1300000 (int)</span></span>
+<span id="cb37-40"><a href="#cb37-40" aria-hidden="true" tabindex="-1"></a><span class="bu">float</span>(radek[<span class="st">'Rozloha'</span>])        <span class="co"># 496.0 (float)</span></span>
+<span id="cb37-41"><a href="#cb37-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-42"><a href="#cb37-42" aria-hidden="true" tabindex="-1"></a><span class="co"># === DŮLEŽITÉ ===</span></span>
+<span id="cb37-43"><a href="#cb37-43" aria-hidden="true" tabindex="-1"></a><span class="co"># VŽDY: encoding="utf-8"</span></span>
+<span id="cb37-44"><a href="#cb37-44" aria-hidden="true" tabindex="-1"></a><span class="co"># VŽDY při zápisu: newline=''</span></span>
+<span id="cb37-45"><a href="#cb37-45" aria-hidden="true" tabindex="-1"></a><span class="co"># DictReader/DictWriter &gt; reader/writer</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/vojta-bartak\.github\.io\/quarto_example\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
