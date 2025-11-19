@@ -56,7 +56,7 @@ Zde naleznete materiály k předmětu **Programování pro GIS a DPZ**, vyučova
 | 11 | Správa dat a workspace | ListFeatureClasses, Describe, Exists, try-except |
 | 12 | Geoprocessingové nástroje I | Vektorové analýzy: Buffer, Clip, Intersect, Union |
 | 13 | Geoprocessingové nástroje II | Rastrové analýzy: Spatial Analyst, Map Algebra |
-| 14 | Práce s tabulkami | SearchCursor (základy), Select by Attributes, statistiky |
+| 14 | Atributové operace | Vrstvy, výběry, propojování tabulek, sumarizace |
 | 15 | Kombinace ArcPy + Python | CSV → GIS, batch processing, error handling |
 | 16 | Python Script Tool | Vytvoření .pyt, parametry, GetParameterAsText, zprávy |
 | | **🧪 TEST 2** | **Po lekci 16 (30 min)** |
