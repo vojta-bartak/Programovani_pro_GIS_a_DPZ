@@ -1,0 +1,62 @@
+---
+title: "Lekce 13: Geoprocessingové nástroje II"
+subtitle: "Python pro GIS - Rastrové analýzy"
+author: "Vojtěch Barták, FŽP ČZU Praha"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    code-fold: false
+    theme: cosmo
+  pdf:       
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+\newpage
+
+**data**: dtm_Liberec.tif, katastry_Liberec.shp, dtm_katastry (zložka s rastry pro jednotlivé katastry), CLC_2018.tif (Corine Land Cover pro ČR),  data_vinice (složka s daty se soubory vrstevnic pro poslední úlohu)
+
+pozn: vše dělat v Python Window, kromě dávkových úloh, ty dělat v Python Notebook
+
+# Analýza terénu
+
+1. Spočítejte svažitost (v procentech). pozn: ukázat na tom, že se u nástrojů, jejichž výstupem je rastr, nezadává adresa výstupu, ten existuje jen v operační paměti a pokud jej chceme uložit, je třeba to udělat explicitně pomocí metody save
+2. Spočítejte aspekt.
+
+# Lokální mapová algebra
+
+3. Najděte místa, kde je svažitost větší než 5 %.  pozn: nejdřív použít GreaterThan, pak ukázat přímé použití operátorů
+4. Najděte místa, kde je aspekt zhruba jižní (tj. mezi 135 a 225).  
+5. Najděte místa, kde jsou splněny obě výše uvedené podmínky. (Multikriteriální analýza)
+
+# Fokální mapová algebra
+
+6. Zhlaďte model terénu klouzavým průměrem 3x3 buňky.  pozn: Focal statistics
+7. Vytvořte vrstevnice z původního a zhlazeného modelu terénu a porovnejte je (viz předchozí úlohu).  pozn: po 200 metrech
+
+pozn: vrstevnice po zhlazení motivovat vizualizací terénu - hladší vrstevnice
+
+# Zonální mapová algebra
+
+8. Zjistěte převýšení terénu v jednotlivých katastrech  (max - min) pozn: Zonal Statistics as Table
+9. Zjistěte zastoupení jednotlivých tříd krajinného pokryvu v jednotlivých okresech  pozn: TabulateArea
+10. Zjistěte relativní zastoupení lesů v jednotlivých okresech  pozn: např. 0/1 filtr lesů z CLC a pak ZonalStatisticsAsTable -> Mean
+
+# Reklasifikace
+
+11. Reklasifikujte model terénu na výškové pásy po 200 metrech.  
+
+# Dávkové zpracování
+
+12. Řešte úlohu 5 pro jednotlivé katastry Libereckého kraje.  
+13. Jako vášnivý milovník vína toužíte po vlastní vinici. Nejprve je pro ni však třeba vybrat vhodné území, splňující následující kritéria: bude na svazích se sklonem menším než 20%, s jihovýchodní až jihozápadní orientací a zároveň skryta před zraky nenechavých turistů, kteří by ji mohli z okolních vyhlídek vidět a přijít na ochutnávku hroznů. Jakou rozlohu má vhodné území pro založení vinice? Řešte pro jeden katastr. Vstup: vrstevnice (SHP) pozn: první krok je TopoToRaster, zahrnuje analýzu viditelnosti
+14. Řešte předchozí úlohu pro všechny okresy (každý zvlášť). 

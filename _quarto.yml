@@ -11,6 +11,7 @@ execute:
 
 website:
   title: "Programování pro GIS a DPZ"
+  site-url: https://vojta-bartak.github.io/quarto_example/
   navbar:
     left:
       - text: "Home"

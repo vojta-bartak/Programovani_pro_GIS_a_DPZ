@@ -1,0 +1,104 @@
+```{python}
+#| eval: false
+
+import arcpy
+import os
+
+# Nastavení
+workspace = r"C:\TEMP\Python_GIS\Lekce_13\dtm_katastry"
+arcpy.env.workspace = workspace
+arcpy.env.overwriteOutput = True
+arcpy.CheckOutExtension("Spatial")
+
+# Funkce pro analýzu jednoho katastru
+def analyzuj_katastr(dem_raster):
+  """
+    Provede multikriteriální analýzu pro jeden katastr.
+    
+    Vrací slovník se statistikami.
+    """
+print(f"\nZpracovávám: {dem_raster}")
+
+try:
+  # 1. Svažitost
+  slope = arcpy.sa.Slope(dem_raster, "PERCENT_RISE")
+
+# 2. Aspekt
+aspect = arcpy.sa.Aspect(dem_raster)
+
+# 3. Vhodná místa (svažitost > 5% + jižní aspekt)
+suitable = (slope > 5) & (aspect >= 135) & (aspect <= 225)
+
+# Uložení výsledku
+output_name = f"{os.path.splitext(dem_raster)[0]}_suitable"
+suitable.save(output_name)
+
+# 4. Cell size pro výpočet rozlohy vhodných míst
+desc = arcpy.Describe(dem_raster)
+cell_size = desc.meanCellWidth
+
+# Počet buněk s hodnotou 1
+count_suitable = 0
+with arcpy.da.SearchCursor(output_name, ["VALUE", "COUNT"]) as cursor:
+  for row in cursor:
+  if row[0] == 1:
+  count_suitable = row[1]
+break
+
+area_ha = (count_suitable * cell_size * cell_size) / 10000
+
+print(f"  OK - Vhodná plocha: {area_ha:.2f} ha")
+
+return {
+  "katastr": dem_raster,
+  "vhodna_plocha_ha": area_ha,
+  "status": "OK"
+}
+
+except Exception as e:
+  print(f"  CHYBA: {str(e)}")
+return {
+  "katastr": dem_raster,
+  "status": "CHYBA",
+  "error": str(e)
+}
+
+# Zpracování všech DEM
+dem_list = arcpy.ListRasters("*.tif")
+print(f"Nalezeno {len(dem_list)} katastrů")
+
+results = []
+for dem in dem_list:
+  result = analyzuj_katastr(dem)
+results.append(result)
+
+# Shrnutí
+print(f"\n{'='*60}")
+print("SHRNUTÍ")
+print(f"{'='*60}")
+
+uspesnych = sum(1 for r in results if r["status"] == "OK")
+print(f"Úspěšně zpracováno: {uspesnych}/{len(results)}")
+
+total_area = sum(r.get("vhodna_plocha_ha", 0) for r in results if r["status"] == "OK")
+print(f"Celková vhodná plocha: {total_area:.2f} ha")
+
+print(f"{'='*60}")
+```
+
+**Export výsledků do CSV:**
+  
+  ```{python}
+#| eval: false
+
+import csv
+
+output_csv = r"C:\TEMP\Python_GIS\Lekce_13\vysledky_katastry.csv"
+
+with open(output_csv, 'w', newline='', encoding='utf-8') as f:
+  writer = csv.DictWriter(f, fieldnames=["katastr", "vhodna_plocha_ha", "status"])
+writer.writeheader()
+writer.writerows(results)
+
+print(f"Výsledky exportovány do: {output_csv}")
+```
