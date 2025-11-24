@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
-<meta name="dcterms.date" content="2025-11-19">
+<meta name="dcterms.date" content="2025-11-24">
 
 <title>Lekce 14: Atributové operace – Programování pro GIS a DPZ</title>
 <style>
@@ -320,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 19, 2025</p>
+      <p class="date">November 24, 2025</p>
     </div>
   </div>
   
@@ -745,7 +745,7 @@ Tip
 </section>
 <section id="úloha-13-použití-připojených-dat" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="úloha-13-použití-připojených-dat"><span class="header-section-number">5.3</span> Úloha 13: Použití připojených dat</h2>
-<p><strong>Zadání:</strong> Ve vrstvě s připojenou tabulkou vypočítejte pole “ODTOK” jako součin plochy a součinitele odtoku.</p>
+<p><strong>Zadání:</strong> Ve vrstvě s připojenou tabulkou vypočítejte pole “ODTOK” jako součin srážek, plochy a součinitele odtoku. Dloudobý roční srážkový normál je 860 mm.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pokračujeme s vrstvou z předchozí úlohy</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání pole pro výpočet</span></span>
@@ -757,7 +757,7 @@ Tip
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>arcpy.management.CalculateField(</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    lyr,</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ODTOK"</span>,</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'!UrbanAtlas_LK.shape.area! * !coef.ko_vsak!'</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'!UrbanAtlas_LK.shape.area! * !coef.ko_vsak! * 860'</span>,</span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"PYTHON3"</span></span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
@@ -1033,7 +1033,7 @@ Tip
 <p><strong>Zadání:</strong> Pro každý okres spočítejte hustotu zalidnění (obyvatel/km²).</p>
 <p><strong>Data:</strong> - <code>Okresy_VUSC.shp</code> - polygony okresů - <code>Sidla.shp</code> - bodová vrstva sídel - <code>Sidla_pocty.dbf</code> - tabulka s počty obyvatel</p>
 <p><strong>Postup:</strong></p>
-<div id="40f4838e" class="cell" data-execution_count="1">
+<div id="d41f9acd" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení</span></span>
@@ -1139,7 +1139,7 @@ Tip
 <p><strong>Zadání:</strong> Pro všechny kraje v ČR vytvořte nové shapefily s kategorizací obcí podle velikosti.</p>
 <p><strong>Kategorie:</strong> - Malé obce: &lt; 500 obyvatel - Střední obce: 500-5000 obyvatel - Velké obce: &gt; 5000 obyvatel</p>
 <p><strong>Postup:</strong></p>
-<div id="824f35f8" class="cell" data-execution_count="2">
+<div id="16d015cf" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>

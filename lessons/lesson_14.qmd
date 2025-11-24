@@ -477,7 +477,7 @@ Jak je vidět, v tabulce vrstvy jsou názvy sloupců doplněny názvem tabulky, 
 
 ## Úloha 13: Použití připojených dat
 
-**Zadání:** Ve vrstvě s připojenou tabulkou vypočítejte pole "ODTOK" jako součin plochy a součinitele odtoku.
+**Zadání:** Ve vrstvě s připojenou tabulkou vypočítejte pole "ODTOK" jako součin srážek, plochy a součinitele odtoku. Dloudobý roční srážkový normál je 860 mm.
 
 ```python
 # Pokračujeme s vrstvou z předchozí úlohy
@@ -491,7 +491,7 @@ arcpy.management.AddField(lyr, "ODTOK", "DOUBLE")
 arcpy.management.CalculateField(
     lyr,
     "ODTOK",
-    '!UrbanAtlas_LK.shape.area! * !coef.ko_vsak!',
+    '!UrbanAtlas_LK.shape.area! * !coef.ko_vsak! * 860',
     "PYTHON3"
 )
 
