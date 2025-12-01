@@ -35,6 +35,174 @@
     "text": "Týdny 9-12 | 5 lekcí + Test 3\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n17\nKurzory I - Čtení dat\narcpy.da.SearchCursor, where clause, SQL dotazy\n\n\n18\nKurzory II - Editace dat\nUpdateCursor, InsertCursor, DeleteCursor\n\n\n19\nGeometrie I - Základy\narcpy.Geometry, Point, Polyline, Polygon, SHAPE@\n\n\n20\nGeometrie II - Analýzy\nGeometrické vlastnosti, prostorové vztahy, operace\n\n\n21\nKomplexní projekt\nKombinace všech technik, best practices, optimalizace\n\n\n\n🧪 TEST 3\nPo lekci 21 (30 min, finální)"
   },
   {
+    "objectID": "lessons/lesson_15.html",
+    "href": "lessons/lesson_15.html",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "",
+    "text": "V této lekci si ukážeme, jak lze procházet atributové tabulky (či jiné tabulky ve formátu .dbf) řádek po řádku a číst hodnoty z jednotlivých polí (sloupců). Po absolvování lekce budete umět:\n\nOtevřít kurzorem dbf tabulku a číst hodnoty v jednotlivých sloupcích\nČíst geometrické vlastnosti jednotlivých prvků z pole SHAPE\nProvádět vlastní sumarizace tabulek\nZpracovávat vektorová data “prvek po prvku”\nProcházet v cyklu unikátní hodnoty z nějakého pole\nProcházet unikátní hodnoty diskrétního rastru\n\n\n\n\n\n\n\nTipProzkoumejte nejprve data!\n\n\n\nJednotlivé procedury si budeme zkoušet na datech krajů (polygony) a velkých měst (body) ČR. Než začnete, nahrajte si data do ArcGIS Pro a prohlédněte si atributové tabulky!"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#typy-kurzorů",
+    "href": "lessons/lesson_15.html#typy-kurzorů",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "2.1 Typy kurzorů",
+    "text": "2.1 Typy kurzorů\nKurzory v arcpy jsou trojího druhu:\n\nSearch Cursor - určený pro pouhé čtení hodnot z tabulky,\nUpdate Cursor - určený pro čtení a zápis do existujících řádků tabulky,\nInsert Cursor - určený pro vkládání nových řádků do tabulky a mazání existujících řádků.\n\nV této lekci si představíme pouze SearchCursor. Zbylé kurzory probereme v následující lekci."
+  },
+  {
+    "objectID": "lessons/lesson_15.html#otevření-kurzoru-pomocí-klauzule-with",
+    "href": "lessons/lesson_15.html#otevření-kurzoru-pomocí-klauzule-with",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "2.2 Otevření kurzoru pomocí klauzule with",
+    "text": "2.2 Otevření kurzoru pomocí klauzule with\nNyní si ukážeme, jak se lze vyhnout nutnosti kurzor po použití mazat, a to díky klauzuli with, kterou znáte (v podobném kontextu) z lekce o textových souborech:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\nwith arcpy.da.SearchCursor(\"Sidla_body.shp\", [\"NAZEV\"], '\"KATEGORIE\" &lt; 3') as tab:\n    for r in tab:\n        print(r[0])\n        \n# Zde následují další příkazy, přičemž kurzor již je zavřený"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#speciální-pole-pro-geometrii",
+    "href": "lessons/lesson_15.html#speciální-pole-pro-geometrii",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "2.3 Speciální pole pro geometrii",
+    "text": "2.3 Speciální pole pro geometrii\nKromě běžných atributových polí (jako “NAZEV”, “POCET_OB” apod.) můžeme v kurzoru otevřít také speciální pole, která nám poskytují přístup ke geometrickým vlastnostem prvků. Tato pole mají speciální názvy začínající SHAPE@:\n\nSHAPE@AREA - plocha polygonu (v jednotkách souř. systému, typicky m²)\nSHAPE@LENGTH - délka linie nebo obvod polygonu (v jednotkách souř. systému, typicky m)\nSHAPE@XY - souřadnice bodu jako n-tice (x, y)\nSHAPE@TRUECENTROID - souřadnice těžiště polygonu jako n-tice (x, y)\nSHAPE@CENTROID - souřadnice těžiště polygonu, pokud těžiště leží uvnitř polygonu, jinak souřadnice popisku (“label point”), jako n-tice (x, y)\n\nUkažme si základní práci s těmito poli. Nejprve získáme plochy krajů:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Rozlohy krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@AREA\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        plocha_m2 = r[1]\n        plocha_km2 = plocha_m2 / 1000000  # převod na km²\n        \n        print(f\"{nazev}: {round(plocha_km2, 2)} km²\")\nMůžeme kombinovat geometrická pole s běžnými atributy, například pro výpočet hustoty zalidnění:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Hustota zalidnění krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\", \"SHAPE@AREA\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        obyvatel = r[1]\n        plocha_km2 = r[2] / 1000000\n        \n        hustota = obyvatel / plocha_km2\n        \n        print(f\"{nazev}: {round(hustota, 2)} obyvatel/km²\")\nPro body můžeme získat jejich souřadnice pomocí SHAPE@XY:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Souřadnice velkých měst:\")\nwith arcpy.da.SearchCursor(\"Sidla_body.shp\", [\"NAZEV\", \"SHAPE@XY\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]  # rozbalení n-tice souřadnic\n        \n        print(f\"{nazev}: X = {x}, Y = {y}\")\nVšimněte si, že SHAPE@XY vrací n-tici (x, y), kterou můžeme ihned rozbalit do dvou proměnných.\nPodobně můžeme získat souřadnice těžišť polygonů:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Těžiště krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@TRUECENTROID\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]\n        \n        print(f\"{nazev}: X = {x}, Y = {y}\")\nPole SHAPE@LENGTH můžeme použít jak pro linie (kde vrací jejich délku), tak pro polygony (kde vrací obvod):\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Obvody krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@LENGTH\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        obvod_m = r[1]\n        obvod_km = obvod_m / 1000\n        \n        print(f\"{nazev}: {round(obvod_km, 1)} km\")\nMůžeme také kombinovat více geometrických polí najednou, například pro výpočet indexu kompaktnosti tvaru:\nimport arcpy\nimport math\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Index kompaktnosti krajů (nižší = kompaktnější):\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@AREA\", \"SHAPE@LENGTH\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        plocha = r[1] / 1000000  # km²\n        obvod = r[2] / 1000  # km\n        \n        # Index kompaktnosti (kruh má nejnižší hodnotu 1)\n        kompaktnost = (obvod ** 2) / (4 * math.pi * plocha)\n        \n        print(f\"{nazev}: {round(kompaktnost, 2)}\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#index-kompaktnosti-tvaru",
+    "href": "lessons/lesson_15.html#index-kompaktnosti-tvaru",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "2.4 Index kompaktnosti tvaru",
+    "text": "2.4 Index kompaktnosti tvaru\nIndex kompaktnosti porovnává tvar polygonu s kruhem (který má nejkompaktnější tvar ze všech útvarů). Vypočítá se jako:\n\\[\\text{Kompaktnost} = \\frac{O^2}{4\\pi \\cdot P}\\]\nkde O je obvod a P je plocha. Vzorec vychází z toho, že pro kruh platí \\(O = 2\\pi r\\) a \\(P = \\pi r^2\\). Po dosazení do vzorce dostaneme pro kruh hodnotu přesně 1. Čím více se tvar liší od kruhu (je protáhlejší, členitější), tím je hodnota vyšší. Například:\n\nKruh: kompaktnost = 1,00\nČtverec: kompaktnost ≈ 1,27\nProtáhlý obdélník: kompaktnost &gt; 2,00\n\nKonstantu π (pí) získáme v Pythonu importem modulu math a použitím math.pi."
+  },
+  {
+    "objectID": "lessons/lesson_15.html#úlohy",
+    "href": "lessons/lesson_15.html#úlohy",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "2.5 Úlohy",
+    "text": "2.5 Úlohy\nÚloha 15.1. Otevřete tabulku krajů a vypište jejich názvy a počty obyvatel.\nÚloha 15.2. Pomocí kurzoru najděte kraj s největší početní převahou žen nad muži.\nÚloha 15.3. Pomocí geometrických polí vypočítejte a vypište hustotu zalidnění (obyvatel/km²) pro každý kraj. Najděte kraj s nejvyšší a nejnižší hustotou.\nÚloha 15.4. Pro každé velké město vypište jeho název a souřadnice. Najděte město s nejvyšší souřadnicí Y (nejsevernější).\nÚloha 15.5. Vypočítejte průměrnou plochu krajů v km². (Nápověda: projděte kurzorem všechny kraje, sečtěte plochy a vydělte počtem.)\nÚloha 15.6. Pro jednotlivé plošky krajinného pokryvu vypočítejte index kompaktnosti tvaru. Jakého krajinného typu je ploška s nejkompaktnějším resp. nejméně kompaktním tvarem?"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#úlohy-1",
+    "href": "lessons/lesson_15.html#úlohy-1",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "3.1 Úlohy",
+    "text": "3.1 Úlohy\nÚloha 15.7. Pomocí kurzoru vypočítejte celkový počet mužů a žen ve všech krajích ČR.\nÚloha 15.8. Otevřete vrstvu okresů (Okresy.shp) a vypočítejte průměrnou hustotu zalidnění pro všechny okresy.\nÚloha 15.9. Pro vrstvu Corine Land Cover (CLC_CR.shp) spočítejte celkovou plochu všech lesních ploch (kódy 311, 312, 313). Výsledek vypište v hektarech.\nÚloha 15.10. Najděte tři okresy s nejvyšší hustotou zalidnění. Pro každý vypište název, počet obyvatel a hustotu. (Nápověda: použijte seznam pro ukládání dat a funkci sorted() pro seřazení.)\nÚloha 15.11. Vypočítejte, kolik procent celkové rozlohy ČR zaujímají kraje s počtem obyvatel nad 1 milion.\nÚloha 15.12. Pro vrstvu Corine Land Cover vytvořte CSV soubor s následujícími sloupci: CODE3 (kód kategorie), NAME3 (název kategorie), AREA_HA (plocha v hektarech), PERCENT (procento z celkové plochy). Soubor seřaďte podle plochy sestupně. (Nápověda: nejprve projděte kurzorem všechny prvky a uložte data do seznamu slovníků, pak vypočítejte procenta a zapište do CSV.)\nÚloha 15.13. Vytvořte CSV soubor se statistikami hustoty zalidnění pro všechny kraje ČR. Soubor by měl obsahovat sloupce: NAZEV, POCET_OB, ROZLOHA_KM2, HUSTOTA, KATEGORIE (kde kategorie je “velmi vysoká” pro hustotu &gt;200, “vysoká” pro 100-200, “střední” pro 50-100, “nízká” pro &lt;50).\nÚloha 15.14. Pro každý okres spočítejte index kompaktnosti tvaru (podle vzorce z lekce) a najděte 5 nejkompaktnějších a 5 nejméně kompaktních okresů. Výsledky uložte do dvou samostatných CSV souborů s názvy okresy_kompaktni.csv a okresy_nekompaktni.csv."
+  },
+  {
+    "objectID": "lessons/lesson_15.html#získání-unikátních-hodnot-z-pole",
+    "href": "lessons/lesson_15.html#získání-unikátních-hodnot-z-pole",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "4.1 Získání unikátních hodnot z pole",
+    "text": "4.1 Získání unikátních hodnot z pole\nK získání seznamu unikátních hodnot z pole použijeme SearchCursor v kombinaci s pythonovskou datovou strukturou set (množina), která automaticky odstraňuje duplicity:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\n# Získání unikátních kategorií měst\nkategorie = set()\nwith arcpy.da.SearchCursor(\"Sidla_body.shp\", [\"KATEGORIE\"]) as tab:\n    for r in tab:\n        kategorie.add(r[0])\n\nprint(f\"Kategorie měst: {sorted(kategorie)}\")\nVýstup:\nKategorie měst: [1, 2, 3]\nElegantnějším způsobem (pro pokročilé) je použití list comprehension s převodem na množinu:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\n# Získání unikátních kategorií pomocí list comprehension\nkategorie = set([r[0] for r in arcpy.da.SearchCursor(\"Sidla_body.shp\", [\"KATEGORIE\"])])\nprint(f\"Kategorie měst: {sorted(kategorie)}\")\n\n\n\n\n\n\nTipMnožina (set) vs. seznam (list)\n\n\n\nDatový typ set je vhodný pro unikátní hodnoty, protože:\n\nAutomaticky odstraňuje duplicity\nRychle testuje přítomnost prvku (hodnota in mnozina)\nNepodporuje indexování, ale můžeme ho převést na seznam (list(mnozina)), nebo rovnou seřazený seznam (sorted(mnozina))"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#kombinace-s-výběrem-prvků",
+    "href": "lessons/lesson_15.html#kombinace-s-výběrem-prvků",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "4.2 Kombinace s výběrem prvků",
+    "text": "4.2 Kombinace s výběrem prvků\nSkutečná síla procházení unikátních hodnot spočívá v kombinaci s výběrem prvků pomocí SelectLayerByAttribute. To nám umožňuje provádět GIS analýzy samostatně pro každou kategorii.\nUkažme si základní příklad - pro každou kategorii měst vytvoříme buffer a vypočítáme jeho plochu:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\narcpy.env.overwriteOutput = True\n\n# Vytvoření vrstvy\nlyr = arcpy.management.MakeFeatureLayer(\"Sidla_body.shp\", \"sidla_layer\")\n\n# Získání unikátních kategorií\nkategorie = set()\nwith arcpy.da.SearchCursor(\"Sidla_body.shp\", [\"KATEGORIE\"]) as tab:\n    for r in tab:\n        kategorie.add(r[0])\n\nprint(\"Analýza bufferů podle kategorií měst:\")\nfor kat in sorted(kategorie):\n    # Výběr měst dané kategorie\n    where = f'\"KATEGORIE\" = {kat}'\n    arcpy.management.SelectLayerByAttribute(lyr, \"NEW_SELECTION\", where)\n    \n    # Vytvoření bufferu pro vybraná města\n    buffer_output = f\"buffer_kategorie_{kat}.shp\"\n    arcpy.analysis.Buffer(lyr, buffer_output, \"10000\")  # 10 km\n    \n    # Vypočítání celkové plochy bufferů\n    celkova_plocha = 0\n    with arcpy.da.SearchCursor(buffer_output, [\"SHAPE@AREA\"]) as tab:\n        for r in tab:\n            celkova_plocha += r[0] / 1000000  # převod na km²\n    \n    print(f\"Kategorie {kat}: celková plocha bufferů = {round(celkova_plocha, 2)} km²\")\n\n# Zrušení výběru\narcpy.SelectLayerByAttribute_management(\"sidla_layer\", \"CLEAR_SELECTION\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#prostorové-analýzy-pro-každou-kategorii",
+    "href": "lessons/lesson_15.html#prostorové-analýzy-pro-každou-kategorii",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "4.3 Prostorové analýzy pro každou kategorii",
+    "text": "4.3 Prostorové analýzy pro každou kategorii\nMocným nástrojem je provádění prostorových analýz pro jednotlivé kategorie. Například můžeme analyzovat, kolik lesních ploch leží v jednotlivých krajích:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\narcpy.env.overwriteOutput = True\n\n# Vytvoření vrstev\narcpy.MakeFeatureLayer_management(\"Kraje.shp\", \"kraje_layer\")\narcpy.MakeFeatureLayer_management(\"CLC_CR.shp\", \"clc_layer\")\n\n# Získání seznamu krajů\nkraje = set()\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"]) as tab:\n    for r in tab:\n        kraje.add(r[0])\n\nprint(\"Plocha lesů v jednotlivých krajích:\")\nfor kraj in sorted(kraje):\n    # Výběr kraje\n    where_kraj = f'\"NAZEV\" = \\'{kraj}\\''\n    arcpy.management.SelectLayerByAttribute(\"kraje_layer\", \"NEW_SELECTION\", where_kraj)\n    \n    # Výběr lesních ploch (kódy 311, 312, 313)\n    where_les = '\"CODE3\" IN (311, 312, 313)'\n    arcpy.management.SelectLayerByAttribute(\"clc_layer\", \"NEW_SELECTION\", where_les)\n    \n    # Průnik - lesy v daném kraji\n    prunik = f\"lesy_{kraj.replace(' ', '_')}.shp\"\n    arcpy.analysis.Clip(\"clc_layer\", \"kraje_layer\", prunik)\n    \n    # Výpočet celkové plochy lesů\n    plocha_lesy = 0\n    with arcpy.da.SearchCursor(prunik, [\"SHAPE@AREA\"]) as tab:\n        for r in tab:\n            plocha_lesy += r[0] / 10000  # převod na ha\n    \n    print(f\"{kraj}: {round(plocha_lesy, 1)} ha lesů\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#sumarizace-a-export-podle-kategorií",
+    "href": "lessons/lesson_15.html#sumarizace-a-export-podle-kategorií",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "4.4 Sumarizace a export podle kategorií",
+    "text": "4.4 Sumarizace a export podle kategorií\nČasto potřebujeme vytvořit samostatné výstupy nebo statistiky pro každou kategorii:\nimport arcpy\nimport csv\narcpy.env.workspace = r\"C:\\my_path\\...\"\narcpy.env.overwriteOutput = True\n\n# Získání unikátních krajů\nkraje = set()\nwith arcpy.da.SearchCursor(\"Okresy.shp\", [\"KRAJ\"]) as tab:\n    for r in tab:\n        kraje.add(r[0])\n\n# Příprava CSV souboru\nwith open(\"statistiky_kraje.csv\", \"w\", encoding=\"utf-8\") as f:\n    f.write(\"KRAJ;POCET_OKRESU;CELKOVA_PLOCHA_KM2;PRUMERNA_HUSTOTA\\n\"])\n    \n    for kraj in sorted(kraje):\n        \n        # Sumarizace pomocí kurzoru\n        pocet_okresu = 0\n        celkova_plocha = 0\n        celkem_obyvatel = 0\n        \n        # SQL pro výběr okresů v daném kraji\n        where = f'\"KRAJ\" = \\'{kraj}\\''\n\n        # Otevření tabulky kurzorem a současný výběr okresů v daném kraji\n        with arcpy.da.SearchCursor(\"okresy_layer\", [\"POCET_OB\", \"SHAPE@AREA\"], where) as tab:\n            for r in tab:\n                pocet_okresu += 1\n                celkem_obyvatel += r[0]\n                celkova_plocha += r[1] / 1000000  # km²\n        \n        if celkova_plocha &gt; 0:\n            prumerna_hustota = celkem_obyvatel / celkova_plocha  \n        else: \n            prumerna_hustota = 0\n        \n        # Zápis do CSV\n        f.write(f\"{kraj};{pocet_okresu};{round(celkova_plocha, 2)};{round(prumerna_hustota, 1)}\\n\")\n        \n        print(f\"{kraj}: {pocet_okresu} okresů, {celkova_plocha:.0f} km², hustota {prumerna_hustota:.1f} ob/km²\")\n\nprint(\"\\nStatistiky exportovány do: statistiky_kraje.csv\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#podmíněné-zpracování-kategorií",
+    "href": "lessons/lesson_15.html#podmíněné-zpracování-kategorií",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "4.5 Podmíněné zpracování kategorií",
+    "text": "4.5 Podmíněné zpracování kategorií\nMůžeme také zpracovávat pouze vybrané kategorie podle nějakého kritéria:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\narcpy.env.overwriteOutput = True\n\n# Vytvoření vrstvy\narcpy.MakeFeatureLayer_management(\"Kraje.shp\", \"kraje_layer\")\n\n# Získání seznamu krajů\nkraje = set([r[0] for r in arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"])])\n\nprint(\"Buffery pro velké kraje (&gt;1 mil. obyvatel):\")\nfor kraj in sorted(kraje):\n    # Zjištění počtu obyvatel\n    where = f'\"NAZEV\" = \\'{kraj}\\''\n    with arcpy.da.SearchCursor(\"Kraje.shp\", [\"POCET_OB\"], where) as tab:\n        pocet_ob = next(tab)[0]\n    \n    # Zpracování pouze velkých krajů\n    if pocet_ob &gt; 1000000:\n        # Výběr kraje\n        arcpy.SelectLayerByAttribute_management(\"kraje_layer\", \"NEW_SELECTION\", where)\n        \n        # Vytvoření bufferu\n        buffer_output = f\"buffer_{kraj.replace(' ', '_')}.shp\"\n        arcpy.Buffer_analysis(\"kraje_layer\", buffer_output, \"5000\")  # 5 km\n        \n        print(f\"  {kraj} ({pocet_ob:,} ob.) - buffer vytvořen\")\n\n\n\n\n\n\nTipVymazání vrstvy po použití\n\n\n\nVrstvy vytvořené pomocí MakeFeatureLayer existují v paměti pouze během běhu skriptu. Pokud je chcete explicitně smazat, použijte:\narcpy.Delete_management(\"nazev_vrstvy\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#úlohy-2",
+    "href": "lessons/lesson_15.html#úlohy-2",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "4.6 Úlohy",
+    "text": "4.6 Úlohy\nÚloha 15.15. Pro každou kategorii Corine Land Cover (pole CODE3) vytvořte samostatný shapefile a vypište, kolik ploch každá kategorie obsahuje.\nÚloha 15.16. Pro každý kraj vypočítejte, kolik procent jeho plochy zaujímají zastavěné plochy (CLC kódy začínající na 1). Výsledky exportujte do CSV souboru.\nÚloha 15.17. Pro každou kategorii měst (1, 2, 3) vytvořte buffer 20 km a spočítejte, kolik obyvatel žije v krajích, které se s tímto bufferem překrývají. (Nápověda: použijte Intersect mezi bufferem a kraji, pak sečtěte obyvatele.)\nÚloha 15.18. Pro každý okres najděte nejbližší velké město (kategorie 1 nebo 2). Výsledky uložte do CSV s sloupci: OKRES, NEJBLIZSI_MESTO, VZDALENOST_KM. (Nápověda: použijte nástroj Near nebo vlastní výpočet vzdáleností pomocí těžišť.)"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#atributová-tabulka-rastru",
+    "href": "lessons/lesson_15.html#atributová-tabulka-rastru",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "5.1 Atributová tabulka rastru",
+    "text": "5.1 Atributová tabulka rastru\nAtributová tabulka diskrétního rastru obsahuje standardně tato pole:\n\nVALUE - hodnota pixelu (kategorie)\nCOUNT - počet pixelů s danou hodnotou\npřípadně další pole přidaná uživatelem\n\nPokud rastr náhodou nemá atributovou tabulku, musíte ji nejprve vytvořit nástrojem BuildRasterAttributeTable."
+  },
+  {
+    "objectID": "lessons/lesson_15.html#extractbyattributes-versus-lokální-algebra",
+    "href": "lessons/lesson_15.html#extractbyattributes-versus-lokální-algebra",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "5.2 ExtractByAttributes versus lokální algebra",
+    "text": "5.2 ExtractByAttributes versus lokální algebra\nMůže vzniknout otázka, proč jsme v této ukázce použili nástroj ExtractByAttributes namísto lokální mapové algebry na způsob přechozích ukázek. Důvod je ten, že zatímco z lokální algebry (porovnáním pomocí ==) dostaneme rastr s hodnotami 0/1, ExtractByAttributes dá buňkám mimo vybranou třídu hodnotu NoData. Při následném konverzi rastru na polygony se tudíž převedou pouze buňky reprezentující danou třídu."
+  },
+  {
+    "objectID": "lessons/lesson_15.html#úlohy-3",
+    "href": "lessons/lesson_15.html#úlohy-3",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "5.3 Úlohy",
+    "text": "5.3 Úlohy\nÚloha 15.19. Pro diskrétní rastr landuse vypište všechny kategorie a jejich procentuální zastoupení vzhledem k celkové ploše.\nÚloha 15.20. Najděte kategorii, která má největší průměrnou výšku (použijte výškový rastr DEM a nástroj ZonalStatisticsAsTable nebo vlastní analýzu s kurzory).\nÚloha 15.21. Pro každou kategorii landuse vytvořte buffer 100 m a spočítejte, jaká část původní kategorie zůstává uvnitř tohoto bufferu. (Nápověda: nejprve převeďte rastr na polygony, vytvořte buffer a použijte Clip nebo prostorové operace.)"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#základy-práce-s-kurzory",
+    "href": "lessons/lesson_15.html#základy-práce-s-kurzory",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.1 Základy práce s kurzory",
+    "text": "6.1 Základy práce s kurzory\n\n6.1.1 Vytvoření Search kurzoru\n# Základní syntaxe\ntab = arcpy.da.SearchCursor(in_table, field_names, where_clause)\n\n# Příklad s konkrétními parametry\ntab = arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"])\n\n# S SQL dotazem\ntab = arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], '\"KATEGORIE\" &lt; 3')\n\n# Uzavření kurzoru\ndel(tab)\n\n\n6.1.2 Použití s klauzulí with\n# Doporučený způsob - automatické uzavření\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"]) as tab:\n    for r in tab:\n        print(r[0])\n\n\n6.1.3 Procházení kurzoru\n# For cyklus (doporučeno)\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n    for r in tab:\n        print(f\"{r[0]}: {r[1]} obyvatel\")\n\n# Metoda next() - posun na další řádek\ntab = arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"])\nprvni_radek = tab.next()\ndruhy_radek = tab.next()\ndel(tab)"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#speciální-pole-pro-geometrii-1",
+    "href": "lessons/lesson_15.html#speciální-pole-pro-geometrii-1",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.2 Speciální pole pro geometrii",
+    "text": "6.2 Speciální pole pro geometrii\n\n6.2.1 Základní geometrická pole\n# Souřadnice bodu\n[\"SHAPE@XY\"]  # vrací (x, y) tuple\n\n# Plocha polygonu\n[\"SHAPE@AREA\"]  # v jednotkách souř. systému (typicky m²)\n\n# Délka linie nebo obvod polygonu\n[\"SHAPE@LENGTH\"]  # v jednotkách souř. systému (typicky m)\n\n# Těžiště polygonu\n[\"SHAPE@TRUECENTROID\"]  # vrací (x, y) tuple\n\n\n6.2.2 Práce s geometrickými poli\n# Výpočet kompaktnosti z plochy a obvodu\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@AREA\", \"SHAPE@LENGTH\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        plocha = r[1] / 1000000  # převod na km²\n        obvod = r[2] / 1000  # převod na km\n        kompaktnost = (obvod ** 2) / plocha\n        print(f\"{nazev}: {kompaktnost:.2f}\")\n\n# Získání souřadnic bodů\nwith arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\", \"SHAPE@XY\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]  # rozbalení tuple\n        print(f\"{nazev}: X={x:.0f}, Y={y:.0f}\")\n\n# Těžiště polygonů\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@TRUECENTROID\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]\n        print(f\"Těžiště {nazev}: X={x:.0f}, Y={y:.0f}\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#sumarizace-dat",
+    "href": "lessons/lesson_15.html#sumarizace-dat",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.3 Sumarizace dat",
+    "text": "6.3 Sumarizace dat\n\n6.3.1 Součet hodnot\ncelkem = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"POCET_OB\"]) as tab:\n    for r in tab:\n        celkem += r[0]\nprint(f\"Celkem: {celkem}\")\n\n\n6.3.2 Průměr\nsuma = 0\npocet = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"POCET_OB\"]) as tab:\n    for r in tab:\n        suma += r[0]\n        pocet += 1\nprumer = suma / pocet\n\n\n6.3.3 Maximum/minimum\nmaximum = float('-inf')\nnazev_max = \"\"\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n    for r in tab:\n        if r[1] &gt; maximum:\n            maximum = r[1]\n            nazev_max = r[0]\n\nprint(f\"Největší: {nazev_max} ({maximum} ob.)\")\n\n\n6.3.4 Podmíněný součet\nsuma_velkych = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"POCET_OB\"]) as tab:\n    for r in tab:\n        if r[0] &gt; 1000000:\n            suma_velkych += r[0]"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#práce-s-unikátními-hodnotami",
+    "href": "lessons/lesson_15.html#práce-s-unikátními-hodnotami",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.4 Práce s unikátními hodnotami",
+    "text": "6.4 Práce s unikátními hodnotami\n\n6.4.1 Získání unikátních hodnot pole\n# Z vektorové vrstvy pomocí SearchCursor a set\nhodnoty = set([r[0] for r in arcpy.da.SearchCursor(\"Sidla.shp\", [\"KATEGORIE\"])])\n\n# Alternativně s explicitním cyklem\nhodnoty = set()\nwith arcpy.da.SearchCursor(\"Sidla.shp\", [\"KATEGORIE\"]) as tab:\n    for r in tab:\n        hodnoty.add(r[0])\n\n# Z rastru (atributová tabulka)\nhodnoty = set([r[0] for r in arcpy.da.SearchCursor(\"landuse.tif\", [\"VALUE\"])])\n\n\n6.4.2 Procházení unikátních hodnot\nkategorie = set([r[0] for r in arcpy.da.SearchCursor(\"Sidla.shp\", [\"KATEGORIE\"])])\n\nfor kat in sorted(kategorie):\n    where = f'\"KATEGORIE\" = {kat}'\n    with arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], where) as tab:\n        for r in tab:\n            print(f\"Kategorie {kat}: {r[0]}\")\n\n\n6.4.3 Sumarizace podle kategorií\nkategorie = set([r[0] for r in arcpy.da.SearchCursor(\"Sidla.shp\", [\"KATEGORIE\"])])\nstatistiky = {}\n\nfor kat in kategorie:\n    where = f'\"KATEGORIE\" = {kat}'\n    pocet = 0\n    \n    with arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], where) as tab:\n        for r in tab:\n            pocet += 1\n    \n    statistiky[kat] = pocet\n\nprint(statistiky)"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#práce-s-rastry",
+    "href": "lessons/lesson_15.html#práce-s-rastry",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.5 Práce s rastry",
+    "text": "6.5 Práce s rastry\n\n6.5.1 Čtení atributové tabulky rastru\nwith arcpy.da.SearchCursor(\"landuse.tif\", [\"VALUE\", \"COUNT\"]) as tab:\n    for r in tab:\n        hodnota = r[0]\n        pocet_pixelu = r[1]\n        print(f\"Hodnota {hodnota}: {pocet_pixelu} px\")\n\n\n6.5.2 Výpočet ploch kategorií\npopis = arcpy.Describe(\"landuse.tif\")\nvelikost_px = popis.meanCellWidth * popis.meanCellHeight\n\nwith arcpy.da.SearchCursor(\"landuse.tif\", [\"VALUE\", \"COUNT\"]) as tab:\n    for r in tab:\n        plocha_ha = (r[1] * velikost_px) / 10000\n        print(f\"Kategorie {r[0]}: {plocha_ha:.2f} ha\")\n\n\n6.5.3 Extrakce kategorií rastru\nhodnoty = set([r[0] for r in arcpy.da.SearchCursor(\"landuse.tif\", [\"VALUE\"])])\n\nfor hodnota in hodnoty:\n    vyraz = f'\"VALUE\" = {hodnota}'\n    rastr_kat = arcpy.sa.ExtractByAttributes(\"landuse.tif\", vyraz)\n    rastr_kat.save(f\"kategorie_{hodnota}.tif\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#sql-dotazy-where-clause",
+    "href": "lessons/lesson_15.html#sql-dotazy-where-clause",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.6 SQL dotazy (WHERE clause)",
+    "text": "6.6 SQL dotazy (WHERE clause)\n\n6.6.1 Základní operátory\n# Rovnost\n'\"KATEGORIE\" = 1'\n'\"NAZEV\" = \\'Praha\\''\n\n# Nerovnost\n'\"KATEGORIE\" &lt;&gt; 1'\n\n# Porovnání\n'\"POCET_OB\" &gt; 1000000'\n'\"POCET_OB\" &lt;= 500000'\n\n# Logické operátory\n'\"KATEGORIE\" = 1 OR \"KATEGORIE\" = 2'\n'\"POCET_OB\" &gt; 100000 AND \"POCET_OB\" &lt; 1000000'\n\n# IN operator\n'\"KATEGORIE\" IN (1, 2, 3)'\n\n# LIKE operator (pro řetězce)\n'\"NAZEV\" LIKE \\'Pra%\\''  # začína na \"Pra\"\n'\"NAZEV\" LIKE \\'%ice\\''  # končí na \"ice\"\n\n\n6.6.2 Použití v kurzoru\n# Jednoduchý dotaz\nwhere = '\"POCET_OB\" &gt; 1000000'\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"], where) as tab:\n    for r in tab:\n        print(r[0])\n\n# Složený dotaz\nwhere = '\"KATEGORIE\" IN (1, 2) AND \"POCET_OB\" &gt; 100000'\nwith arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], where) as tab:\n    for r in tab:\n        print(r[0])"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#časté-vzory-použití",
+    "href": "lessons/lesson_15.html#časté-vzory-použití",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.7 Časté vzory použití",
+    "text": "6.7 Časté vzory použití\n\n6.7.1 Export prvků podle kategorie\nkategorie = set([r[0] for r in arcpy.da.SearchCursor(\"Sidla.shp\", [\"KATEGORIE\"])])\n\nfor kat in kategorie:\n    where = f'\"KATEGORIE\" = {kat}'\n    vystup = f\"Sidla_kat_{kat}.shp\"\n    arcpy.Select_analysis(\"Sidla.shp\", vystup, where)\n\n\n6.7.2 Vytvoření slovníku z tabulky\nkraje_dict = {}\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n    for r in tab:\n        kraje_dict[r[0]] = r[1]\n\nprint(kraje_dict)\n# {'Praha': 1280508, 'Středočeský': 1338925, ...}\n\n\n6.7.3 Hledání maxima s atributy\nmax_ob = float('-inf')\nmax_kraj = {}\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\", \"SHAPE@AREA\"]) as tab:\n    for r in tab:\n        if r[1] &gt; max_ob:\n            max_ob = r[1]\n            max_kraj = {\n                'nazev': r[0],\n                'obyvatel': r[1],\n                'plocha': r[2] / 1000000  # km²\n            }\n\nprint(f\"Největší kraj: {max_kraj['nazev']}\")\nprint(f\"Obyvatel: {max_kraj['obyvatel']}\")\nprint(f\"Plocha: {max_kraj['plocha']:.0f} km²\")\n\n\n6.7.4 Procházení s indexem\ni = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"]) as tab:\n    for r in tab:\n        i += 1\n        print(f\"{i}. {r[0]}\")"
+  },
+  {
+    "objectID": "lessons/lesson_15.html#tipy-a-triky",
+    "href": "lessons/lesson_15.html#tipy-a-triky",
+    "title": "Lekce 15: Kurzory I - Čtení tabulek",
+    "section": "6.8 Tipy a triky",
+    "text": "6.8 Tipy a triky\n\n6.8.1 Rychlé získání počtu prvků\npocet = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"OID@\"]) as tab:\n    for r in tab:\n        pocet += 1\nprint(f\"Počet prvků: {pocet}\")\n\n# Alternativa pomocí GetCount\npocet = int(arcpy.management.GetCount(\"Kraje.shp\")[0])\n\n\n6.8.2 Práce s None hodnotami\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POZNAMKA\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        poznamka = r[1] if r[1] is not None else \"Bez poznámky\"\n        print(f\"{nazev}: {poznamka}\")\n\n\n6.8.3 Kombinace více WHERE podmínek\n# Pomocí proměnných\nmin_ob = 500000\nmax_ob = 1500000\nwhere = f'\"POCET_OB\" &gt;= {min_ob} AND \"POCET_OB\" &lt;= {max_ob}'\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"], where) as tab:\n    for r in tab:\n        print(r[0])\n\n\n6.8.4 Zpracování s chybovým hlášením\ntry:\n    with arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n        for r in tab:\n            print(f\"{r[0]}: {r[1]}\")\nexcept Exception as e:\n    print(f\"Chyba při zpracování: {e}\")"
+  },
+  {
     "objectID": "lessons/lesson_13_draft.html",
     "href": "lessons/lesson_13_draft.html",
     "title": "Lekce 13: Geoprocessingové nástroje II",
@@ -1110,7 +1278,7 @@
     "href": "index.html#struktura-kurzu",
     "title": "Programování pro GIS a DPZ",
     "section": "Struktura kurzu",
-    "text": "Struktura kurzu\nCelkový počet: 21 lekcí + 3 testy = 24 výukových jednotek (12 týdnů)\n\n\nBlok 1: Model Builder\nTýdny 1-2 | 2 lekce\n\n\n\n#\nLekce\nObsah\n\n\n\n\n1\nÚvod do automatizace GIS\nModel Builder základy, iterátory\n\n\n2\nModel Tool a vnořené modely\nVytváření nástrojů s parametry\n\n\n\n\n\n\nBlok 2: Základy Pythonu\nTýdny 3-5 | 7 lekcí + Test 1\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n3\nPrvní program v Pythonu\nProměnné, základní datové typy, print, input\n\n\n4\nCykly a podmínky\nfor, while, if-elif-else\n\n\n5\nTvorba jednoduchého algoritmu\nAlgoritmické myšlení, třídění\n\n\n6\nFunkce a moduly\nDefinice funkcí, import, vlastní moduly\n\n\n7\nTextové soubory I\nopen(), read(), write(), with statement\n\n\n8\nTextové soubory II\nCSV soubory, csv modul, zpracování dat\n\n\n\n🧪 TEST 1\nPo lekci 8 (30 min)\n\n\n9\nTřídy a objekty\nOOP základy, třídy, metody, atributy\n\n\n\n\n\n\nBlok 3: Základy ArcPy\nTýdny 6-8 | 7 lekcí + Test 2\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n10\nÚvod do ArcPy\nPython Window, Notebook, Script; import arcpy; prostředí\n\n\n11\nSpráva dat a workspace\nListFeatureClasses, Describe, Exists, try-except\n\n\n12\nGeoprocessingové nástroje I\nVektorové analýzy: Buffer, Clip, Intersect, Union\n\n\n13\nGeoprocessingové nástroje II\nRastrové analýzy: Spatial Analyst, Map Algebra\n\n\n14\nAtributové operace\nVrstvy, výběry, propojování tabulek, sumarizace\n\n\n15\nKombinace ArcPy + Python\nCSV → GIS, batch processing, error handling\n\n\n16\nPython Script Tool\nVytvoření .pyt, parametry, GetParameterAsText, zprávy\n\n\n\n🧪 TEST 2\nPo lekci 16 (30 min)\n\n\n\n\n\n\nBlok 4: Pokročilé ArcPy\nTýdny 9-12 | 5 lekcí + Test 3\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n17\nKurzory I - Čtení dat\narcpy.da.SearchCursor, where clause, SQL dotazy\n\n\n18\nKurzory II - Editace dat\nUpdateCursor, InsertCursor, DeleteCursor\n\n\n19\nGeometrie I - Základy\narcpy.Geometry, Point, Polyline, Polygon, SHAPE@\n\n\n20\nGeometrie II - Analýzy\nGeometrické vlastnosti, prostorové vztahy, operace\n\n\n21\nKomplexní projekt\nKombinace všech technik, best practices, optimalizace\n\n\n\n🧪 TEST 3\nPo lekci 21 (30 min, finální)"
+    "text": "Struktura kurzu\nCelkový počet: 21 lekcí + 3 testy = 24 výukových jednotek (12 týdnů)\n\n\nBlok 1: Model Builder\nTýdny 1-2 | 2 lekce\n\n\n\n#\nLekce\nObsah\n\n\n\n\n1\nÚvod do automatizace GIS\nModel Builder základy, iterátory\n\n\n2\nModel Tool a vnořené modely\nVytváření nástrojů s parametry\n\n\n\n\n\n\nBlok 2: Základy Pythonu\nTýdny 3-5 | 7 lekcí + Test 1\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n3\nPrvní program v Pythonu\nProměnné, základní datové typy, print, input\n\n\n4\nCykly a podmínky\nfor, while, if-elif-else\n\n\n5\nTvorba jednoduchého algoritmu\nAlgoritmické myšlení, třídění\n\n\n6\nFunkce a moduly\nDefinice funkcí, import, vlastní moduly\n\n\n7\nTextové soubory I\nopen(), read(), write(), with statement\n\n\n8\nTextové soubory II\nCSV soubory, csv modul, zpracování dat\n\n\n\n🧪 TEST 1\nPo lekci 8 (30 min)\n\n\n9\nTřídy a objekty\nOOP základy, třídy, metody, atributy\n\n\n\n\n\n\nBlok 3: Základy ArcPy\nTýdny 6-8 | 7 lekcí + Test 2\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n10\nÚvod do ArcPy\nPython Window, Notebook, Script; import arcpy; prostředí\n\n\n11\nSpráva dat a workspace\nListFeatureClasses, Describe, Exists, try-except\n\n\n12\nGeoprocessingové nástroje I\nVektorové analýzy: Buffer, Clip, Intersect, Union\n\n\n13\nGeoprocessingové nástroje II\nRastrové analýzy: Spatial Analyst, Map Algebra\n\n\n14\nAtributové operace\nVrstvy, výběry, propojování tabulek, sumarizace\n\n\n15\nKombinace ArcPy + Python\nCSV → GIS, batch processing, error handling\n\n\n16\nPython Script Tool\nVytvoření .pyt, parametry, GetParameterAsText, zprávy\n\n\n\n🧪 TEST 2\nPo lekci 16 (30 min)\n\n\n\n\n\n\nBlok 4: Pokročilé ArcPy\nTýdny 9-12 | 5 lekcí + Test 3\n\n\n\n\n\n\n\n\n#\nLekce\nObsah\n\n\n\n\n17\nKurzory I - Čtení tabulek\narcpy.da.SearchCursor, where clause, vlastní sumarizace\n\n\n18\nKurzory II - Editace tabulek\nUpdateCursor, InsertCursor, DeleteCursor\n\n\n19\nGeometrie I - Základy\narcpy.Geometry, Point, Polyline, Polygon, SHAPE@\n\n\n20\nGeometrie II - Analýzy\nGeometrické vlastnosti, prostorové vztahy, operace\n\n\n21\nKomplexní projekt\nKombinace všech technik, best practices, optimalizace\n\n\n\n🧪 TEST 3\nPo lekci 21 (30 min, finální)"
   },
   {
     "objectID": "index.html#harmonogram-testů",
@@ -2637,5 +2805,138 @@
     "title": "Lekce 14: Atributové operace",
     "section": "11.6 SQL syntaxe",
     "text": "11.6 SQL syntaxe\n# Porovnání\n\"POLE = 100\"\n\"POLE &lt;&gt; 100\"\n\"POLE &gt; 100\"\n\"POLE &lt;= 100\"\n\n# Rozsah\n\"POLE BETWEEN 10 AND 100\"\n\n# Text\n\"TEXT = 'Praha'\"\n\"TEXT LIKE '%vzor%'\"  # % = libovolné znaky\n\n# Logika\n\"POLE1 &gt; 100 AND POLE2 &lt; 200\"\n\"TEXT = 'A' OR TEXT = 'B'\"\n\"NOT (POLE IS NULL)\"\n\n# Seznam\n\"POLE IN (1, 2, 3)\""
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html",
+    "href": "lessons/lesson_15_draft.html",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "",
+    "text": "V této lekci si ukážeme, jak lze procházet atributové tabulky (či jiné tabulky ve formátu .dbf) řádek po řádku a číst hodnoty z jednotlivých polí (sloupců). Po absolvování lekce budete umět:\n\nOtevřít kurzorem dbf tabulku a číst hodnoty v jednotlivých sloupcích\nČíst geometrické vlastnosti jednotlivých prvků z pole SHAPE\nProvádět vlastní sumarizace tabulek\nZpracovávat vektorová data “prvek po prvku”\nProcházet v cyklu unikátní hodnoty z nějakého pole\nProcházet unikátní hodnoty diskrétního rastru\n\n\n\n\n\n\n\nTipProzkoumejte nejprve data!\n\n\n\nJednotlivé procedury si budeme zkoušet na datech krajů (polygony) a velkých měst (body) ČR. Než začnete, nahrajte si data do ArcGIS Pro a prohlédněte si atributové tabulky!"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#typy-kurzorů",
+    "href": "lessons/lesson_15_draft.html#typy-kurzorů",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "2.1 Typy kurzorů",
+    "text": "2.1 Typy kurzorů\nKurzory v arcpy jsou trojího druhu:\n\nSearch Cursor - určený pro pouhé čtení hodnot z tabulky,\nUpdate Cursor - určený pro čtení a zápis do existujících řádků tabulky,\nInsert Cursor - určený pro vkládání nových řádků do tabulky a mazání existujících řádků.\n\nV této lekci si představíme pouze SearchCursor. Zbylé kurzory probereme v následující lekci."
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#otevření-kurzoru-pomocí-klauzule-with",
+    "href": "lessons/lesson_15_draft.html#otevření-kurzoru-pomocí-klauzule-with",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "2.2 Otevření kurzoru pomocí klauzule with",
+    "text": "2.2 Otevření kurzoru pomocí klauzule with\nNyní si ukážeme, jak se lze vyhnout nutnosti kurzor po použití mazat, a to díky klauzuli with, kterou znáte (v podobném kontextu) z lekce o textových souborech:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\nwith arcpy.da.SearchCursor(\"Sidla_body.shp\", [\"NAZEV\"], '\"KATEGORIE\" &lt; 3') as tab:\n    for r in tab:\n        print(r[0])\n        \n# Zde následují další příkazy, přičemž kurzor již je zavřený"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#speciální-pole-pro-geometrii",
+    "href": "lessons/lesson_15_draft.html#speciální-pole-pro-geometrii",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "2.3 Speciální pole pro geometrii",
+    "text": "2.3 Speciální pole pro geometrii\nKromě běžných atributových polí (jako “NAZEV”, “POCET_OB” apod.) můžeme v kurzoru otevřít také speciální pole, která nám poskytují přístup ke geometrickým vlastnostem prvků. Tato pole mají speciální názvy začínající SHAPE@:\n\nSHAPE@AREA - plocha polygonu (v jednotkách souř. systému, typicky m²)\nSHAPE@LENGTH - délka linie nebo obvod polygonu (v jednotkách souř. systému, typicky m)\nSHAPE@XY - souřadnice bodu jako n-tice (x, y)\nSHAPE@TRUECENTROID - souřadnice těžiště polygonu jako n-tice (x, y)\nSHAPE@CENTROID - souřadnice těžiště polygonu, pokud těžiště leží uvnitř polygonu, jinak souřadnice popisku (“label point”), jako n-tice (x, y)\n\nUkažme si základní práci s těmito poli. Nejprve získáme plochy krajů:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Rozlohy krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@AREA\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        plocha_m2 = r[1]\n        plocha_km2 = plocha_m2 / 1000000  # převod na km²\n        \n        print(f\"{nazev}: {round(plocha_km2, 2)} km²\")\nMůžeme kombinovat geometrická pole s běžnými atributy, například pro výpočet hustoty zalidnění:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Hustota zalidnění krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\", \"SHAPE@AREA\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        obyvatel = r[1]\n        plocha_km2 = r[2] / 1000000\n        \n        hustota = obyvatel / plocha_km2\n        \n        print(f\"{nazev}: {round(hustota, 2)} obyvatel/km²\")\nPro body můžeme získat jejich souřadnice pomocí SHAPE@XY:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Souřadnice velkých měst:\")\nwith arcpy.da.SearchCursor(\"Sidla_body.shp\", [\"NAZEV\", \"SHAPE@XY\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]  # rozbalení n-tice souřadnic\n        \n        print(f\"{nazev}: X = {x}, Y = {y}\")\nVšimněte si, že SHAPE@XY vrací n-tici (x, y), kterou můžeme ihned rozbalit do dvou proměnných.\nPodobně můžeme získat souřadnice těžišť polygonů:\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Těžiště krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@TRUECENTROID\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]\n        \n        print(f\"{nazev}: X = {x}, Y = {y}\")\nPole SHAPE@LENGTH můžeme použít jak pro linie (kde vrací jejich délku), tak pro polygony (kde vrací obvod):\nimport arcpy\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Obvody krajů:\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@LENGTH\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        obvod_m = r[1]\n        obvod_km = obvod_m / 1000\n        \n        print(f\"{nazev}: {round(obvod_km, 1)} km\")\nMůžeme také kombinovat více geometrických polí najednou, například pro výpočet indexu kompaktnosti tvaru:\nimport arcpy\nimport math\narcpy.env.workspace = r\"C:\\my_path\\...\"\n\nprint(\"Index kompaktnosti krajů (nižší = kompaktnější):\")\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@AREA\", \"SHAPE@LENGTH\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        plocha = r[1] / 1000000  # km²\n        obvod = r[2] / 1000  # km\n        \n        # Index kompaktnosti (kruh má nejnižší hodnotu 1)\n        kompaktnost = (obvod ** 2) / (4 * math.pi * plocha)\n        \n        print(f\"{nazev}: {round(kompaktnost, 2)}\")"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#index-kompaktnosti-tvaru",
+    "href": "lessons/lesson_15_draft.html#index-kompaktnosti-tvaru",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "2.4 Index kompaktnosti tvaru",
+    "text": "2.4 Index kompaktnosti tvaru\nIndex kompaktnosti porovnává tvar polygonu s kruhem (který má nejkompaktnější tvar ze všech útvarů). Vypočítá se jako:\n\\[\\text{Kompaktnost} = \\frac{O^2}{4\\pi \\cdot P}\\]\nkde O je obvod a P je plocha. Vzorec vychází z toho, že pro kruh platí \\(O = 2\\pi r\\) a \\(P = \\pi r^2\\). Po dosazení do vzorce dostaneme pro kruh hodnotu přesně 1. Čím více se tvar liší od kruhu (je protáhlejší, členitější), tím je hodnota vyšší. Například:\n\nKruh: kompaktnost = 1,00\nČtverec: kompaktnost ≈ 1,27\nProtáhlý obdélník: kompaktnost &gt; 2,00\n\nKonstantu π (pí) získáme v Pythonu importem modulu math a použitím math.pi."
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#úlohy",
+    "href": "lessons/lesson_15_draft.html#úlohy",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "2.5 Úlohy",
+    "text": "2.5 Úlohy\nÚloha 15.1. Otevřete tabulku krajů a vypište jejich názvy a počty obyvatel.\nÚloha 15.2. Pomocí kurzoru najděte kraj s největší početní převahou žen nad muži.\nÚloha 15.3. Pomocí geometrických polí vypočítejte a vypište hustotu zalidnění (obyvatel/km²) pro každý kraj. Najděte kraj s nejvyšší a nejnižší hustotou.\nÚloha 15.4. Pro každé velké město vypište jeho název a souřadnice. Najděte město s nejvyšší souřadnicí Y (nejsevernější).\nÚloha 15.5. Vypočítejte průměrnou plochu krajů v km². (Nápověda: projděte kurzorem všechny kraje, sečtěte plochy a vydělte počtem.)\nÚloha 15.6. Pro jednotlivé plošky krajinného pokryvu vypočítejte index kompaktnosti tvaru. Jakého krajinného typu je ploška s nejkompaktnějším resp. nejméně kompaktním tvarem?"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#úlohy-1",
+    "href": "lessons/lesson_15_draft.html#úlohy-1",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "3.1 Úlohy",
+    "text": "3.1 Úlohy\nÚloha 15.7. Pomocí kurzoru vypočítejte celkový počet mužů a žen ve všech krajích ČR.\nÚloha 15.8. Otevřete vrstvu okresů (Okresy.shp) a vypočítejte průměrnou hustotu zalidnění pro všechny okresy.\nÚloha 15.9. Pro vrstvu Corine Land Cover (CLC_CR.shp) spočítejte celkovou plochu všech lesních ploch (kódy 311, 312, 313). Výsledek vypište v hektarech.\nÚloha 15.10. Najděte tři okresy s nejvyšší hustotou zalidnění. Pro každý vypište název, počet obyvatel a hustotu. (Nápověda: použijte seznam pro ukládání dat a funkci sorted() pro seřazení.)\nÚloha 15.11. Vypočítejte, kolik procent celkové rozlohy ČR zaujímají kraje s počtem obyvatel nad 1 milion.\nÚloha 15.12. Pro vrstvu Corine Land Cover vytvořte CSV soubor s následujícími sloupci: CODE3 (kód kategorie), NAME3 (název kategorie), AREA_HA (plocha v hektarech), PERCENT (procento z celkové plochy). Soubor seřaďte podle plochy sestupně. (Nápověda: nejprve projděte kurzorem všechny prvky a uložte data do seznamu slovníků, pak vypočítejte procenta a zapište do CSV.)\nÚloha 15.13. Vytvořte CSV soubor se statistikami hustoty zalidnění pro všechny kraje ČR. Soubor by měl obsahovat sloupce: NAZEV, POCET_OB, ROZLOHA_KM2, HUSTOTA, KATEGORIE (kde kategorie je “velmi vysoká” pro hustotu &gt;200, “vysoká” pro 100-200, “střední” pro 50-100, “nízká” pro &lt;50).\nÚloha 15.14. Pro každý okres spočítejte index kompaktnosti tvaru (podle vzorce z lekce) a najděte 5 nejkompaktnějších a 5 nejméně kompaktních okresů. Výsledky uložte do dvou samostatných CSV souborů s názvy okresy_kompaktni.csv a okresy_nekompaktni.csv."
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#úlohy-2",
+    "href": "lessons/lesson_15_draft.html#úlohy-2",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "4.1 Úlohy",
+    "text": "4.1 Úlohy\nÚloha 15.10. Pro každý kraj vypočítejte poměr počtu žen k počtu mužů a najděte kraj s největší “feminizací” populace.\nÚloha 15.11. Vytvořte seznam krajů seřazených podle kompaktnosti (poměr obvodu a plochy). Vypište tři nejkompaktnější a tři nejméně kompaktní kraje.\nÚloha 15.12. Pro každé velké město vypočítejte vzdálenost od těžiště nejbližšího kraje. (Nápověda: použijte dvojitý cyklus - vnější přes města, vnitřní přes kraje.)"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#úlohy-3",
+    "href": "lessons/lesson_15_draft.html#úlohy-3",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "5.1 Úlohy",
+    "text": "5.1 Úlohy\nÚloha 15.13. Vypište seznam všech krajů a pro každý kraj spočítejte jeho celkovou rozlohu v km².\nÚloha 15.14. Pro každou kategorii měst spočítejte průměrnou vzdálenost mezi městy v dané kategorii. (Nápověda: budete potřebovat dvojitý cyklus přes města stejné kategorie.)\nÚloha 15.15. Vytvořte slovník, který bude obsahovat pro každý kraj seznam velkých měst, která v něm leží (formát: {\"Název kraje\": [\"Město1\", \"Město2\", ...], ...})."
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#atributová-tabulka-rastru",
+    "href": "lessons/lesson_15_draft.html#atributová-tabulka-rastru",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "6.1 Atributová tabulka rastru",
+    "text": "6.1 Atributová tabulka rastru\nAtributová tabulka diskrétního rastru obsahuje standardně tato pole:\n\nVALUE - hodnota pixelu (kategorie)\nCOUNT - počet pixelů s danou hodnotou\npřípadně další pole přidaná uživatelem\n\nPokud rastr nemá atributovou tabulku (např. je příliš velký nebo je kontinuální), musíte ji nejprve vytvořit nástrojem BuildRasterAttributeTable."
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#úlohy-4",
+    "href": "lessons/lesson_15_draft.html#úlohy-4",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "6.2 Úlohy",
+    "text": "6.2 Úlohy\nÚloha 15.16. Pro diskrétní rastr landuse vypište všechny kategorie a jejich procentuální zastoupení vzhledem k celkové ploše.\nÚloha 15.17. Najděte kategorii, která má největší průměrnou výšku (použijte výškový rastr DEM a nástroj ZonalStatisticsAsTable nebo vlastní analýzu s kurzory).\nÚloha 15.18. Pro každou kategorii landuse vytvořte buffer 100 m a spočítejte, jaká část původní kategorie zůstává uvnitř tohoto bufferu. (Nápověda: nejprve převeďte rastr na polygony, vytvořte buffer a použijte Clip nebo prostorové operace.)"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#základy-práce-s-kurzory",
+    "href": "lessons/lesson_15_draft.html#základy-práce-s-kurzory",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.1 Základy práce s kurzory",
+    "text": "7.1 Základy práce s kurzory\n\n7.1.1 Vytvoření Search kurzoru\n# Základní syntaxe\ntab = arcpy.da.SearchCursor(in_table, field_names, where_clause)\n\n# Příklad s konkrétními parametry\ntab = arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"])\n\n# S SQL dotazem\ntab = arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], '\"KATEGORIE\" &lt; 3')\n\n# Uzavření kurzoru\ndel(tab)\n\n\n7.1.2 Použití s klauzulí with\n# Doporučený způsob - automatické uzavření\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"]) as tab:\n    for r in tab:\n        print(r[0])\n\n\n7.1.3 Procházení kurzoru\n# For cyklus (doporučeno)\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n    for r in tab:\n        print(f\"{r[0]}: {r[1]} obyvatel\")\n\n# Metoda next() - posun na další řádek\ntab = arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"])\nprvni_radek = tab.next()\ndruhy_radek = tab.next()\ndel(tab)"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#speciální-pole-pro-geometrii-1",
+    "href": "lessons/lesson_15_draft.html#speciální-pole-pro-geometrii-1",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.2 Speciální pole pro geometrii",
+    "text": "7.2 Speciální pole pro geometrii\n\n7.2.1 Základní geometrická pole\n# Souřadnice bodu\n[\"SHAPE@XY\"]  # vrací (x, y) tuple\n\n# Plocha polygonu\n[\"SHAPE@AREA\"]  # v jednotkách souř. systému (typicky m²)\n\n# Délka linie nebo obvod polygonu\n[\"SHAPE@LENGTH\"]  # v jednotkách souř. systému (typicky m)\n\n# Těžiště polygonu\n[\"SHAPE@TRUECENTROID\"]  # vrací (x, y) tuple\n\n\n7.2.2 Práce s geometrickými poli\n# Výpočet kompaktnosti z plochy a obvodu\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@AREA\", \"SHAPE@LENGTH\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        plocha = r[1] / 1000000  # převod na km²\n        obvod = r[2] / 1000  # převod na km\n        kompaktnost = (obvod ** 2) / plocha\n        print(f\"{nazev}: {kompaktnost:.2f}\")\n\n# Získání souřadnic bodů\nwith arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\", \"SHAPE@XY\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]  # rozbalení tuple\n        print(f\"{nazev}: X={x:.0f}, Y={y:.0f}\")\n\n# Těžiště polygonů\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"SHAPE@TRUECENTROID\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        x, y = r[1]\n        print(f\"Těžiště {nazev}: X={x:.0f}, Y={y:.0f}\")"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#sumarizace-dat",
+    "href": "lessons/lesson_15_draft.html#sumarizace-dat",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.3 Sumarizace dat",
+    "text": "7.3 Sumarizace dat\n\n7.3.1 Součet hodnot\ncelkem = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"POCET_OB\"]) as tab:\n    for r in tab:\n        celkem += r[0]\nprint(f\"Celkem: {celkem}\")\n\n\n7.3.2 Průměr\nsuma = 0\npocet = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"POCET_OB\"]) as tab:\n    for r in tab:\n        suma += r[0]\n        pocet += 1\nprumer = suma / pocet\n\n\n7.3.3 Maximum/minimum\nmaximum = float('-inf')\nnazev_max = \"\"\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n    for r in tab:\n        if r[1] &gt; maximum:\n            maximum = r[1]\n            nazev_max = r[0]\n\nprint(f\"Největší: {nazev_max} ({maximum} ob.)\")\n\n\n7.3.4 Podmíněný součet\nsuma_velkych = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"POCET_OB\"]) as tab:\n    for r in tab:\n        if r[0] &gt; 1000000:\n            suma_velkych += r[0]"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#práce-s-unikátními-hodnotami",
+    "href": "lessons/lesson_15_draft.html#práce-s-unikátními-hodnotami",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.4 Práce s unikátními hodnotami",
+    "text": "7.4 Práce s unikátními hodnotami\n\n7.4.1 Získání unikátních hodnot pole\n# Z vektorové vrstvy\nhodnoty = set(arcpy.da.ListFieldValues(\"Sidla.shp\", \"KATEGORIE\"))\n\n# Z rastru (atributová tabulka)\nhodnoty = set(arcpy.da.ListFieldValues(\"landuse.tif\", \"VALUE\"))\n\n\n7.4.2 Procházení unikátních hodnot\nkategorie = set(arcpy.da.ListFieldValues(\"Sidla.shp\", \"KATEGORIE\"))\n\nfor kat in sorted(kategorie):\n    where = f'\"KATEGORIE\" = {kat}'\n    with arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], where) as tab:\n        for r in tab:\n            print(f\"Kategorie {kat}: {r[0]}\")\n\n\n7.4.3 Sumarizace podle kategorií\nkategorie = set(arcpy.da.ListFieldValues(\"Sidla.shp\", \"KATEGORIE\"))\nstatistiky = {}\n\nfor kat in kategorie:\n    where = f'\"KATEGORIE\" = {kat}'\n    pocet = 0\n    \n    with arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], where) as tab:\n        for r in tab:\n            pocet += 1\n    \n    statistiky[kat] = pocet\n\nprint(statistiky)"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#práce-s-rastry",
+    "href": "lessons/lesson_15_draft.html#práce-s-rastry",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.5 Práce s rastry",
+    "text": "7.5 Práce s rastry\n\n7.5.1 Čtení atributové tabulky rastru\nwith arcpy.da.SearchCursor(\"landuse.tif\", [\"VALUE\", \"COUNT\"]) as tab:\n    for r in tab:\n        hodnota = r[0]\n        pocet_pixelu = r[1]\n        print(f\"Hodnota {hodnota}: {pocet_pixelu} px\")\n\n\n7.5.2 Výpočet ploch kategorií\npopis = arcpy.Describe(\"landuse.tif\")\nvelikost_px = popis.meanCellWidth * popis.meanCellHeight\n\nwith arcpy.da.SearchCursor(\"landuse.tif\", [\"VALUE\", \"COUNT\"]) as tab:\n    for r in tab:\n        plocha_ha = (r[1] * velikost_px) / 10000\n        print(f\"Kategorie {r[0]}: {plocha_ha:.2f} ha\")\n\n\n7.5.3 Extrakce kategorií rastru\nhodnoty = set(arcpy.da.ListFieldValues(\"landuse.tif\", \"VALUE\"))\n\nfor hodnota in hodnoty:\n    vyraz = f'\"VALUE\" = {hodnota}'\n    rastr_kat = arcpy.sa.ExtractByAttributes(\"landuse.tif\", vyraz)\n    rastr_kat.save(f\"kategorie_{hodnota}.tif\")"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#sql-dotazy-where-clause",
+    "href": "lessons/lesson_15_draft.html#sql-dotazy-where-clause",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.6 SQL dotazy (WHERE clause)",
+    "text": "7.6 SQL dotazy (WHERE clause)\n\n7.6.1 Základní operátory\n# Rovnost\n'\"KATEGORIE\" = 1'\n'\"NAZEV\" = \\'Praha\\''\n\n# Nerovnost\n'\"KATEGORIE\" &lt;&gt; 1'\n\n# Porovnání\n'\"POCET_OB\" &gt; 1000000'\n'\"POCET_OB\" &lt;= 500000'\n\n# Logické operátory\n'\"KATEGORIE\" = 1 OR \"KATEGORIE\" = 2'\n'\"POCET_OB\" &gt; 100000 AND \"POCET_OB\" &lt; 1000000'\n\n# IN operator\n'\"KATEGORIE\" IN (1, 2, 3)'\n\n# LIKE operator (pro řetězce)\n'\"NAZEV\" LIKE \\'Pra%\\''  # začína na \"Pra\"\n'\"NAZEV\" LIKE \\'%ice\\''  # končí na \"ice\"\n\n\n7.6.2 Použití v kurzoru\n# Jednoduchý dotaz\nwhere = '\"POCET_OB\" &gt; 1000000'\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"], where) as tab:\n    for r in tab:\n        print(r[0])\n\n# Složený dotaz\nwhere = '\"KATEGORIE\" IN (1, 2) AND \"POCET_OB\" &gt; 100000'\nwith arcpy.da.SearchCursor(\"Sidla.shp\", [\"NAZEV\"], where) as tab:\n    for r in tab:\n        print(r[0])"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#časté-vzory-použití",
+    "href": "lessons/lesson_15_draft.html#časté-vzory-použití",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.7 Časté vzory použití",
+    "text": "7.7 Časté vzory použití\n\n7.7.1 Export prvků podle kategorie\nkategorie = set(arcpy.da.ListFieldValues(\"Sidla.shp\", \"KATEGORIE\"))\n\nfor kat in kategorie:\n    where = f'\"KATEGORIE\" = {kat}'\n    vystup = f\"Sidla_kat_{kat}.shp\"\n    arcpy.Select_analysis(\"Sidla.shp\", vystup, where)\n\n\n7.7.2 Vytvoření slovníku z tabulky\nkraje_dict = {}\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n    for r in tab:\n        kraje_dict[r[0]] = r[1]\n\nprint(kraje_dict)\n# {'Praha': 1280508, 'Středočeský': 1338925, ...}\n\n\n7.7.3 Hledání maxima s atributy\nmax_ob = float('-inf')\nmax_kraj = {}\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\", \"SHAPE@AREA\"]) as tab:\n    for r in tab:\n        if r[1] &gt; max_ob:\n            max_ob = r[1]\n            max_kraj = {\n                'nazev': r[0],\n                'obyvatel': r[1],\n                'plocha': r[2] / 1000000  # km²\n            }\n\nprint(f\"Největší kraj: {max_kraj['nazev']}\")\nprint(f\"Obyvatel: {max_kraj['obyvatel']}\")\nprint(f\"Plocha: {max_kraj['plocha']:.0f} km²\")\n\n\n7.7.4 Procházení s indexem\ni = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"]) as tab:\n    for r in tab:\n        i += 1\n        print(f\"{i}. {r[0]}\")"
+  },
+  {
+    "objectID": "lessons/lesson_15_draft.html#tipy-a-triky",
+    "href": "lessons/lesson_15_draft.html#tipy-a-triky",
+    "title": "Lekce 15: Čtení atributové tabulky pomocí kurzoru",
+    "section": "7.8 Tipy a triky",
+    "text": "7.8 Tipy a triky\n\n7.8.1 Rychlé získání počtu prvků\npocet = 0\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"OID@\"]) as tab:\n    for r in tab:\n        pocet += 1\nprint(f\"Počet prvků: {pocet}\")\n\n# Alternativa pomocí GetCount\npocet = int(arcpy.GetCount_management(\"Kraje.shp\")[0])\n\n\n7.8.2 Práce s None hodnotami\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POZNAMKA\"]) as tab:\n    for r in tab:\n        nazev = r[0]\n        poznamka = r[1] if r[1] is not None else \"Bez poznámky\"\n        print(f\"{nazev}: {poznamka}\")\n\n\n7.8.3 Kombinace více WHERE podmínek\n# Pomocí proměnných\nmin_ob = 500000\nmax_ob = 1500000\nwhere = f'\"POCET_OB\" &gt;= {min_ob} AND \"POCET_OB\" &lt;= {max_ob}'\n\nwith arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\"], where) as tab:\n    for r in tab:\n        print(r[0])\n\n\n7.8.4 Zpracování s chybovým hlášením\ntry:\n    with arcpy.da.SearchCursor(\"Kraje.shp\", [\"NAZEV\", \"POCET_OB\"]) as tab:\n        for r in tab:\n            print(f\"{r[0]}: {r[1]}\")\nexcept Exception as e:\n    print(f\"Chyba při zpracování: {e}\")"
   }
 ]

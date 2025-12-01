@@ -69,8 +69,8 @@ Zde naleznete materiály k předmětu **Programování pro GIS a DPZ**, vyučova
 
 | # | Lekce | Obsah |
 |---|-------|-------|
-| 17 | Kurzory I - Čtení dat | arcpy.da.SearchCursor, where clause, SQL dotazy |
-| 18 | Kurzory II - Editace dat | UpdateCursor, InsertCursor, DeleteCursor |
+| 17 | Kurzory I - Čtení tabulek | arcpy.da.SearchCursor, where clause, vlastní sumarizace |
+| 18 | Kurzory II - Editace tabulek | UpdateCursor, InsertCursor, DeleteCursor |
 | 19 | Geometrie I - Základy | arcpy.Geometry, Point, Polyline, Polygon, SHAPE@ |
 | 20 | Geometrie II - Analýzy | Geometrické vlastnosti, prostorové vztahy, operace |
 | 21 | Komplexní projekt | Kombinace všech technik, best practices, optimalizace |
