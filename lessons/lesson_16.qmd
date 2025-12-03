@@ -317,21 +317,17 @@ arcpy.management.CreateTable(arcpy.env.workspace, output_table)
 
 # Přidání polí do tabulky
 fields = [
-    ("Zeme", "TEXT", 50),
+    ("Zeme", "TEXT"),
     ("Emise_Mt", "DOUBLE"),
     ("Podil_OZE", "DOUBLE"),
     ("OZE_elekt", "DOUBLE"),
-    ("Zmena_pct", "TEXT", 10),
-    ("Zdroje", "TEXT", 100)
+    ("Zmena_pct", "TEXT"),
+    ("Zdroje", "TEXT")
 ]
 
-for field_name, field_type, *args in fields:
-    if args:  # Pokud je zadána délka
-        arcpy.management.AddField(output_table, field_name, field_type, 
-                                 field_length=args[0])
-    else:
-        arcpy.management.AddField(output_table, field_name, field_type)
-
+for field_name, field_type in fields:
+    arcpy.management.AddField(output_table, field_name, field_type) 
+    
 # Data k vložení
 data = [
     ("Německo", 572, 22.0, 52.0, "-7.5%", "Vítr, slunce, biomasa"),
@@ -362,11 +358,10 @@ Nyní si předvedeme realističtější variantu - data máme uložené v CSV ta
 
 ```python
 import arcpy
-import csv
 import os
 
 # Nastavení prostředí
-arcpy.env.workspace = r"C:\my_path\..."
+arcpy.env.workspace = r"C:\your_path..."
 arcpy.env.overwriteOutput = True
 
 # Cesta k CSV souboru
@@ -378,38 +373,36 @@ arcpy.management.CreateTable(arcpy.env.workspace, output_table)
 
 # Přidání polí do tabulky
 fields = [
-    ("Zeme", "TEXT", 50),
-    ("Emise_Mt", "DOUBLE"),
-    ("Podil_OZE", "DOUBLE"),
-    ("OZE_elekt", "DOUBLE"),
-    ("Zmena_pct", "TEXT", 10),
-    ("Zdroje", "TEXT", 100)
-]
-
-for field_name, field_type, *args in fields:
-    if args:
-        arcpy.management.AddField(output_table, field_name, field_type, 
-                                 field_length=args[0])
-    else:
-        arcpy.management.AddField(output_table, field_name, field_type)
+    ("Zeme", "TEXT"),
+    ("Emise_CO2_Mt", "DOUBLE"),
+    ("Podil_OZE_pct", "DOUBLE"),
+    ("Podil_OZE_elekt_pct", "DOUBLE"),
+    ("Zmena_emisi_2022_2023_pct", "TEXT"),
+    ("Hlavni_OZE_zdroje", "TEXT")
+]   
+for field_name, field_type in fields:
+    arcpy.management.AddField(output_table, field_name, field_type)
 
 # Načtení dat z CSV a vložení do tabulky
 with open(csv_file, 'r', encoding='utf-8') as f:
-    reader = csv.reader(f)
-    next(reader)  # Přeskočení hlavičky
-    
-    field_names = [f[0] for f in fields]
-    with arcpy.da.InsertCursor(output_table, field_names) as cursor:
-        for line in reader:
+    f.next()  # Přeskočení hlavičky
+    with arcpy.da.InsertCursor(output_table, [f[0] for f in fields]) as cursor:
+        for line in f:
+
+            # Rozdělení řádku na jednotlivé hodnoty
+            values = line.strip().split(',')
+
             # Převedení hodnot na správné datové typy
             row = [
-                line[0],              # Zeme (TEXT)
-                float(line[1]),       # Emise_Mt (DOUBLE)
-                float(line[2]),       # Podil_OZE (DOUBLE)
-                float(line[3]),       # OZE_elekt (DOUBLE)
-                line[4],              # Zmena_pct (TEXT)
-                line[5]               # Zdroje (TEXT)
+                values[0],  # Zeme
+                float(values[1]),  # Emise_CO2_Mt
+                float(values[2]),  # Podil_OZE_pct
+                float(values[3]),  # Podil_OZE_elekt_pct
+                values[4],  # Zmena_emisi_2022_2023_pct
+                values[5]   # Hlavni_OZE_zdroje
             ]
+
+            # Vložení řádku do tabulky
             cursor.insertRow(row)
 ```
 
