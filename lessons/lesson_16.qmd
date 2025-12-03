@@ -62,7 +62,7 @@ tab = arcpy.da.UpdateCursor("Sidla_body.shp", ["NAZEV", "KATEGORIE"])
 
 Rozdíl je v tom, jaké metody má příslušný kurzor v nabídce. U `UpdateCursor` jde především o metodu `updateRow()`, pomocí které lze daný řádek, na kterém zrovna kurzor je, nahradit jiným řádkem. Ten je třeba metodě předat v podobě *n*-tice nebo seznamu odpovídající délky, přičemž jednotlivé položky musejí svým datovým typem odpovídat otevřeným sloupcům.
 
-::: callout-info
+:::{.callout-info}
 ## Typy kurzorů - připomenutí
 
 Kurzory v `arcpy` jsou trojího druhu:
@@ -72,7 +72,7 @@ Kurzory v `arcpy` jsou trojího druhu:
 -   **InsertCursor** - vkládání nových řádků do tabulky (tato lekce)
 :::
 
-V následující ukázce změníme kategorii města Brno z 2 na 3:
+V následující ukázce změníme kategorii města Brno z 2 na 3 (tím o tomto městu nenaznačujeme nic špatného!):
 
 ```python
 import arcpy
@@ -88,7 +88,7 @@ Všimněte si, že jsme otevřeli rovnou pouze řádek s Brnem pomocí SQL dotaz
 
 ## Editace v cyklu
 
-Častěji než úpravu jednoho řádku potřebujeme provést změny na více řádcích podle nějakého pravidla. V další ukázce provedeme přepisování řádku v rámci průchodu celé tabulky `for` cyklem. Do tabulky krajů přidáme textové pole "STAV" a vyplníme do něj hodnotu "OK" pro ty kraje, kde je zemřelých méně či stejně jako narozených, a "KO" pro ostatní:
+Častěji než úpravu jednoho řádku potřebujeme provést změny na více řádcích podle nějakého pravidla. V další ukázce provedeme přepisování řádku v rámci průchodu celé tabulky `for` cyklem. Do tabulky krajů přidáme textové pole "STAV" a vyplníme do něj hodnotu "OK" pro ty kraje, kde je zemřelých méně či stejně jako narozených, a "KO" pro ostatní. (Úlohu lze řešit i bez kurzorů. Jak byste to dělali?)
 
 ```python
 import arcpy
@@ -115,11 +115,9 @@ with arcpy.da.UpdateCursor(input_fc, ["NAROZENI", "ZEMRELI", "STAV"]) as cursor:
         
         # Aktualizace řádku v tabulce    
         cursor.updateRow(row)
-
-print("Pole STAV bylo úspěšně vyplněno.")
 ```
 
-::: callout-tip
+:::{.callout-tip}
 ## Úprava řádku v cyklu
 
 Při práci s `UpdateCursor` v cyklu:
@@ -167,21 +165,15 @@ print("Hustota zalidnění byla vypočítána.")
 
 # Smazání řádku
 
-Dalším použitím `UpdateCursor` je smazání řádku pomocí metody `deleteRow()`. Pokusíme se vymazat město Brno z datasetu. Jelikož však následně budeme chtít svůj čin odčinit a pomocí `InsertCursor` Brno opět vrátit, bude vhodné si příslušný záznam dopředu uložit:
+Dalším použitím *Update* kurzoru je smazání řádku. Toho nyní využijeme a pokusíme se vymazat město Brno z mapy světa nadobro. Jelikož však následně budeme chtít svůj strašný čin odčinit a pomocí *Insert* kurzoru Brno opět na mapu světa vrátit, bude vhodné si příslušný záznam někam dopředu uložit, např. takto:
 
 ```python
-import arcpy
-arcpy.env.workspace = r"C:\my_path\..."
-
-# Uložení záznamu o Brnu
 with arcpy.da.SearchCursor("Sidla_body.shp", ["SHAPE@", "NAZEV", "KATEGORIE"],
                           '"NAZEV" = \'Brno\'') as tab:
-    brno = next(tab)
-
-print(f"Uloženo: {brno[1]}, kategorie {brno[2]}")
+    brno = tab.next()
 ```
 
-::: callout-info
+:::{.callout-info}
 ## Pole SHAPE@
 
 Pole `SHAPE@` obsahuje celý geometrický objekt prvku. Na rozdíl od `SHAPE@AREA` nebo `SHAPE@XY`, které vrací pouze konkrétní vlastnosti, `SHAPE@` vrací kompletní geometrii včetně všech souřadnic. 
@@ -196,15 +188,13 @@ with arcpy.da.UpdateCursor("Sidla_body.shp", ["SHAPE@", "NAZEV", "KATEGORIE"],
                           '"NAZEV" = \'Brno\'') as tab:
     next(tab)
     tab.deleteRow()
-
-print("Město Brno bylo smazáno z datasetu.")
 ```
 
 O výsledku se v tabulce měst přesvědčte sami v ArcGIS Pro...
 
 ## Smazání více záznamů v cyklu
 
-V další ukázce projdeme v cyklu všechny kraje, jejichž stav byl identifikován jako "KO", a smažeme je. Nejprve si však vrstvu zkopírujeme:
+V další ukázce projdeme v cyklu všechny kraje, jejichž stav byl identifikován jako "KO", a z mapy světa je jednoduše smažeme. (Raději si ovšem nejprve celou vrstvu zkopírujeme pro případ, že bychom toho v budoucnu litovali.)
 
 ```python
 import arcpy
@@ -218,8 +208,6 @@ with arcpy.da.UpdateCursor(kraje_ok, ["STAV"]) as cursor:
     for row in cursor:
         if row[0] == 'KO':
             cursor.deleteRow()
-
-print("Kraje se stavem KO byly smazány.")
 ```
 
 Namísto podmínky `row[0] == 'KO'` můžeme filtraci "KO" krajů provést rovnou při otevírání kurzoru pomocí SQL dotazu:
@@ -230,7 +218,7 @@ with arcpy.da.UpdateCursor(kraje_ok, ["STAV"], where_clause='"STAV" = \'KO\'') a
         cursor.deleteRow()
 ```
 
-::: callout-tip
+:::{.callout-tip}
 ## SQL dotaz vs. podmínka v Pythonu
 
 Oba přístupy fungují, ale SQL dotaz (`where_clause`) je efektivnější:
@@ -258,9 +246,9 @@ Podmínku v Pythonu (`if row[0] == 'KO'`) použijte, když:
 
 # Přidání nového řádku pomocí Insert kurzoru
 
-Nyní, jak jsme avizovali, vrátíme město Brno zpět do datasetu. K tomu slouží `InsertCursor`, umožňující do tabulky vložit nový řádek. Má jednodušší syntax než `UpdateCursor`, neboť neumožňuje filtrování pomocí SQL dotazu - nový řádek se vždy přidává na konec tabulky.
+Nyní, jak jsme avizovali, jsme si uvědomili dosah našeho brutálního činu - zrušení města Brna. Naštěstí je zde *Insert* kurzor, umožňující do tabulky vložit nový řádek. Má jednodušší syntax, neboť neumožňuje filtrování otvíraných řádků pomocí SQL dotazu. Jediné, co můžeme ovlivnit, je, které sloupce otevřeme. Nový řádek se přitom vždy přidává na konec tabulky (i v případě tak významného města, jakým je Brno).
 
-::: callout-warning
+:::{.callout-warning}
 ## Geometrie při vkládání prvků
 
 Pokud pracujeme s atributovou tabulkou vektorové vrstvy, je nutné při přidávání nového záznamu vždy zadat i **geometrii prvku** do pole `SHAPE@`. Jinak by danému řádku neodpovídal žádný geometrický prvek a celá vrstva by byla poškozena.
@@ -276,8 +264,6 @@ arcpy.env.workspace = r"C:\my_path\..."
 
 with arcpy.da.InsertCursor("Sidla_body.shp", ["SHAPE@", "NAZEV", "KATEGORIE"]) as tab:
     tab.insertRow(brno)
-
-print("Město Brno bylo obnoveno!")
 ```
 
 Zbývá než doufat, že jste celou proceduru smazání a opětovné záchrany Brna dělali v rámci jedné session, tj. že jste mezitím nerestartovali konzoli. Proměnná `brno` by tak byla smazána a město nadobro ztraceno...
@@ -368,8 +354,6 @@ field_names = [f[0] for f in fields]
 with arcpy.da.InsertCursor(output_table, field_names) as cursor:
     for row in data:
         cursor.insertRow(row)
-
-print(f"Tabulka {output_table} byla vytvořena a naplněna {len(data)} záznamy.")
 ```
 
 ### Import dat z CSV souboru
@@ -427,11 +411,9 @@ with open(csv_file, 'r', encoding='utf-8') as f:
                 line[5]               # Zdroje (TEXT)
             ]
             cursor.insertRow(row)
-
-print(f"Data z CSV byla importována do {output_table}")
 ```
 
-::: callout-tip
+:::{.callout-tip}
 ## Jednodušší alternativa - CopyRows
 
 Uvedenou proceduru lze ve skutečnosti vyřešit jednodušeji bez kurzoru, pomocí nástroje `arcpy.management.CopyRows()`:

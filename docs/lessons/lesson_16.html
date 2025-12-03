@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>InsertCursor</strong> - vkládání nových řádků do tabulky (tato lekce)</li>
 </ul>
 </section>
-<p>V následující ukázce změníme kategorii města Brno z 2 na 3:</p>
+<p>V následující ukázce změníme kategorii města Brno z 2 na 3 (tím o tomto městu nenaznačujeme nic špatného!):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tab <span class="op">=</span> arcpy.da.UpdateCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>], </span>
@@ -412,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Všimněte si, že jsme otevřeli rovnou pouze řádek s Brnem pomocí SQL dotazu. Přesto jsme museli použít funkci <code>next()</code>, abychom se na tento první řádek kurzorem posunuli.</p>
 <section id="editace-v-cyklu" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="editace-v-cyklu"><span class="header-section-number">2.2</span> Editace v cyklu</h2>
-<p>Častěji než úpravu jednoho řádku potřebujeme provést změny na více řádcích podle nějakého pravidla. V další ukázce provedeme přepisování řádku v rámci průchodu celé tabulky <code>for</code> cyklem. Do tabulky krajů přidáme textové pole “STAV” a vyplníme do něj hodnotu “OK” pro ty kraje, kde je zemřelých méně či stejně jako narozených, a “KO” pro ostatní:</p>
+<p>Častěji než úpravu jednoho řádku potřebujeme provést změny na více řádcích podle nějakého pravidla. V další ukázce provedeme přepisování řádku v rámci průchodu celé tabulky <code>for</code> cyklem. Do tabulky krajů přidáme textové pole “STAV” a vyplníme do něj hodnotu “OK” pro ty kraje, kde je zemřelých méně či stejně jako narozených, a “KO” pro ostatní. (Úlohu lze řešit i bez kurzorů. Jak byste to dělali?)</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení prostředí</span></span>
@@ -436,9 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">2</span>] <span class="op">=</span> <span class="st">"KO"</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Aktualizace řádku v tabulce    </span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pole STAV bylo úspěšně vyplněno."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -488,16 +486,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="smazání-řádku" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Smazání řádku</h1>
-<p>Dalším použitím <code>UpdateCursor</code> je smazání řádku pomocí metody <code>deleteRow()</code>. Pokusíme se vymazat město Brno z datasetu. Jelikož však následně budeme chtít svůj čin odčinit a pomocí <code>InsertCursor</code> Brno opět vrátit, bude vhodné si příslušný záznam dopředu uložit:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Uložení záznamu o Brnu</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>],</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> tab:</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    brno <span class="op">=</span> <span class="bu">next</span>(tab)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Uloženo: </span><span class="sc">{</span>brno[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">, kategorie </span><span class="sc">{</span>brno[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dalším použitím <em>Update</em> kurzoru je smazání řádku. Toho nyní využijeme a pokusíme se vymazat město Brno z mapy světa nadobro. Jelikož však následně budeme chtít svůj strašný čin odčinit a pomocí <em>Insert</em> kurzoru Brno opět na mapu světa vrátit, bude vhodné si příslušný záznam někam dopředu uložit, např. takto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>],</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> tab:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    brno <span class="op">=</span> tab.<span class="bu">next</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <section id="pole-shape" class="level2 callout-info" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="pole-shape"><span class="header-section-number">3.1</span> Pole SHAPE@</h2>
 <p>Pole <code>SHAPE@</code> obsahuje celý geometrický objekt prvku. Na rozdíl od <code>SHAPE@AREA</code> nebo <code>SHAPE@XY</code>, které vrací pouze konkrétní vlastnosti, <code>SHAPE@</code> vrací kompletní geometrii včetně všech souřadnic.</p>
@@ -507,13 +499,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>],</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> tab:</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">next</span>(tab)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    tab.deleteRow()</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Město Brno bylo smazáno z datasetu."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    tab.deleteRow()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>O výsledku se v tabulce měst přesvědčte sami v ArcGIS Pro…</p>
 <section id="smazání-více-záznamů-v-cyklu" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="smazání-více-záznamů-v-cyklu"><span class="header-section-number">3.2</span> Smazání více záznamů v cyklu</h2>
-<p>V další ukázce projdeme v cyklu všechny kraje, jejichž stav byl identifikován jako “KO”, a smažeme je. Nejprve si však vrstvu zkopírujeme:</p>
+<p>V další ukázce projdeme v cyklu všechny kraje, jejichž stav byl identifikován jako “KO”, a z mapy světa je jednoduše smažeme. (Raději si ovšem nejprve celou vrstvu zkopírujeme pro případ, že bychom toho v budoucnu litovali.)</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -524,9 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(kraje_ok, [<span class="st">"STAV"</span>]) <span class="im">as</span> cursor:</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'KO'</span>:</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            cursor.deleteRow()</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kraje se stavem KO byly smazány."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            cursor.deleteRow()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Namísto podmínky <code>row[0] == 'KO'</code> můžeme filtraci “KO” krajů provést rovnou při otevírání kurzoru pomocí SQL dotazu:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(kraje_ok, [<span class="st">"STAV"</span>], where_clause<span class="op">=</span><span class="st">'"STAV" = </span><span class="ch">\'</span><span class="st">KO</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> cursor:</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
@@ -565,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="přidání-nového-řádku-pomocí-insert-kurzoru" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Přidání nového řádku pomocí Insert kurzoru</h1>
-<p>Nyní, jak jsme avizovali, vrátíme město Brno zpět do datasetu. K tomu slouží <code>InsertCursor</code>, umožňující do tabulky vložit nový řádek. Má jednodušší syntax než <code>UpdateCursor</code>, neboť neumožňuje filtrování pomocí SQL dotazu - nový řádek se vždy přidává na konec tabulky.</p>
+<p>Nyní, jak jsme avizovali, jsme si uvědomili dosah našeho brutálního činu - zrušení města Brna. Naštěstí je zde <em>Insert</em> kurzor, umožňující do tabulky vložit nový řádek. Má jednodušší syntax, neboť neumožňuje filtrování otvíraných řádků pomocí SQL dotazu. Jediné, co můžeme ovlivnit, je, které sloupce otevřeme. Nový řádek se přitom vždy přidává na konec tabulky (i v případě tak významného města, jakým je Brno).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -585,9 +573,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>]) <span class="im">as</span> tab:</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    tab.insertRow(brno)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Město Brno bylo obnoveno!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    tab.insertRow(brno)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Zbývá než doufat, že jste celou proceduru smazání a opětovné záchrany Brna dělali v rámci jedné session, tj. že jste mezitím nerestartovali konzoli. Proměnná <code>brno</code> by tak byla smazána a město nadobro ztraceno…</p>
 <section id="vytvoření-nové-tabulky-a-její-naplnění-daty" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="vytvoření-nové-tabulky-a-její-naplnění-daty"><span class="header-section-number">4.1</span> Vytvoření nové tabulky a její naplnění daty</h2>
@@ -781,9 +767,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>field_names <span class="op">=</span> [f[<span class="dv">0</span>] <span class="cf">for</span> f <span class="kw">in</span> fields]</span>
 <span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output_table, field_names) <span class="im">as</span> cursor:</span>
 <span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> data:</span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow(row)</span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Tabulka </span><span class="sc">{</span>output_table<span class="sc">}</span><span class="ss"> byla vytvořena a naplněna </span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss"> záznamy."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="import-dat-z-csv-souboru" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="import-dat-z-csv-souboru"><span class="header-section-number">4.1.2</span> Import dat z CSV souboru</h3>
@@ -837,9 +821,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>                line[<span class="dv">4</span>],              <span class="co"># Zmena_pct (TEXT)</span></span>
 <span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>                line[<span class="dv">5</span>]               <span class="co"># Zdroje (TEXT)</span></span>
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>            ]</span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow(row)</span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data z CSV byla importována do </span><span class="sc">{</span>output_table<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
