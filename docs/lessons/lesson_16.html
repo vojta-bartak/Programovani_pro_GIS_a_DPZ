@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
+<meta name="dcterms.date" content="2025-12-03">
+
+<title>Lekce 16: Kurzory II - Editace tabulek – Programování pro GIS a DPZ</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2a12e044340f79bad0d75c7561fedc86.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Programování pro GIS a DPZ</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-1-model-builder" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ćást 1: Model Builder</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-1-model-builder">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_01.html">
+ <span class="dropdown-text">Lekce 1: Jednoduchý model</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-2-úvod-do-pythonu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 2: Úvod do Pythonu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-2-úvod-do-pythonu">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_03.html">
+ <span class="dropdown-text">Lekce 3: První program v Pythonu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_04.html">
+ <span class="dropdown-text">Lekce 4: Cykly a podmínky</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_05.html">
+ <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_06.html">
+ <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_07.html">
+ <span class="dropdown-text">Lekce 7: Textové soubory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_08.html">
+ <span class="dropdown-text">Lekce 8: Textové soubory II</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-3-základy-arcpy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 3: Základy ArcPy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-3-základy-arcpy">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_10.html">
+ <span class="dropdown-text">Lekce 10: Úvod do modulu ArcPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_11.html">
+ <span class="dropdown-text">Lekce 11: Správa dat a workspace</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_12.html">
+ <span class="dropdown-text">Lekce 12: Geoprocessingové nástroje I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_13.html">
+ <span class="dropdown-text">Lekce 13: Geoprocessingové nástroje II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_14.html">
+ <span class="dropdown-text">Lekce 14: Atributové operace</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-4-kurzory-a-geometrie" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 4: Kurzory a geometrie</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-4-kurzory-a-geometrie">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_15.html">
+ <span class="dropdown-text">Lekce 15: Kurzory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_16.html">
+ <span class="dropdown-text">Lekce 16: Kurzory II</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#úvod" id="toc-úvod" class="nav-link active" data-scroll-target="#úvod"><span class="header-section-number">1</span> Úvod</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">1.1</span> Data</a></li>
+  </ul></li>
+  <li><a href="#přepsání-hodnot-v-řádku-pomocí-update-kurzoru" id="toc-přepsání-hodnot-v-řádku-pomocí-update-kurzoru" class="nav-link" data-scroll-target="#přepsání-hodnot-v-řádku-pomocí-update-kurzoru"><span class="header-section-number">2</span> Přepsání hodnot v řádku pomocí Update kurzoru</a>
+  <ul class="collapse">
+  <li><a href="#typy-kurzorů---připomenutí" id="toc-typy-kurzorů---připomenutí" class="nav-link" data-scroll-target="#typy-kurzorů---připomenutí"><span class="header-section-number">2.1</span> Typy kurzorů - připomenutí</a></li>
+  <li><a href="#editace-v-cyklu" id="toc-editace-v-cyklu" class="nav-link" data-scroll-target="#editace-v-cyklu"><span class="header-section-number">2.2</span> Editace v cyklu</a></li>
+  <li><a href="#úlohy" id="toc-úlohy" class="nav-link" data-scroll-target="#úlohy"><span class="header-section-number">2.3</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#smazání-řádku" id="toc-smazání-řádku" class="nav-link" data-scroll-target="#smazání-řádku"><span class="header-section-number">3</span> Smazání řádku</a>
+  <ul class="collapse">
+  <li><a href="#pole-shape" id="toc-pole-shape" class="nav-link" data-scroll-target="#pole-shape"><span class="header-section-number">3.1</span> Pole SHAPE@</a></li>
+  <li><a href="#smazání-více-záznamů-v-cyklu" id="toc-smazání-více-záznamů-v-cyklu" class="nav-link" data-scroll-target="#smazání-více-záznamů-v-cyklu"><span class="header-section-number">3.2</span> Smazání více záznamů v cyklu</a></li>
+  <li><a href="#úlohy-1" id="toc-úlohy-1" class="nav-link" data-scroll-target="#úlohy-1"><span class="header-section-number">3.3</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#přidání-nového-řádku-pomocí-insert-kurzoru" id="toc-přidání-nového-řádku-pomocí-insert-kurzoru" class="nav-link" data-scroll-target="#přidání-nového-řádku-pomocí-insert-kurzoru"><span class="header-section-number">4</span> Přidání nového řádku pomocí Insert kurzoru</a>
+  <ul class="collapse">
+  <li><a href="#vytvoření-nové-tabulky-a-její-naplnění-daty" id="toc-vytvoření-nové-tabulky-a-její-naplnění-daty" class="nav-link" data-scroll-target="#vytvoření-nové-tabulky-a-její-naplnění-daty"><span class="header-section-number">4.1</span> Vytvoření nové tabulky a její naplnění daty</a>
+  <ul class="collapse">
+  <li><a href="#verze-s-daty-v-kódu" id="toc-verze-s-daty-v-kódu" class="nav-link" data-scroll-target="#verze-s-daty-v-kódu"><span class="header-section-number">4.1.1</span> Verze s daty v kódu</a></li>
+  <li><a href="#import-dat-z-csv-souboru" id="toc-import-dat-z-csv-souboru" class="nav-link" data-scroll-target="#import-dat-z-csv-souboru"><span class="header-section-number">4.1.2</span> Import dat z CSV souboru</a></li>
+  </ul></li>
+  <li><a href="#úlohy-2" id="toc-úlohy-2" class="nav-link" data-scroll-target="#úlohy-2"><span class="header-section-number">4.2</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#cheatsheet" id="toc-cheatsheet" class="nav-link" data-scroll-target="#cheatsheet"><span class="header-section-number">5</span> Cheatsheet</a>
+  <ul class="collapse">
+  <li><a href="#základy-update-cursor" id="toc-základy-update-cursor" class="nav-link" data-scroll-target="#základy-update-cursor"><span class="header-section-number">5.1</span> Základy Update Cursor</a>
+  <ul class="collapse">
+  <li><a href="#vytvoření-update-kurzoru" id="toc-vytvoření-update-kurzoru" class="nav-link" data-scroll-target="#vytvoření-update-kurzoru"><span class="header-section-number">5.1.1</span> Vytvoření Update kurzoru</a></li>
+  <li><a href="#aktualizace-řádku" id="toc-aktualizace-řádku" class="nav-link" data-scroll-target="#aktualizace-řádku"><span class="header-section-number">5.1.2</span> Aktualizace řádku</a></li>
+  <li><a href="#podmíněná-aktualizace" id="toc-podmíněná-aktualizace" class="nav-link" data-scroll-target="#podmíněná-aktualizace"><span class="header-section-number">5.1.3</span> Podmíněná aktualizace</a></li>
+  </ul></li>
+  <li><a href="#mazání-řádků" id="toc-mazání-řádků" class="nav-link" data-scroll-target="#mazání-řádků"><span class="header-section-number">5.2</span> Mazání řádků</a>
+  <ul class="collapse">
+  <li><a href="#smazání-konkrétního-řádku" id="toc-smazání-konkrétního-řádku" class="nav-link" data-scroll-target="#smazání-konkrétního-řádku"><span class="header-section-number">5.2.1</span> Smazání konkrétního řádku</a></li>
+  <li><a href="#smazání-více-řádků" id="toc-smazání-více-řádků" class="nav-link" data-scroll-target="#smazání-více-řádků"><span class="header-section-number">5.2.2</span> Smazání více řádků</a></li>
+  <li><a href="#uložení-před-smazáním" id="toc-uložení-před-smazáním" class="nav-link" data-scroll-target="#uložení-před-smazáním"><span class="header-section-number">5.2.3</span> Uložení před smazáním</a></li>
+  </ul></li>
+  <li><a href="#insert-cursor" id="toc-insert-cursor" class="nav-link" data-scroll-target="#insert-cursor"><span class="header-section-number">5.3</span> Insert Cursor</a>
+  <ul class="collapse">
+  <li><a href="#vytvoření-insert-kurzoru" id="toc-vytvoření-insert-kurzoru" class="nav-link" data-scroll-target="#vytvoření-insert-kurzoru"><span class="header-section-number">5.3.1</span> Vytvoření Insert kurzoru</a></li>
+  <li><a href="#vložení-jednoho-řádku" id="toc-vložení-jednoho-řádku" class="nav-link" data-scroll-target="#vložení-jednoho-řádku"><span class="header-section-number">5.3.2</span> Vložení jednoho řádku</a></li>
+  <li><a href="#vložení-více-řádků" id="toc-vložení-více-řádků" class="nav-link" data-scroll-target="#vložení-více-řádků"><span class="header-section-number">5.3.3</span> Vložení více řádků</a></li>
+  <li><a href="#import-z-csv" id="toc-import-z-csv" class="nav-link" data-scroll-target="#import-z-csv"><span class="header-section-number">5.3.4</span> Import z CSV</a></li>
+  </ul></li>
+  <li><a href="#práce-s-geometrií" id="toc-práce-s-geometrií" class="nav-link" data-scroll-target="#práce-s-geometrií"><span class="header-section-number">5.4</span> Práce s geometrií</a>
+  <ul class="collapse">
+  <li><a href="#kopírování-prvku-včetně-geometrie" id="toc-kopírování-prvku-včetně-geometrie" class="nav-link" data-scroll-target="#kopírování-prvku-včetně-geometrie"><span class="header-section-number">5.4.1</span> Kopírování prvku včetně geometrie</a></li>
+  <li><a href="#vytvoření-bodu-na-souřadnicích" id="toc-vytvoření-bodu-na-souřadnicích" class="nav-link" data-scroll-target="#vytvoření-bodu-na-souřadnicích"><span class="header-section-number">5.4.2</span> Vytvoření bodu na souřadnicích</a></li>
+  </ul></li>
+  <li><a href="#vytváření-tabulek" id="toc-vytváření-tabulek" class="nav-link" data-scroll-target="#vytváření-tabulek"><span class="header-section-number">5.5</span> Vytváření tabulek</a>
+  <ul class="collapse">
+  <li><a href="#vytvoření-prázdné-tabulky" id="toc-vytvoření-prázdné-tabulky" class="nav-link" data-scroll-target="#vytvoření-prázdné-tabulky"><span class="header-section-number">5.5.1</span> Vytvoření prázdné tabulky</a></li>
+  <li><a href="#vytvoření-a-naplnění-tabulky" id="toc-vytvoření-a-naplnění-tabulky" class="nav-link" data-scroll-target="#vytvoření-a-naplnění-tabulky"><span class="header-section-number">5.5.2</span> Vytvoření a naplnění tabulky</a></li>
+  </ul></li>
+  <li><a href="#kombinace-kurzorů" id="toc-kombinace-kurzorů" class="nav-link" data-scroll-target="#kombinace-kurzorů"><span class="header-section-number">5.6</span> Kombinace kurzorů</a>
+  <ul class="collapse">
+  <li><a href="#kopírování-s-úpravou" id="toc-kopírování-s-úpravou" class="nav-link" data-scroll-target="#kopírování-s-úpravou"><span class="header-section-number">5.6.1</span> Kopírování s úpravou</a></li>
+  <li><a href="#filtrované-kopírování" id="toc-filtrované-kopírování" class="nav-link" data-scroll-target="#filtrované-kopírování"><span class="header-section-number">5.6.2</span> Filtrované kopírování</a></li>
+  <li><a href="#agregace-dat" id="toc-agregace-dat" class="nav-link" data-scroll-target="#agregace-dat"><span class="header-section-number">5.6.3</span> Agregace dat</a></li>
+  </ul></li>
+  <li><a href="#časté-vzory-použití" id="toc-časté-vzory-použití" class="nav-link" data-scroll-target="#časté-vzory-použití"><span class="header-section-number">5.7</span> Časté vzory použití</a>
+  <ul class="collapse">
+  <li><a href="#přidání-vypočítaného-pole" id="toc-přidání-vypočítaného-pole" class="nav-link" data-scroll-target="#přidání-vypočítaného-pole"><span class="header-section-number">5.7.1</span> Přidání vypočítaného pole</a></li>
+  <li><a href="#kategorizace-hodnot" id="toc-kategorizace-hodnot" class="nav-link" data-scroll-target="#kategorizace-hodnot"><span class="header-section-number">5.7.2</span> Kategorizace hodnot</a></li>
+  <li><a href="#normalizace-textu" id="toc-normalizace-textu" class="nav-link" data-scroll-target="#normalizace-textu"><span class="header-section-number">5.7.3</span> Normalizace textu</a></li>
+  </ul></li>
+  <li><a href="#zpracování-chyb" id="toc-zpracování-chyb" class="nav-link" data-scroll-target="#zpracování-chyb"><span class="header-section-number">5.8</span> Zpracování chyb</a>
+  <ul class="collapse">
+  <li><a href="#try-except-s-kurzory" id="toc-try-except-s-kurzory" class="nav-link" data-scroll-target="#try-except-s-kurzory"><span class="header-section-number">5.8.1</span> Try-except s kurzory</a></li>
+  <li><a href="#kontrola-existence-pole" id="toc-kontrola-existence-pole" class="nav-link" data-scroll-target="#kontrola-existence-pole"><span class="header-section-number">5.8.2</span> Kontrola existence pole</a></li>
+  <li><a href="#ošetření-none-hodnot" id="toc-ošetření-none-hodnot" class="nav-link" data-scroll-target="#ošetření-none-hodnot"><span class="header-section-number">5.8.3</span> Ošetření None hodnot</a></li>
+  </ul></li>
+  <li><a href="#tipy-pro-výkon" id="toc-tipy-pro-výkon" class="nav-link" data-scroll-target="#tipy-pro-výkon"><span class="header-section-number">5.9</span> Tipy pro výkon</a>
+  <ul class="collapse">
+  <li><a href="#použití-where-klauzule" id="toc-použití-where-klauzule" class="nav-link" data-scroll-target="#použití-where-klauzule"><span class="header-section-number">5.9.1</span> Použití WHERE klauzule</a></li>
+  <li><a href="#otevření-pouze-potřebných-polí" id="toc-otevření-pouze-potřebných-polí" class="nav-link" data-scroll-target="#otevření-pouze-potřebných-polí"><span class="header-section-number">5.9.2</span> Otevření pouze potřebných polí</a></li>
+  <li><a href="#batch-operace" id="toc-batch-operace" class="nav-link" data-scroll-target="#batch-operace"><span class="header-section-number">5.9.3</span> Batch operace</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_16.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lekce 16: Kurzory II - Editace tabulek</h1>
+<p class="subtitle lead">Python pro GIS - Update a Insert Cursor</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 3, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="úvod" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Úvod</h1>
+<p>V předchozí lekci jsme se naučili číst data z atributových tabulek pomocí <code>SearchCursor</code>. V této lekci rozšíříme naše znalosti o další dva typy kurzorů, které umožňují data v tabulkách <strong>editovat</strong> a <strong>přidávat nové záznamy</strong>.</p>
+<p>Po absolvování lekce budete umět:</p>
+<ul>
+<li>Měnit hodnoty v existujících řádcích pomocí <code>UpdateCursor</code></li>
+<li>Mazat záznamy z tabulky</li>
+<li>Přidávat nové řádky pomocí <code>InsertCursor</code></li>
+<li>Vytvářet nové tabulky a plnit je daty</li>
+<li>Importovat data z CSV souborů do GIS tabulek</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Pozor na nevratné změny!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Na rozdíl od <code>SearchCursor</code>, který data pouze čte, kurzory <code>UpdateCursor</code> a <code>InsertCursor</code> provádějí <strong>trvalé změny</strong> v datech. Před použitím těchto kurzorů si vždy:</p>
+<ul>
+<li>Zálohujte původní data</li>
+<li>Otestujte skript na kopii dat</li>
+<li>Používejte <code>arcpy.env.overwriteOutput = True</code> s rozmyslem</li>
+</ul>
+</div>
+</div>
+<section id="data" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="data"><span class="header-section-number">1.1</span> Data</h2>
+<p>V lekci budeme pracovat s následujícími daty:</p>
+<ul>
+<li>Data <a href="https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/EjtjPJpimmdKuOsixew6tgMBizH7xrxlqUC5iHltqYgIWg?e=UlUSBz"><code>Kraje_sidla</code></a> (stejná, jaké jsme používali v minulé lekci), obsahující bodový dataset vybraných obcí ČR <code>Sidla_body.shp</code> a polygonový dataset krajů ČR <code>Kraje.shp</code>.</li>
+<li>CSV tabulka <a href="https://czuvpraze-my.sharepoint.com/:x:/g/personal/bartakv_fzp_czu_cz/EcTQRY0mNfhEg9HzOAOfv4IBPlFCsdXICk6ZHoBx_ubSWQ?e=DRdnUJ"><code>EU_OZE_Emise.csv</code></a> s environmentálními údaji vybraných evropských států.</li>
+</ul>
+</section>
+</section>
+<section id="přepsání-hodnot-v-řádku-pomocí-update-kurzoru" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Přepsání hodnot v řádku pomocí Update kurzoru</h1>
+<p>Pokud chceme obsah tabulky nejen číst, ale i měnit, použijeme <strong>Update kurzor</strong>. Syntaxe je prakticky stejná jako u Search kurzoru:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tab <span class="op">=</span> arcpy.da.UpdateCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Rozdíl je v tom, jaké metody má příslušný kurzor v nabídce. U <code>UpdateCursor</code> jde především o metodu <code>updateRow()</code>, pomocí které lze daný řádek, na kterém zrovna kurzor je, nahradit jiným řádkem. Ten je třeba metodě předat v podobě <em>n</em>-tice nebo seznamu odpovídající délky, přičemž jednotlivé položky musejí svým datovým typem odpovídat otevřeným sloupcům.</p>
+<section id="typy-kurzorů---připomenutí" class="level2 callout-info" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="typy-kurzorů---připomenutí"><span class="header-section-number">2.1</span> Typy kurzorů - připomenutí</h2>
+<p>Kurzory v <code>arcpy</code> jsou trojího druhu:</p>
+<ul>
+<li><strong>SearchCursor</strong> - pouze čtení hodnot z tabulky (minulá lekce)</li>
+<li><strong>UpdateCursor</strong> - čtení a zápis do existujících řádků (tato lekce)</li>
+<li><strong>InsertCursor</strong> - vkládání nových řádků do tabulky (tato lekce)</li>
+</ul>
+</section>
+<p>V následující ukázce změníme kategorii města Brno z 2 na 3:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tab <span class="op">=</span> arcpy.da.UpdateCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>], </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                            <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="bu">next</span>(tab)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tab.updateRow((<span class="st">"Brno"</span>, <span class="dv">3</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span>(tab)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Všimněte si, že jsme otevřeli rovnou pouze řádek s Brnem pomocí SQL dotazu. Přesto jsme museli použít funkci <code>next()</code>, abychom se na tento první řádek kurzorem posunuli.</p>
+<section id="editace-v-cyklu" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="editace-v-cyklu"><span class="header-section-number">2.2</span> Editace v cyklu</h2>
+<p>Častěji než úpravu jednoho řádku potřebujeme provést změny na více řádcích podle nějakého pravidla. V další ukázce provedeme přepisování řádku v rámci průchodu celé tabulky <code>for</code> cyklem. Do tabulky krajů přidáme textové pole “STAV” a vyplníme do něj hodnotu “OK” pro ty kraje, kde je zemřelých méně či stejně jako narozených, a “KO” pro ostatní:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení prostředí</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní data</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>input_fc <span class="op">=</span> <span class="st">"Kraje.shp"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání nového pole "STAV"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(input_fc, <span class="st">"STAV"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření kurzoru pro aktualizaci dat</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(input_fc, [<span class="st">"NAROZENI"</span>, <span class="st">"ZEMRELI"</span>, <span class="st">"STAV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Procházení řádků a aktualizace pole "STAV"</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="op">&gt;=</span> row[<span class="dv">1</span>]:</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">2</span>] <span class="op">=</span> <span class="st">"OK"</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">2</span>] <span class="op">=</span> <span class="st">"KO"</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Aktualizace řádku v tabulce    </span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Pole STAV bylo úspěšně vyplněno."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Úprava řádku v cyklu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Při práci s <code>UpdateCursor</code> v cyklu:</p>
+<ol type="1">
+<li>Načteme řádek do proměnné (např. <code>row</code>)</li>
+<li>Upravíme hodnoty v této proměnné (např. <code>row[2] = "OK"</code>)</li>
+<li>Zavoláme <code>cursor.updateRow(row)</code> pro uložení změn</li>
+</ol>
+<p>Bez volání <code>updateRow()</code> se změny do tabulky neuloží!</p>
+</div>
+</div>
+<p>Další příklad ukazuje, jak můžeme vypočítat nové hodnoty na základě existujících:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání pole pro hustotu zalidnění</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(<span class="st">"Kraje.shp"</span>, <span class="st">"HUSTOTA"</span>, <span class="st">"DOUBLE"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Výpočet hustoty pro každý kraj</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>, <span class="st">"SHAPE@AREA"</span>, <span class="st">"HUSTOTA"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        obyvatel <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        plocha_km2 <span class="op">=</span> row[<span class="dv">1</span>] <span class="op">/</span> <span class="dv">1000000</span>  <span class="co"># převod z m² na km²</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Výpočet hustoty</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">2</span>] <span class="op">=</span> obyvatel <span class="op">/</span> plocha_km2</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hustota zalidnění byla vypočítána."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="úlohy" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="úlohy"><span class="header-section-number">2.3</span> Úlohy</h2>
+<p><strong>Úloha 16.1.</strong> Do tabulky krajů přidejte pole “VELIKOST” (TEXT) a vyplňte ho hodnotami: “velký” pro kraje s plochou nad 7000 km², “střední” pro plochu 4000-7000 km² a “malý” pro plochu pod 4000 km².</p>
+<p><strong>Úloha 16.2.</strong> Vytvořte nové pole “PODIL_ZEN” (DOUBLE) v tabulce krajů a vypočítejte do něj podíl žen k celkovému počtu obyvatel (v procentech).</p>
+<p><strong>Úloha 16.3.</strong> Pro všechna města kategorie 3 změňte kategorii na 4. Použijte SQL dotaz při otevírání kurzoru.</p>
+<p><strong>Úloha 16.4.</strong> Do tabulky krajů přidejte pole “PRUMERNY_VEK” a vypočítejte do něj průměrný věk obyvatel (použijte pole s počty obyvatel v různých věkových kategoriích, pokud jsou k dispozici, jinak zadejte fiktivní hodnoty).</p>
+</section>
+</section>
+<section id="smazání-řádku" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Smazání řádku</h1>
+<p>Dalším použitím <code>UpdateCursor</code> je smazání řádku pomocí metody <code>deleteRow()</code>. Pokusíme se vymazat město Brno z datasetu. Jelikož však následně budeme chtít svůj čin odčinit a pomocí <code>InsertCursor</code> Brno opět vrátit, bude vhodné si příslušný záznam dopředu uložit:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Uložení záznamu o Brnu</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> tab:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    brno <span class="op">=</span> <span class="bu">next</span>(tab)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Uloženo: </span><span class="sc">{</span>brno[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">, kategorie </span><span class="sc">{</span>brno[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="pole-shape" class="level2 callout-info" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="pole-shape"><span class="header-section-number">3.1</span> Pole SHAPE@</h2>
+<p>Pole <code>SHAPE@</code> obsahuje celý geometrický objekt prvku. Na rozdíl od <code>SHAPE@AREA</code> nebo <code>SHAPE@XY</code>, které vrací pouze konkrétní vlastnosti, <code>SHAPE@</code> vrací kompletní geometrii včetně všech souřadnic.</p>
+<p>To je důležité při kopírování nebo přesouvání prvků - potřebujeme zachovat přesnou geometrii, ne jen její vlastnosti.</p>
+</section>
+<p>Nyní již samotné smazání:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>],</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> tab:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">next</span>(tab)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    tab.deleteRow()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Město Brno bylo smazáno z datasetu."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>O výsledku se v tabulce měst přesvědčte sami v ArcGIS Pro…</p>
+<section id="smazání-více-záznamů-v-cyklu" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="smazání-více-záznamů-v-cyklu"><span class="header-section-number">3.2</span> Smazání více záznamů v cyklu</h2>
+<p>V další ukázce projdeme v cyklu všechny kraje, jejichž stav byl identifikován jako “KO”, a smažeme je. Nejprve si však vrstvu zkopírujeme:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření kopie dat</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>kraje_ok <span class="op">=</span> arcpy.management.CopyFeatures(<span class="st">"Kraje.shp"</span>, <span class="st">"Kraje_OK.shp"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Smazání krajů se stavem "KO"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(kraje_ok, [<span class="st">"STAV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'KO'</span>:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            cursor.deleteRow()</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kraje se stavem KO byly smazány."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Namísto podmínky <code>row[0] == 'KO'</code> můžeme filtraci “KO” krajů provést rovnou při otevírání kurzoru pomocí SQL dotazu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(kraje_ok, [<span class="st">"STAV"</span>], where_clause<span class="op">=</span><span class="st">'"STAV" = </span><span class="ch">\'</span><span class="st">KO</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> cursor:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        cursor.deleteRow()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>SQL dotaz vs.&nbsp;podmínka v Pythonu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Oba přístupy fungují, ale SQL dotaz (<code>where_clause</code>) je efektivnější:</p>
+<ul>
+<li>Filtrování probíhá už při otevírání kurzoru</li>
+<li>Kurzor prochází méně řádků</li>
+<li>Vhodné zejména u velkých datasetů</li>
+</ul>
+<p>Podmínku v Pythonu (<code>if row[0] == 'KO'</code>) použijte, když:</p>
+<ul>
+<li>Podmínka je složitější než lze vyjádřit v SQL</li>
+<li>Potřebujete provádět výpočty před rozhodnutím o smazání</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="úlohy-1" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="úlohy-1"><span class="header-section-number">3.3</span> Úlohy</h2>
+<p><strong>Úloha 16.5.</strong> Smažte z tabulky měst všechna města kategorie 1. Nejprve si ale celý shapefile zkopírujte!</p>
+<p><strong>Úloha 16.6.</strong> Z tabulky krajů smažte všechny kraje, které mají hustotu zalidnění nižší než 80 obyvatel/km². (Pokud jste předtím nevytvořili pole HUSTOTA, vytvořte ho nyní.)</p>
+<p><strong>Úloha 16.7.</strong> Vytvořte skript, který projde všechny kraje a smaže ty, jejichž název začína na písmeno “S” nebo “M”. Použijte SQL operátor LIKE.</p>
+<p><strong>Úloha 16.8.</strong> Vytvořte funkci <code>delete_by_attribute(fc, field, value)</code>, která smaže všechny záznamy, kde dané pole má zadanou hodnotu. Otestujte ji na libovolných datech.</p>
+</section>
+</section>
+<section id="přidání-nového-řádku-pomocí-insert-kurzoru" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Přidání nového řádku pomocí Insert kurzoru</h1>
+<p>Nyní, jak jsme avizovali, vrátíme město Brno zpět do datasetu. K tomu slouží <code>InsertCursor</code>, umožňující do tabulky vložit nový řádek. Má jednodušší syntax než <code>UpdateCursor</code>, neboť neumožňuje filtrování pomocí SQL dotazu - nový řádek se vždy přidává na konec tabulky.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Geometrie při vkládání prvků
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pokud pracujeme s atributovou tabulkou vektorové vrstvy, je nutné při přidávání nového záznamu vždy zadat i <strong>geometrii prvku</strong> do pole <code>SHAPE@</code>. Jinak by danému řádku neodpovídal žádný geometrický prvek a celá vrstva by byla poškozena.</p>
+<p>Pro běžné tabulky (<code>.dbf</code>, databázové tabulky) toto neplatí - tam geometrii nemáme.</p>
+</div>
+</div>
+<p>Vrácení Brna do datasetu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>]) <span class="im">as</span> tab:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    tab.insertRow(brno)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Město Brno bylo obnoveno!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Zbývá než doufat, že jste celou proceduru smazání a opětovné záchrany Brna dělali v rámci jedné session, tj. že jste mezitím nerestartovali konzoli. Proměnná <code>brno</code> by tak byla smazána a město nadobro ztraceno…</p>
+<section id="vytvoření-nové-tabulky-a-její-naplnění-daty" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="vytvoření-nové-tabulky-a-její-naplnění-daty"><span class="header-section-number">4.1</span> Vytvoření nové tabulky a její naplnění daty</h2>
+<p>Vkládání řádku si předvedeme na úloze, kdy vytvoříme úplně novou tabulku z environmentálních údajů vybraných evropských zemí:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 24%">
+<col style="width: 22%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Země</th>
+<th style="text-align: right;">Emise CO₂ (Mt)</th>
+<th style="text-align: right;">Podíl OZE (%)</th>
+<th style="text-align: right;">Podíl OZE v elektřině (%)</th>
+<th style="text-align: right;">Změna emisí (2022-2023)</th>
+<th>Hlavní OZE zdroje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Německo</td>
+<td style="text-align: right;">572</td>
+<td style="text-align: right;">22.0</td>
+<td style="text-align: right;">52.0</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vítr, slunce, biomasa</td>
+</tr>
+<tr class="even">
+<td>Francie</td>
+<td style="text-align: right;">386</td>
+<td style="text-align: right;">20.5</td>
+<td style="text-align: right;">27.5</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vodní, vítr, slunce</td>
+</tr>
+<tr class="odd">
+<td>Itálie</td>
+<td style="text-align: right;">354</td>
+<td style="text-align: right;">19.9</td>
+<td style="text-align: right;">43.8</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vodní, slunce, vítr</td>
+</tr>
+<tr class="even">
+<td>Polsko</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: right;">18.5</td>
+<td style="text-align: right;">23.7</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vítr, biomasa</td>
+</tr>
+<tr class="odd">
+<td>Španělsko</td>
+<td style="text-align: right;">296</td>
+<td style="text-align: right;">21.7</td>
+<td style="text-align: right;">50.3</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vítr, slunce, vodní</td>
+</tr>
+<tr class="even">
+<td>Švédsko</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">66.4</td>
+<td style="text-align: right;">87.5</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vodní, vítr, biomasa</td>
+</tr>
+<tr class="odd">
+<td>Nizozemsko</td>
+<td style="text-align: right;">149</td>
+<td style="text-align: right;">17.8</td>
+<td style="text-align: right;">35.2</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vítr, slunce</td>
+</tr>
+<tr class="even">
+<td>Belgie</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">14.7</td>
+<td style="text-align: right;">31.5</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vítr, slunce, biomasa</td>
+</tr>
+<tr class="odd">
+<td>Česká republika</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">15.9</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vítr, slunce, biomasa</td>
+</tr>
+<tr class="even">
+<td>Rakousko</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">36.5</td>
+<td style="text-align: right;">87.8</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vodní, vítr, slunce</td>
+</tr>
+<tr class="odd">
+<td>Finsko</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">50.8</td>
+<td style="text-align: right;">47.4</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Biomasa, vítr, vodní</td>
+</tr>
+<tr class="even">
+<td>Dánsko</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">44.9</td>
+<td style="text-align: right;">88.4</td>
+<td style="text-align: right;">-7.5%</td>
+<td>Vítr, biomasa, slunce</td>
+</tr>
+<tr class="odd">
+<td>Norsko</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">79.4</td>
+<td style="text-align: right;">97.8</td>
+<td style="text-align: right;">-2.0%</td>
+<td>Vodní, vítr</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Zdroje dat:</strong></p>
+<ul>
+<li>Emise CO₂: EDGAR (Emissions Database for Global Atmospheric Research) 2024, Energy Institute Statistical Review 2024</li>
+<li>Podíl OZE: Eurostat 2024, data za rok 2023</li>
+<li>Podíl OZE v elektřině: Eurostat 2024, data za rok 2024</li>
+</ul>
+<p><strong>Poznámky:</strong></p>
+<ul>
+<li>Emise CO₂ zahrnují pouze fosilní paliva a výrobu cementu</li>
+<li>OZE = Obnovitelné zdroje energie (podíl z celkové spotřeby energie)</li>
+<li>EU27 jako celek snížila emise o 7,5% mezi lety 2022-2023</li>
+</ul>
+<section id="verze-s-daty-v-kódu" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="verze-s-daty-v-kódu"><span class="header-section-number">4.1.1</span> Verze s daty v kódu</h3>
+<p>Nejprve verze, kdy data do kódu píšeme ručně (to je pracná alternativa, leč někdy se může hodit mít hodnoty napevno vepsané do kódu):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení prostředí</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření nové tabulky</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>output_table <span class="op">=</span> <span class="st">"EU_OZE_Emise.dbf"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateTable(arcpy.env.workspace, output_table)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání polí do tabulky</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Zeme"</span>, <span class="st">"TEXT"</span>, <span class="dv">50</span>),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Emise_Mt"</span>, <span class="st">"DOUBLE"</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Podil_OZE"</span>, <span class="st">"DOUBLE"</span>),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"OZE_elekt"</span>, <span class="st">"DOUBLE"</span>),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Zmena_pct"</span>, <span class="st">"TEXT"</span>, <span class="dv">10</span>),</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Zdroje"</span>, <span class="st">"TEXT"</span>, <span class="dv">100</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> field_name, field_type, <span class="op">*</span>args <span class="kw">in</span> fields:</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> args:  <span class="co"># Pokud je zadána délka</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        arcpy.management.AddField(output_table, field_name, field_type, </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                                 field_length<span class="op">=</span>args[<span class="dv">0</span>])</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        arcpy.management.AddField(output_table, field_name, field_type)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Data k vložení</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Německo"</span>, <span class="dv">572</span>, <span class="fl">22.0</span>, <span class="fl">52.0</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vítr, slunce, biomasa"</span>),</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Francie"</span>, <span class="dv">386</span>, <span class="fl">20.5</span>, <span class="fl">27.5</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vodní, vítr, slunce"</span>),</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Itálie"</span>, <span class="dv">354</span>, <span class="fl">19.9</span>, <span class="fl">43.8</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vodní, slunce, vítr"</span>),</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Polsko"</span>, <span class="dv">360</span>, <span class="fl">18.5</span>, <span class="fl">23.7</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vítr, biomasa"</span>),</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Španělsko"</span>, <span class="dv">296</span>, <span class="fl">21.7</span>, <span class="fl">50.3</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vítr, slunce, vodní"</span>),</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Švédsko"</span>, <span class="dv">43</span>, <span class="fl">66.4</span>, <span class="fl">87.5</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vodní, vítr, biomasa"</span>),</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Nizozemsko"</span>, <span class="dv">149</span>, <span class="fl">17.8</span>, <span class="fl">35.2</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vítr, slunce"</span>),</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Belgie"</span>, <span class="dv">90</span>, <span class="fl">14.7</span>, <span class="fl">31.5</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vítr, slunce, biomasa"</span>),</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Česká republika"</span>, <span class="dv">89</span>, <span class="fl">18.1</span>, <span class="fl">15.9</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vítr, slunce, biomasa"</span>),</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Rakousko"</span>, <span class="dv">61</span>, <span class="fl">36.5</span>, <span class="fl">87.8</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vodní, vítr, slunce"</span>),</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Finsko"</span>, <span class="dv">46</span>, <span class="fl">50.8</span>, <span class="fl">47.4</span>, <span class="st">"-7.5%"</span>, <span class="st">"Biomasa, vítr, vodní"</span>),</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Dánsko"</span>, <span class="dv">33</span>, <span class="fl">44.9</span>, <span class="fl">88.4</span>, <span class="st">"-7.5%"</span>, <span class="st">"Vítr, biomasa, slunce"</span>),</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Norsko"</span>, <span class="dv">37</span>, <span class="fl">79.4</span>, <span class="fl">97.8</span>, <span class="st">"-2.0%"</span>, <span class="st">"Vodní, vítr"</span>)</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Vložení dat do tabulky</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>field_names <span class="op">=</span> [f[<span class="dv">0</span>] <span class="cf">for</span> f <span class="kw">in</span> fields]</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output_table, field_names) <span class="im">as</span> cursor:</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> data:</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow(row)</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Tabulka </span><span class="sc">{</span>output_table<span class="sc">}</span><span class="ss"> byla vytvořena a naplněna </span><span class="sc">{</span><span class="bu">len</span>(data)<span class="sc">}</span><span class="ss"> záznamy."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="import-dat-z-csv-souboru" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="import-dat-z-csv-souboru"><span class="header-section-number">4.1.2</span> Import dat z CSV souboru</h3>
+<p>Nyní si předvedeme realističtější variantu - data máme uložené v CSV tabulce:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení prostředí</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Cesta k CSV souboru</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>csv_file <span class="op">=</span> os.path.join(arcpy.env.workspace, <span class="st">"EU_OZE_Emise.csv"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření nové tabulky</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>output_table <span class="op">=</span> <span class="st">"EU_OZE_Emise_from_CSV.dbf"</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateTable(arcpy.env.workspace, output_table)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání polí do tabulky</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Zeme"</span>, <span class="st">"TEXT"</span>, <span class="dv">50</span>),</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Emise_Mt"</span>, <span class="st">"DOUBLE"</span>),</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Podil_OZE"</span>, <span class="st">"DOUBLE"</span>),</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"OZE_elekt"</span>, <span class="st">"DOUBLE"</span>),</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Zmena_pct"</span>, <span class="st">"TEXT"</span>, <span class="dv">10</span>),</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Zdroje"</span>, <span class="st">"TEXT"</span>, <span class="dv">100</span>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> field_name, field_type, <span class="op">*</span>args <span class="kw">in</span> fields:</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> args:</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>        arcpy.management.AddField(output_table, field_name, field_type, </span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>                                 field_length<span class="op">=</span>args[<span class="dv">0</span>])</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>        arcpy.management.AddField(output_table, field_name, field_type)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Načtení dat z CSV a vložení do tabulky</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(csv_file, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.reader(f)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">next</span>(reader)  <span class="co"># Přeskočení hlavičky</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    field_names <span class="op">=</span> [f[<span class="dv">0</span>] <span class="cf">for</span> f <span class="kw">in</span> fields]</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(output_table, field_names) <span class="im">as</span> cursor:</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> line <span class="kw">in</span> reader:</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Převedení hodnot na správné datové typy</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>            row <span class="op">=</span> [</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>                line[<span class="dv">0</span>],              <span class="co"># Zeme (TEXT)</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>                <span class="bu">float</span>(line[<span class="dv">1</span>]),       <span class="co"># Emise_Mt (DOUBLE)</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>                <span class="bu">float</span>(line[<span class="dv">2</span>]),       <span class="co"># Podil_OZE (DOUBLE)</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>                <span class="bu">float</span>(line[<span class="dv">3</span>]),       <span class="co"># OZE_elekt (DOUBLE)</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>                line[<span class="dv">4</span>],              <span class="co"># Zmena_pct (TEXT)</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>                line[<span class="dv">5</span>]               <span class="co"># Zdroje (TEXT)</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow(row)</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Data z CSV byla importována do </span><span class="sc">{</span>output_table<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Jednodušší alternativa - CopyRows
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Uvedenou proceduru lze ve skutečnosti vyřešit jednodušeji bez kurzoru, pomocí nástroje <code>arcpy.management.CopyRows()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní a výstupní tabulka</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>input_table <span class="op">=</span> <span class="st">"EU_OZE_Emise.csv"</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>output_table <span class="op">=</span> <span class="st">"EU_OZE_Emise_Copy.dbf"</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Kopírování tabulky</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>arcpy.management.CopyRows(input_table, output_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tento nástroj automaticky rozpozná strukturu CSV a vytvoří odpovídající pole v DBF.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="úlohy-2" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="úlohy-2"><span class="header-section-number">4.2</span> Úlohy</h2>
+<p><strong>Úloha 16.9.</strong> Vytvořte novou tabulku “Mesice.dbf” s poli CISLO (SHORT) a NAZEV (TEXT) a naplňte ji názvy všech 12 měsíců v roce.</p>
+<p><strong>Úloha 16.10.</strong> Z existující tabulky krajů vytvořte novou tabulku obsahující pouze kraje s více než 500 000 obyvateli. Použijte <code>SearchCursor</code> pro čtení a <code>InsertCursor</code> pro vytvoření nové tabulky.</p>
+<p><strong>Úloha 16.11.</strong> Vytvořte CSV soubor s daty o pěti městech (název, počet obyvatel, rozloha) a importujte ho do nové DBF tabulky pomocí <code>InsertCursor</code>.</p>
+<p><strong>Úloha 16.12.</strong> Napište funkci <code>duplicate_features(input_fc, output_fc, where_clause)</code>, která zkopíruje vybrané prvky z jedné vrstvy do druhé včetně geometrie a všech atributů. Použijte <code>SearchCursor</code> a <code>InsertCursor</code>.</p>
+</section>
+</section>
+<section id="cheatsheet" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Cheatsheet</h1>
+<section id="základy-update-cursor" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="základy-update-cursor"><span class="header-section-number">5.1</span> Základy Update Cursor</h2>
+<section id="vytvoření-update-kurzoru" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="vytvoření-update-kurzoru"><span class="header-section-number">5.1.1</span> Vytvoření Update kurzoru</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Základní syntaxe</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">=</span> arcpy.da.UpdateCursor(in_table, field_names, where_clause)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Příklad</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">=</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># S WHERE klauzulí</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">=</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>], <span class="st">'"POCET_OB" &gt; 1000000'</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># S klauzulí with (doporučeno)</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># práce s daty</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="aktualizace-řádku" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="aktualizace-řádku"><span class="header-section-number">5.1.2</span> Aktualizace řádku</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aktualizace konkrétního řádku</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>], <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Praha</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> cursor:</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> <span class="bu">next</span>(cursor)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    cursor.updateRow((<span class="st">"Hlavní město Praha"</span>,))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Aktualizace v cyklu</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>, <span class="st">"HUSTOTA"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">1</span>] <span class="op">=</span> row[<span class="dv">0</span>] <span class="op">/</span> <span class="dv">1000</span>  <span class="co"># výpočet nové hodnoty</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="podmíněná-aktualizace" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="podmíněná-aktualizace"><span class="header-section-number">5.1.3</span> Podmíněná aktualizace</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># S podmínkou v Pythonu</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>, <span class="st">"KATEGORIE"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">1000000</span>:</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> <span class="st">"velký"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> row[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">500000</span>:</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> <span class="st">"střední"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> <span class="st">"malý"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># S WHERE klauzulí (efektivnější)</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>where <span class="op">=</span> <span class="st">'"POCET_OB" &gt; 1000000'</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"KATEGORIE"</span>], where) <span class="im">as</span> cursor:</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">0</span>] <span class="op">=</span> <span class="st">"velký"</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="mazání-řádků" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="mazání-řádků"><span class="header-section-number">5.2</span> Mazání řádků</h2>
+<section id="smazání-konkrétního-řádku" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="smazání-konkrétního-řádku"><span class="header-section-number">5.2.1</span> Smazání konkrétního řádku</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Smazání podle WHERE klauzule</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>], <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Praha</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> cursor:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> <span class="bu">next</span>(cursor)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    cursor.deleteRow()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="smazání-více-řádků" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="smazání-více-řádků"><span class="header-section-number">5.2.2</span> Smazání více řádků</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Smazání všech řádků splňujících podmínku</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="op">&lt;</span> <span class="dv">100000</span>:</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            cursor.deleteRow()</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Efektivnější s WHERE klauzulí</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>where <span class="op">=</span> <span class="st">'"POCET_OB" &lt; 100000'</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>], where) <span class="im">as</span> cursor:</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        cursor.deleteRow()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="uložení-před-smazáním" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="uložení-před-smazáním"><span class="header-section-number">5.2.3</span> Uložení před smazáním</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uložení záznamu před smazáním</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>deleted_records <span class="op">=</span> []</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">1</span>] <span class="op">&lt;</span> <span class="dv">100000</span>:</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>            deleted_records.append(row)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>            cursor.deleteRow()</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Smazáno </span><span class="sc">{</span><span class="bu">len</span>(deleted_records)<span class="sc">}</span><span class="ss"> záznamů"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="insert-cursor" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="insert-cursor"><span class="header-section-number">5.3</span> Insert Cursor</h2>
+<section id="vytvoření-insert-kurzoru" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="vytvoření-insert-kurzoru"><span class="header-section-number">5.3.1</span> Vytvoření Insert kurzoru</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Základní syntaxe</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">=</span> arcpy.da.InsertCursor(in_table, field_names)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Příklad</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow((<span class="st">"Nový kraj"</span>, <span class="dv">500000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vložení-jednoho-řádku" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="vložení-jednoho-řádku"><span class="header-section-number">5.3.2</span> Vložení jednoho řádku</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro tabulku (bez geometrie)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Tabulka.dbf"</span>, [<span class="st">"POLE1"</span>, <span class="st">"POLE2"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow((<span class="st">"hodnota1"</span>, <span class="dv">123</span>))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro feature class (s geometrií)</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([(x, y), <span class="st">"Nový bod"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vložení-více-řádků" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="vložení-více-řádků"><span class="header-section-number">5.3.3</span> Vložení více řádků</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Z listu</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Kraj1"</span>, <span class="dv">100000</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Kraj2"</span>, <span class="dv">200000</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Kraj3"</span>, <span class="dv">150000</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> data:</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="import-z-csv" class="level3" data-number="5.3.4">
+<h3 data-number="5.3.4" class="anchored" data-anchor-id="import-z-csv"><span class="header-section-number">5.3.4</span> Import z CSV</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.csv"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.reader(f)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">next</span>(reader)  <span class="co"># přeskočení hlavičky</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Tabulka.dbf"</span>, [<span class="st">"POLE1"</span>, <span class="st">"POLE2"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> line <span class="kw">in</span> reader:</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Převod datových typů</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>            row <span class="op">=</span> (line[<span class="dv">0</span>], <span class="bu">float</span>(line[<span class="dv">1</span>]))</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="práce-s-geometrií" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="práce-s-geometrií"><span class="header-section-number">5.4</span> Práce s geometrií</h2>
+<section id="kopírování-prvku-včetně-geometrie" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="kopírování-prvku-včetně-geometrie"><span class="header-section-number">5.4.1</span> Kopírování prvku včetně geometrie</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uložení prvku</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>], <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Praha</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> cursor:</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    saved_feature <span class="op">=</span> <span class="bu">next</span>(cursor)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Vložení na jiné místo</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Body_kopie.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow(saved_feature)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vytvoření-bodu-na-souřadnicích" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="vytvoření-bodu-na-souřadnicích"><span class="header-section-number">5.4.2</span> Vytvoření bodu na souřadnicích</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pomocí SHAPE@XY</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> <span class="dv">500000</span>, <span class="dv">6000000</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([(x, y), <span class="st">"Nový bod"</span>])</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Pomocí Point objektu</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>point <span class="op">=</span> arcpy.Point(x, y)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([point, <span class="st">"Nový bod"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="vytváření-tabulek" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="vytváření-tabulek"><span class="header-section-number">5.5</span> Vytváření tabulek</h2>
+<section id="vytvoření-prázdné-tabulky" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="vytvoření-prázdné-tabulky"><span class="header-section-number">5.5.1</span> Vytvoření prázdné tabulky</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření tabulky</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateTable(workspace, <span class="st">"Nova_tabulka.dbf"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání polí</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(<span class="st">"Nova_tabulka.dbf"</span>, <span class="st">"NAZEV"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(<span class="st">"Nova_tabulka.dbf"</span>, <span class="st">"HODNOTA"</span>, <span class="st">"DOUBLE"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(<span class="st">"Nova_tabulka.dbf"</span>, <span class="st">"DATUM"</span>, <span class="st">"DATE"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vytvoření-a-naplnění-tabulky" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="vytvoření-a-naplnění-tabulky"><span class="header-section-number">5.5.2</span> Vytvoření a naplnění tabulky</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření tabulky s poli</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> <span class="st">"Statistiky.dbf"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateTable(arcpy.env.workspace, output)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>fields <span class="op">=</span> [</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Kategorie"</span>, <span class="st">"TEXT"</span>, <span class="dv">20</span>),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Pocet"</span>, <span class="st">"LONG"</span>),</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"Prumer"</span>, <span class="st">"DOUBLE"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, dtype, <span class="op">*</span>length <span class="kw">in</span> fields:</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> length:</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        arcpy.management.AddField(output, name, dtype, field_length<span class="op">=</span>length[<span class="dv">0</span>])</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>        arcpy.management.AddField(output, name, dtype)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Naplnění daty</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> [(<span class="st">"A"</span>, <span class="dv">10</span>, <span class="fl">5.5</span>), (<span class="st">"B"</span>, <span class="dv">20</span>, <span class="fl">7.3</span>), (<span class="st">"C"</span>, <span class="dv">15</span>, <span class="fl">6.1</span>)]</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output, [f[<span class="dv">0</span>] <span class="cf">for</span> f <span class="kw">in</span> fields]) <span class="im">as</span> cursor:</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> data:</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="kombinace-kurzorů" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="kombinace-kurzorů"><span class="header-section-number">5.6</span> Kombinace kurzorů</h2>
+<section id="kopírování-s-úpravou" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="kopírování-s-úpravou"><span class="header-section-number">5.6.1</span> Kopírování s úpravou</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kopírování řádků s úpravou hodnot</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> search:</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Kraje_kopie.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> insert:</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> search:</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Úprava hodnoty</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>            new_row <span class="op">=</span> (row[<span class="dv">0</span>] <span class="op">+</span> <span class="st">"_kopie"</span>, row[<span class="dv">1</span>] <span class="op">*</span> <span class="dv">2</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>            insert.insertRow(new_row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="filtrované-kopírování" class="level3" data-number="5.6.2">
+<h3 data-number="5.6.2" class="anchored" data-anchor-id="filtrované-kopírování"><span class="header-section-number">5.6.2</span> Filtrované kopírování</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kopírování pouze vybraných řádků</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="dv">500000</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>, <span class="st">"SHAPE@"</span>]) <span class="im">as</span> search:</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Velke_kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>, <span class="st">"SHAPE@"</span>]) <span class="im">as</span> insert:</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> search:</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> row[<span class="dv">1</span>] <span class="op">&gt;</span> threshold:</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                insert.insertRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="agregace-dat" class="level3" data-number="5.6.3">
+<h3 data-number="5.6.3" class="anchored" data-anchor-id="agregace-dat"><span class="header-section-number">5.6.3</span> Agregace dat</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sumarizace a uložení výsledků</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>statistiky <span class="op">=</span> defaultdict(<span class="kw">lambda</span>: {<span class="st">"pocet"</span>: <span class="dv">0</span>, <span class="st">"suma"</span>: <span class="dv">0</span>})</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Čtení dat</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Okresy.shp"</span>, [<span class="st">"KRAJ"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        kraj <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        obyvatel <span class="op">=</span> row[<span class="dv">1</span>]</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        statistiky[kraj][<span class="st">"pocet"</span>] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        statistiky[kraj][<span class="st">"suma"</span>] <span class="op">+=</span> obyvatel</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření výstupní tabulky</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>output <span class="op">=</span> <span class="st">"Statistiky_kraju.dbf"</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateTable(arcpy.env.workspace, output)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output, <span class="st">"KRAJ"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output, <span class="st">"POCET_OKRESU"</span>, <span class="st">"LONG"</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output, <span class="st">"CELKEM_OBYVATEL"</span>, <span class="st">"LONG"</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Zápis výsledků</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output, [<span class="st">"KRAJ"</span>, <span class="st">"POCET_OKRESU"</span>, <span class="st">"CELKEM_OBYVATEL"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> kraj, stats <span class="kw">in</span> statistiky.items():</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow((kraj, stats[<span class="st">"pocet"</span>], stats[<span class="st">"suma"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="časté-vzory-použití" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="časté-vzory-použití"><span class="header-section-number">5.7</span> Časté vzory použití</h2>
+<section id="přidání-vypočítaného-pole" class="level3" data-number="5.7.1">
+<h3 data-number="5.7.1" class="anchored" data-anchor-id="přidání-vypočítaného-pole"><span class="header-section-number">5.7.1</span> Přidání vypočítaného pole</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání pole a výpočet hodnot</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(<span class="st">"Kraje.shp"</span>, <span class="st">"HUSTOTA"</span>, <span class="st">"DOUBLE"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>, <span class="st">"SHAPE@AREA"</span>, <span class="st">"HUSTOTA"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">2</span>] <span class="op">=</span> row[<span class="dv">0</span>] <span class="op">/</span> (row[<span class="dv">1</span>] <span class="op">/</span> <span class="dv">1000000</span>)  <span class="co"># obyvatel/km²</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="kategorizace-hodnot" class="level3" data-number="5.7.2">
+<h3 data-number="5.7.2" class="anchored" data-anchor-id="kategorizace-hodnot"><span class="header-section-number">5.7.2</span> Kategorizace hodnot</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání kategorie podle hodnoty</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(<span class="st">"Kraje.shp"</span>, <span class="st">"VELIKOST"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>, <span class="st">"VELIKOST"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">1000000</span>:</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> <span class="st">"Velký"</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> row[<span class="dv">0</span>] <span class="op">&gt;</span> <span class="dv">500000</span>:</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> <span class="st">"Střední"</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> <span class="st">"Malý"</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="normalizace-textu" class="level3" data-number="5.7.3">
+<h3 data-number="5.7.3" class="anchored" data-anchor-id="normalizace-textu"><span class="header-section-number">5.7.3</span> Normalizace textu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Převod na jednotný formát</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Převod na velká písmena, odstranění mezer</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">0</span>] <span class="op">=</span> row[<span class="dv">0</span>].upper().strip()</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="zpracování-chyb" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="zpracování-chyb"><span class="header-section-number">5.8</span> Zpracování chyb</h2>
+<section id="try-except-s-kurzory" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="try-except-s-kurzory"><span class="header-section-number">5.8.1</span> Try-except s kurzory</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">0</span>] <span class="op">=</span> row[<span class="dv">0</span>] <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>            cursor.updateRow(row)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Aktualizace proběhla úspěšně"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Chyba při aktualizaci: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="kontrola-existence-pole" class="level3" data-number="5.8.2">
+<h3 data-number="5.8.2" class="anchored" data-anchor-id="kontrola-existence-pole"><span class="header-section-number">5.8.2</span> Kontrola existence pole</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kontrola před přidáním pole</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>field_name <span class="op">=</span> <span class="st">"HUSTOTA"</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>existing_fields <span class="op">=</span> [f.name <span class="cf">for</span> f <span class="kw">in</span> arcpy.ListFields(<span class="st">"Kraje.shp"</span>)]</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> field_name <span class="kw">not</span> <span class="kw">in</span> existing_fields:</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    arcpy.management.AddField(<span class="st">"Kraje.shp"</span>, field_name, <span class="st">"DOUBLE"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ošetření-none-hodnot" class="level3" data-number="5.8.3">
+<h3 data-number="5.8.3" class="anchored" data-anchor-id="ošetření-none-hodnot"><span class="header-section-number">5.8.3</span> Ošetření None hodnot</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"POCET_OB"</span>, <span class="st">"HUSTOTA"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> row[<span class="dv">0</span>] <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">1</span>] <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="tipy-pro-výkon" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="tipy-pro-výkon"><span class="header-section-number">5.9</span> Tipy pro výkon</h2>
+<section id="použití-where-klauzule" class="level3" data-number="5.9.1">
+<h3 data-number="5.9.1" class="anchored" data-anchor-id="použití-where-klauzule"><span class="header-section-number">5.9.1</span> Použití WHERE klauzule</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Místo podmínky v Pythonu (pomalé)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">0</span>] <span class="op">==</span> <span class="st">"Praha"</span>:</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>            <span class="co"># zpracování</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">pass</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Použijte WHERE (rychlé)</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>], <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Praha</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> cursor:</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># zpracování</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="otevření-pouze-potřebných-polí" class="level3" data-number="5.9.2">
+<h3 data-number="5.9.2" class="anchored" data-anchor-id="otevření-pouze-potřebných-polí"><span class="header-section-number">5.9.2</span> Otevření pouze potřebných polí</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Špatně - otevření všech polí</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"*"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">5</span>] <span class="op">=</span> <span class="st">"nova_hodnota"</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dobře - pouze potřebná pole</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">0</span>] <span class="op">=</span> <span class="st">"nova_hodnota"</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        cursor.updateRow(row)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="batch-operace" class="level3" data-number="5.9.3">
+<h3 data-number="5.9.3" class="anchored" data-anchor-id="batch-operace"><span class="header-section-number">5.9.3</span> Batch operace</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro velké množství změn zvažte batch zpracování</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>rows_to_update <span class="op">=</span> []</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"POCET_OB"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        row[<span class="dv">1</span>] <span class="op">=</span> row[<span class="dv">1</span>] <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        rows_to_update.append(row)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(rows_to_update) <span class="op">&gt;=</span> batch_size:</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Zpracování batch</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> r <span class="kw">in</span> rows_to_update:</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>                cursor.updateRow(r)</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>            rows_to_update <span class="op">=</span> []</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/vojta-bartak\.github\.io\/quarto_example\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

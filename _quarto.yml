@@ -46,8 +46,12 @@ website:
             href: lessons/lesson_13.qmd
           - text: "Lekce 14: Atributové operace"
             href: lessons/lesson_14.qmd
+      - text: "Část 4: Kurzory a geometrie"
+        menu:
           - text: "Lekce 15: Kurzory I"
             href: lessons/lesson_15.qmd
+          - text: "Lekce 16: Kurzory II"
+            href: lessons/lesson_16.qmd
 
 format:
   html:
