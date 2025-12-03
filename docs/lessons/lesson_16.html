@@ -236,15 +236,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#přepsání-hodnot-v-řádku-pomocí-update-kurzoru" id="toc-přepsání-hodnot-v-řádku-pomocí-update-kurzoru" class="nav-link" data-scroll-target="#přepsání-hodnot-v-řádku-pomocí-update-kurzoru"><span class="header-section-number">2</span> Přepsání hodnot v řádku pomocí Update kurzoru</a>
   <ul class="collapse">
-  <li><a href="#typy-kurzorů---připomenutí" id="toc-typy-kurzorů---připomenutí" class="nav-link" data-scroll-target="#typy-kurzorů---připomenutí"><span class="header-section-number">2.1</span> Typy kurzorů - připomenutí</a></li>
-  <li><a href="#editace-v-cyklu" id="toc-editace-v-cyklu" class="nav-link" data-scroll-target="#editace-v-cyklu"><span class="header-section-number">2.2</span> Editace v cyklu</a></li>
-  <li><a href="#úlohy" id="toc-úlohy" class="nav-link" data-scroll-target="#úlohy"><span class="header-section-number">2.3</span> Úlohy</a></li>
+  <li><a href="#editace-v-cyklu" id="toc-editace-v-cyklu" class="nav-link" data-scroll-target="#editace-v-cyklu"><span class="header-section-number">2.1</span> Editace v cyklu</a></li>
+  <li><a href="#úlohy" id="toc-úlohy" class="nav-link" data-scroll-target="#úlohy"><span class="header-section-number">2.2</span> Úlohy</a></li>
   </ul></li>
   <li><a href="#smazání-řádku" id="toc-smazání-řádku" class="nav-link" data-scroll-target="#smazání-řádku"><span class="header-section-number">3</span> Smazání řádku</a>
   <ul class="collapse">
-  <li><a href="#pole-shape" id="toc-pole-shape" class="nav-link" data-scroll-target="#pole-shape"><span class="header-section-number">3.1</span> Pole SHAPE@</a></li>
-  <li><a href="#smazání-více-záznamů-v-cyklu" id="toc-smazání-více-záznamů-v-cyklu" class="nav-link" data-scroll-target="#smazání-více-záznamů-v-cyklu"><span class="header-section-number">3.2</span> Smazání více záznamů v cyklu</a></li>
-  <li><a href="#úlohy-1" id="toc-úlohy-1" class="nav-link" data-scroll-target="#úlohy-1"><span class="header-section-number">3.3</span> Úlohy</a></li>
+  <li><a href="#smazání-více-záznamů-v-cyklu" id="toc-smazání-více-záznamů-v-cyklu" class="nav-link" data-scroll-target="#smazání-více-záznamů-v-cyklu"><span class="header-section-number">3.1</span> Smazání více záznamů v cyklu</a></li>
+  <li><a href="#úlohy-1" id="toc-úlohy-1" class="nav-link" data-scroll-target="#úlohy-1"><span class="header-section-number">3.2</span> Úlohy</a></li>
   </ul></li>
   <li><a href="#přidání-nového-řádku-pomocí-insert-kurzoru" id="toc-přidání-nového-řádku-pomocí-insert-kurzoru" class="nav-link" data-scroll-target="#přidání-nového-řádku-pomocí-insert-kurzoru"><span class="header-section-number">4</span> Přidání nového řádku pomocí Insert kurzoru</a>
   <ul class="collapse">
@@ -392,15 +390,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Pokud chceme obsah tabulky nejen číst, ale i měnit, použijeme <strong>Update kurzor</strong>. Syntaxe je prakticky stejná jako u Search kurzoru:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>tab <span class="op">=</span> arcpy.da.UpdateCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Rozdíl je v tom, jaké metody má příslušný kurzor v nabídce. U <code>UpdateCursor</code> jde především o metodu <code>updateRow()</code>, pomocí které lze daný řádek, na kterém zrovna kurzor je, nahradit jiným řádkem. Ten je třeba metodě předat v podobě <em>n</em>-tice nebo seznamu odpovídající délky, přičemž jednotlivé položky musejí svým datovým typem odpovídat otevřeným sloupcům.</p>
-<section id="typy-kurzorů---připomenutí" class="level2 callout-info" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="typy-kurzorů---připomenutí"><span class="header-section-number">2.1</span> Typy kurzorů - připomenutí</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Typy kurzorů - připomenutí
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Kurzory v <code>arcpy</code> jsou trojího druhu:</p>
 <ul>
 <li><strong>SearchCursor</strong> - pouze čtení hodnot z tabulky (minulá lekce)</li>
 <li><strong>UpdateCursor</strong> - čtení a zápis do existujících řádků (tato lekce)</li>
 <li><strong>InsertCursor</strong> - vkládání nových řádků do tabulky (tato lekce)</li>
 </ul>
-</section>
+</div>
+</div>
 <p>V následující ukázce změníme kategorii města Brno z 2 na 3 (tím o tomto městu nenaznačujeme nic špatného!):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
@@ -410,8 +417,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tab.updateRow((<span class="st">"Brno"</span>, <span class="dv">3</span>))</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span>(tab)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Všimněte si, že jsme otevřeli rovnou pouze řádek s Brnem pomocí SQL dotazu. Přesto jsme museli použít funkci <code>next()</code>, abychom se na tento první řádek kurzorem posunuli.</p>
-<section id="editace-v-cyklu" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="editace-v-cyklu"><span class="header-section-number">2.2</span> Editace v cyklu</h2>
+<section id="editace-v-cyklu" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="editace-v-cyklu"><span class="header-section-number">2.1</span> Editace v cyklu</h2>
 <p>Častěji než úpravu jednoho řádku potřebujeme provést změny na více řádcích podle nějakého pravidla. V další ukázce provedeme přepisování řádku v rámci průchodu celé tabulky <code>for</code> cyklem. Do tabulky krajů přidáme textové pole “STAV” a vyplníme do něj hodnotu “OK” pro ty kraje, kde je zemřelých méně či stejně jako narozených, a “KO” pro ostatní. (Úlohu lze řešit i bez kurzorů. Jak byste to dělali?)</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -476,8 +483,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hustota zalidnění byla vypočítána."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="úlohy" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="úlohy"><span class="header-section-number">2.3</span> Úlohy</h2>
+<section id="úlohy" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="úlohy"><span class="header-section-number">2.2</span> Úlohy</h2>
 <p><strong>Úloha 16.1.</strong> Do tabulky krajů přidejte pole “VELIKOST” (TEXT) a vyplňte ho hodnotami: “velký” pro kraje s plochou nad 7000 km², “střední” pro plochu 4000-7000 km² a “malý” pro plochu pod 4000 km².</p>
 <p><strong>Úloha 16.2.</strong> Vytvořte nové pole “PODIL_ZEN” (DOUBLE) v tabulce krajů a vypočítejte do něj podíl žen k celkovému počtu obyvatel (v procentech).</p>
 <p><strong>Úloha 16.3.</strong> Pro všechna města kategorie 3 změňte kategorii na 4. Použijte SQL dotaz při otevírání kurzoru.</p>
@@ -490,19 +497,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>],</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> tab:</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    brno <span class="op">=</span> tab.<span class="bu">next</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="pole-shape" class="level2 callout-info" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="pole-shape"><span class="header-section-number">3.1</span> Pole SHAPE@</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Pole SHAPE@
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Pole <code>SHAPE@</code> obsahuje celý geometrický objekt prvku. Na rozdíl od <code>SHAPE@AREA</code> nebo <code>SHAPE@XY</code>, které vrací pouze konkrétní vlastnosti, <code>SHAPE@</code> vrací kompletní geometrii včetně všech souřadnic.</p>
 <p>To je důležité při kopírování nebo přesouvání prvků - potřebujeme zachovat přesnou geometrii, ne jen její vlastnosti.</p>
-</section>
+</div>
+</div>
 <p>Nyní již samotné smazání:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.UpdateCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"KATEGORIE"</span>],</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                          <span class="st">'"NAZEV" = </span><span class="ch">\'</span><span class="st">Brno</span><span class="ch">\'</span><span class="st">'</span>) <span class="im">as</span> tab:</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">next</span>(tab)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    tab.deleteRow()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>O výsledku se v tabulce měst přesvědčte sami v ArcGIS Pro…</p>
-<section id="smazání-více-záznamů-v-cyklu" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="smazání-více-záznamů-v-cyklu"><span class="header-section-number">3.2</span> Smazání více záznamů v cyklu</h2>
+<section id="smazání-více-záznamů-v-cyklu" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="smazání-více-záznamů-v-cyklu"><span class="header-section-number">3.1</span> Smazání více záznamů v cyklu</h2>
 <p>V další ukázce projdeme v cyklu všechny kraje, jejichž stav byl identifikován jako “KO”, a z mapy světa je jednoduše smažeme. (Raději si ovšem nejprve celou vrstvu zkopírujeme pro případ, že bychom toho v budoucnu litovali.)</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
@@ -543,8 +559,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="úlohy-1" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="úlohy-1"><span class="header-section-number">3.3</span> Úlohy</h2>
+<section id="úlohy-1" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="úlohy-1"><span class="header-section-number">3.2</span> Úlohy</h2>
 <p><strong>Úloha 16.5.</strong> Smažte z tabulky měst všechna města kategorie 1. Nejprve si ale celý shapefile zkopírujte!</p>
 <p><strong>Úloha 16.6.</strong> Z tabulky krajů smažte všechny kraje, které mají hustotu zalidnění nižší než 80 obyvatel/km². (Pokud jste předtím nevytvořili pole HUSTOTA, vytvořte ho nyní.)</p>
 <p><strong>Úloha 16.7.</strong> Vytvořte skript, který projde všechny kraje a smaže ty, jejichž název začína na písmeno “S” nebo “M”. Použijte SQL operátor LIKE.</p>

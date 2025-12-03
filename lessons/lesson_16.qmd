@@ -35,7 +35,7 @@ Po absolvování lekce budete umět:
 -   Vytvářet nové tabulky a plnit je daty
 -   Importovat data z CSV souborů do GIS tabulek
 
-::: callout-warning
+:::{.callout-warning}
 ## Pozor na nevratné změny!
 
 Na rozdíl od `SearchCursor`, který data pouze čte, kurzory `UpdateCursor` a `InsertCursor` provádějí **trvalé změny** v datech. Před použitím těchto kurzorů si vždy:
@@ -62,7 +62,7 @@ tab = arcpy.da.UpdateCursor("Sidla_body.shp", ["NAZEV", "KATEGORIE"])
 
 Rozdíl je v tom, jaké metody má příslušný kurzor v nabídce. U `UpdateCursor` jde především o metodu `updateRow()`, pomocí které lze daný řádek, na kterém zrovna kurzor je, nahradit jiným řádkem. Ten je třeba metodě předat v podobě *n*-tice nebo seznamu odpovídající délky, přičemž jednotlivé položky musejí svým datovým typem odpovídat otevřeným sloupcům.
 
-:::{.callout-info}
+:::{.callout-note}
 ## Typy kurzorů - připomenutí
 
 Kurzory v `arcpy` jsou trojího druhu:
@@ -173,7 +173,7 @@ with arcpy.da.SearchCursor("Sidla_body.shp", ["SHAPE@", "NAZEV", "KATEGORIE"],
     brno = tab.next()
 ```
 
-:::{.callout-info}
+:::{.callout-note}
 ## Pole SHAPE@
 
 Pole `SHAPE@` obsahuje celý geometrický objekt prvku. Na rozdíl od `SHAPE@AREA` nebo `SHAPE@XY`, které vrací pouze konkrétní vlastnosti, `SHAPE@` vrací kompletní geometrii včetně všech souřadnic. 
