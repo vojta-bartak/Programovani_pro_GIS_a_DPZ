@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
+<meta name="dcterms.date" content="2025-12-08">
+
+<title>Lekce 17: Geometrie I - struktura geometrií – Programování pro GIS a DPZ</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2a12e044340f79bad0d75c7561fedc86.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Programování pro GIS a DPZ</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-1-model-builder" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ćást 1: Model Builder</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-1-model-builder">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_01.html">
+ <span class="dropdown-text">Lekce 1: Jednoduchý model</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-2-úvod-do-pythonu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 2: Úvod do Pythonu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-2-úvod-do-pythonu">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_03.html">
+ <span class="dropdown-text">Lekce 3: První program v Pythonu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_04.html">
+ <span class="dropdown-text">Lekce 4: Cykly a podmínky</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_05.html">
+ <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_06.html">
+ <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_07.html">
+ <span class="dropdown-text">Lekce 7: Textové soubory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_08.html">
+ <span class="dropdown-text">Lekce 8: Textové soubory II</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-3-základy-arcpy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 3: Základy ArcPy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-3-základy-arcpy">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_10.html">
+ <span class="dropdown-text">Lekce 10: Úvod do modulu ArcPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_11.html">
+ <span class="dropdown-text">Lekce 11: Správa dat a workspace</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_12.html">
+ <span class="dropdown-text">Lekce 12: Geoprocessingové nástroje I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_13.html">
+ <span class="dropdown-text">Lekce 13: Geoprocessingové nástroje II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_14.html">
+ <span class="dropdown-text">Lekce 14: Atributové operace</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-4-kurzory-a-geometrie" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 4: Kurzory a geometrie</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-4-kurzory-a-geometrie">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_15.html">
+ <span class="dropdown-text">Lekce 15: Kurzory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_16.html">
+ <span class="dropdown-text">Lekce 16: Kurzory II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_17.html">
+ <span class="dropdown-text">Lekce 17: Geometrie I</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#úvod" id="toc-úvod" class="nav-link active" data-scroll-target="#úvod"><span class="header-section-number">1</span> Úvod</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">1.1</span> Data</a></li>
+  </ul></li>
+  <li><a href="#struktura-geometrických-objektů" id="toc-struktura-geometrických-objektů" class="nav-link" data-scroll-target="#struktura-geometrických-objektů"><span class="header-section-number">2</span> Struktura geometrických objektů</a>
+  <ul class="collapse">
+  <li><a href="#bodové-geometrie" id="toc-bodové-geometrie" class="nav-link" data-scroll-target="#bodové-geometrie"><span class="header-section-number">2.1</span> Bodové geometrie</a>
+  <ul class="collapse">
+  <li><a href="#struktura-jednoduché-bodové-geometrie" id="toc-struktura-jednoduché-bodové-geometrie" class="nav-link" data-scroll-target="#struktura-jednoduché-bodové-geometrie"><span class="header-section-number">2.1.1</span> Struktura jednoduché bodové geometrie</a></li>
+  <li><a href="#různé-způsoby-přístupu-k-souřadnicím" id="toc-různé-způsoby-přístupu-k-souřadnicím" class="nav-link" data-scroll-target="#různé-způsoby-přístupu-k-souřadnicím"><span class="header-section-number">2.1.2</span> Různé způsoby přístupu k souřadnicím</a></li>
+  <li><a href="#vlastnosti-objektu-point" id="toc-vlastnosti-objektu-point" class="nav-link" data-scroll-target="#vlastnosti-objektu-point"><span class="header-section-number">2.1.3</span> Vlastnosti objektu Point</a></li>
+  <li><a href="#multipart-bodové-geometrie" id="toc-multipart-bodové-geometrie" class="nav-link" data-scroll-target="#multipart-bodové-geometrie"><span class="header-section-number">2.1.4</span> Multipart bodové geometrie</a></li>
+  <li><a href="#zjištění-typu-geometrie" id="toc-zjištění-typu-geometrie" class="nav-link" data-scroll-target="#zjištění-typu-geometrie"><span class="header-section-number">2.1.5</span> Zjištění typu geometrie</a></li>
+  </ul></li>
+  <li><a href="#liniové-geometrie" id="toc-liniové-geometrie" class="nav-link" data-scroll-target="#liniové-geometrie"><span class="header-section-number">2.2</span> Liniové geometrie</a>
+  <ul class="collapse">
+  <li><a href="#struktura-liniové-geometrie" id="toc-struktura-liniové-geometrie" class="nav-link" data-scroll-target="#struktura-liniové-geometrie"><span class="header-section-number">2.2.1</span> Struktura liniové geometrie</a></li>
+  <li><a href="#čtení-lomových-bodů-linie" id="toc-čtení-lomových-bodů-linie" class="nav-link" data-scroll-target="#čtení-lomových-bodů-linie"><span class="header-section-number">2.2.2</span> Čtení lomových bodů linie</a></li>
+  <li><a href="#zjištění-počtu-lomových-bodů" id="toc-zjištění-počtu-lomových-bodů" class="nav-link" data-scroll-target="#zjištění-počtu-lomových-bodů"><span class="header-section-number">2.2.3</span> Zjištění počtu lomových bodů</a></li>
+  <li><a href="#extrakce-prvního-a-posledního-bodu" id="toc-extrakce-prvního-a-posledního-bodu" class="nav-link" data-scroll-target="#extrakce-prvního-a-posledního-bodu"><span class="header-section-number">2.2.4</span> Extrakce prvního a posledního bodu</a></li>
+  </ul></li>
+  <li><a href="#polygonové-geometrie" id="toc-polygonové-geometrie" class="nav-link" data-scroll-target="#polygonové-geometrie"><span class="header-section-number">2.3</span> Polygonové geometrie</a>
+  <ul class="collapse">
+  <li><a href="#struktura-polygonové-geometrie" id="toc-struktura-polygonové-geometrie" class="nav-link" data-scroll-target="#struktura-polygonové-geometrie"><span class="header-section-number">2.3.1</span> Struktura polygonové geometrie</a></li>
+  <li><a href="#čtení-vrcholů-polygonu" id="toc-čtení-vrcholů-polygonu" class="nav-link" data-scroll-target="#čtení-vrcholů-polygonu"><span class="header-section-number">2.3.2</span> Čtení vrcholů polygonu</a></li>
+  <li><a href="#multipart-polygony" id="toc-multipart-polygony" class="nav-link" data-scroll-target="#multipart-polygony"><span class="header-section-number">2.3.3</span> Multipart polygony</a></li>
+  <li><a href="#centroid-a-extent" id="toc-centroid-a-extent" class="nav-link" data-scroll-target="#centroid-a-extent"><span class="header-section-number">2.3.4</span> Centroid a extent</a></li>
+  </ul></li>
+  <li><a href="#úlohy" id="toc-úlohy" class="nav-link" data-scroll-target="#úlohy"><span class="header-section-number">2.4</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#tvorba-nových-geometrií" id="toc-tvorba-nových-geometrií" class="nav-link" data-scroll-target="#tvorba-nových-geometrií"><span class="header-section-number">3</span> Tvorba nových geometrií</a>
+  <ul class="collapse">
+  <li><a href="#tvorba-bodové-geometrie" id="toc-tvorba-bodové-geometrie" class="nav-link" data-scroll-target="#tvorba-bodové-geometrie"><span class="header-section-number">3.1</span> Tvorba bodové geometrie</a>
+  <ul class="collapse">
+  <li><a href="#základní-způsob" id="toc-základní-způsob" class="nav-link" data-scroll-target="#základní-způsob"><span class="header-section-number">3.1.1</span> Základní způsob</a></li>
+  <li><a href="#vložení-bodu-do-feature-class" id="toc-vložení-bodu-do-feature-class" class="nav-link" data-scroll-target="#vložení-bodu-do-feature-class"><span class="header-section-number">3.1.2</span> Vložení bodu do feature class</a></li>
+  <li><a href="#kratší-způsob-pomocí-shapexy" id="toc-kratší-způsob-pomocí-shapexy" class="nav-link" data-scroll-target="#kratší-způsob-pomocí-shapexy"><span class="header-section-number">3.1.3</span> Kratší způsob pomocí SHAPE@XY</a></li>
+  <li><a href="#import-bodů-z-csv-souboru" id="toc-import-bodů-z-csv-souboru" class="nav-link" data-scroll-target="#import-bodů-z-csv-souboru"><span class="header-section-number">3.1.4</span> Import bodů z CSV souboru</a></li>
+  </ul></li>
+  <li><a href="#tvorba-liniové-geometrie" id="toc-tvorba-liniové-geometrie" class="nav-link" data-scroll-target="#tvorba-liniové-geometrie"><span class="header-section-number">3.2</span> Tvorba liniové geometrie</a>
+  <ul class="collapse">
+  <li><a href="#jednoduchá-linie" id="toc-jednoduchá-linie" class="nav-link" data-scroll-target="#jednoduchá-linie"><span class="header-section-number">3.2.1</span> Jednoduchá linie</a></li>
+  <li><a href="#vložení-linie-do-feature-class" id="toc-vložení-linie-do-feature-class" class="nav-link" data-scroll-target="#vložení-linie-do-feature-class"><span class="header-section-number">3.2.2</span> Vložení linie do feature class</a></li>
+  <li><a href="#multipart-linie" id="toc-multipart-linie" class="nav-link" data-scroll-target="#multipart-linie"><span class="header-section-number">3.2.3</span> Multipart linie</a></li>
+  </ul></li>
+  <li><a href="#tvorba-polygonové-geometrie" id="toc-tvorba-polygonové-geometrie" class="nav-link" data-scroll-target="#tvorba-polygonové-geometrie"><span class="header-section-number">3.3</span> Tvorba polygonové geometrie</a>
+  <ul class="collapse">
+  <li><a href="#jednoduchý-polygon" id="toc-jednoduchý-polygon" class="nav-link" data-scroll-target="#jednoduchý-polygon"><span class="header-section-number">3.3.1</span> Jednoduchý polygon</a></li>
+  <li><a href="#vložení-polygonu-do-feature-class" id="toc-vložení-polygonu-do-feature-class" class="nav-link" data-scroll-target="#vložení-polygonu-do-feature-class"><span class="header-section-number">3.3.2</span> Vložení polygonu do feature class</a></li>
+  <li><a href="#polygon-s-dírou-vnitřním-ringem" id="toc-polygon-s-dírou-vnitřním-ringem" class="nav-link" data-scroll-target="#polygon-s-dírou-vnitřním-ringem"><span class="header-section-number">3.3.3</span> Polygon s dírou (vnitřním ringem)</a></li>
+  <li><a href="#multipart-polygon" id="toc-multipart-polygon" class="nav-link" data-scroll-target="#multipart-polygon"><span class="header-section-number">3.3.4</span> Multipart polygon</a></li>
+  </ul></li>
+  <li><a href="#úlohy-1" id="toc-úlohy-1" class="nav-link" data-scroll-target="#úlohy-1"><span class="header-section-number">3.4</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#tahák---časté-vzory-použití" id="toc-tahák---časté-vzory-použití" class="nav-link" data-scroll-target="#tahák---časté-vzory-použití"><span class="header-section-number">4</span> Tahák - časté vzory použití</a>
+  <ul class="collapse">
+  <li><a href="#čtení-geometrií" id="toc-čtení-geometrií" class="nav-link" data-scroll-target="#čtení-geometrií"><span class="header-section-number">4.1</span> Čtení geometrií</a>
+  <ul class="collapse">
+  <li><a href="#výpis-všech-souřadnic-bodové-vrstvy" id="toc-výpis-všech-souřadnic-bodové-vrstvy" class="nav-link" data-scroll-target="#výpis-všech-souřadnic-bodové-vrstvy"><span class="header-section-number">4.1.1</span> Výpis všech souřadnic bodové vrstvy</a></li>
+  <li><a href="#počítání-lomových-bodů-linie" id="toc-počítání-lomových-bodů-linie" class="nav-link" data-scroll-target="#počítání-lomových-bodů-linie"><span class="header-section-number">4.1.2</span> Počítání lomových bodů linie</a></li>
+  <li><a href="#extrakce-hraničních-bodů-polygonu" id="toc-extrakce-hraničních-bodů-polygonu" class="nav-link" data-scroll-target="#extrakce-hraničních-bodů-polygonu"><span class="header-section-number">4.1.3</span> Extrakce hraničních bodů polygonu</a></li>
+  </ul></li>
+  <li><a href="#vytváření-geometrií" id="toc-vytváření-geometrií" class="nav-link" data-scroll-target="#vytváření-geometrií"><span class="header-section-number">4.2</span> Vytváření geometrií</a>
+  <ul class="collapse">
+  <li><a href="#vytvoření-bodu-pomocí-shapexy" id="toc-vytvoření-bodu-pomocí-shapexy" class="nav-link" data-scroll-target="#vytvoření-bodu-pomocí-shapexy"><span class="header-section-number">4.2.1</span> Vytvoření bodu pomocí SHAPE@XY</a></li>
+  <li><a href="#vytvoření-bodu-pomocí-point-objektu" id="toc-vytvoření-bodu-pomocí-point-objektu" class="nav-link" data-scroll-target="#vytvoření-bodu-pomocí-point-objektu"><span class="header-section-number">4.2.2</span> Vytvoření bodu pomocí Point objektu</a></li>
+  <li><a href="#vytvoření-linie-ze-seznamu-souřadnic" id="toc-vytvoření-linie-ze-seznamu-souřadnic" class="nav-link" data-scroll-target="#vytvoření-linie-ze-seznamu-souřadnic"><span class="header-section-number">4.2.3</span> Vytvoření linie ze seznamu souřadnic</a></li>
+  <li><a href="#vytvoření-polygonu-ze-seznamu-souřadnic" id="toc-vytvoření-polygonu-ze-seznamu-souřadnic" class="nav-link" data-scroll-target="#vytvoření-polygonu-ze-seznamu-souřadnic"><span class="header-section-number">4.2.4</span> Vytvoření polygonu ze seznamu souřadnic</a></li>
+  </ul></li>
+  <li><a href="#konverze-mezi-geometriemi" id="toc-konverze-mezi-geometriemi" class="nav-link" data-scroll-target="#konverze-mezi-geometriemi"><span class="header-section-number">4.3</span> Konverze mezi geometriemi</a>
+  <ul class="collapse">
+  <li><a href="#převod-centroidů-polygonů-na-body" id="toc-převod-centroidů-polygonů-na-body" class="nav-link" data-scroll-target="#převod-centroidů-polygonů-na-body"><span class="header-section-number">4.3.1</span> Převod centroidů polygonů na body</a></li>
+  <li><a href="#převod-linií-na-počáteční-a-koncové-body" id="toc-převod-linií-na-počáteční-a-koncové-body" class="nav-link" data-scroll-target="#převod-linií-na-počáteční-a-koncové-body"><span class="header-section-number">4.3.2</span> Převod linií na počáteční a koncové body</a></li>
+  </ul></li>
+  <li><a href="#import-dat" id="toc-import-dat" class="nav-link" data-scroll-target="#import-dat"><span class="header-section-number">4.4</span> Import dat</a>
+  <ul class="collapse">
+  <li><a href="#import-bodů-z-csv" id="toc-import-bodů-z-csv" class="nav-link" data-scroll-target="#import-bodů-z-csv"><span class="header-section-number">4.4.1</span> Import bodů z CSV</a></li>
+  <li><a href="#import-linií-z-textového-souboru" id="toc-import-linií-z-textového-souboru" class="nav-link" data-scroll-target="#import-linií-z-textového-souboru"><span class="header-section-number">4.4.2</span> Import linií z textového souboru</a></li>
+  </ul></li>
+  <li><a href="#generování-geometrií" id="toc-generování-geometrií" class="nav-link" data-scroll-target="#generování-geometrií"><span class="header-section-number">4.5</span> Generování geometrií</a>
+  <ul class="collapse">
+  <li><a href="#vytvoření-pravidelné-mřížky-bodů" id="toc-vytvoření-pravidelné-mřížky-bodů" class="nav-link" data-scroll-target="#vytvoření-pravidelné-mřížky-bodů"><span class="header-section-number">4.5.1</span> Vytvoření pravidelné mřížky bodů</a></li>
+  <li><a href="#vytvoření-pravidelného-mnohoúhelníku" id="toc-vytvoření-pravidelného-mnohoúhelníku" class="nav-link" data-scroll-target="#vytvoření-pravidelného-mnohoúhelníku"><span class="header-section-number">4.5.2</span> Vytvoření pravidelného mnohoúhelníku</a></li>
+  <li><a href="#vytvoření-mřížky-polygonů" id="toc-vytvoření-mřížky-polygonů" class="nav-link" data-scroll-target="#vytvoření-mřížky-polygonů"><span class="header-section-number">4.5.3</span> Vytvoření mřížky polygonů</a></li>
+  </ul></li>
+  <li><a href="#zpracování-chyb" id="toc-zpracování-chyb" class="nav-link" data-scroll-target="#zpracování-chyb"><span class="header-section-number">4.6</span> Zpracování chyb</a>
+  <ul class="collapse">
+  <li><a href="#kontrola-typu-geometrie" id="toc-kontrola-typu-geometrie" class="nav-link" data-scroll-target="#kontrola-typu-geometrie"><span class="header-section-number">4.6.1</span> Kontrola typu geometrie</a></li>
+  <li><a href="#ošetření-neplatných-geometrií" id="toc-ošetření-neplatných-geometrií" class="nav-link" data-scroll-target="#ošetření-neplatných-geometrií"><span class="header-section-number">4.6.2</span> Ošetření neplatných geometrií</a></li>
+  <li><a href="#kontrola-uzavření-polygonu" id="toc-kontrola-uzavření-polygonu" class="nav-link" data-scroll-target="#kontrola-uzavření-polygonu"><span class="header-section-number">4.6.3</span> Kontrola uzavření polygonu</a></li>
+  </ul></li>
+  <li><a href="#práce-se-souřadnicovými-systémy" id="toc-práce-se-souřadnicovými-systémy" class="nav-link" data-scroll-target="#práce-se-souřadnicovými-systémy"><span class="header-section-number">4.7</span> Práce se souřadnicovými systémy</a>
+  <ul class="collapse">
+  <li><a href="#specifikace-sr-při-vytváření-feature-class" id="toc-specifikace-sr-při-vytváření-feature-class" class="nav-link" data-scroll-target="#specifikace-sr-při-vytváření-feature-class"><span class="header-section-number">4.7.1</span> Specifikace SR při vytváření feature class</a></li>
+  <li><a href="#transformace-souřadnic" id="toc-transformace-souřadnic" class="nav-link" data-scroll-target="#transformace-souřadnic"><span class="header-section-number">4.7.2</span> Transformace souřadnic</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_17.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lekce 17: Geometrie I - struktura geometrií</h1>
+<p class="subtitle lead">Python pro GIS - Čtení a zápis objektů Geometry</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 8, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="úvod" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Úvod</h1>
+<p>V předchozích lekcích jsme pracovali s atributovými daty v tabulkách. Nyní se zaměříme na <strong>geometrickou složku</strong> geoprvků - na objekty reprezentující prostorové tvary jako body, linie a polygony.</p>
+<p>Po absolvování lekce budete umět:</p>
+<ul>
+<li>Porozumět hierarchické struktuře geometrických objektů v <code>arcpy</code></li>
+<li>Číst souřadnice bodů, lomových bodů linií a vrcholů polygonů</li>
+<li>Pracovat s jednoduchými i vícedílnými (multipart) geometriemi</li>
+<li>Vytvářet nové geometrické objekty programově</li>
+<li>Vkládat vytvořené geometrie do feature class pomocí kurzorů</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proč pracovat s geometriemi přímo?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Přímá práce s geometriemi umožňuje:</p>
+<ul>
+<li>Vytvářet nové geoprvky programově (bez ručního digitalizování)</li>
+<li>Analyzovat a upravovat existující geometrie</li>
+<li>Importovat prostorová data z nestandardních formátů</li>
+<li>Provádět vlastní geometrické výpočty a transformace</li>
+</ul>
+</div>
+</div>
+<section id="data" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="data"><span class="header-section-number">1.1</span> Data</h2>
+<p>V lekci budeme pracovat s následujícími daty:</p>
+<ul>
+<li>Bodová vrstva měst <code>Sidla_body.shp</code> z datasetu <a href="https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/EjtjPJpimmdKuOsixew6tgMBizH7xrxlqUC5iHltqYgIWg?e=UlUSBz"><code>Kraje_sidla</code></a></li>
+<li>Liniová vrstva silnic (můžete použít vlastní data nebo stáhnout testovací data)</li>
+<li>Polygonová vrstva krajů <code>Kraje.shp</code> z datasetu <code>Kraje_sidla</code></li>
+</ul>
+</section>
+</section>
+<section id="struktura-geometrických-objektů" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Struktura geometrických objektů</h1>
+<p>Geometrie v <code>arcpy</code> mají <strong>hierarchickou strukturu</strong> postavenou na několika základních třídách:</p>
+<ol type="1">
+<li><strong><code>arcpy.Point</code></strong> - reprezentuje jeden bod (vertex) se souřadnicemi X, Y (a volitelně Z, M)</li>
+<li><strong><code>arcpy.Array</code></strong> - kolekce bodů nebo kolekcí bodů (posloupnost)</li>
+<li><strong><code>arcpy.Geometry</code></strong> - základní třída pro všechny geometrie
+<ul>
+<li><strong><code>arcpy.PointGeometry</code></strong> - bodová geometrie</li>
+<li><strong><code>arcpy.Multipoint</code></strong> - multipart bodová geometrie</li>
+<li><strong><code>arcpy.Polyline</code></strong> - liniová geometrie</li>
+<li><strong><code>arcpy.Polygon</code></strong> - polygonová geometrie</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Analogie se strukturou dat
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Můžete si to představit jako:</p>
+<ul>
+<li><code>Point</code> = jednotlivé číslo</li>
+<li><code>Array</code> = seznam čísel</li>
+<li><code>Geometry</code> = komplexní struktura (objekt) obsahující seznamy čísel s dalšími vlastnostmi</li>
+</ul>
+</div>
+</div>
+<section id="bodové-geometrie" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="bodové-geometrie"><span class="header-section-number">2.1</span> Bodové geometrie</h2>
+<p>Bodové geometrie (<code>PointGeometry</code>) jsou na první pohled nejjednodušší typ geometrie. Každý bodový geoprvek obvykle obsahuje jeden objekt <code>Point</code> se souřadnicemi X a Y. Existují však i <strong>multipart bodové geometrie</strong>, které obsahují více oddělených bodů v rámci jednoho záznamu v atributové tabulce.</p>
+<section id="struktura-jednoduché-bodové-geometrie" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="struktura-jednoduché-bodové-geometrie"><span class="header-section-number">2.1.1</span> Struktura jednoduché bodové geometrie</h3>
+<p>U běžných (single-part) bodových geometrií je struktura přímočará. Když z kurzoru načteme pole <code>SHAPE@</code>, získáme objekt <code>PointGeometry</code>. Z něj pak můžeme extrahovat samotný bod pomocí vlastnosti <code>firstPoint</code>, která vrací objekt <code>Point</code> s konkrétními souřadnicemi.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        point_geom <span class="op">=</span> row[<span class="dv">0</span>]  <span class="co"># Objekt PointGeometry</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        point <span class="op">=</span> point_geom.firstPoint  <span class="co"># Objekt Point</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Výpis souřadnic</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">: X=</span><span class="sc">{</span>point<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, Y=</span><span class="sc">{</span>point<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>V této ukázce vidíme základní postup: načteme celou geometrii (<code>row[0]</code>), což je objekt <code>PointGeometry</code>, a z něj pak získáme konkrétní bod (<code>firstPoint</code>). Ten má vlastnosti <code>X</code> a <code>Y</code> s konkrétními souřadnicemi.</p>
+</section>
+<section id="různé-způsoby-přístupu-k-souřadnicím" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="různé-způsoby-přístupu-k-souřadnicím"><span class="header-section-number">2.1.2</span> Různé způsoby přístupu k souřadnicím</h3>
+<p>ArcPy poskytuje několik zkratek pro přístup k souřadnicím bodů, které jsou v mnoha situacích pohodlnější než cesta přes <code>firstPoint</code>. Tyto zkratky se používají přímo při specifikaci polí v kurzoru.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"SHAPE@XY"</span>, <span class="st">"SHAPE@X"</span>, <span class="st">"SHAPE@Y"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Způsob 1: Přes objekt Geometry a Point</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        geom <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        point <span class="op">=</span> geom.firstPoint</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        x1, y1 <span class="op">=</span> point.X, point.Y</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Způsob 2: Přes SHAPE@XY (vrací tuple)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        x2, y2 <span class="op">=</span> row[<span class="dv">1</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Způsob 3: Přes SHAPE@X a SHAPE@Y</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        x3, y3 <span class="op">=</span> row[<span class="dv">2</span>], row[<span class="dv">3</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">4</span>]<span class="sc">}</span><span class="ss">: (</span><span class="sc">{</span>x1<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>y1<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tento příklad demonstruje tři ekvivalentní způsoby, jak získat souřadnice téhož bodu. První způsob (<code>SHAPE@</code> + <code>firstPoint</code>) dává nejplnější přístup k objektu <code>Point</code>, druhý způsob (<code>SHAPE@XY</code>) vrací přímo tuple se souřadnicemi, třetí způsob (<code>SHAPE@X</code> a <code>SHAPE@Y</code>) vrací jednotlivé souřadnice jako samostatné hodnoty.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Který způsob použít?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><code>SHAPE@XY</code> - nejrychlejší a nejčastější volba, vrací tuple (x, y)</li>
+<li><code>SHAPE@X</code> a <code>SHAPE@Y</code> - když potřebujete jen jednu souřadnici nebo když píšete kód, kde je jasné, že pracujete odděleně s X a Y</li>
+<li><code>SHAPE@</code> + <code>firstPoint</code> - když potřebujete plný přístup k objektu Point (např. pro Z či M souřadnice, nebo pro práci s multipart geometriemi)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="vlastnosti-objektu-point" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="vlastnosti-objektu-point"><span class="header-section-number">2.1.3</span> Vlastnosti objektu Point</h3>
+<p>Objekt <code>Point</code> uchovává nejen povinné souřadnice X a Y, ale může obsahovat i další informace. U 3D dat to je souřadnice Z (nadmořská výška nebo jiná vertikální dimenze), u lineárně referenčních dat může být přítomna hodnota M (měřená vzdálenost podél linie). Pokud tyto dimenze nejsou použity, příslušné vlastnosti mají hodnotu <code>None</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> cursor.<span class="bu">next</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    point <span class="op">=</span> row[<span class="dv">0</span>].firstPoint</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"X: </span><span class="sc">{</span>point<span class="sc">.</span>X<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Y: </span><span class="sc">{</span>point<span class="sc">.</span>Y<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Z: </span><span class="sc">{</span>point<span class="sc">.</span>Z<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># None pokud není 3D</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"M: </span><span class="sc">{</span>point<span class="sc">.</span>M<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># None pokud není M hodnota</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"ID: </span><span class="sc">{</span>point<span class="sc">.</span>ID<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>V tomto příkladu používáme metodu <code>cursor.next()</code> k načtení pouze prvního záznamu, což je užitečné, když chceme prozkoumat strukturu dat bez procházení všech záznamů. Vlastnosti <code>Z</code> a <code>M</code> budou mít hodnotu <code>None</code>, pokud data nejsou trojrozměrná nebo neobsahují měřené hodnoty.</p>
+</section>
+<section id="multipart-bodové-geometrie" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="multipart-bodové-geometrie"><span class="header-section-number">2.1.4</span> Multipart bodové geometrie</h3>
+<p>Ne všechny bodové geometrie obsahují jen jeden bod. Občas se setkáme s <strong>multipart bodovými geometriemi</strong>, kde jeden záznam v atributové tabulce reprezentuje více oddělených bodů. Typickým příkladem může být měřená lokalita s více měřícími body, které logicky patří k jednomu objektu. Multipart bodová geometrie je reprezentována objektem <code>Multipoint</code>.</p>
+<p>U multipart geometrií už nestačí <code>firstPoint</code> - potřebujeme procházet všechny části geometrie. Objekt <code>Multipoint</code> je k tomu účelu uzpůsoben, lze jej totiž procázet v cyklu přes jednotlivé body.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        point_geom <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> point_geom.isMultipart:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Počet bodů: </span><span class="sc">{</span>point_geom<span class="sc">.</span>pointCount<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Procházení všech bodů multipart prvku</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> point <span class="kw">in</span> point_geom:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"  Bod: (</span><span class="sc">{</span>point<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>point<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Zde vidíme klíčový moment: když procházíme geometrii cyklem (<code>for point in point_geom</code>), získáváme objekty <code>Point</code>, které obsahují jednotlivé body.</p>
+</section>
+<section id="zjištění-typu-geometrie" class="level3" data-number="2.1.5">
+<h3 data-number="2.1.5" class="anchored" data-anchor-id="zjištění-typu-geometrie"><span class="header-section-number">2.1.5</span> Zjištění typu geometrie</h3>
+<p>Někdy potřebujeme zjistit, zda je geometrie multipart, aniž bychom procházeli všechny její části. K tomu slouží vlastnost <code>isMultipart</code> a vlastnost <code>partCount</code>, která říká počet částí geometrie.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Sidla_body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        geom <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  Je multipart: </span><span class="sc">{</span>geom<span class="sc">.</span>isMultipart<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  Počet částí: </span><span class="sc">{</span>geom<span class="sc">.</span>partCount<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  Počet bodů celkem: </span><span class="sc">{</span>geom<span class="sc">.</span>pointCount<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  Typ: </span><span class="sc">{</span>geom<span class="sc">.</span><span class="bu">type</span><span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Vlastnost <code>type</code> vrací textový řetězec identifikující typ geometrie - pro bodové geometrie to bude <code>"point"</code>, pro multipart body <code>"multipoint"</code>. To je užitečné, když pracujeme s různými typy geometrií ve stejném kódu a potřebujeme rozlišit, s čím aktuálně pracujeme.</p>
+</section>
+</section>
+<section id="liniové-geometrie" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="liniové-geometrie"><span class="header-section-number">2.2</span> Liniové geometrie</h2>
+<p>Linie (<code>Polyline</code>) jsou složitější než body. Skládají se z <strong>posloupnosti bodů</strong> (lomových bodů), které dohromady tvoří čáru. Každý lomový bod je objekt <code>Point</code> a celá posloupnost je uložena v objektu <code>Array</code>. Linie tak využívá hierarchii Point → Array → Polyline.</p>
+<section id="struktura-liniové-geometrie" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="struktura-liniové-geometrie"><span class="header-section-number">2.2.1</span> Struktura liniové geometrie</h3>
+<p>Když z kurzoru načteme liniovou geometrii, získáme objekt <code>Polyline</code>, který má řadu užitečných vlastností. Kromě samotné posloupnosti bodů můžeme přímo zjistit délku linie, počet částí (pokud jde o multipart feature) a celkový počet lomových bodů.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Silnice.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> <span class="bu">next</span>(cursor)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    line <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Základní vlastnosti linie</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Délka: </span><span class="sc">{</span>line<span class="sc">.</span>length<span class="sc">:.2f}</span><span class="ss"> m"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Počet částí: </span><span class="sc">{</span>line<span class="sc">.</span>partCount<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Počet bodů: </span><span class="sc">{</span>line<span class="sc">.</span>pointCount<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Tyto vlastnosti jsou velmi užitečné pro rychlou analýzu dat bez nutnosti procházet všechny body manuálně. Délka je vypočítána v jednotkách souřadnicového systému dat (typicky metry u projektovaných souřadnicových systémů).</p>
+</section>
+<section id="čtení-lomových-bodů-linie" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="čtení-lomových-bodů-linie"><span class="header-section-number">2.2.2</span> Čtení lomových bodů linie</h3>
+<p>Pro detailní práci s linií potřebujeme přístup k jednotlivým lomovým bodům. Linii procházíme dvěma vnořenými cykly: vnější cyklus prochází části (parts) linie, vnitřní cyklus prochází body v každé části. U jednoduchých linií (single-part) bude vnější cyklus proveden pouze jednou.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Silnice.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Linie: </span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Procházení všech částí linie</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> part <span class="kw">in</span> line:</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Procházení bodů v části</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> point <span class="kw">in</span> part:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>point<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>point<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Co jsou části (parts)?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Jedna feature může obsahovat více oddělených částí. Například dálnice D1 může být rozdělena na několik úseků (parts), které spolu fyzicky nesousedí. Každá část je samostatná linie s vlastní posloupností bodů. V atributové tabulce to zůstává jediným záznamem, ale geometricky jde o více oddělených linií.</p>
+</div>
+</div>
+</section>
+<section id="zjištění-počtu-lomových-bodů" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="zjištění-počtu-lomových-bodů"><span class="header-section-number">2.2.3</span> Zjištění počtu lomových bodů</h3>
+<p>Pokud nás zajímá pouze celkový počet lomových bodů bez potřeby je všechny procházet, můžeme použít vlastnost <code>pointCount</code>. Někdy ale potřebujeme spočítat body manuálně, například když filtrujeme určité body nebo když pracujeme s multipart features a chceme znát počty bodů v jednotlivých částech.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Silnice.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        total_points <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> part <span class="kw">in</span> line:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            part_points <span class="op">=</span> <span class="bu">len</span>([p <span class="cf">for</span> p <span class="kw">in</span> part])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            total_points <span class="op">+=</span> part_points</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>total_points<span class="sc">}</span><span class="ss"> lomových bodů"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>List comprehension <code>[p for p in part]</code> vytváří seznam všech nenulových bodů v části. Funkce <code>len()</code> pak spočítá prvky tohoto seznamu.</p>
+</section>
+<section id="extrakce-prvního-a-posledního-bodu" class="level3" data-number="2.2.4">
+<h3 data-number="2.2.4" class="anchored" data-anchor-id="extrakce-prvního-a-posledního-bodu"><span class="header-section-number">2.2.4</span> Extrakce prvního a posledního bodu</h3>
+<p>Pro některé analýzy potřebujeme znát pouze koncové body linie - například když testujeme konektivitu sítě nebo když hledáme, kde linie začíná a končí. ArcPy poskytuje vlastnosti <code>firstPoint</code> a <code>lastPoint</code>, které vrací tyto krajní body přímo, bez nutnosti procházet všechny lomové body.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Silnice.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># První a poslední bod celé linie</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        first_point <span class="op">=</span> line.firstPoint</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        last_point <span class="op">=</span> line.lastPoint</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Začátek: (</span><span class="sc">{</span>first_point<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>first_point<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Konec: (</span><span class="sc">{</span>last_point<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>last_point<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>U multipart linií tyto vlastnosti vrací první bod první části a poslední bod poslední části. Pokud potřebujete koncové body každé části zvlášť, musíte procházet části cyklem a pro každou část extrahovat její první a poslední prvek.</p>
+</section>
+</section>
+<section id="polygonové-geometrie" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="polygonové-geometrie"><span class="header-section-number">2.3</span> Polygonové geometrie</h2>
+<p>Polygony (<code>Polygon</code>) jsou nejsložitější geometrický typ. Podobně jako linie se skládají z posloupnosti bodů, ale tyto body tvoří <strong>uzavřený tvar</strong> - první a poslední bod jsou stejné. Navíc polygony mohou mít <strong>vnitřní hranice</strong> (díry, holes), což vytváří další úroveň složitosti ve struktuře dat.</p>
+<section id="struktura-polygonové-geometrie" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="struktura-polygonové-geometrie"><span class="header-section-number">2.3.1</span> Struktura polygonové geometrie</h3>
+<p>Objekt <code>Polygon</code> poskytuje přímý přístup k základním metrickým vlastnostem. Kromě obvodu (který je analogický k délce linie) máme k dispozici i plochu. Stejně jako u linií můžeme zjistit počet částí a celkový počet vrcholů.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> <span class="bu">next</span>(cursor)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    polygon <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Základní vlastnosti polygonu</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Plocha: </span><span class="sc">{</span>polygon<span class="sc">.</span>area<span class="sc">:.2f}</span><span class="ss"> m²"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Obvod: </span><span class="sc">{</span>polygon<span class="sc">.</span>length<span class="sc">:.2f}</span><span class="ss"> m"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Počet částí: </span><span class="sc">{</span>polygon<span class="sc">.</span>partCount<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Počet bodů: </span><span class="sc">{</span>polygon<span class="sc">.</span>pointCount<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Plocha je vypočítána v jednotkách odpovídajících kvadrátu jednotky souřadnicového systému (obvykle m²). Vlastnost <code>length</code> u polygonů představuje obvod - součet délek všech hran včetně případných vnitřních hranic.</p>
+</section>
+<section id="čtení-vrcholů-polygonu" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="čtení-vrcholů-polygonu"><span class="header-section-number">2.3.2</span> Čtení vrcholů polygonu</h3>
+<p>Procházení vrcholů polygonu je podobné jako u linií, ale s důležitým rozdílem: posloupnost bodů může obsahovat hodnoty <code>None</code>, které signalizují přechod od vnější hranice k vnitřní hranici (díře). První posloupnost bodů vždy definuje vnější hranici polygonu, po <code>None</code> následuje posloupnost definující první vnitřní hranici, po další <code>None</code> druhou vnitřní hranici, atd.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        polygon <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Polygon: </span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Procházení všech částí polygonu</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> part_num, part <span class="kw">in</span> <span class="bu">enumerate</span>(polygon):</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"  Část </span><span class="sc">{</span>part_num<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Sledování, zda jsme ve vnější nebo vnitřní hranici</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>            is_exterior <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> point <span class="kw">in</span> part:</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> point:</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> is_exterior:</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(<span class="ss">f"    Vnější hranice: (</span><span class="sc">{</span>point<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>point<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(<span class="ss">f"    Vnitřní hranice: (</span><span class="sc">{</span>point<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>point<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># None signalizuje přechod na vnitřní ring</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="ss">f"    --- Vnitřní ring ---"</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                    is_exterior <span class="op">=</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>V tomto kódu sledujeme pomocí proměnné <code>is_exterior</code>, zda právě procházíme vnější či vnitřní hranici. Potkáme-li hodnotu <code>None</code>, přepneme flag na <code>False</code> a víme, že následující body patří k díře v polygonu.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Vnitřní ringy (díry v polygonech)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Polygon může obsahovat díry - například jezero uprostřed kraje nebo park uprostřed zastavěného území. Tyto díry jsou reprezentovány jako <strong>vnitřní ringy</strong>. V posloupnosti bodů je vnitřní ring oddělen hodnotou <code>None</code>.</p>
+<p>Struktura tedy vypadá takto: - Vnější hranice: posloupnost bodů definující obrys polygonu - <code>None</code> - odděluje vnější a vnitřní hranici - Vnitřní hranice: posloupnost bodů definující díru v polygonu - Případně další <code>None</code> a další vnitřní hranice…</p>
+<p>Vnitřní ringy jsou orientovány opačně než vnější hranice - pokud vnější hranice běží proti směru hodinových ručiček, vnitřní ringy běží po směru hodinových ručiček (nebo naopak).</p>
+</div>
+</div>
+</section>
+<section id="multipart-polygony" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="multipart-polygony"><span class="header-section-number">2.3.3</span> Multipart polygony</h3>
+<p>Multipart polygonové geometrie obsahují více oddělených polygonů v rámci jednoho záznamu. To je užitečné například pro reprezentaci ostrůvků patřících k jednomu státu nebo pro parcely, které jsou fyzicky oddělené, ale administrativně tvoří celek.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        polygon <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> polygon.isMultipart:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> je multipart polygon s </span><span class="sc">{</span>polygon<span class="sc">.</span>partCount<span class="sc">}</span><span class="ss"> částmi"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> part_num, part <span class="kw">in</span> <span class="bu">enumerate</span>(polygon):</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"  Část </span><span class="sc">{</span>part_num<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> je jednoduchý polygon"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Každá část multipart polygonu může sama obsahovat vnitřní ringy. Struktura tak může být: Část 1 (vnější + díry) → Část 2 (vnější + díry) → … Všechny tyto části stále patří k jednomu záznamu v atributové tabulce.</p>
+</section>
+<section id="centroid-a-extent" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="centroid-a-extent"><span class="header-section-number">2.3.4</span> Centroid a extent</h3>
+<p>Pro mnoho analýz nepotřebujeme znát všechny vrcholy polygonu, ale postačí nám některé odvozené vlastnosti. Centroid (těžiště) je bod reprezentující “střed” polygonu, extent (ohraničující obdélník) definuje minimální a maximální souřadnice X a Y polygonu.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Kraje.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        polygon <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Centroid (těžiště) polygonu</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        centroid <span class="op">=</span> polygon.centroid</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> - centroid: (</span><span class="sc">{</span>centroid<span class="sc">.</span>X<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>centroid<span class="sc">.</span>Y<span class="sc">:.2f}</span><span class="ss">)"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Ohraničující obdélník (extent)</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        extent <span class="op">=</span> polygon.extent</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  Extent: </span><span class="sc">{</span>extent<span class="sc">.</span>XMin<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>extent<span class="sc">.</span>YMin<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>extent<span class="sc">.</span>XMax<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>extent<span class="sc">.</span>YMax<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Centroid je užitečný například pro umístění popisků na mapě nebo pro výpočet vzdáleností mezi polygony. Extent se často používá pro rychlé prostorové dotazy - dvě feature se nemohou překrývat, pokud se jejich extenty nepřekrývají, což je mnohem rychlejší test než detailní geometrická analýza.</p>
+</section>
+</section>
+<section id="úlohy" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="úlohy"><span class="header-section-number">2.4</span> Úlohy</h2>
+<p><strong>Úloha 17.1.</strong> Napište skript, který projde všechny obce v <code>Sidla_body.shp</code> a vypíše ty, které mají souřadnici Y větší než 5900000.</p>
+<p><strong>Úloha 17.2.</strong> Pro liniovou vrstvu vypočítejte průměrný počet lomových bodů na jednu linii.</p>
+<p><strong>Úloha 17.3.</strong> Vytvořte skript, který pro každý kraj vypíše počet vrcholů jeho polygonu a identifikuje kraj s nejvíce vrcholy.</p>
+<p><strong>Úloha 17.4.</strong> Pro polygonovou vrstvu krajů vypočítejte vzdálenost mezi centroidem každého kraje a bodem [0, 0].</p>
+<p><strong>Úloha 17.5.</strong> Napište funkci, která pro daný polygon určí, zda obsahuje vnitřní ringy (díry).</p>
+</section>
+</section>
+<section id="tvorba-nových-geometrií" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Tvorba nových geometrií</h1>
+<p>Nyní se naučíme vytvářet geometrické objekty od začátku - programově, bez ručního digitalizování. To je užitečné například při importu dat z nestandardních formátů nebo při generování testovacích dat.</p>
+<section id="tvorba-bodové-geometrie" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="tvorba-bodové-geometrie"><span class="header-section-number">3.1</span> Tvorba bodové geometrie</h2>
+<p>Vytvoření bodové geometrie je nejjednodušší - stačí zadat souřadnice X a Y.</p>
+<section id="základní-způsob" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="základní-způsob"><span class="header-section-number">3.1.1</span> Základní způsob</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\m</span><span class="vs">y_path</span><span class="ch">\.</span><span class="dv">..</span><span class="vs">"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>arcpy.env.overwriteOutput <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření objektu Point</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>point <span class="op">=</span> arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření PointGeometry</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>point_geometry <span class="op">=</span> arcpy.PointGeometry(point)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vytvořený bod: (</span><span class="sc">{</span>point_geometry<span class="sc">.</span>firstPoint<span class="sc">.</span>X<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>point_geometry<span class="sc">.</span>firstPoint<span class="sc">.</span>Y<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vložení-bodu-do-feature-class" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="vložení-bodu-do-feature-class"><span class="header-section-number">3.1.2</span> Vložení bodu do feature class</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nejprve musíme vytvořit prázdnou feature class</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>output_fc <span class="op">=</span> <span class="st">"Nove_body.shp"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření prázdné bodové vrstvy</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    arcpy.env.workspace,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    output_fc,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"POINT"</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    spatial_reference<span class="op">=</span>arcpy.SpatialReference(<span class="dv">5514</span>)  <span class="co"># S-JTSK</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání atributového pole</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output_fc, <span class="st">"NAZEV"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření a vložení bodů</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> [</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">500000</span>, <span class="dv">6000000</span>, <span class="st">"Bod 1"</span>),</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">510000</span>, <span class="dv">6010000</span>, <span class="st">"Bod 2"</span>),</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">520000</span>, <span class="dv">6020000</span>, <span class="st">"Bod 3"</span>)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output_fc, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x, y, nazev <span class="kw">in</span> body:</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Vytvoření Point a PointGeometry objektů</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>        point <span class="op">=</span> arcpy.Point(x, y)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>        point_geom <span class="op">=</span> arcpy.PointGeometry(point)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow([point_geom, nazev])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="kratší-způsob-pomocí-shapexy" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="kratší-způsob-pomocí-shapexy"><span class="header-section-number">3.1.3</span> Kratší způsob pomocí SHAPE@XY</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stejný výsledek s kratším kódem</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output_fc, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x, y, nazev <span class="kw">in</span> body:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow([(x, y), nazev])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>SHAPE@XY vs SHAPE@
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pro jednoduché bodové geometrie používejte <code>SHAPE@XY</code> - je to rychlejší a jednodušší. <code>SHAPE@</code> použijte, když potřebujete pracovat s Z nebo M souřadnicemi.</p>
+</div>
+</div>
+</section>
+<section id="import-bodů-z-csv-souboru" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="import-bodů-z-csv-souboru"><span class="header-section-number">3.1.4</span> Import bodů z CSV souboru</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření bodové vrstvy z CSV</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>csv_file <span class="op">=</span> <span class="st">"souradnice.csv"</span>  <span class="co"># Formát: x,y,nazev</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>output_fc <span class="op">=</span> <span class="st">"Body_z_CSV.shp"</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    arcpy.env.workspace,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    output_fc,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"POINT"</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    spatial_reference<span class="op">=</span>arcpy.SpatialReference(<span class="dv">5514</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output_fc, <span class="st">"NAZEV"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Čtení a vkládání dat</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(csv_file, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(f)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(output_fc, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> reader:</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> <span class="bu">float</span>(row[<span class="st">'x'</span>])</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> <span class="bu">float</span>(row[<span class="st">'y'</span>])</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>            nazev <span class="op">=</span> row[<span class="st">'nazev'</span>]</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow([(x, y), nazev])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="tvorba-liniové-geometrie" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="tvorba-liniové-geometrie"><span class="header-section-number">3.2</span> Tvorba liniové geometrie</h2>
+<p>Linie vytvoříme z <strong>posloupnosti bodů</strong>. Minimálně dva body jsou potřeba pro vytvoření linie.</p>
+<section id="jednoduchá-linie" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="jednoduchá-linie"><span class="header-section-number">3.2.1</span> Jednoduchá linie</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření linie ze seznamu bodů</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> [</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">510000</span>, <span class="dv">6010000</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">520000</span>, <span class="dv">6005000</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">530000</span>, <span class="dv">6015000</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Body musíme vložit do Array</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření Polyline geometrie</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>linie <span class="op">=</span> arcpy.Polyline(array)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Délka linie: </span><span class="sc">{</span>linie<span class="sc">.</span>length<span class="sc">:.2f}</span><span class="ss"> m"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vložení-linie-do-feature-class" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="vložení-linie-do-feature-class"><span class="header-section-number">3.2.2</span> Vložení linie do feature class</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření liniové vrstvy</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>output_fc <span class="op">=</span> <span class="st">"Nove_linie.shp"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    arcpy.env.workspace,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    output_fc,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"POLYLINE"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    spatial_reference<span class="op">=</span>arcpy.SpatialReference(<span class="dv">5514</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output_fc, <span class="st">"NAZEV"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Definice několika linií</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>linie_data <span class="op">=</span> [</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"nazev"</span>: <span class="st">"Linie 1"</span>,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"body"</span>: [(<span class="dv">500000</span>, <span class="dv">6000000</span>), (<span class="dv">510000</span>, <span class="dv">6010000</span>), (<span class="dv">520000</span>, <span class="dv">6005000</span>)]</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"nazev"</span>: <span class="st">"Linie 2"</span>,</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"body"</span>: [(<span class="dv">505000</span>, <span class="dv">6005000</span>), (<span class="dv">515000</span>, <span class="dv">6015000</span>), (<span class="dv">525000</span>, <span class="dv">6010000</span>)]</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output_fc, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> linie_dict <span class="kw">in</span> linie_data:</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Vytvoření bodů z tuples</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>        body <span class="op">=</span> [arcpy.Point(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> linie_dict[<span class="st">"body"</span>]]</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Vytvoření Array z bodů</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>        array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Vytvoření Polyline geometrie</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>        polyline <span class="op">=</span> arcpy.Polyline(array)</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow([polyline, linie_dict[<span class="st">"nazev"</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="multipart-linie" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="multipart-linie"><span class="header-section-number">3.2.3</span> Multipart linie</h3>
+<p>Pokud chceme vytvořit linii s více oddělenými částmi:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření multipart linie</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cast1 <span class="op">=</span> [</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">510000</span>, <span class="dv">6010000</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>cast2 <span class="op">=</span> [</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">520000</span>, <span class="dv">6020000</span>),</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">530000</span>, <span class="dv">6030000</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Každá část je samostatný Array</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>array1 <span class="op">=</span> arcpy.Array(cast1)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>array2 <span class="op">=</span> arcpy.Array(cast2)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Array Arrays pro multipart</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>parts <span class="op">=</span> arcpy.Array([array1, array2])</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření multipart linie</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>multipart_linie <span class="op">=</span> arcpy.Polyline(parts)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet částí: </span><span class="sc">{</span>multipart_linie<span class="sc">.</span>partCount<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="tvorba-polygonové-geometrie" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="tvorba-polygonové-geometrie"><span class="header-section-number">3.3</span> Tvorba polygonové geometrie</h2>
+<p>Polygon vytvoříme podobně jako linii, ale body musí tvořit <strong>uzavřený tvar</strong> (první a poslední bod by měly být totožné).</p>
+<section id="jednoduchý-polygon" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="jednoduchý-polygon"><span class="header-section-number">3.3.1</span> Jednoduchý polygon</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření čtverce</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> [</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">510000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">510000</span>, <span class="dv">6010000</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6010000</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>)  <span class="co"># Uzavření - stejný jako první bod</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>polygon <span class="op">=</span> arcpy.Polygon(array)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Plocha: </span><span class="sc">{</span>polygon<span class="sc">.</span>area<span class="sc">:.2f}</span><span class="ss"> m²"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Obvod: </span><span class="sc">{</span>polygon<span class="sc">.</span>length<span class="sc">:.2f}</span><span class="ss"> m"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Uzavření polygonu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ArcPy automaticky uzavře polygon, i když nezadáte poslední bod stejný jako první. Pro přehlednost je ale doporučeno polygon explicitně uzavřít.</p>
+</div>
+</div>
+</section>
+<section id="vložení-polygonu-do-feature-class" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="vložení-polygonu-do-feature-class"><span class="header-section-number">3.3.2</span> Vložení polygonu do feature class</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření polygonové vrstvy</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>output_fc <span class="op">=</span> <span class="st">"Nove_polygony.shp"</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    arcpy.env.workspace,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    output_fc,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"POLYGON"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    spatial_reference<span class="op">=</span>arcpy.SpatialReference(<span class="dv">5514</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output_fc, <span class="st">"NAZEV"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(output_fc, <span class="st">"PLOCHA"</span>, <span class="st">"DOUBLE"</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření několika polygonů</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>polygony <span class="op">=</span> [</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"nazev"</span>: <span class="st">"Čtverec"</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"body"</span>: [(<span class="dv">500000</span>, <span class="dv">6000000</span>), (<span class="dv">510000</span>, <span class="dv">6000000</span>), </span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>                 (<span class="dv">510000</span>, <span class="dv">6010000</span>), (<span class="dv">500000</span>, <span class="dv">6010000</span>), </span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>                 (<span class="dv">500000</span>, <span class="dv">6000000</span>)]</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"nazev"</span>: <span class="st">"Trojúhelník"</span>,</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"body"</span>: [(<span class="dv">520000</span>, <span class="dv">6000000</span>), (<span class="dv">530000</span>, <span class="dv">6000000</span>), </span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>                 (<span class="dv">525000</span>, <span class="dv">6010000</span>), (<span class="dv">520000</span>, <span class="dv">6000000</span>)]</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(output_fc, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>, <span class="st">"PLOCHA"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> poly_dict <span class="kw">in</span> polygony:</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Vytvoření bodů</span></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>        body <span class="op">=</span> [arcpy.Point(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> poly_dict[<span class="st">"body"</span>]]</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Vytvoření Array a Polygon</span></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>        array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>        polygon <span class="op">=</span> arcpy.Polygon(array)</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>        cursor.insertRow([polygon, poly_dict[<span class="st">"nazev"</span>], polygon.area])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="polygon-s-dírou-vnitřním-ringem" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="polygon-s-dírou-vnitřním-ringem"><span class="header-section-number">3.3.3</span> Polygon s dírou (vnitřním ringem)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vnější hranice (velký čtverec)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>outer_ring <span class="op">=</span> [</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">520000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">520000</span>, <span class="dv">6020000</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6020000</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Vnitřní hranice (malý čtverec - díra)</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>inner_ring <span class="op">=</span> [</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">505000</span>, <span class="dv">6005000</span>),</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">515000</span>, <span class="dv">6005000</span>),</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">515000</span>, <span class="dv">6015000</span>),</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">505000</span>, <span class="dv">6015000</span>),</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">505000</span>, <span class="dv">6005000</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření Arrays</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>outer_array <span class="op">=</span> arcpy.Array(outer_ring)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>inner_array <span class="op">=</span> arcpy.Array(inner_ring)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Kombinace - outer ring, None (oddělovač), inner ring</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>outer_array.add(<span class="va">None</span>)  <span class="co"># Signalizuje začátek vnitřního ringu</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>outer_array.extend(inner_array)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření polygonu s dírou</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>polygon_s_dirou <span class="op">=</span> arcpy.Polygon(outer_array)</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Plocha s dírou: </span><span class="sc">{</span>polygon_s_dirou<span class="sc">.</span>area<span class="sc">:.2f}</span><span class="ss"> m²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="multipart-polygon" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="multipart-polygon"><span class="header-section-number">3.3.4</span> Multipart polygon</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># První polygon</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>poly1_body <span class="op">=</span> [</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">510000</span>, <span class="dv">6000000</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">510000</span>, <span class="dv">6010000</span>),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6010000</span>),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Druhý polygon (oddělený)</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>poly2_body <span class="op">=</span> [</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">520000</span>, <span class="dv">6020000</span>),</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">530000</span>, <span class="dv">6020000</span>),</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">530000</span>, <span class="dv">6030000</span>),</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">520000</span>, <span class="dv">6030000</span>),</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="dv">520000</span>, <span class="dv">6020000</span>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření samostatných Arrays</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>array1 <span class="op">=</span> arcpy.Array(poly1_body)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>array2 <span class="op">=</span> arcpy.Array(poly2_body)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Array Arrays</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>parts <span class="op">=</span> arcpy.Array([array1, array2])</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření multipart polygonu</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>multipart_polygon <span class="op">=</span> arcpy.Polygon(parts)</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Počet částí: </span><span class="sc">{</span>multipart_polygon<span class="sc">.</span>partCount<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Celková plocha: </span><span class="sc">{</span>multipart_polygon<span class="sc">.</span>area<span class="sc">:.2f}</span><span class="ss"> m²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="úlohy-1" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="úlohy-1"><span class="header-section-number">3.4</span> Úlohy</h2>
+<p><strong>Úloha 17.6.</strong> Vytvořte bodovou vrstvu s 10 náhodnými body v rozsahu souřadnic 500000-600000 (X) a 6000000-6100000 (Y). Použijte modul <code>random</code>.</p>
+<p><strong>Úloha 17.7.</strong> Napište skript, který vytvoří linii ve tvaru písmene “Z” a uloží ji do nové feature class.</p>
+<p><strong>Úloha 17.8.</strong> Vytvořte polygon ve tvaru pravidelného pětiúhelníku se středem v bodě [550000, 6050000] a poloměrem 10000 m. Použijte <code>math.cos()</code> a <code>math.sin()</code> pro výpočet souřadnic vrcholů.</p>
+<p><strong>Úloha 17.9.</strong> Napište funkci, která přečte souřadnice z textového souboru (každý řádek obsahuje <code>x,y</code>) a vytvoří z nich linii.</p>
+<p><strong>Úloha 17.10.</strong> Vytvořte polygonovou vrstvu s mřížkou (grid) 3×3 čtverců o velikosti 5000×5000 m. Začátek mřížky v bodě [500000, 6000000].</p>
+</section>
+</section>
+<section id="tahák---časté-vzory-použití" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Tahák - časté vzory použití</h1>
+<section id="čtení-geometrií" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="čtení-geometrií"><span class="header-section-number">4.1</span> Čtení geometrií</h2>
+<section id="výpis-všech-souřadnic-bodové-vrstvy" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="výpis-všech-souřadnic-bodové-vrstvy"><span class="header-section-number">4.1.1</span> Výpis všech souřadnic bodové vrstvy</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        x, y <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">: [</span><span class="sc">{</span>x<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>y<span class="sc">:.2f}</span><span class="ss">]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="počítání-lomových-bodů-linie" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="počítání-lomových-bodů-linie"><span class="header-section-number">4.1.2</span> Počítání lomových bodů linie</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Linie.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        line <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">len</span>([p <span class="cf">for</span> p <span class="kw">in</span> part <span class="cf">if</span> p]) <span class="cf">for</span> part <span class="kw">in</span> line)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Celkem bodů: </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="extrakce-hraničních-bodů-polygonu" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="extrakce-hraničních-bodů-polygonu"><span class="header-section-number">4.1.3</span> Extrakce hraničních bodů polygonu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Polygony.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        polygon <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        extent <span class="op">=</span> polygon.extent</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">: [</span><span class="sc">{</span>extent<span class="sc">.</span>XMin<span class="sc">:.0f}</span><span class="ss">, </span><span class="sc">{</span>extent<span class="sc">.</span>YMin<span class="sc">:.0f}</span><span class="ss">] - [</span><span class="sc">{</span>extent<span class="sc">.</span>XMax<span class="sc">:.0f}</span><span class="ss">, </span><span class="sc">{</span>extent<span class="sc">.</span>YMax<span class="sc">:.0f}</span><span class="ss">]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="vytváření-geometrií" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="vytváření-geometrií"><span class="header-section-number">4.2</span> Vytváření geometrií</h2>
+<section id="vytvoření-bodu-pomocí-shapexy" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="vytvoření-bodu-pomocí-shapexy"><span class="header-section-number">4.2.1</span> Vytvoření bodu pomocí SHAPE@XY</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([(<span class="dv">500000</span>, <span class="dv">6000000</span>), <span class="st">"Nový bod"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vytvoření-bodu-pomocí-point-objektu" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="vytvoření-bodu-pomocí-point-objektu"><span class="header-section-number">4.2.2</span> Vytvoření bodu pomocí Point objektu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>point <span class="op">=</span> arcpy.Point(<span class="dv">500000</span>, <span class="dv">6000000</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>point_geom <span class="op">=</span> arcpy.PointGeometry(point)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([point_geom, <span class="st">"Nový bod"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vytvoření-linie-ze-seznamu-souřadnic" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="vytvoření-linie-ze-seznamu-souřadnic"><span class="header-section-number">4.2.3</span> Vytvoření linie ze seznamu souřadnic</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>coords <span class="op">=</span> [(<span class="dv">500000</span>, <span class="dv">6000000</span>), (<span class="dv">510000</span>, <span class="dv">6010000</span>), (<span class="dv">520000</span>, <span class="dv">6005000</span>)]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> [arcpy.Point(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> coords]</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>linie <span class="op">=</span> arcpy.Polyline(array)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Linie.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([linie])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vytvoření-polygonu-ze-seznamu-souřadnic" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="vytvoření-polygonu-ze-seznamu-souřadnic"><span class="header-section-number">4.2.4</span> Vytvoření polygonu ze seznamu souřadnic</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>coords <span class="op">=</span> [(<span class="dv">500000</span>, <span class="dv">6000000</span>), (<span class="dv">510000</span>, <span class="dv">6000000</span>), (<span class="dv">510000</span>, <span class="dv">6010000</span>), </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>          (<span class="dv">500000</span>, <span class="dv">6010000</span>), (<span class="dv">500000</span>, <span class="dv">6000000</span>)]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> [arcpy.Point(x, y) <span class="cf">for</span> x, y <span class="kw">in</span> coords]</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>polygon <span class="op">=</span> arcpy.Polygon(array)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Polygony.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([polygon])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="konverze-mezi-geometriemi" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="konverze-mezi-geometriemi"><span class="header-section-number">4.3</span> Konverze mezi geometriemi</h2>
+<section id="převod-centroidů-polygonů-na-body" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="převod-centroidů-polygonů-na-body"><span class="header-section-number">4.3.1</span> Převod centroidů polygonů na body</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    arcpy.env.workspace, <span class="st">"Centroidy.shp"</span>, <span class="st">"POINT"</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Polygony.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> search:</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Centroidy.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> insert:</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> search:</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> row[<span class="dv">0</span>].centroid</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>            insert.insertRow([(centroid.X, centroid.Y), row[<span class="dv">1</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="převod-linií-na-počáteční-a-koncové-body" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="převod-linií-na-počáteční-a-koncové-body"><span class="header-section-number">4.3.2</span> Převod linií na počáteční a koncové body</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    arcpy.env.workspace, <span class="st">"Koncove_body.shp"</span>, <span class="st">"POINT"</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>arcpy.management.AddField(<span class="st">"Koncove_body.shp"</span>, <span class="st">"TYP"</span>, <span class="st">"TEXT"</span>, field_length<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Linie.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> search:</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Koncove_body.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"TYP"</span>]) <span class="im">as</span> insert:</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> search:</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>            line <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>            first <span class="op">=</span> line.firstPoint</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>            last <span class="op">=</span> line.lastPoint</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>            insert.insertRow([(first.X, first.Y), <span class="st">"START"</span>])</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>            insert.insertRow([(last.X, last.Y), <span class="st">"END"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="import-dat" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="import-dat"><span class="header-section-number">4.4</span> Import dat</h2>
+<section id="import-bodů-z-csv" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="import-bodů-z-csv"><span class="header-section-number">4.4.1</span> Import bodů z CSV</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data.csv"</span>, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    reader <span class="op">=</span> csv.DictReader(f)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Body.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"NAZEV"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> reader:</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>            x, y <span class="op">=</span> <span class="bu">float</span>(row[<span class="st">'x'</span>]), <span class="bu">float</span>(row[<span class="st">'y'</span>])</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow([(x, y), row[<span class="st">'nazev'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="import-linií-z-textového-souboru" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="import-linií-z-textového-souboru"><span class="header-section-number">4.4.2</span> Import linií z textového souboru</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Formát souboru: každý řádek je jeden bod linie "x,y"</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Prázdný řádek znamená novou linii</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"linie.txt"</span>, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    body <span class="op">=</span> []</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Linie.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>            line <span class="op">=</span> line.strip()</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> line:  <span class="co"># Neprázdný řádek - přidat bod</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>                x, y <span class="op">=</span> <span class="bu">map</span>(<span class="bu">float</span>, line.split(<span class="st">','</span>))</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>                body.append(arcpy.Point(x, y))</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:  <span class="co"># Prázdný řádek - uložit linii</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="bu">len</span>(body) <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>                    array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>                    polyline <span class="op">=</span> arcpy.Polyline(array)</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>                    cursor.insertRow([polyline])</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>                body <span class="op">=</span> []</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Uložení poslední linie</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(body) <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>            array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>            polyline <span class="op">=</span> arcpy.Polyline(array)</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow([polyline])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="generování-geometrií" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="generování-geometrií"><span class="header-section-number">4.5</span> Generování geometrií</h2>
+<section id="vytvoření-pravidelné-mřížky-bodů" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="vytvoření-pravidelné-mřížky-bodů"><span class="header-section-number">4.5.1</span> Vytvoření pravidelné mřížky bodů</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parametry mřížky</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>x_start, y_start <span class="op">=</span> <span class="dv">500000</span>, <span class="dv">6000000</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>spacing <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>rows, cols <span class="op">=</span> <span class="dv">5</span>, <span class="dv">5</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Mrizka.shp"</span>, [<span class="st">"SHAPE@XY"</span>, <span class="st">"ID"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    point_id <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(rows):</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(cols):</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x_start <span class="op">+</span> col <span class="op">*</span> spacing</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> y_start <span class="op">+</span> row <span class="op">*</span> spacing</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow([(x, y), point_id])</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>            point_id <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vytvoření-pravidelného-mnohoúhelníku" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="vytvoření-pravidelného-mnohoúhelníku"><span class="header-section-number">4.5.2</span> Vytvoření pravidelného mnohoúhelníku</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_regular_polygon(center_x, center_y, radius, num_vertices):</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vytvoří pravidelný mnohoúhelník"""</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    body <span class="op">=</span> []</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_vertices <span class="op">+</span> <span class="dv">1</span>):  <span class="co"># +1 pro uzavření</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        angle <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> math.pi <span class="op">*</span> i <span class="op">/</span> num_vertices</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> center_x <span class="op">+</span> radius <span class="op">*</span> math.cos(angle)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> center_y <span class="op">+</span> radius <span class="op">*</span> math.sin(angle)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        body.append(arcpy.Point(x, y))</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> arcpy.Array(body)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arcpy.Polygon(array)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Použití</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>polygon <span class="op">=</span> create_regular_polygon(<span class="dv">550000</span>, <span class="dv">6050000</span>, <span class="dv">10000</span>, <span class="dv">6</span>)  <span class="co"># šestiúhelník</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Polygony.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>    cursor.insertRow([polygon])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="vytvoření-mřížky-polygonů" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="vytvoření-mřížky-polygonů"><span class="header-section-number">4.5.3</span> Vytvoření mřížky polygonů</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_grid_cell(x_min, y_min, cell_size):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Vytvoří jeden čtvercový polygon"""</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    body <span class="op">=</span> [</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>        arcpy.Point(x_min, y_min),</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>        arcpy.Point(x_min <span class="op">+</span> cell_size, y_min),</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        arcpy.Point(x_min <span class="op">+</span> cell_size, y_min <span class="op">+</span> cell_size),</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        arcpy.Point(x_min, y_min <span class="op">+</span> cell_size),</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        arcpy.Point(x_min, y_min)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arcpy.Polygon(arcpy.Array(body))</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření mřížky</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>x_start, y_start <span class="op">=</span> <span class="dv">500000</span>, <span class="dv">6000000</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>cell_size <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>grid_rows, grid_cols <span class="op">=</span> <span class="dv">3</span>, <span class="dv">3</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.InsertCursor(<span class="st">"Mrizka.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"ID"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>    cell_id <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> <span class="bu">range</span>(grid_rows):</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> col <span class="kw">in</span> <span class="bu">range</span>(grid_cols):</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x_start <span class="op">+</span> col <span class="op">*</span> cell_size</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> y_start <span class="op">+</span> row <span class="op">*</span> cell_size</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>            polygon <span class="op">=</span> create_grid_cell(x, y, cell_size)</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>            cursor.insertRow([polygon, cell_id])</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>            cell_id <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="zpracování-chyb" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="zpracování-chyb"><span class="header-section-number">4.6</span> Zpracování chyb</h2>
+<section id="kontrola-typu-geometrie" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="kontrola-typu-geometrie"><span class="header-section-number">4.6.1</span> Kontrola typu geometrie</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Vrstva.shp"</span>, [<span class="st">"SHAPE@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        geom <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> geom.<span class="bu">type</span> <span class="op">==</span> <span class="st">"point"</span>:</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Bod"</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> geom.<span class="bu">type</span> <span class="op">==</span> <span class="st">"polyline"</span>:</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Linie"</span>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> geom.<span class="bu">type</span> <span class="op">==</span> <span class="st">"polygon"</span>:</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"Polygon"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ošetření-neplatných-geometrií" class="level3" data-number="4.6.2">
+<h3 data-number="4.6.2" class="anchored" data-anchor-id="ošetření-neplatných-geometrií"><span class="header-section-number">4.6.2</span> Ošetření neplatných geometrií</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Polygony.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"OID@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        geom <span class="op">=</span> row[<span class="dv">0</span>]</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> geom <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Prázdná geometrie u záznamu </span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> geom.area <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Nulová plocha u záznamu </span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="kontrola-uzavření-polygonu" class="level3" data-number="4.6.3">
+<h3 data-number="4.6.3" class="anchored" data-anchor-id="kontrola-uzavření-polygonu"><span class="header-section-number">4.6.3</span> Kontrola uzavření polygonu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_closed(polygon):</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Zkontroluje, zda je polygon uzavřený"""</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> part <span class="kw">in</span> polygon:</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>        points <span class="op">=</span> [p <span class="cf">for</span> p <span class="kw">in</span> part <span class="cf">if</span> p <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(points) <span class="op">&lt;</span> <span class="dv">3</span>:</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>        first <span class="op">=</span> points[<span class="dv">0</span>]</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>        last <span class="op">=</span> points[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> first.X <span class="op">!=</span> last.X <span class="kw">or</span> first.Y <span class="op">!=</span> last.Y:</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> arcpy.da.SearchCursor(<span class="st">"Polygony.shp"</span>, [<span class="st">"SHAPE@"</span>, <span class="st">"OID@"</span>]) <span class="im">as</span> cursor:</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> row <span class="kw">in</span> cursor:</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> is_closed(row[<span class="dv">0</span>]):</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Neuzavřený polygon: záznam </span><span class="sc">{</span>row[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="práce-se-souřadnicovými-systémy" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="práce-se-souřadnicovými-systémy"><span class="header-section-number">4.7</span> Práce se souřadnicovými systémy</h2>
+<section id="specifikace-sr-při-vytváření-feature-class" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="specifikace-sr-při-vytváření-feature-class"><span class="header-section-number">4.7.1</span> Specifikace SR při vytváření feature class</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># S-JTSK (EPSG:5514)</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sr_jtsk <span class="op">=</span> arcpy.SpatialReference(<span class="dv">5514</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>arcpy.management.CreateFeatureclass(</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    arcpy.env.workspace,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Body_JTSK.shp"</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"POINT"</span>,</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    spatial_reference<span class="op">=</span>sr_jtsk</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="transformace-souřadnic" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="transformace-souřadnic"><span class="header-section-number">4.7.2</span> Transformace souřadnic</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření geometrie v jednom SR</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>point_wgs <span class="op">=</span> arcpy.PointGeometry(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    arcpy.Point(<span class="op">-</span><span class="fl">15.0</span>, <span class="fl">50.0</span>),</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    arcpy.SpatialReference(<span class="dv">4326</span>)  <span class="co"># WGS-84</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Transformace do jiného SR</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>point_jtsk <span class="op">=</span> point_wgs.projectAs(arcpy.SpatialReference(<span class="dv">5514</span>))  <span class="co"># S-JTSK</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"WGS-84: </span><span class="sc">{</span>point_wgs<span class="sc">.</span>firstPoint<span class="sc">.</span>X<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>point_wgs<span class="sc">.</span>firstPoint<span class="sc">.</span>Y<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"S-JTSK: </span><span class="sc">{</span>point_jtsk<span class="sc">.</span>firstPoint<span class="sc">.</span>X<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>point_jtsk<span class="sc">.</span>firstPoint<span class="sc">.</span>Y<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/vojta-bartak\.github\.io\/quarto_example\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

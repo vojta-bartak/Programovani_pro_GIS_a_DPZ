@@ -52,6 +52,8 @@ website:
             href: lessons/lesson_15.qmd
           - text: "Lekce 16: Kurzory II"
             href: lessons/lesson_16.qmd
+          - text: "Lekce 17: Geometrie I"
+            href: lessons/lesson_17.qmd
 
 format:
   html:
