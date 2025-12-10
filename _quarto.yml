@@ -54,6 +54,11 @@ website:
             href: lessons/lesson_16.qmd
           - text: "Lekce 17: Geometrie I"
             href: lessons/lesson_17.qmd
+      - text: "GUI"
+        menu:
+          - text: "Lekce: Uživatelská rozhraní nástrojů"
+            href: lessons/lesson_XX_GUI.qmd
+
 
 format:
   html:

@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Vojtěch Barták, FŽP ČZU Praha">
+<meta name="dcterms.date" content="2025-12-10">
+
+<title>Lekce 9: Uživatelská rozhraní nástrojů v ArcGIS – Programování pro GIS a DPZ</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2a12e044340f79bad0d75c7561fedc86.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Programování pro GIS a DPZ</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-1-model-builder" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Ćást 1: Model Builder</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-1-model-builder">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_01.html">
+ <span class="dropdown-text">Lekce 1: Jednoduchý model</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-2-úvod-do-pythonu" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 2: Úvod do Pythonu</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-2-úvod-do-pythonu">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_03.html">
+ <span class="dropdown-text">Lekce 3: První program v Pythonu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_04.html">
+ <span class="dropdown-text">Lekce 4: Cykly a podmínky</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_05.html">
+ <span class="dropdown-text">Lekce 5: Tvorba jednoduchého algoritmu</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_06.html">
+ <span class="dropdown-text">Lekce 6: Funkce a moduly</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_07.html">
+ <span class="dropdown-text">Lekce 7: Textové soubory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_08.html">
+ <span class="dropdown-text">Lekce 8: Textové soubory II</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-3-základy-arcpy" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 3: Základy ArcPy</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-3-základy-arcpy">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_10.html">
+ <span class="dropdown-text">Lekce 10: Úvod do modulu ArcPy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_11.html">
+ <span class="dropdown-text">Lekce 11: Správa dat a workspace</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_12.html">
+ <span class="dropdown-text">Lekce 12: Geoprocessingové nástroje I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_13.html">
+ <span class="dropdown-text">Lekce 13: Geoprocessingové nástroje II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_14.html">
+ <span class="dropdown-text">Lekce 14: Atributové operace</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-st-4-kurzory-a-geometrie" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Část 4: Kurzory a geometrie</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-st-4-kurzory-a-geometrie">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_15.html">
+ <span class="dropdown-text">Lekce 15: Kurzory I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_16.html">
+ <span class="dropdown-text">Lekce 16: Kurzory II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_17.html">
+ <span class="dropdown-text">Lekce 17: Geometrie I</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-gui" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">GUI</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-gui">    
+        <li>
+    <a class="dropdown-item" href="../lessons/lesson_XX_GUI.html">
+ <span class="dropdown-text">Lekce: Uživatelská rozhraní nástrojů</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#úvod" id="toc-úvod" class="nav-link active" data-scroll-target="#úvod"><span class="header-section-number">1</span> Úvod</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">1.1</span> Data</a></li>
+  </ul></li>
+  <li><a href="#tvorba-jednoduchého-nástroje" id="toc-tvorba-jednoduchého-nástroje" class="nav-link" data-scroll-target="#tvorba-jednoduchého-nástroje"><span class="header-section-number">2</span> Tvorba jednoduchého nástroje</a>
+  <ul class="collapse">
+  <li><a href="#vytvoření-toolboxu" id="toc-vytvoření-toolboxu" class="nav-link" data-scroll-target="#vytvoření-toolboxu"><span class="header-section-number">2.1</span> Vytvoření Toolboxu</a></li>
+  <li><a href="#přidání-nového-nástroje" id="toc-přidání-nového-nástroje" class="nav-link" data-scroll-target="#přidání-nového-nástroje"><span class="header-section-number">2.2</span> Přidání nového nástroje</a></li>
+  <li><a href="#nastavení-parametrů" id="toc-nastavení-parametrů" class="nav-link" data-scroll-target="#nastavení-parametrů"><span class="header-section-number">2.3</span> Nastavení parametrů</a></li>
+  <li><a href="#nastavení-filtru-pro-geometrii" id="toc-nastavení-filtru-pro-geometrii" class="nav-link" data-scroll-target="#nastavení-filtru-pro-geometrii"><span class="header-section-number">2.4</span> Nastavení filtru pro geometrii</a></li>
+  <li><a href="#propojení-skriptu-s-rozhraním" id="toc-propojení-skriptu-s-rozhraním" class="nav-link" data-scroll-target="#propojení-skriptu-s-rozhraním"><span class="header-section-number">2.5</span> Propojení skriptu s rozhraním</a></li>
+  <li><a href="#vložení-skriptu-do-nástroje" id="toc-vložení-skriptu-do-nástroje" class="nav-link" data-scroll-target="#vložení-skriptu-do-nástroje"><span class="header-section-number">2.6</span> Vložení skriptu do nástroje</a></li>
+  <li><a href="#úlohy" id="toc-úlohy" class="nav-link" data-scroll-target="#úlohy"><span class="header-section-number">2.7</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#použití-vytvořených-nástrojů" id="toc-použití-vytvořených-nástrojů" class="nav-link" data-scroll-target="#použití-vytvořených-nástrojů"><span class="header-section-number">3</span> Použití vytvořených nástrojů</a>
+  <ul class="collapse">
+  <li><a href="#definování-aliasu-toolboxu" id="toc-definování-aliasu-toolboxu" class="nav-link" data-scroll-target="#definování-aliasu-toolboxu"><span class="header-section-number">3.1</span> Definování aliasu toolboxu</a></li>
+  <li><a href="#přidání-toolboxu-v-pythonu" id="toc-přidání-toolboxu-v-pythonu" class="nav-link" data-scroll-target="#přidání-toolboxu-v-pythonu"><span class="header-section-number">3.2</span> Přidání toolboxu v Pythonu</a></li>
+  <li><a href="#úlohy-1" id="toc-úlohy-1" class="nav-link" data-scroll-target="#úlohy-1"><span class="header-section-number">3.3</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#zprávy-o-průběhu-výpočtu" id="toc-zprávy-o-průběhu-výpočtu" class="nav-link" data-scroll-target="#zprávy-o-průběhu-výpočtu"><span class="header-section-number">4</span> Zprávy o průběhu výpočtu</a>
+  <ul class="collapse">
+  <li><a href="#úlohy-2" id="toc-úlohy-2" class="nav-link" data-scroll-target="#úlohy-2"><span class="header-section-number">4.1</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#vícenásobné-a-výstupní-parametry" id="toc-vícenásobné-a-výstupní-parametry" class="nav-link" data-scroll-target="#vícenásobné-a-výstupní-parametry"><span class="header-section-number">5</span> Vícenásobné a výstupní parametry</a>
+  <ul class="collapse">
+  <li><a href="#skript-před-vytvořením-gui" id="toc-skript-před-vytvořením-gui" class="nav-link" data-scroll-target="#skript-před-vytvořením-gui"><span class="header-section-number">5.1</span> Skript před vytvořením GUI</a></li>
+  <li><a href="#vytvoření-nástroje-s-vícenásobným-parametrem" id="toc-vytvoření-nástroje-s-vícenásobným-parametrem" class="nav-link" data-scroll-target="#vytvoření-nástroje-s-vícenásobným-parametrem"><span class="header-section-number">5.2</span> Vytvoření nástroje s vícenásobným parametrem</a></li>
+  <li><a href="#parametr-vzdálenosti-bufferu" id="toc-parametr-vzdálenosti-bufferu" class="nav-link" data-scroll-target="#parametr-vzdálenosti-bufferu"><span class="header-section-number">5.3</span> Parametr vzdálenosti bufferu</a></li>
+  <li><a href="#úprava-skriptu-pro-gui" id="toc-úprava-skriptu-pro-gui" class="nav-link" data-scroll-target="#úprava-skriptu-pro-gui"><span class="header-section-number">5.4</span> Úprava skriptu pro GUI</a></li>
+  <li><a href="#úlohy-3" id="toc-úlohy-3" class="nav-link" data-scroll-target="#úlohy-3"><span class="header-section-number">5.5</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#závislé-parametry" id="toc-závislé-parametry" class="nav-link" data-scroll-target="#závislé-parametry"><span class="header-section-number">6</span> Závislé parametry</a>
+  <ul class="collapse">
+  <li><a href="#příklad-převod-vektoru-na-rastr" id="toc-příklad-převod-vektoru-na-rastr" class="nav-link" data-scroll-target="#příklad-převod-vektoru-na-rastr"><span class="header-section-number">6.1</span> Příklad: Převod vektoru na rastr</a></li>
+  <li><a href="#propojení-s-gui---základní-verze" id="toc-propojení-s-gui---základní-verze" class="nav-link" data-scroll-target="#propojení-s-gui---základní-verze"><span class="header-section-number">6.2</span> Propojení s GUI - základní verze</a></li>
+  <li><a href="#nastavení-závislosti-v-gui" id="toc-nastavení-závislosti-v-gui" class="nav-link" data-scroll-target="#nastavení-závislosti-v-gui"><span class="header-section-number">6.3</span> Nastavení závislosti v GUI</a></li>
+  <li><a href="#výsledek-v-gui" id="toc-výsledek-v-gui" class="nav-link" data-scroll-target="#výsledek-v-gui"><span class="header-section-number">6.4</span> Výsledek v GUI</a></li>
+  <li><a href="#úlohy-4" id="toc-úlohy-4" class="nav-link" data-scroll-target="#úlohy-4"><span class="header-section-number">6.5</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#tvorba-nápovědy" id="toc-tvorba-nápovědy" class="nav-link" data-scroll-target="#tvorba-nápovědy"><span class="header-section-number">7</span> Tvorba nápovědy</a>
+  <ul class="collapse">
+  <li><a href="#základní-popis-nástroje" id="toc-základní-popis-nástroje" class="nav-link" data-scroll-target="#základní-popis-nástroje"><span class="header-section-number">7.1</span> Základní popis nástroje</a></li>
+  <li><a href="#nápověda-k-parametrům-syntax" id="toc-nápověda-k-parametrům-syntax" class="nav-link" data-scroll-target="#nápověda-k-parametrům-syntax"><span class="header-section-number">7.2</span> Nápověda k parametrům (Syntax)</a></li>
+  <li><a href="#příklady-kódu" id="toc-příklady-kódu" class="nav-link" data-scroll-target="#příklady-kódu"><span class="header-section-number">7.3</span> Příklady kódu</a></li>
+  <li><a href="#úlohy-5" id="toc-úlohy-5" class="nav-link" data-scroll-target="#úlohy-5"><span class="header-section-number">7.4</span> Úlohy</a></li>
+  </ul></li>
+  <li><a href="#shrnutí" id="toc-shrnutí" class="nav-link" data-scroll-target="#shrnutí"><span class="header-section-number">8</span> Shrnutí</a></li>
+  <li><a href="#užitečné-odkazy" id="toc-užitečné-odkazy" class="nav-link" data-scroll-target="#užitečné-odkazy"><span class="header-section-number">9</span> Užitečné odkazy</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="lesson_XX_GUI.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lekce 9: Uživatelská rozhraní nástrojů v ArcGIS</h1>
+<p class="subtitle lead">Python pro GIS - Tvorba vlastních nástrojů s GUI</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Vojtěch Barták, FŽP ČZU Praha </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 10, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="úvod" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Úvod</h1>
+<p>V této kapitole si předvedeme, jak lze ke skriptu, využívajícímu nástroje ArcGIS Pro, vytvořit uživatelské rozhraní tak, aby nástroj vypadal a choval se podobně jako ostatní vestavěné nástroje v ArcGIS Toolbox. Jde o podobnou věc, jakou již znáte z vytváření uživatelského rozhraní k modelům z Model Builderu (viz kapitolu 1).</p>
+<p>Po absolvování lekce budete umět:</p>
+<ul>
+<li>Vytvářet vlastní nástroje s grafickým rozhraním v ArcGIS Pro</li>
+<li>Nastavovat parametry nástrojů včetně datových typů a filtrů</li>
+<li>Propojovat Python skripty s uživatelským rozhraním</li>
+<li>Používat vytvořené nástroje v Pythonu i Model Builderu</li>
+<li>Vytvářet zprávy o průběhu výpočtu</li>
+<li>Pracovat s vícenásobnými a výstupními parametry</li>
+<li>Implementovat závislé parametry</li>
+<li>Vytvářet dokumentaci a nápovědu k nástrojům</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Důležité upozornění
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tvorba uživatelského rozhraní má dvě části:</p>
+<ol type="1">
+<li><strong>Příprava grafického rozhraní</strong> v ArcGIS Pro (přes Catalog)</li>
+<li><strong>Úprava skriptu</strong> pro komunikaci s rozhraním (pomocí <code>arcpy.GetParameterAsText()</code>)</li>
+</ol>
+<p>Obě části musí být správně propojeny, aby nástroj fungoval!</p>
+</div>
+</div>
+<section id="data" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="data"><span class="header-section-number">1.1</span> Data</h2>
+<p>V lekci budeme pracovat s daty, která již znáte z předchozích kapitol. Připravte si:</p>
+<ul>
+<li>Vektorové vrstvy pro ořezávání (složka <a href="https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/IgBeRZqQbZmlT7m4T1eR2ZVhAaa5kkrM9uij0p5xkUQrmsU?e=dvVDaP"><code>Liberec</code></a>)</li>
+<li>Shapefily krajů <code>Kraje.shp</code> (složka <a href="https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/IgA7YzyaYppnSrjrIsXsOrYDAYsx-8a8ZalAuYh5bamICFo?e=PSFTQc"><code>Kraje_sidla</code></a>)</li>
+<li>Bodové vrstvy sídel <code>Sidla_body.shp</code> (složka <a href="https://czuvpraze-my.sharepoint.com/:f:/g/personal/bartakv_fzp_czu_cz/IgA7YzyaYppnSrjrIsXsOrYDAYsx-8a8ZalAuYh5bamICFo?e=PSFTQc"><code>Kraje_sidla</code></a>)</li>
+</ul>
+</section>
+</section>
+<section id="tvorba-jednoduchého-nástroje" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Tvorba jednoduchého nástroje</h1>
+<p>Tvorbu nástroje si předvedeme na jednoduchém příkladu nástroje BatchClip, který zadanou ořezovou polygonovou vrstvou ořeže všechny datasety ze zadané složky a ořezané vrstvy uloží do výstupní složky. Příslušný skript může vypadat např. takto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní parametry</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>input_folder <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="ch">\v</span><span class="vs">stup"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>clip_feature <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="er">\</span><span class="vs">clip_polygon</span><span class="dv">.</span><span class="vs">shp"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>output_folder <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="ch">\v</span><span class="vs">ystup"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení prostředí</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> input_folder</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Získání seznamu všech featureclass</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>feature_classes <span class="op">=</span> arcpy.ListFeatureClasses()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Ořezání všech vrstev</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> feature_classes:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    output_name <span class="op">=</span> os.path.join(output_folder, fc)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    arcpy.analysis.Clip(fc, clip_feature, output_name)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Ořezáno: </span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hotovo!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Vytvořit ke skriptu uživatelské rozhraní znamená zajistit, aby vstupní parametry výpočtu (uvedeny schválně na začátku skriptu v samostatné sekci Vstupní parametry) mohl před spuštěním zadávat uživatel v nějakém přívětivém grafickém rozhraní. Jeho tvorba má dvě části: (1) příprava samotného grafického rozhraní a (2) úprava skriptu tak, aby s tímto rozhraním komunikoval.</p>
+<section id="vytvoření-toolboxu" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="vytvoření-toolboxu"><span class="header-section-number">2.1</span> Vytvoření Toolboxu</h2>
+<p>Tvorba grafického rozhraní začíná v okně Catalog programu ArcGIS Pro. Nástroj - podobně jako v případě Model Builderu - musí existovat v nějakém toolboxu. Pokud tedy žádný připravený nemáte, je třeba jej nyní vytvořit: klikněte pravým tlačítkem myši na příslušnou složku v okně Catalog a zvolte <strong>New -&gt; Toolbox (.atbx)</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Toolbox a organizace nástrojů
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V jednom toolboxu můžeme mít uloženo více nástrojů. Pokud tedy již vhodný toolbox máte, je možné tento krok přeskočit. Toolboxy jsou vhodné pro organizaci podobných nástrojů nebo nástrojů pro konkrétní projekt.</p>
+</div>
+</div>
+</section>
+<section id="přidání-nového-nástroje" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="přidání-nového-nástroje"><span class="header-section-number">2.2</span> Přidání nového nástroje</h2>
+<p>Po vytvoření toolboxu do něj přidáme nový nástroj pomocí kliknutí na něj pravým tlačítkem myši a volbou <strong>New -&gt; Script</strong>. Otevře se dialogové okno New Script na záložce General, kde je třeba zadat:</p>
+<ul>
+<li><strong>Name</strong>: název nástroje (bez mezer, používá se interně)</li>
+<li><strong>Label</strong>: název, pod kterým se bude nástroj zobrazovat v Toolboxu</li>
+<li><strong>Description</strong>: popis, co nástroj dělá (nepovinné)</li>
+<li><strong>Summary</strong>: stručné shrnutí toho, jak se používá (nepovinné)</li>
+<li><strong>Illustration</strong>: obrázek s grafickým znázorněním funkce nástroje (nepovinné)</li>
+<li><strong>Icon</strong>: ikona nástroje (nepovinné)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_new_script_general.png" class="img-fluid figure-img"></p>
+<figcaption>Dialogové okno New Script - záložka General</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Struktura názvu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Doporučuje se používat:</p>
+<ul>
+<li><strong>Name</strong>: <code>BatchClip</code> (bez mezer, CamelCase)</li>
+<li><strong>Label</strong>: <code>Batch Clip</code> (čitelný název s mezerami)</li>
+</ul>
+</div>
+</div>
+<p>Po vyplnění názvu nástroje můžeme buď pokračovat na dalších záložkách, nebo potvrdit vytvoření nástroje kliknutím na “OK”. V druhém případě pokračujeme na stejných záložkách v okně Tool Properties, které otevřeme kliknutím pravým tlačítkem myši na nástroj v okně Catalog a volbou <strong>Properties</strong>.</p>
+</section>
+<section id="nastavení-parametrů" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="nastavení-parametrů"><span class="header-section-number">2.3</span> Nastavení parametrů</h2>
+<p>Na záložce <strong>Parameters</strong> je třeba vyplnit parametry nástroje, které budou součástí uživatelského rozhraní. Každému parametru je přitom třeba zadat:</p>
+<ul>
+<li><strong>Label</strong>: název, pod jakým se bude zobrazovat v okně nástroje</li>
+<li><strong>Name</strong>: skutečný název, pod kterým se bude s parametrem zacházet např. při volání nástroje v Pythonu. Název se vygeneruje automaticky po zadání Labelu.</li>
+<li><strong>Data Type</strong>: datový typ parametru. Slouží k tomu, aby do příslušného parametru uživatel nemohl zadat nic nevhodného.</li>
+<li><strong>Type</strong>: zda se jedná o povinný parametr (Required) nebo nepovinný (Optional). U nepovinných parametrů je třeba zadat jejich defaultní hodnotu, takže uživatel není nucen se parametrem zabývat a pokud jeho hodnotu nenastaví, použije se tato defaultní.</li>
+<li><strong>Direction</strong>: zda se jedná o vstupní (Input), nebo výstupní (Output) parametr. Rozdíl je v tom, že při zadávání hodnoty výstupního parametru nemusí příslušný objekt (např. výstupní datová sada) existovat, neboť se předpokládá, že bude teprv vytvořen.</li>
+</ul>
+<p>Náš nástroj má tři parametry: (1) složku se vstupními daty, (2) polygonovou vrstvu, kterou se mají data ořezávat, a (3) složku s výstupními daty. Hodnoty jejich vlastností vyplňte dle následujícího obrázku:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_batch_clip_parameters.png" class="img-fluid figure-img"></p>
+<figcaption>Nastavení parametrů nástroje BatchClip</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Datový typ Workspace vs.&nbsp;Folder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prvnímu a třetímu parametru jsme nastavili datový typ na <strong>Workspace</strong>. Alternativou by mohl být datový typ <strong>Folder</strong>, ten by nicméně neumožňoval zadat jako vstupní či výstupní složku geodatabázi.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Datový typ Feature Layer vs.&nbsp;Feature Class
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Druhému parametru jsme nastavili datový typ na <strong>Feature Layer</strong>. Alternativami by mohly být datové typy <strong>Feature Class</strong> nebo <strong>Shapefile</strong>, ty by nicméně neumožňovaly vybírat při vyplňování hodnot parametru z vrstev aktuálně načtených do Contents a příslušnou třídu prvků (např. shapefile) by bylo vždy nutné vyhledat na disku.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Směr parametru (Direction)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>První i třetí parametr jsou (možná překvapivě) oba vstupní (<strong>Input</strong>). Přestože je totiž třetí parametr složkou pro výstupní ořezaná data, samotná složka již musí ve chvíli spouštění nástroje existovat a parametr je tedy vstupní.</p>
+<p>Názvy výstupních datových sad se v našem skriptu generují automaticky z názvů vstupních dat a uživatel nad tím nemá kontrolu.</p>
+</div>
+</div>
+</section>
+<section id="nastavení-filtru-pro-geometrii" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="nastavení-filtru-pro-geometrii"><span class="header-section-number">2.4</span> Nastavení filtru pro geometrii</h2>
+<p>Parametru Clip Polygon Features je také vhodné nastavit tzv. <strong>filtr (Filter)</strong>, který neumožní uživateli zadat jiný geometrický typ než polygon. Provedení je znázorněno na následujícím obrázku:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_filter_step1.png" class="img-fluid figure-img"></p>
+<figcaption>Nastavení filtru</figcaption>
+</figure>
+</div>
+<p>Po nastavení všech parametrů je možné nástroj standardním způsobem otevřít. Text napsaný do kolonky Description se zobrazuje jako rychlá nápověda po kliknutí na ikonu otazníku.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_tool_opened.png" class="img-fluid figure-img"></p>
+<figcaption>Otevřený nástroj s parametry</figcaption>
+</figure>
+</div>
+</section>
+<section id="propojení-skriptu-s-rozhraním" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="propojení-skriptu-s-rozhraním"><span class="header-section-number">2.5</span> Propojení skriptu s rozhraním</h2>
+<p>Před spuštěním nástroje je třeba zařídit, aby se hodnoty parametrů zadané uživatelem v grafickém rozhraní předaly do skriptu pro výpočet. K tomu slouží funkce <strong><code>GetParameterAsText</code></strong> z balíčku ArcPy. Při spuštění nástroje tato funkce přečte hodnotu z uživatelského rozhraní a vrátí jí v podobě textového řetězce. Jediným argumentem této funkce je <strong>index</strong> neboli pořadí parametru, který se má číst. Pořadí parametrů přitom odpovídá tomu, jak jsme je seřadili v grafickém rozhraní. Upravený skript bude vypadat takto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní parametry z GUI</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>input_folder <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>clip_feature <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>output_folder <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">2</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení prostředí</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> input_folder</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Získání seznamu všech featureclass</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>feature_classes <span class="op">=</span> arcpy.ListFeatureClasses()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Ořezání všech vrstev</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> feature_classes:</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    output_name <span class="op">=</span> os.path.join(output_folder, fc)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    arcpy.analysis.Clip(fc, clip_feature, output_name)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Ořezáno: </span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hotovo!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Datový typ vrácený z GetParameterAsText
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V našem případě jsou všechny parametry textové - jsou to adresy souborů a složek - proto jejich předání ve formě textu je to, co potřebujeme. Pokud bychom však chtěli např. zadávat v některých parametrech čísla či jiné datové typy, je nutné je po obdržení hodnoty parametru z funkce <code>GetParameterAsText</code> <strong>zkonvertovat</strong> na příslušný datový typ.</p>
+<p>Alternativou by bylo použití funkce <strong><code>GetParameter</code></strong>, která provede konverzi automaticky. Nevýhodou je, že pak nemáme přímou kontrolu nad výsledným datový typem, v jakém funkce hodnotu předá.</p>
+</div>
+</div>
+</section>
+<section id="vložení-skriptu-do-nástroje" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="vložení-skriptu-do-nástroje"><span class="header-section-number">2.6</span> Vložení skriptu do nástroje</h2>
+<p>Poslední věcí je propojení skriptu s uživatelským rozhraním. V něm je třeba zadat adresu skriptu v Tool Properties na záložce <strong>Execution</strong>. Výhodné je kliknout na ikonu <strong>Embed script into tool</strong>, což způsobí, že se kód skriptu napevno uloží do nástroje a není potom nutné spolu s nástrojem udržovat na příslušné adrese i samotný skript.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_embed_script.png" class="img-fluid figure-img"></p>
+<figcaption>Vložení skriptu do nástroje</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Editace vloženého skriptu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pokud bychom chtěli v kódu dělat změny po vložení do nástroje, je pokaždé nutné skript znovu do nástroje nahrát. Během vývoje nástroje může být výhodnější ponechat skript jako samostatný soubor a vložit ho až po dokončení.</p>
+</div>
+</div>
+<p>Nyní již je nástroj hotový a připravený ke spuštění. Proveďte.</p>
+</section>
+<section id="úlohy" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="úlohy"><span class="header-section-number">2.7</span> Úlohy</h2>
+<p><strong>Úloha 9.1.</strong> Vytvořte vlastní nástroj, který sečte dvě čísla zadaná uživatelem a výsledek vypíše pomocí <code>print()</code>. Použijte parametry typu <strong>Long</strong> (celé číslo) nebo <strong>Double</strong> (desetinné číslo). Nezapomeňte na konverzi z textu!</p>
+<p><strong>Úloha 9.2.</strong> Upravte nástroj BatchClip tak, aby uživatel mohl volitelně zadat prefix, který se přidá na začátek názvu všech výstupních souborů. Tento parametr by měl být nepovinný (Optional) s prázdnou výchozí hodnotou.</p>
+<p><strong>Úloha 9.3.</strong> Vytvořte nástroj, který spočítá počet prvků ve vrstvě a výsledek uloží do textového souboru. Nástroj by měl mít dva parametry: vstupní Feature Layer a výstupní Text File.</p>
+</section>
+</section>
+<section id="použití-vytvořených-nástrojů" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Použití vytvořených nástrojů</h1>
+<p>Nástroje vytvořené výše popsaným způsobem lze používat stejně jako vestavěné nástroje z ArcGIS Toolboxu. Lze je např. přidávat do modelů v Model Builderu, nebo i volat v Pythonu. Druhou zmíněnou možnost si nyní ukážeme.</p>
+<section id="definování-aliasu-toolboxu" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="definování-aliasu-toolboxu"><span class="header-section-number">3.1</span> Definování aliasu toolboxu</h2>
+<p>Podmínkou, aby mohly být nástroje z určitého toolboxu volány v Pythonu, je, aby příslušný toolbox měl definovaný <strong>alias</strong>, tj. jméno, pod kterým bude volán (ideálně nějaké krátké jméno bez mezer). Alias je možné definovat ve vlastnostech toolboxu (klik pravou myší na ikonu toolboxu v okně Catalog a volba <strong>Properties</strong>). Na následujícím obrázku je pro toolbox MyTools definován alias <strong>mt</strong>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_toolbox_alias.png" class="img-fluid figure-img"></p>
+<figcaption>Definování aliasu toolboxu</figcaption>
+</figure>
+</div>
+</section>
+<section id="přidání-toolboxu-v-pythonu" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="přidání-toolboxu-v-pythonu"><span class="header-section-number">3.2</span> Přidání toolboxu v Pythonu</h2>
+<p>Dále je nutné v Pythonu toolbox tzv. <strong>přidat</strong> pomocí funkce <strong><code>AddToolbox</code></strong>. Tím se z toolboxu vytvoří podmodul modulu ArcPy, přes který je možné jeho nástroje volat. Na výstupu se zobrazí název tohoto podmodulu, který je totožný s aliasem toolboxu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Přidání toolboxu</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>arcpy.ImportToolbox(<span class="vs">r"C:</span><span class="er">\</span><span class="vs">cesta</span><span class="er">\</span><span class="vs">k</span><span class="dv">\M</span><span class="vs">yTools</span><span class="dv">.</span><span class="vs">atbx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Nástroj se pak volá přes tento podmodul, stejně jako se volají vestavěné nástroje ArcGIS:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Volání vlastního nástroje</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.mt.BatchClip(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="ch">\v</span><span class="vs">stup"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="er">\</span><span class="vs">clip</span><span class="dv">.</span><span class="vs">shp"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="ch">\v</span><span class="vs">ystup"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Použití aliasu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pokud máme toolbox s aliasem <code>mt</code>, nástroje z něj voláme jako <code>arcpy.mt.NazevNastroje()</code>. Alias funguje jako krátké “jméno” toolboxu, které usnadňuje práci v kódu.</p>
+</div>
+</div>
+</section>
+<section id="úlohy-1" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="úlohy-1"><span class="header-section-number">3.3</span> Úlohy</h2>
+<p><strong>Úloha 9.4.</strong> Vytvořte toolbox s aliasem <code>mytoolbox</code> a přidejte do něj nástroj z úlohy 9.1. Poté tento nástroj zavolejte z Pythonu a ověřte, že funguje.</p>
+<p><strong>Úloha 9.5.</strong> Vytvořte skript, který volá váš vlastní nástroj BatchClip v cyklu pro různé vstupní složky. Použijte seznam cest a pro každou cestu zavolejte nástroj.</p>
+</section>
+</section>
+<section id="zprávy-o-průběhu-výpočtu" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Zprávy o průběhu výpočtu</h1>
+<p>Při déle trvajících výpočtech, zvlášť pokud zahrnují cyklus, je výhodné mít nějakou představu o tom, jak výpočet probíhá a v jaké je fázi. Toho je možné docílit tím, že se na určitá místa v kódu vloží příkaz k vytištění nějaké zprávy. U skriptů spouštěných na konzoli je toto možné pomocí funkce <code>print</code>. U nástrojů ArcGIS plní odpovídající funkci funkce <strong><code>AddMessage</code></strong> z modulu ArcPy. Jejím jediným argumentem je textový řetězec zprávy, která se má vytisknout. Použití funkce <code>AddMessage</code> v rámci nástroje BatchClip je uvedeno v následujícím kódu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní parametry z GUI</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>input_folder <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>clip_feature <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>output_folder <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">2</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení prostředí</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> input_folder</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Získání seznamu všech featureclass</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>feature_classes <span class="op">=</span> arcpy.ListFeatureClasses()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Informační zpráva o počtu vrstev</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>arcpy.AddMessage(<span class="ss">f"Nalezeno </span><span class="sc">{</span><span class="bu">len</span>(feature_classes)<span class="sc">}</span><span class="ss"> vrstev k ořezání"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Ořezání všech vrstev</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, fc <span class="kw">in</span> <span class="bu">enumerate</span>(feature_classes, <span class="dv">1</span>):</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    arcpy.AddMessage(<span class="ss">f"Zpracovávám </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span><span class="bu">len</span>(feature_classes)<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    output_name <span class="op">=</span> os.path.join(output_folder, fc)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    arcpy.analysis.Clip(fc, clip_feature, output_name)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>arcpy.AddMessage(<span class="st">"Všechny vrstvy byly úspěšně ořezány!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Výpis zpráv se objevuje spolu s ostatními běhovými zprávami v záznamu běhu nástroje, který je dostupný např. po kliknutí na <strong>View Details</strong> v dolní části panelu Geoprocessing po skončení běhu nástroje.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_tool_messages.png" class="img-fluid figure-img"></p>
+<figcaption>Zobrazení zpráv nástroje</figcaption>
+</figure>
+</div>
+<p>Zároveň je součásti objektu <code>Result</code>, který vrací nástroj, voláme-li ho jako funkci v Pythonu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> arcpy.mt.BatchClip(input_folder, clip_feature, output_folder)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Přístup ke zprávám</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> msg <span class="kw">in</span> result.getMessages():</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(msg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Typy zpráv v ArcPy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ArcPy nabízí tři typy zpráv:</p>
+<ul>
+<li><strong><code>AddMessage()</code></strong>: Informační zprávy (modré)</li>
+<li><strong><code>AddWarning()</code></strong>: Varování (žluté)</li>
+<li><strong><code>AddError()</code></strong>: Chybové zprávy (červené)</li>
+</ul>
+<p>Použití správného typu zprávy pomáhá uživateli rychleji identifikovat důležité informace nebo problémy.</p>
+</div>
+</div>
+<section id="úlohy-2" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="úlohy-2"><span class="header-section-number">4.1</span> Úlohy</h2>
+<p><strong>Úloha 9.6.</strong> Upravte váš nástroj BatchClip tak, aby vypisoval zprávy o průběhu včetně časových údajů (čas začátku, čas konce každé operace). Použijte modul <code>datetime</code>.</p>
+<p><strong>Úloha 9.7.</strong> Vytvořte nástroj, který kontroluje, zda vstupní data existují před spuštěním výpočtu. Pokud neexistují, vypište chybovou zprávu pomocí <code>AddError()</code> a ukončete skript pomocí <code>sys.exit()</code>.</p>
+</section>
+</section>
+<section id="vícenásobné-a-výstupní-parametry" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Vícenásobné a výstupní parametry</h1>
+<p>Různých typů parametrů a jejich vlastností je velké množství. Některé z nich si ukážeme na příkladu dalšího nástroje, který má pro vstupní seznam vektorových vrstev udělat obalovanou zónu o zadaném poloměru. Obalové zóny vstupních vrstev by přitom měly být spojeny do jediné vrstvy, přičemž prostorově se nepřekrývající části by měly být v samostatných polygonech, naopak prostorově se překrývající části obalové zóny by měly být spojené do jediného polygonu.</p>
+<p>Pokud bychom měli na vstupu bodovou, liniovou a polygonovou vrstvu jako na tomto obrázku:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_joint_buffer_input.png" class="img-fluid figure-img"></p>
+<figcaption>Vstupní vrstvy pro Joint Buffer</figcaption>
+</figure>
+</div>
+<p>měla by výstupní vrstva vypadat nějak takto:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_joint_buffer_output.png" class="img-fluid figure-img"></p>
+<figcaption>Výstupní vrstva Joint Buffer</figcaption>
+</figure>
+</div>
+<section id="skript-před-vytvořením-gui" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="skript-před-vytvořením-gui"><span class="header-section-number">5.1</span> Skript před vytvořením GUI</h2>
+<p>Skript, který by tuto úlohu zpracovával, by mohl vypadat nějak takto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní parametry</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>feature_list <span class="op">=</span> [</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="dv">\b</span><span class="vs">ody</span><span class="dv">.</span><span class="vs">shp"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="er">\</span><span class="vs">linie</span><span class="dv">.</span><span class="vs">shp"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="er">\</span><span class="vs">polygony</span><span class="dv">.</span><span class="vs">shp"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>buffer_distance <span class="op">=</span> <span class="st">"100 Meters"</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>output_features <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="er">\</span><span class="vs">joint_buffer</span><span class="dv">.</span><span class="vs">shp"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení pracovního adresáře na paměť</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="st">"memory"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření bufferů pro každou vrstvu</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>buffers <span class="op">=</span> []</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> feature_list:</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    buffer_name <span class="op">=</span> <span class="st">"buffer_"</span> <span class="op">+</span> arcpy.Describe(fc).baseName</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    buffer_result <span class="op">=</span> arcpy.analysis.Buffer(fc, buffer_name, buffer_distance)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    buffers.append(buffer_result)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Spojení všech bufferů</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>union_result <span class="op">=</span> arcpy.analysis.Union(buffers, <span class="st">"union_result"</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Sloučení překrývajících se částí</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(union_result, output_features, <span class="st">""</span>, <span class="st">""</span>, <span class="st">"SINGLE_PART"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Pracovní adresář “memory”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pracovní adresář byl na začátku nastaven na <code>"memory"</code>. Díky tomu se veškeré průběžné výstupy (tj. všechny výstupy z nástroje Buffer a výstup z nástroje Union) budou dočasně ukládat do operační paměti a nikoli na pevný disk. Pouze konečný výstup z nástroje Dissolve se uloží do umístění specifikovaného v proměnné <code>output_features</code>.</p>
+<p>Práce v paměti je výrazně rychlejší, ale vyžaduje dostatek RAM.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Objekty Result jako vstupy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Seznam <code>buffers</code>, do kterého se ukládají výsledky jednotlivých obalových zón, obsahuje objekty <code>Result</code>. Ty je však možné použít jako vstupy do dalších analýz - ArcPy automaticky extrahuje cestu k výstupním datům.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Vícenásobný vstup jako seznam
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V nástroji Union se vícenásobný vstup (seznam vrstev, které se mají spojit) zadává jako pythonovský seznam. Jaké jiné nástroje s vícenásobným vstupním parametrem znáte?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Nepovinné parametry v Dissolve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>V nástroji Dissolve je parametr <code>multi_part</code> nastaven na hodnotu <code>"SINGLE_PART"</code> (viz nápovědu k tomuto nástroji!). Jelikož je tento parametr až pátý v řadě a předcházejí mu dva nepovinné parametry, u nichž chceme ponechat výchozí hodnoty, je na místě těchto parametrů prázdný řetězec <code>""</code>.</p>
+</div>
+</div>
+<p>Vyzkoušejte výše uvedený skript na datech ze složky Liberec.</p>
+</section>
+<section id="vytvoření-nástroje-s-vícenásobným-parametrem" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="vytvoření-nástroje-s-vícenásobným-parametrem"><span class="header-section-number">5.2</span> Vytvoření nástroje s vícenásobným parametrem</h2>
+<p>Nyní k nástroji vytvoříme uživatelské rozhraní. Postupujeme stejně jako v předchozím případě: vytvoříme v našem toolboxu nový skript a nastavíme mu název (např. “JointBuffer”) a label (např. “Joint Buffer”). Dále otevřeme vlastnosti nového nástroje a vyplníme tabulku parametrů. Při volbě datového typu parametru <strong>Input Features</strong> přitom zaškrtneme volbu <strong>Multiple values</strong>. To pak v uživatelském rozhraní způsobí, že bude možné do parametru zadat více hodnot, tedy v tomto případě více vstupních vektorových vrstev.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_multiple_values.png" class="img-fluid figure-img"></p>
+<figcaption>Nastavení vícenásobného parametru</figcaption>
+</figure>
+</div>
+</section>
+<section id="parametr-vzdálenosti-bufferu" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="parametr-vzdálenosti-bufferu"><span class="header-section-number">5.3</span> Parametr vzdálenosti bufferu</h2>
+<p>Dalším parametrem je vzdálenost obalové zóny (<strong>Buffer distance</strong>). Na výběr máme dva různé datové typy:</p>
+<ul>
+<li><strong>Double</strong>: uživateli dovolí zadat libovolné číslo</li>
+<li><strong>Linear Unit</strong>: umožní zadat jednotky, ve kterých se má vzdálenost interpretovat (defaultně se použijí jednotky aktuálního souřadnicového systému mapy)</li>
+</ul>
+<p>Třetím parametrem je název a umístění výstupní polygonové datové sady. Jelikož tato datová sada bude teprve v průběhu výpočtu vytvořena, je třeba tomuto parametru nastavit vlastnost <strong>Direction</strong> na <strong>Output</strong> - jde o tzv. <strong>výstupní parametr</strong>. Nastavení všech parametrů je znázorněno na následujícím obrázku:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_joint_buffer_parameters.png" class="img-fluid figure-img"></p>
+<figcaption>Parametry nástroje Joint Buffer</figcaption>
+</figure>
+</div>
+</section>
+<section id="úprava-skriptu-pro-gui" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="úprava-skriptu-pro-gui"><span class="header-section-number">5.4</span> Úprava skriptu pro GUI</h2>
+<p>Nyní stačí upravit hlavičku skriptu tak, aby se hodnoty vstupních parametrů načítaly z uživatelského rozhraní. V případě vícenásobného parametru Input Features je třeba mít na mysli, že vstupní vrstvy se pomocí funkce <code>GetParameterAsText</code> předají jako textový řetězec, kde budou jednotlivé hodnoty oddělené středníkem. Abychom z tohoto řetězce vytvořili seznam vstupních vrstev (resp. cest k nim), je třeba tento řetězec rozdělit metodou <strong><code>split</code></strong>, kde dělícím znakem je středník. Tuto metodu můžeme volat rovnou za voláním funkce <code>GetParameterAsText</code>, takže do proměnné <code>feature_list</code> se již rovnou uloží seznam řetězců namísto jednoho řetězce:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní parametry z GUI</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>feature_list <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>).split(<span class="st">";"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>buffer_distance <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>output_features <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">2</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Nastavení pracovního adresáře na paměť</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>arcpy.env.workspace <span class="op">=</span> <span class="st">"memory"</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Vytvoření bufferů pro každou vrstvu</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>buffers <span class="op">=</span> []</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> fc <span class="kw">in</span> feature_list:</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    buffer_name <span class="op">=</span> <span class="st">"buffer_"</span> <span class="op">+</span> arcpy.Describe(fc).baseName</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    buffer_result <span class="op">=</span> arcpy.analysis.Buffer(fc, buffer_name, buffer_distance)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    buffers.append(buffer_result)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    arcpy.AddMessage(<span class="ss">f"Buffer vytvořen pro: </span><span class="sc">{</span>fc<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Spojení všech bufferů</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>arcpy.AddMessage(<span class="st">"Spojuji buffery..."</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>union_result <span class="op">=</span> arcpy.analysis.Union(buffers, <span class="st">"union_result"</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Sloučení překrývajících se částí</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>arcpy.AddMessage(<span class="st">"Provádím dissolve..."</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>arcpy.management.Dissolve(union_result, output_features, <span class="st">""</span>, <span class="st">""</span>, <span class="st">"SINGLE_PART"</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>arcpy.AddMessage(<span class="st">"Joint buffer dokončen!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Parsing vícenásobných parametrů
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Při čtení vícenásobného parametru pomocí <code>GetParameterAsText()</code> dostaneme:</p>
+<ul>
+<li><strong>Jeden textový řetězec</strong> s hodnotami oddělenými středníkem</li>
+<li>Je nutné ho <strong>rozdělit</strong> pomocí <code>.split(";")</code></li>
+<li>Výsledkem je <strong>seznam řetězců</strong> se cestami k jednotlivým vrstvám</li>
+</ul>
+<p>Například: <code>"C:\data\a.shp;C:\data\b.shp"</code> → <code>["C:\data\a.shp", "C:\data\b.shp"]</code></p>
+</div>
+</div>
+<p>Spusťte vytvořený nástroj a použijte na datech ze složky Liberec.</p>
+</section>
+<section id="úlohy-3" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="úlohy-3"><span class="header-section-number">5.5</span> Úlohy</h2>
+<p><strong>Úloha 9.8.</strong> Vytvořte nástroj, který přijme více Feature Layers a pro každý z nich vypočítá a vypíše celkovou plochu. Použijte vícenásobný parametr.</p>
+<p><strong>Úloha 9.9.</strong> Upravte nástroj Joint Buffer tak, aby výstupní Feature Class obsahovala atribut s informací o tom, kolik vstupních vrstev se v dané oblasti překrývalo.</p>
+<p><strong>Úloha 9.10.</strong> Vytvořte nástroj, který přijme seznam rastrů a provede jejich mozaikování do jednoho výstupního rastru. Použijte nástroj <code>MosaicToNewRaster</code>.</p>
+</section>
+</section>
+<section id="závislé-parametry" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Závislé parametry</h1>
+<p>Často je potřeba, aby určitý parameter nabízel uživateli ze seznamu daných hodnot, přičemž tento seznam není dopředu znám a závisí na tom, jak bude zadán nějaký jiný parametr. Typickým příkladem je, pokud má uživatel zadávat název nějakého pole (tj. atributu), přičemž seznam názvů polí by měl odpovídat reálným polím z nějaké vrstvy, kterou uživatel zadal do jiného parametru. V terminologii ArcGIS je název pole tzv. <strong>závislým (dependent)</strong> parametrem, neboť jeho hodnoty jsou závislé na hodnotě jiného parametru.</p>
+<section id="příklad-převod-vektoru-na-rastr" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="příklad-převod-vektoru-na-rastr"><span class="header-section-number">6.1</span> Příklad: Převod vektoru na rastr</h2>
+<p>Věc si předvedeme na jednoduchém nástroji, který převede vstupní vektorovou vrstvu na rastr. Jak známo, při takové konverzi je nutné zadat nějaké pole vstupní vektorové vrstvy, které se použije pro přiřazení hodnot buňkám výstupního rastru. Je-li toto pole číselné, budou v buňkách příslušná čísla, je-li jiné než číselné, budou v buňkách celá čísla odpovídající unikátním hodnotám v zadaném poli. Skript nástroje, ještě bez uživatelského rozhraní, bude vypadat nějak takto:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní parametry</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>input_features <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="er">\</span><span class="vs">lesy</span><span class="dv">.</span><span class="vs">shp"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>conversion_field <span class="op">=</span> <span class="st">"TYP_LESA"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>output_raster <span class="op">=</span> <span class="vs">r"C:</span><span class="dv">\d</span><span class="vs">ata</span><span class="er">\</span><span class="vs">lesy_raster</span><span class="dv">.</span><span class="vs">tif"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>cell_size <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Konverze vektoru na rastr</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>arcpy.conversion.FeatureToRaster(</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    input_features,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    conversion_field,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    output_raster,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    cell_size</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Konverze dokončena!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="propojení-s-gui---základní-verze" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="propojení-s-gui---základní-verze"><span class="header-section-number">6.2</span> Propojení s GUI - základní verze</h2>
+<p>Pro propojení skriptu s uživatelským rozhraním musíme opět nahradit napevno napsané cesty k datům odkazy na vstupy z uživatelského rozhraní:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arcpy</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Vstupní parametry z GUI</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>input_features <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">0</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>conversion_field <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">1</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>output_raster <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">2</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>cell_size <span class="op">=</span> arcpy.GetParameterAsText(<span class="dv">3</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Konverze vektoru na rastr</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>arcpy.conversion.FeatureToRaster(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    input_features,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    conversion_field,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    output_raster,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    cell_size</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>arcpy.AddMessage(<span class="st">"Konverze dokončena!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="nastavení-závislosti-v-gui" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="nastavení-závislosti-v-gui"><span class="header-section-number">6.3</span> Nastavení závislosti v GUI</h2>
+<p>Při tvorbě samotného uživatelského rozhraní budeme postupovat stejně, jako v kapitole 9.1, tedy tvorbou nového nástroje (New Script) v toolboxu, ve kterém chceme nástroj mít, a definováním jeho parametrů. U parametru <strong>Conversion Field</strong> je třeba ve sloupci <strong>Dependency</strong> vybrat parametr, na kterém má být závislý, tj. v našem případě <strong>Input Features</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_dependent_parameter.png" class="img-fluid figure-img"></p>
+<figcaption>Nastavení závislého parametru</figcaption>
+</figure>
+</div>
+<p>Tvorbu rozhraní se samozřejmě třeba dokončit vložením kódu skriptu do nástroje, jak bylo popsáno v kapitole 9.1.</p>
+</section>
+<section id="výsledek-v-gui" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="výsledek-v-gui"><span class="header-section-number">6.4</span> Výsledek v GUI</h2>
+<p>Při zadávání konkrétních hodnot parametrů v uživatelském rozhraní se nyní po zadání vstupní vektorové vrstvy u parametru Conversion Field zobrazí nabídka dostupných polí z této vrstvy. To zajistí, že si jednak uživatel nemusí názvy polí pamatovat, a druhak nemůže do parametru zadat nic nesmyslného (např. název neexistujícího pole).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_field_selection.png" class="img-fluid figure-img"></p>
+<figcaption>Výběr pole ze seznamu</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Filtry pro typy polí
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pokud bychom chtěli omezit výběr možných polí např. jen na textová, numerická či jiná pole, je možné u parametru Conversion Field nastavit <strong>filtr</strong>. Použití filtrů bylo ukázáno v kapitole 9.1.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Smysl příkladu
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Uvedený nástroj poněkud postrádá smysl, neboť obsahuje pouze volání jediného nástroje FeatureToRaster. Mohli bychom si proto vystačit s již vytvořeným uživatelským rozhraním tohoto nástroje. Příklad nicméně sloužil pro demonstraci použití závislých parametrů.</p>
+</div>
+</div>
+<p>Použijte nástroj na některé shapefily ze složky Liberec. Zjistěte, jak se bude výsledek lišit při použití různých polí pro parametr Conversion Field.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Otázka k zamyšlení
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Jak byste postupovali, aby např. rastr reprezentující lesy měl pouze dvě hodnoty, jednu pro reprezentování lesů (např. hodnotu 1) a druhou pro ostatní plochy (např. hodnotu NoData či 0)?</p>
+<p><em>Nápověda: Použijte nástroj AddField a UpdateCursor k vytvoření binárního pole před konverzí.</em></p>
+</div>
+</div>
+</section>
+<section id="úlohy-4" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="úlohy-4"><span class="header-section-number">6.5</span> Úlohy</h2>
+<p><strong>Úloha 9.11.</strong> Vytvořte nástroj, který spočítá statistiku (průměr, minimum, maximum) pro vybrané číselné pole ve Feature Class. Pole pro výpočet by mělo být závislé na vstupní vrstvě.</p>
+<p><strong>Úloha 9.12.</strong> Vytvořte nástroj pro výběr prvků podle hodnoty v atributu. Nástroj by měl mít tři parametry: vstupní vrstvu, pole (závislé na vrstvě) a hodnotu pro filtrování.</p>
+<p><strong>Úloha 9.13.</strong> Vytvořte nástroj, který vypočítá poměr dvou číselných polí a uloží výsledek do nového pole. Oba zdrojová pole by měla být závislé parametry s filtrem pro numerické typy.</p>
+</section>
+</section>
+<section id="tvorba-nápovědy" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Tvorba nápovědy</h1>
+<p>K vytvořeným nástrojům je možné vytvořit nápovědu. Formulář pro vyplnění jednotlivých položek nápovědy lze otevřít pomocí kliknutí pravým tlačítkem myši na nástroj v toolboxu a volby <strong>Edit Metadata</strong>. Naopak prohlížet hotovou nápovědu lze pomocí <strong>View Metadata</strong>.</p>
+<section id="základní-popis-nástroje" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="základní-popis-nástroje"><span class="header-section-number">7.1</span> Základní popis nástroje</h2>
+<p>Prvníinfí položkou nápovědy je základní popis funkcionality nástroje. Jediná povinnou položkou je <strong>Tags</strong>, kde se uvedou klíčová slova usnadňující vyhledávání nástroje. Důležitější jsou nicméně položky <strong>Summary</strong> a <strong>Usage</strong>:</p>
+<ul>
+<li><strong>Summary</strong>: stručný popis, co nástroj dělá</li>
+<li><strong>Usage</strong>: důležité detaily toho, jak se má nástroj správně spustit a jak se chová</li>
+<li><strong>Illustration</strong>: obrázek, který smysl nástroje znázorňuje</li>
+</ul>
+<p>Příklad vyplnění těchto položek:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_metadata_summary.png" class="img-fluid figure-img"></p>
+<figcaption>Základní metadata nástroje</figcaption>
+</figure>
+</div>
+</section>
+<section id="nápověda-k-parametrům-syntax" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="nápověda-k-parametrům-syntax"><span class="header-section-number">7.2</span> Nápověda k parametrům (Syntax)</h2>
+<p>Následuje nápověda k jednotlivým parametrům (sekce <strong>Syntax</strong>). Zde se uvede ke každému parametru, co daný parametr znamená a jak se má správně vyplnit. Popis je rozdělen na dvě sekce:</p>
+<ul>
+<li><strong>Dialog Explanation</strong>: se týká situace, kdy je nástroj používán přes své dialogové okno v panelu Geoprocessing v ArcGIS Pro</li>
+<li><strong>Scripting Explanation</strong>: se naopak týká situace, kdy je nástroj volán pomocí Pythonu</li>
+</ul>
+<p>Příklady pro parametr Input Features:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_parameter_help.png" class="img-fluid figure-img"></p>
+<figcaption>Nápověda k parametru</figcaption>
+</figure>
+</div>
+</section>
+<section id="příklady-kódu" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="příklady-kódu"><span class="header-section-number">7.3</span> Příklady kódu</h2>
+<p>Dále je možné uvést příklady použití nástroje v kódu psané v Pythonu, jak ukazuje následující ukázka. Pod touto sekcí je důležitá sekce <strong>Credits</strong>, kde je záhodno uvést údaje o autorech, místu a času vzniku nástroje a případném licenčním omezení jeho použití.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09_code_examples_credits.png" class="img-fluid figure-img"></p>
+<figcaption>Příklady kódu a credits</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Dobře napsaná nápověda
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Kvalitní nápověda by měla obsahovat:</p>
+<ol type="1">
+<li><strong>Jasný popis</strong> účelu nástroje</li>
+<li><strong>Příklady použití</strong> v různých scénářích</li>
+<li><strong>Upozornění</strong> na důležité omezení či požadavky</li>
+<li><strong>Příklady kódu</strong> pro volání z Pythonu</li>
+<li><strong>Informace o autorech</strong> a licenci</li>
+</ol>
+<p>Inspirujte se nápovědou vestavěných nástrojů ArcGIS Pro!</p>
+</div>
+</div>
+</section>
+<section id="úlohy-5" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="úlohy-5"><span class="header-section-number">7.4</span> Úlohy</h2>
+<p><strong>Úloha 9.14.</strong> Vytvořte kompletní dokumentaci pro jeden z vašich nástrojů včetně Summary, Usage, popisu všech parametrů a příkladů kódu.</p>
+<p><strong>Úloha 9.15.</strong> Přidejte ke svému nástroji ilustrační obrázek, který vysvětluje jeho funkci. Můžete použít screenshot z ArcGIS Pro nebo vytvořit schéma.</p>
+</section>
+</section>
+<section id="shrnutí" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Shrnutí</h1>
+<p>V této lekci jsme se naučili:</p>
+<ul>
+<li><strong>Vytvářet vlastní nástroje</strong> s grafickým rozhraním v ArcGIS Pro</li>
+<li><strong>Nastavovat různé typy parametrů</strong> včetně povinných, nepovinných, vícenásobných a výstupních</li>
+<li><strong>Propojovat Python skripty</strong> s uživatelským rozhraním pomocí <code>GetParameterAsText()</code></li>
+<li><strong>Volat vytvořené nástroje</strong> z Pythonu pomocí toolbox aliasů</li>
+<li><strong>Vytvářet zprávy o průběhu</strong> pomocí <code>AddMessage()</code>, <code>AddWarning()</code> a <code>AddError()</code></li>
+<li><strong>Pracovat s vícenásobnými parametry</strong> a parsovat je pomocí <code>split()</code></li>
+<li><strong>Implementovat závislé parametry</strong> (např. výběr pole závislý na vstupní vrstvě)</li>
+<li><strong>Vytvářet dokumentaci</strong> a nápovědu k nástrojům</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Klíčové koncepty
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>GetParameterAsText(index)</strong>: Funkce pro čtení hodnot z GUI, vrací vždy text</li>
+<li><strong>Toolbox alias</strong>: Krátké jméno toolboxu pro volání nástrojů v Pythonu</li>
+<li><strong>AddMessage()</strong>: Funkce pro výpis zpráv viditelných v GUI i v Result objektu</li>
+<li><strong>Multiple values</strong>: Parametr může přijmout více hodnot oddělených středníkem</li>
+<li><strong>Dependent parameters</strong>: Parametr, jehož možné hodnoty závisí na jiném parametru</li>
+<li><strong>Direction (Input/Output)</strong>: Určuje, zda parametr musí existovat před spuštěním</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="užitečné-odkazy" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Užitečné odkazy</h1>
+<ul>
+<li><a href="https://pro.arcgis.com/en/pro-app/latest/arcpy/geoprocessing_and_python/a-quick-tour-of-python-toolboxes.htm">ArcGIS Pro: Python toolboxes</a></li>
+<li><a href="https://pro.arcgis.com/en/pro-app/latest/arcpy/geoprocessing_and_python/defining-parameters-in-a-python-toolbox.htm">ArcGIS Pro: Script tool parameters</a></li>
+<li><a href="https://pro.arcgis.com/en/pro-app/latest/arcpy/geoprocessing_and_python/returning-messages-from-a-script-tool.htm">ArcGIS Pro: Tool messages</a></li>
+<li><a href="https://pro.arcgis.com/en/pro-app/latest/arcpy/functions/getparameterastext.htm">ArcGIS Pro: GetParameterAsText</a></li>
+</ul>
+<hr>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/vojta-bartak\.github\.io\/quarto_example\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
